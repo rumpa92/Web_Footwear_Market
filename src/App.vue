@@ -5,18 +5,21 @@
       <router-view />
     </main>
     <Footer />
+    <ShoppingCart />
   </div>
 </template>
 
 <script>
 import Header from './components/layout/Header.vue'
 import Footer from './components/layout/Footer.vue'
+import ShoppingCart from './components/cart/ShoppingCart.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Footer
+    Footer,
+    ShoppingCart
   }
 }
 </script>
