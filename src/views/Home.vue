@@ -53,16 +53,20 @@
         </div>
         
         <div class="categories-grid">
-          <div class="category-card" v-for="category in categories" :key="category.name">
-            <div class="category-image">
-              <img :src="category.image" :alt="category.name" />
+          <router-link v-for="category in categories" :key="category.name" :to="category.link" class="category-card">
+            <div class="category-circle">
+              <div class="category-image">
+                <img :src="category.image" :alt="category.name" />
+              </div>
+              <div class="category-overlay">
+                <span class="category-icon">{{ category.icon }}</span>
+              </div>
             </div>
             <div class="category-content">
               <h3 class="category-title">{{ category.name }}</h3>
               <p class="category-description">{{ category.description }}</p>
-              <router-link :to="category.link" class="category-link">Shop {{ category.name }}</router-link>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </section>
