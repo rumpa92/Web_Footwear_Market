@@ -1,11 +1,20 @@
 <template>
   <div id="app">
-    <Header />
-    <main class="main-content">
-      <router-view />
-    </main>
-    <Footer />
-    <ShoppingCart />
+    <!-- Splash Screen -->
+    <SplashScreen
+      v-if="showSplash"
+      @splash-complete="handleSplashComplete"
+    />
+
+    <!-- Main App Content -->
+    <div v-else class="app-content">
+      <Header />
+      <main class="main-content">
+        <router-view />
+      </main>
+      <Footer />
+      <ShoppingCart />
+    </div>
   </div>
 </template>
 
@@ -13,13 +22,31 @@
 import Header from './components/layout/Header.vue'
 import Footer from './components/layout/Footer.vue'
 import ShoppingCart from './components/cart/ShoppingCart.vue'
+import SplashScreen from './components/SplashScreen.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     Footer,
-    ShoppingCart
+    ShoppingCart,
+    SplashScreen
+  },
+  data() {
+    return {
+      showSplash: true
+    }
+  },
+  methods: {
+    handleSplashComplete() {
+      this.showSplash = false
+    }
+  },
+  mounted() {
+    // Also hide splash screen after maximum time as fallback
+    setTimeout(() => {
+      this.showSplash = false
+    }, 5000)
   }
 }
 </script>
