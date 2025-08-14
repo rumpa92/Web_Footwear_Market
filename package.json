@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "npm run serve",
-    "dev": "npm run serve"
+    "serve": "npx http-server . -p 8080",
+    "dev": "npx http-server . -p 8080"
   },
   "keywords": [],
   "author": "",
