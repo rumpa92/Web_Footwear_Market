@@ -1,0 +1,355 @@
+<template>
+  <div class="product-card">
+    <div class="product-image-container">
+      <router-link :to="`/product/${product.id}`" class="product-image-link">
+        <img :src="product.image" :alt="product.name" class="product-image" />
+      </router-link>
+      
+      <!-- Sale Badge -->
+      <div v-if="isOnSale" class="sale-badge">
+        -{{ discountPercentage }}%
+      </div>
+      
+      <!-- Stock Badge -->
+      <div v-if="!product.inStock" class="stock-badge">
+        Out of Stock
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button @click="toggleWishlist" class="quick-action-btn wishlist-btn" :class="{ active: isInWishlist }">
+          <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+        </button>
+        <button @click="quickAddToCart" class="quick-action-btn cart-btn" :disabled="!product.inStock">
+          <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l-2.5-5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="product-content">
+      <div class="product-brand">{{ product.brand }}</div>
+      <router-link :to="`/product/${product.id}`" class="product-name-link">
+        <h3 class="product-name">{{ product.name }}</h3>
+      </router-link>
+      
+      <!-- Rating -->
+      <div class="product-rating">
+        <div class="rating-stars">
+          <span v-for="star in 5" :key="star" class="rating-star" :class="{ filled: star <= Math.floor(product.rating) }">
+            ★
+          </span>
+        </div>
+        <span class="rating-text">({{ product.reviews }})</span>
+      </div>
+      
+      <!-- Price -->
+      <div class="product-price">
+        <span class="current-price">${{ product.price.toFixed(2) }}</span>
+        <span v-if="isOnSale" class="original-price">${{ product.originalPrice.toFixed(2) }}</span>
+      </div>
+      
+      <!-- Colors -->
+      <div class="product-colors" v-if="product.colors && product.colors.length">
+        <div class="color-options">
+          <span v-for="color in product.colors.slice(0, 3)" :key="color" class="color-option" :class="color"></span>
+          <span v-if="product.colors.length > 3" class="color-more">+{{ product.colors.length - 3 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  name: 'ProductCard',
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    ...mapGetters('user', ['isInWishlist']),
+    isOnSale() {
+      return this.product.originalPrice > this.product.price
+    },
+    discountPercentage() {
+      if (!this.isOnSale) return 0
+      return Math.round(((this.product.originalPrice - this.product.price) / this.product.originalPrice) * 100)
+    },
+    isInWishlist() {
+      return this.$store.getters['user/isInWishlist'](this.product.id)
+    }
+  },
+  methods: {
+    ...mapActions('user', ['toggleWishlist']),
+    ...mapActions('cart', ['addToCart']),
+    toggleWishlist() {
+      this.$store.dispatch('user/toggleWishlist', this.product)
+    },
+    quickAddToCart() {
+      if (!this.product.inStock) return
+      
+      // Add with default size and color
+      const defaultSize = this.product.sizes && this.product.sizes.length ? this.product.sizes[0] : null
+      const defaultColor = this.product.colors && this.product.colors.length ? this.product.colors[0] : null
+      
+      this.addToCart({
+        product: this.product,
+        size: defaultSize,
+        color: defaultColor,
+        quantity: 1
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.product-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  position: relative;
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.product-image-container {
+  position: relative;
+  overflow: hidden;
+  height: 240px;
+}
+
+.product-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-normal);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.sale-badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  background-color: var(--secondary-color);
+  color: var(--text-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  z-index: 1;
+}
+
+.stock-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--error-color);
+  color: var(--text-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  z-index: 1;
+}
+
+.quick-actions {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  opacity: 0;
+  transition: var(--transition-fast);
+}
+
+.product-card:hover .quick-actions {
+  opacity: 1;
+}
+
+.quick-action-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  color: var(--text-secondary);
+}
+
+.quick-action-btn:hover {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.quick-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wishlist-btn.active {
+  color: var(--secondary-color);
+  background-color: rgba(231, 76, 60, 0.1);
+}
+
+.action-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.product-content {
+  padding: var(--space-lg);
+}
+
+.product-brand {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.product-name-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  line-height: var(--line-height-tight);
+  transition: var(--transition-fast);
+}
+
+.product-name-link:hover .product-name {
+  color: var(--accent-color);
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.rating-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rating-star {
+  color: var(--border-color);
+  font-size: var(--font-size-sm);
+}
+
+.rating-star.filled {
+  color: #fbbf24;
+}
+
+.rating-text {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.current-price {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.original-price {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.product-colors {
+  margin-top: var(--space-sm);
+}
+
+.color-options {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.color-option {
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--border-radius-full);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+}
+
+.color-option.white {
+  background-color: #ffffff;
+}
+
+.color-option.black {
+  background-color: #000000;
+}
+
+.color-option.red {
+  background-color: #ef4444;
+}
+
+.color-option.blue {
+  background-color: #3b82f6;
+}
+
+.color-option.gray {
+  background-color: #6b7280;
+}
+
+.color-option.navy {
+  background-color: #1e3a8a;
+}
+
+.color-option.burgundy {
+  background-color: #7c2d12;
+}
+
+.color-more {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+</style>

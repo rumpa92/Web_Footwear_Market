@@ -1,0 +1,25 @@
+{
+  "name": "footwear-market",
+  "version": "1.0.0",
+  "description": "Modern Vue 2 footwear marketplace application",
+  "main": "src/main.js",
+  "scripts": {
+    "serve": "vue-cli-service serve --port 8080",
+    "dev": "vue-cli-service serve --port 8080",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "start": "npm run serve"
+  },
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2",
+    "vue-router": "^3.5.4"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "keywords": ["vue", "footwear", "marketplace", "ecommerce"],
+  "author": "Rumpa Samanta",
+  "license": "ISC"
+}
