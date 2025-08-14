@@ -177,7 +177,7 @@ export default {
         { name: 'Nike', logo: '✓', slug: 'nike' },
         { name: 'Adidas', logo: '⚡', slug: 'adidas' },
         { name: 'Jordan', logo: '🏀', slug: 'jordan' },
-        { name: 'Converse', logo: '⭐', slug: 'converse' },
+        { name: 'Converse', logo: '��', slug: 'converse' },
         { name: 'Vans', logo: '🛹', slug: 'vans' },
         { name: 'New Balance', logo: 'N', slug: 'new-balance' }
       ]
@@ -477,22 +477,34 @@ export default {
   .hero-content {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .hero-text {
     text-align: left;
   }
-  
+
   .hero-actions {
     justify-content: flex-start;
   }
-  
+
   .newsletter-content {
     grid-template-columns: 1fr 1fr;
     text-align: left;
   }
-  
+
   .newsletter-input {
     margin: 0;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .categories-grid {
+    grid-template-columns: repeat(6, 1fr);
+    max-width: 900px;
+    margin: 0 auto;
   }
 }
 
@@ -500,9 +512,23 @@ export default {
   .hero-title {
     font-size: var(--font-size-3xl);
   }
-  
+
   .newsletter-input {
     flex-direction: column;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .category-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .category-icon {
+    font-size: 2rem;
   }
 }
 </style>
