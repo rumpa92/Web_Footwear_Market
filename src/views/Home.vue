@@ -127,28 +127,46 @@ export default {
       email: '',
       categories: [
         {
-          name: 'Sneakers',
-          description: 'Casual and athletic sneakers for everyday wear',
-          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=300&fit=crop',
-          link: '/products?category=sneakers'
+          name: 'Men',
+          description: 'Footwear for men',
+          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=300&fit=crop',
+          icon: '👨',
+          link: '/products?category=men'
         },
         {
-          name: 'Running',
-          description: 'High-performance running shoes for athletes',
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop',
-          link: '/products?category=running'
+          name: 'Women',
+          description: 'Footwear for women',
+          image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=300&fit=crop',
+          icon: '👩',
+          link: '/products?category=women'
         },
         {
-          name: 'Basketball',
-          description: 'Professional basketball shoes for court performance',
-          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=300&fit=crop',
-          link: '/products?category=basketball'
+          name: 'Kids',
+          description: 'Footwear for children',
+          image: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=300&h=300&fit=crop',
+          icon: '👶',
+          link: '/products?category=kids'
         },
         {
-          name: 'Casual',
-          description: 'Comfortable everyday shoes for any occasion',
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop',
-          link: '/products?category=casual'
+          name: 'Sports',
+          description: 'Athletic and sports shoes',
+          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop',
+          icon: '⚽',
+          link: '/products?category=sports'
+        },
+        {
+          name: 'Casuals',
+          description: 'Comfortable everyday shoes',
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop',
+          icon: '👟',
+          link: '/products?category=casuals'
+        },
+        {
+          name: 'Formal',
+          description: 'Professional and dress shoes',
+          image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=300&h=300&fit=crop',
+          icon: '👞',
+          link: '/products?category=formal'
         }
       ],
       brands: [
