@@ -22,6 +22,10 @@ export default {
 </script>
 
 <style>
+@import './assets/styles/variables.css';
+@import './assets/styles/utilities.css';
+@import './assets/styles/components.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -29,10 +33,10 @@ export default {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #fafafa;
+  font-family: var(--font-family-primary);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
 }
 
 #app {
