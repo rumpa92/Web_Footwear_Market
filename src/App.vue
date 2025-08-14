@@ -71,13 +71,30 @@ body {
 
 #app {
   min-height: 100vh;
+  position: relative;
+}
+
+.app-content {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  animation: fadeInApp 0.8s ease-out;
 }
 
 .main-content {
   flex: 1;
   padding: 0;
+}
+
+@keyframes fadeInApp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 a {
