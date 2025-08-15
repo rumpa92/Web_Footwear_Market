@@ -1313,13 +1313,16 @@ export default {
 }
 
 .add-to-cart-btn.go-to-cart {
-  background: #10b981;
-  border: 2px solid #10b981;
+  background: #1e3a8a;
+  border: 2px solid #1e3a8a;
+  color: white;
 }
 
 .add-to-cart-btn.go-to-cart:hover {
-  background: #059669;
-  border-color: #059669;
+  background: #1e40af;
+  border-color: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
 }
 
 .modify-cart-container {
