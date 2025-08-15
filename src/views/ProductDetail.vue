@@ -670,7 +670,7 @@ export default {
         quantity: this.cartItemQuantity + 1
       })
     },
-    
+
     decreaseQuantity() {
       if (this.cartItemQuantity > 1) {
         this.updateCartItemQuantity({
@@ -679,6 +679,18 @@ export default {
           color: this.selectedColor,
           quantity: this.cartItemQuantity - 1
         })
+      }
+    },
+
+    increaseDesiredQuantity() {
+      if (this.desiredQuantity < 10) {
+        this.desiredQuantity++
+      }
+    },
+
+    decreaseDesiredQuantity() {
+      if (this.desiredQuantity > 1) {
+        this.desiredQuantity--
       }
     },
     
