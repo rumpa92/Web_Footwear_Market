@@ -1542,6 +1542,36 @@ export default {
   transform: none;
 }
 
+/* Card Payment Notice */
+.card-payment-notice {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f0f9ff;
+  border: 1px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.notice-icon {
+  width: 24px;
+  height: 24px;
+  color: #0ea5e9;
+  flex-shrink: 0;
+}
+
+.notice-text p {
+  color: #075985;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.notice-text strong {
+  color: #0c4a6e;
+}
+
 /* Modals */
 .modal-overlay {
   position: fixed;
