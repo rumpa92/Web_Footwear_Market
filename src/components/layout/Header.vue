@@ -529,6 +529,23 @@ export default {
   white-space: nowrap;
 }
 
+.dropdown-arrow {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: var(--space-xs);
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.user-profile-info:hover .dropdown-arrow {
+  color: var(--accent-color);
+}
+
 .user-profile-section {
   display: flex;
   align-items: center;
