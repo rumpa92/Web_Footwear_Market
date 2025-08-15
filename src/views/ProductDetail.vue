@@ -151,9 +151,9 @@
             <button
               @click="addToCart"
               class="add-to-cart-btn"
-              :disabled="!selectedSize || !selectedColor || !product.inStock"
+              :disabled="false"
               :class="{ adding: isAdding }"
-              :title="`Size: ${selectedSize || 'Not selected'}, Color: ${selectedColor || 'Not selected'}, In Stock: ${product?.inStock !== false}`"
+              :title="`DEBUG: Size: ${selectedSize || 'Not selected'}, Color: ${selectedColor || 'Not selected'}, In Stock: ${product?.inStock !== false}`"
             >
               <span v-if="!isAdding">Add to Cart</span>
               <span v-else>Adding...</span>
