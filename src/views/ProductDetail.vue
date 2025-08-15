@@ -151,11 +151,6 @@
               <span v-if="!isAdding">Add to Cart</span>
               <span v-else>Adding...</span>
             </button>
-            <button @click="clearSelections" class="remove-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="trash-icon">
-                <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6"/>
-              </svg>
-            </button>
           </div>
 
           <div v-else class="modify-cart-container">
@@ -164,7 +159,11 @@
               <span class="quantity">{{ cartItemQuantity }}</span>
               <button @click="increaseQuantity" class="quantity-btn">+</button>
             </div>
-            <button @click="removeFromCart" class="remove-btn">
+          </div>
+
+          <!-- Separate Remove Button Section -->
+          <div class="remove-button-section">
+            <button @click="isInCart ? removeFromCart() : clearSelections()" class="remove-btn">
               <svg viewBox="0 0 24 24" fill="currentColor" class="trash-icon">
                 <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6"/>
               </svg>
