@@ -186,24 +186,6 @@
       </div>
     </section>
 
-    <!-- Brands -->
-    <section class="brands">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Popular Brands</h2>
-          <p class="section-subtitle">Shop from the world's leading footwear brands</p>
-        </div>
-        
-        <div class="brands-grid">
-          <div class="brand-card" v-for="brand in brands" :key="brand.name">
-            <div class="brand-logo">{{ brand.logo }}</div>
-            <h3 class="brand-name">{{ brand.name }}</h3>
-            <router-link :to="`/brands/${brand.slug}`" class="brand-link">Shop {{ brand.name }}</router-link>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Newsletter -->
     <section class="newsletter">
       <div class="container">
@@ -291,14 +273,6 @@ export default {
           link: '/products?category=formal'
         }
       ],
-      brands: [
-        { name: 'Nike', logo: '✓', slug: 'nike' },
-        { name: 'Adidas', logo: '⚡', slug: 'adidas' },
-        { name: 'Jordan', logo: '🏀', slug: 'jordan' },
-        { name: 'Converse', logo: '⭐', slug: 'converse' },
-        { name: 'Vans', logo: '🛹', slug: 'vans' },
-        { name: 'New Balance', logo: 'N', slug: 'new-balance' }
-      ]
     }
   },
   computed: {
@@ -641,52 +615,6 @@ export default {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
   line-height: var(--line-height-tight);
-}
-
-.brands {
-  padding: var(--space-3xl) 0;
-}
-
-.brands-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-lg);
-}
-
-.brand-card {
-  background-color: var(--bg-primary);
-  padding: var(--space-xl);
-  border-radius: var(--border-radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
-}
-
-.brand-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.brand-logo {
-  font-size: var(--font-size-4xl);
-  margin-bottom: var(--space-md);
-}
-
-.brand-name {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.brand-link {
-  color: var(--accent-color);
-  font-weight: var(--font-weight-medium);
-  transition: var(--transition-fast);
-}
-
-.brand-link:hover {
-  color: var(--accent-dark);
 }
 
 .newsletter {
