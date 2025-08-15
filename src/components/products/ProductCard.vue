@@ -210,12 +210,18 @@ export default {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .wishlist-btn.active {
-  color: var(--secondary-color);
-  background-color: rgba(231, 76, 60, 0.1);
-  opacity: 1;
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.2);
+}
+
+.wishlist-btn.active:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
 }
 
 .wishlist-icon {
