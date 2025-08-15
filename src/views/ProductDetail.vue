@@ -433,7 +433,7 @@ export default {
       const colorImageMap = {
         'black': 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop', // Black Air Force 1
         'white': 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop', // White Converse
-        'blue': 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&h=400&fit=crop', // Blue/Navy sneakers
+        'blue': 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&h=400&fit=crop', // Blue Vans sneakers
         'red': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop', // Red Nike (current image)
         'gray': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop', // Gray New Balance
         'navy': 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400&h=400&fit=crop', // Navy Under Armour
