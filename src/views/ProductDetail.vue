@@ -1168,13 +1168,11 @@ export default {
 }
 
 .add-to-cart-container {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .add-to-cart-btn {
-  flex: 1;
+  width: 100%;
   padding: 1rem 2rem;
   background: #3b82f6;
   color: white;
