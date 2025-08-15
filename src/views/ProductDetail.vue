@@ -1340,9 +1340,7 @@ export default {
 
 .modify-cart-container {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
+  width: 100%;
 }
 
 .quantity-controls-cart {
