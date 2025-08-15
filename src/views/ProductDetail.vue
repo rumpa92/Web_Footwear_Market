@@ -1216,11 +1216,13 @@ export default {
 .quantity-controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   background: #f3f4f6;
   padding: 0.5rem;
   border-radius: 12px;
-  flex: 1;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .quantity-btn {
