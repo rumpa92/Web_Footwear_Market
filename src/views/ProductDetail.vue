@@ -201,16 +201,39 @@
           <div class="stars-large">
             <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= Math.floor(product.rating) }">★</span>
           </div>
-          <div class="total-reviews">Based on {{ product.reviews }} reviews</div>
+          <div class="total-reviews">based on {{ product.reviews }} reviews</div>
         </div>
-        
+
         <div class="rating-breakdown">
-          <div v-for="rating in [5,4,3,2,1]" :key="rating" class="rating-bar">
-            <span class="rating-number">{{ rating }}★</span>
+          <div class="rating-row">
+            <span class="rating-label">Excellent</span>
             <div class="bar-container">
-              <div class="bar-fill" :style="{ width: getRatingPercentage(rating) + '%' }"></div>
+              <div class="bar-fill excellent" :style="{ width: getRatingPercentage(5) + '%' }"></div>
             </div>
-            <span class="rating-count">{{ getRatingCount(rating) }}</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Good</span>
+            <div class="bar-container">
+              <div class="bar-fill good" :style="{ width: getRatingPercentage(4) + '%' }"></div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Average</span>
+            <div class="bar-container">
+              <div class="bar-fill average" :style="{ width: getRatingPercentage(3) + '%' }"></div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Below Average</span>
+            <div class="bar-container">
+              <div class="bar-fill below-average" :style="{ width: getRatingPercentage(2) + '%' }"></div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Poor</span>
+            <div class="bar-container">
+              <div class="bar-fill poor" :style="{ width: getRatingPercentage(1) + '%' }"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -229,38 +252,36 @@
       
       <div class="reviews-list">
         <div v-for="review in filteredReviews" :key="review.id" class="review-item">
-          <div class="review-header">
-            <div class="reviewer-info">
-              <img :src="review.avatar" :alt="review.name" class="reviewer-avatar" />
-              <div class="reviewer-details">
+          <div class="reviewer-info">
+            <img :src="review.avatar" :alt="review.name" class="reviewer-avatar" />
+            <div class="reviewer-content">
+              <div class="reviewer-header">
                 <h4 class="reviewer-name">{{ review.name }}</h4>
-                <div class="review-stars">
-                  <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">★</span>
-                </div>
+                <span class="review-date">{{ formatDate(review.date) }}</span>
               </div>
-            </div>
-            <span class="review-date">{{ formatDate(review.date) }}</span>
-          </div>
-          
-          <div class="review-content">
-            <p class="review-text" :class="{ expanded: review.expanded }">{{ review.text }}</p>
-            <button 
-              v-if="review.text.length > 150"
-              @click="toggleReviewExpansion(review)"
-              class="expand-btn"
-            >
-              {{ review.expanded ? 'Show Less' : 'Read More' }}
-            </button>
-            
-            <div v-if="review.images && review.images.length" class="review-images">
-              <img 
-                v-for="(image, index) in review.images" 
-                :key="index"
-                :src="image" 
-                :alt="`Review image ${index + 1}`"
-                class="review-image"
-                @click="openImageModal(image)"
-              />
+              <div class="review-stars">
+                <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">★</span>
+                <span class="rating-value">{{ review.rating }}.0</span>
+              </div>
+              <p class="review-text" :class="{ expanded: review.expanded }">{{ review.text }}</p>
+              <button
+                v-if="review.text.length > 150"
+                @click="toggleReviewExpansion(review)"
+                class="expand-btn"
+              >
+                {{ review.expanded ? 'Show Less' : 'Read More' }}
+              </button>
+
+              <div v-if="review.images && review.images.length" class="review-images">
+                <img
+                  v-for="(image, index) in review.images"
+                  :key="index"
+                  :src="image"
+                  :alt="`Review image ${index + 1}`"
+                  class="review-image"
+                  @click="openImageModal(image)"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1319,40 +1340,54 @@ export default {
 .rating-breakdown {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
-.rating-bar {
+.rating-row {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.rating-number {
+.rating-label {
   font-size: 0.9rem;
   color: #6b7280;
-  min-width: 30px;
+  min-width: 100px;
+  font-weight: 500;
 }
 
 .bar-container {
   flex: 1;
-  height: 8px;
-  background: #e5e7eb;
-  border-radius: 4px;
+  height: 12px;
+  background: #f3f4f6;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .bar-fill {
   height: 100%;
-  background: #fbbf24;
   transition: width 0.3s ease;
+  border-radius: 6px;
 }
 
-.rating-count {
-  font-size: 0.9rem;
-  color: #6b7280;
-  min-width: 30px;
-  text-align: right;
+.bar-fill.excellent {
+  background: #22c55e;
+}
+
+.bar-fill.good {
+  background: #84cc16;
+}
+
+.bar-fill.average {
+  background: #f59e0b;
+}
+
+.bar-fill.below-average {
+  background: #f97316;
+}
+
+.bar-fill.poor {
+  background: #ef4444;
 }
 
 .reviews-filters {
@@ -1398,34 +1433,48 @@ export default {
   border-bottom: none;
 }
 
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
 .reviewer-info {
   display: flex;
   gap: 1rem;
+  align-items: flex-start;
 }
 
 .reviewer-avatar {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reviewer-content {
+  flex: 1;
+}
+
+.reviewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .reviewer-name {
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   font-weight: 600;
   color: #1f2937;
+  font-size: 1rem;
+}
+
+.review-date {
+  color: #9ca3af;
+  font-size: 0.875rem;
 }
 
 .review-stars {
   display: flex;
-  gap: 0.2rem;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .review-stars .star {
@@ -1437,15 +1486,18 @@ export default {
   color: #fbbf24;
 }
 
-.review-date {
-  color: #9ca3af;
+.rating-value {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
   font-size: 0.9rem;
 }
 
 .review-text {
   color: #4b5563;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
   max-height: 4.8em;
   overflow: hidden;
   transition: max-height 0.3s ease;

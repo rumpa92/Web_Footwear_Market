@@ -265,17 +265,23 @@
                   <button
                     @click="continueToReview"
                     class="continue-btn"
-                    :class="{ completed: cardFormCompleted }"
-                    :disabled="!isCardFormValid"
+                    :class="{ completed: cardFormCompleted && !isPlacingOrder, processing: isPlacingOrder }"
+                    :disabled="!isCardFormValid || isPlacingOrder"
                   >
-                    <span v-if="!cardFormCompleted">
+                    <span v-if="!cardFormCompleted && !isPlacingOrder">
                       Continue
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
                       </svg>
                     </span>
+                    <span v-else-if="isPlacingOrder">
+                      Processing Payment...
+                      <svg class="loading-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+                      </svg>
+                    </span>
                     <span v-else>
-                      Card Details Saved
+                      Payment Completed
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
                       </svg>
@@ -290,13 +296,22 @@
         <!-- Right Side - Order Summary -->
         <div class="order-summary">
           <div class="summary-header">
-            <div class="summary-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19,7H18V6A2,2 0 0,0 16,4H8A2,2 0 0,0 6,6V7H5A1,1 0 0,0 4,8V19A3,3 0 0,0 7,22H17A3,3 0 0,0 20,19V8A1,1 0 0,0 19,7M8,6H16V7H8V6M18,19A1,1 0 0,1 17,20H7A1,1 0 0,1 6,19V9H8V10A1,1 0 0,0 9,11H10A1,1 0 0,0 11,10V9H13V10A1,1 0 0,0 14,11H15A1,1 0 0,0 16,10V9H18V19Z"/>
-              </svg>
+            <div class="summary-header-top">
+              <button @click="goBack" class="back-arrow-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                </svg>
+              </button>
+              <h2>Order Summary</h2>
             </div>
-            <h2>Order Summary</h2>
-            <div class="item-count">{{ cartItemCount }} item{{ cartItemCount !== 1 ? 's' : '' }}</div>
+            <div class="summary-header-bottom">
+              <div class="summary-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19,7H18V6A2,2 0 0,0 16,4H8A2,2 0 0,0 6,6V7H5A1,1 0 0,0 4,8V19A3,3 0 0,0 7,22H17A3,3 0 0,0 20,19V8A1,1 0 0,0 19,7M8,6H16V7H8V6M18,19A1,1 0 0,1 17,20H7A1,1 0 0,1 6,19V9H8V10A1,1 0 0,0 9,11H10A1,1 0 0,0 11,10V9H13V10A1,1 0 0,0 14,11H15A1,1 0 0,0 16,10V9H18V19Z"/>
+                </svg>
+              </div>
+              <div class="item-count">{{ cartItemCount }} item{{ cartItemCount !== 1 ? 's' : '' }}</div>
+            </div>
           </div>
 
           <div class="summary-content">
@@ -392,15 +407,28 @@
               </div>
             </div>
 
-            <!-- Place Order Button -->
-            <button 
-              @click="placeOrder" 
+            <!-- Place Order Button (Hidden for card payments) -->
+            <button
+              v-if="selectedPayment !== 'card'"
+              @click="placeOrder"
               class="place-order-btn"
               :disabled="!selectedPayment || isPlacingOrder"
             >
               <span v-if="!isPlacingOrder">Place Order</span>
               <span v-else>Processing...</span>
             </button>
+
+            <!-- Card Payment Message -->
+            <div v-if="selectedPayment === 'card'" class="card-payment-notice">
+              <div class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.11,4 20,4Z"/>
+                </svg>
+              </div>
+              <div class="notice-text">
+                <p>Fill in your card details and click <strong>Continue</strong> to complete your order</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -661,6 +689,12 @@ export default {
         return
       }
 
+      // Handle Net Banking payment
+      if (this.selectedPayment === 'netbanking') {
+        this.redirectToNetBankingPayment()
+        return
+      }
+
       this.isPlacingOrder = true
 
       // Simulate API call
@@ -715,6 +749,24 @@ export default {
       this.$router.push('/wallet-payment')
     },
 
+    redirectToNetBankingPayment() {
+      // Store order data for net banking payment page
+      const orderData = {
+        deliveryAddress: this.selectedAddress,
+        discount: this.appliedPromo ? this.appliedPromo.discount : 0,
+        items: this.cartItems,
+        subtotal: this.cartTotal,
+        shipping: this.shippingCost,
+        tax: this.taxAmount,
+        total: this.finalTotal
+      }
+
+      localStorage.setItem('currentOrder', JSON.stringify(orderData))
+
+      // Navigate to net banking payment page
+      this.$router.push('/netbanking-payment')
+    },
+
     getDeliveryDate() {
       const date = new Date()
       date.setDate(date.getDate() + 5)
@@ -738,7 +790,7 @@ export default {
       this.$router.push('/')
     },
 
-    continueToReview() {
+    async continueToReview() {
       if (!this.isCardFormValid) {
         this.showToastMessage('Please fill in all card details correctly', 'error')
         return
@@ -746,15 +798,35 @@ export default {
 
       // Mark card form as completed
       this.cardFormCompleted = true
+      this.isPlacingOrder = true
 
-      // Show success message
-      this.showToastMessage('Card details saved! Review your order to proceed.', 'success')
+      try {
+        // Simulate card payment processing
+        await new Promise(resolve => setTimeout(resolve, 2000))
 
-      // Scroll to order summary
-      const orderSummary = document.querySelector('.order-summary')
-      if (orderSummary) {
-        orderSummary.scrollIntoView({ behavior: 'smooth' })
+        // Generate order confirmation for card payment
+        this.orderConfirmation = {
+          orderId: `CD${Date.now().toString().slice(-8)}`,
+          deliveryDate: this.getDeliveryDate()
+        }
+
+        this.isPlacingOrder = false
+        this.showOrderConfirmation = true
+
+        // Clear cart
+        this.$store.dispatch('cart/clearCart')
+
+      } catch (error) {
+        console.error('Card payment processing error:', error)
+        this.showToastMessage('Payment processing failed. Please try again.', 'error')
+        this.isPlacingOrder = false
+        this.cardFormCompleted = false
       }
+    },
+
+    goBack() {
+      // Navigate back to cart or previous page
+      this.$router.push('/cart')
     },
 
     showToastMessage(message, type = 'info') {
@@ -1190,6 +1262,26 @@ export default {
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
+.continue-btn.processing {
+  background: #3b82f6;
+  cursor: default;
+}
+
+.continue-btn.processing:hover {
+  background: #3b82f6;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .continue-btn svg {
   width: 18px;
   height: 18px;
@@ -1206,11 +1298,46 @@ export default {
 }
 
 .summary-header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.summary-header-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.summary-header-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 1.5rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
+}
+
+.back-arrow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #6b7280;
+}
+
+.back-arrow-btn:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.back-arrow-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
 .summary-header .summary-icon {
@@ -1224,9 +1351,7 @@ export default {
   font-weight: 600;
   color: #1f2937;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex: 1;
 }
 
 .item-count {
@@ -1482,6 +1607,36 @@ export default {
   background: #9ca3af;
   cursor: not-allowed;
   transform: none;
+}
+
+/* Card Payment Notice */
+.card-payment-notice {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f0f9ff;
+  border: 1px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.notice-icon {
+  width: 24px;
+  height: 24px;
+  color: #0ea5e9;
+  flex-shrink: 0;
+}
+
+.notice-text p {
+  color: #075985;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.notice-text strong {
+  color: #0c4a6e;
 }
 
 /* Modals */
