@@ -648,18 +648,18 @@ export default {
         this.showToastMessage('Please select size and color', 'error')
         return
       }
-      
+
       this.isAdding = true
-      
+
       await this.addToCart({
         product: this.product,
         size: this.selectedSize,
         color: this.selectedColor,
-        quantity: 1
+        quantity: this.desiredQuantity
       })
-      
+
       this.isAdding = false
-      this.showToastMessage('Added to cart!', 'success')
+      this.showToastMessage(`Added ${this.desiredQuantity} item${this.desiredQuantity > 1 ? 's' : ''} to cart!`, 'success')
     },
     
     increaseQuantity() {
