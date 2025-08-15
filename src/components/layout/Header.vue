@@ -479,13 +479,51 @@ export default {
 
 .user-menu {
   position: relative;
+  cursor: pointer;
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-fast);
+}
+
+.user-profile-info:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
 }
 
 .user-avatar {
   width: 2rem;
   height: 2rem;
   border-radius: var(--border-radius-full);
-  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-status {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 .user-profile-section {
