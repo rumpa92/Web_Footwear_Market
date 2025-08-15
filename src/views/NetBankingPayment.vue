@@ -488,12 +488,12 @@ export default {
 
     filterBanks() {
       if (!this.searchQuery.trim()) {
-        this.filteredBanks = this.allBanks
+        this.filteredBanks = []
         return
       }
 
       const query = this.searchQuery.toLowerCase()
-      this.filteredBanks = this.allBanks.filter(bank => 
+      this.filteredBanks = this.popularBanks.filter(bank =>
         bank.name.toLowerCase().includes(query) ||
         bank.description.toLowerCase().includes(query)
       )
