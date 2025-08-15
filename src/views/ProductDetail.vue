@@ -172,6 +172,11 @@
                 </svg>
               </button>
             </div>
+
+            <!-- Go to Cart Button for items already in cart -->
+            <button @click="goToCart()" class="go-to-cart-btn-inline">
+              Go to Cart
+            </button>
           </div>
         </div>
         
