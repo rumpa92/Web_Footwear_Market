@@ -546,6 +546,7 @@ export default {
         this.selectedColor = this.product.colors[0] // Set default color
         this.selectedImage = this.productImages[0]
         this.selectedSize = null
+        this.desiredQuantity = 1 // Reset quantity to 1
       }
     },
 
