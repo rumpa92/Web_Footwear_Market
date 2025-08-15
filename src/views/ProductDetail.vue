@@ -90,12 +90,12 @@
           <div class="size-selection">
             <h3>Size</h3>
             <div class="size-options">
-              <button 
-                v-for="size in product.sizes" 
+              <button
+                v-for="size in product.sizes"
                 :key="size"
                 class="size-btn"
                 :class="{ selected: selectedSize === size }"
-                @click="selectedSize = size"
+                @click="selectSize(size)"
               >
                 {{ size }}
               </button>
