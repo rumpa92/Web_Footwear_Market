@@ -392,15 +392,28 @@
               </div>
             </div>
 
-            <!-- Place Order Button -->
-            <button 
-              @click="placeOrder" 
+            <!-- Place Order Button (Hidden for card payments) -->
+            <button
+              v-if="selectedPayment !== 'card'"
+              @click="placeOrder"
               class="place-order-btn"
               :disabled="!selectedPayment || isPlacingOrder"
             >
               <span v-if="!isPlacingOrder">Place Order</span>
               <span v-else>Processing...</span>
             </button>
+
+            <!-- Card Payment Message -->
+            <div v-if="selectedPayment === 'card'" class="card-payment-notice">
+              <div class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.11,4 20,4Z"/>
+                </svg>
+              </div>
+              <div class="notice-text">
+                <p>Fill in your card details and click <strong>Continue</strong> to complete your order</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
