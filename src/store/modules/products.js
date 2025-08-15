@@ -15,7 +15,9 @@ const state = {
       featured: true,
       inStock: true,
       rating: 4.8,
-      reviews: 1250
+      reviews: 1250,
+      isNew: false,
+      isTrending: true
     },
     {
       id: 2,
@@ -32,7 +34,9 @@ const state = {
       featured: true,
       inStock: true,
       rating: 4.7,
-      reviews: 890
+      reviews: 890,
+      isNew: false,
+      isTrending: false
     },
     {
       id: 3,
@@ -49,7 +53,9 @@ const state = {
       featured: false,
       inStock: true,
       rating: 4.5,
-      reviews: 2150
+      reviews: 2150,
+      isNew: true,
+      isTrending: false
     },
     {
       id: 4,
@@ -66,7 +72,9 @@ const state = {
       featured: true,
       inStock: true,
       rating: 4.6,
-      reviews: 750
+      reviews: 750,
+      isNew: false,
+      isTrending: true
     },
     {
       id: 5,
@@ -83,7 +91,9 @@ const state = {
       featured: false,
       inStock: true,
       rating: 4.4,
-      reviews: 420
+      reviews: 420,
+      isNew: true,
+      isTrending: false
     },
     {
       id: 6,
