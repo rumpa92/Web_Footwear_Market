@@ -1131,6 +1131,17 @@ export default {
   transform: none;
 }
 
+.continue-btn.completed {
+  background: #10b981;
+  cursor: default;
+}
+
+.continue-btn.completed:hover {
+  background: #10b981;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
 .continue-btn svg {
   width: 18px;
   height: 18px;
