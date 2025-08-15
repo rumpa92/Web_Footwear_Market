@@ -9,6 +9,7 @@
     <!-- Main App Content -->
     <div v-else class="app-content">
       <Header />
+      <BackButton />
       <main class="main-content">
         <router-view />
       </main>
@@ -22,6 +23,7 @@
 <script>
 import Header from './components/layout/Header.vue'
 import Footer from './components/layout/Footer.vue'
+import BackButton from './components/layout/BackButton.vue'
 import ShoppingCart from './components/cart/ShoppingCart.vue'
 import SplashScreen from './components/SplashScreen.vue'
 import AddedToCartModal from './components/AddedToCartModal.vue'
@@ -31,6 +33,7 @@ export default {
   components: {
     Header,
     Footer,
+    BackButton,
     ShoppingCart,
     SplashScreen,
     AddedToCartModal

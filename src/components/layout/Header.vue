@@ -7,6 +7,15 @@
           <span class="logo-text">👟 FootMarket</span>
         </router-link>
 
+        <!-- Location -->
+        <div class="location-display">
+          <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span class="location-text">New York, NY</span>
+        </div>
+
         <!-- Desktop Navigation -->
         <nav class="nav-desktop">
           <router-link to="/" class="nav-link">Home</router-link>
@@ -81,17 +90,36 @@
           </button>
 
           <!-- User Menu -->
-          <div class="user-menu" v-if="isAuthenticated">
-            <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
+          <div class="user-menu" v-if="isAuthenticated" @click="showUserMenu = !showUserMenu" v-click-outside="closeDropdown">
+            <div class="user-profile-info">
+              <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
+              <div class="user-details">
+                <div class="user-name">{{ currentUser.name }}</div>
+                <div class="user-status">Orders</div>
+              </div>
+              <svg class="dropdown-arrow" :class="{ 'rotated': showUserMenu }" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
             <div class="dropdown">
               <div class="dropdown-menu" v-if="showUserMenu">
-                <router-link to="/profile" class="dropdown-item">Profile</router-link>
-                <router-link to="/orders" class="dropdown-item">Orders</router-link>
-                <button @click="logout" class="dropdown-item">Logout</button>
+                <router-link to="/profile" class="dropdown-item" @click="closeDropdown">My Profile</router-link>
+                <router-link to="/orders" class="dropdown-item" @click="closeDropdown">My Orders</router-link>
+                <router-link to="/login" class="dropdown-item" @click="closeDropdown">Sign In</router-link>
+                <button @click="handleLogout" class="dropdown-item">Sign Out</button>
               </div>
             </div>
           </div>
-          <router-link v-else to="/login" class="btn btn-primary">Sign In</router-link>
+
+          <!-- User Profile Section for non-authenticated users -->
+          <div v-else class="user-profile-section">
+            <button class="action-btn profile-btn" @click="goToProfile">
+              <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </button>
+            <router-link to="/login" class="btn btn-primary">Sign In</router-link>
+          </div>
 
           <!-- Mobile Menu Toggle -->
           <button class="mobile-menu-btn" @click="toggleMobileMenu">
@@ -210,6 +238,17 @@ export default {
     goToWishlist() {
       this.$router.push('/wishlist')
     },
+    goToProfile() {
+      this.$router.push('/login')
+    },
+    closeDropdown() {
+      this.showUserMenu = false
+    },
+    handleLogout() {
+      this.logout()
+      this.showUserMenu = false
+      this.$router.push('/')
+    },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
     }
@@ -250,6 +289,31 @@ export default {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--primary-color);
+}
+
+.location-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-left: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--bg-light);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.location-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.location-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
 }
 
 .nav-desktop {
@@ -461,13 +525,117 @@ export default {
 
 .user-menu {
   position: relative;
+  cursor: pointer;
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-fast);
+}
+
+.user-profile-info:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
 }
 
 .user-avatar {
   width: 2rem;
   height: 2rem;
   border-radius: var(--border-radius-full);
-  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-status {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.dropdown-arrow {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: var(--space-xs);
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.user-profile-info:hover .dropdown-arrow {
+  color: var(--accent-color);
+}
+
+.user-profile-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.profile-btn {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+}
+
+.profile-btn:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  margin-top: var(--space-xs);
+  min-width: 160px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-light);
+  color: var(--accent-color);
 }
 
 .mobile-menu-btn {
@@ -531,6 +699,10 @@ export default {
 
   .user-actions {
     order: 0;
+  }
+
+  .location-display {
+    display: none;
   }
 }
 </style>

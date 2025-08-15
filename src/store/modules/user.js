@@ -1,6 +1,11 @@
 const state = {
-  currentUser: null,
-  isAuthenticated: false,
+  currentUser: {
+    id: 1,
+    name: 'Sarah Johnson',
+    email: 'sarah.johnson@example.com',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop'
+  },
+  isAuthenticated: true,
   wishlist: [],
   addresses: [],
   orders: []

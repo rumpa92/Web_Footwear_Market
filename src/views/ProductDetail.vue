@@ -27,22 +27,22 @@
             
             <!-- Share Icons -->
             <div class="share-icons">
-              <button @click="shareProduct('whatsapp')" class="share-btn whatsapp">
+              <button @click="shareProduct('whatsapp')" class="share-btn whatsapp" title="Share on WhatsApp">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.525 3.687"/>
                 </svg>
               </button>
-              <button @click="shareProduct('instagram')" class="share-btn instagram">
+              <button @click="shareProduct('instagram')" class="share-btn instagram" title="Share on Instagram">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
               </button>
-              <button @click="shareProduct('facebook')" class="share-btn facebook">
+              <button @click="shareProduct('facebook')" class="share-btn facebook" title="Share on Facebook">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
               </button>
-              <button @click="shareProduct('copy')" class="share-btn copy">
+              <button @click="shareProduct('copy')" class="share-btn copy" title="Copy link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
                 </svg>
@@ -90,12 +90,13 @@
           <div class="size-selection">
             <h3>Size</h3>
             <div class="size-options">
-              <button 
-                v-for="size in product.sizes" 
+              <button
+                v-for="size in product.sizes"
                 :key="size"
                 class="size-btn"
                 :class="{ selected: selectedSize === size }"
-                @click="selectedSize = size"
+                @click.stop="selectedSize = size; console.log('Size selected:', size)"
+                :title="`Select size ${size}. Currently selected: ${selectedSize || 'none'}`"
               >
                 {{ size }}
               </button>
@@ -106,8 +107,8 @@
           <div class="color-selection">
             <h3>Color</h3>
             <div class="color-options">
-              <button 
-                v-for="color in product.colors" 
+              <button
+                v-for="color in product.colors"
                 :key="color"
                 class="color-btn"
                 :class="{ selected: selectedColor === color }"
@@ -119,29 +120,52 @@
               </button>
             </div>
           </div>
+
+          <!-- Quantity Selection -->
+          <div class="quantity-selection">
+            <h3>Quantity</h3>
+            <div class="quantity-selector">
+              <button
+                @click="decreaseDesiredQuantity"
+                class="quantity-selector-btn"
+                :disabled="desiredQuantity <= 1"
+              >−</button>
+              <span class="quantity-display">{{ desiredQuantity }}</span>
+              <button
+                @click="increaseDesiredQuantity"
+                class="quantity-selector-btn"
+                :disabled="desiredQuantity >= 10"
+              >+</button>
+              <button @click="isInCart ? removeFromCart() : clearSelections()" class="remove-btn-inline">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="trash-icon">
+                  <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
         
         <!-- Add to Cart Section -->
         <div class="cart-section">
           <div v-if="!isInCart" class="add-to-cart-container">
-            <button 
-              @click="addToCart"
+            <button
+              @click="isInCart ? goToCart() : addToCart()"
               class="add-to-cart-btn"
-              :disabled="!selectedSize || !selectedColor || !product.inStock"
-              :class="{ adding: isAdding }"
+              :disabled="!product.inStock"
+              :class="{ adding: isAdding, 'go-to-cart': isInCart }"
+              :title="isInCart ? 'Go to cart page' : 'Add item to cart'"
             >
-              <span v-if="!isAdding">Add to Cart</span>
+              <span v-if="!isAdding && !isInCart">Add to Cart</span>
+              <span v-else-if="!isAdding && isInCart">Go to Cart</span>
               <span v-else>Adding...</span>
             </button>
           </div>
-          
+
           <div v-else class="modify-cart-container">
-            <div class="quantity-controls">
-              <button @click="decreaseQuantity" class="quantity-btn">−</button>
-              <span class="quantity">{{ cartItemQuantity }}</span>
-              <button @click="increaseQuantity" class="quantity-btn">+</button>
-            </div>
-            <button @click="removeFromCart" class="remove-btn">Remove</button>
+            <!-- Only Go to Cart Button for items already in cart -->
+            <button @click="goToCart()" class="go-to-cart-btn-full">
+              Go to Cart
+            </button>
           </div>
         </div>
         
@@ -370,6 +394,7 @@ export default {
       selectedImage: '',
       selectedSize: null,
       selectedColor: null,
+      desiredQuantity: 1,
       isZooming: false,
       isAdding: false,
       activeAccordion: null,
@@ -466,19 +491,63 @@ export default {
     },
     
     relatedProducts() {
-      if (!this.product) return []
-      return this.allProducts
-        .filter(p => p.id !== this.product.id && (p.brand === this.product.brand || p.category === this.product.category))
-        .slice(0, 6)
+      if (!this.product || !this.allProducts) {
+        console.log('No product or allProducts available')
+        return []
+      }
+
+      console.log('Current product:', this.product.name, 'Brand:', this.product.brand, 'Category:', this.product.category)
+      console.log('All products count:', this.allProducts.length)
+
+      // First try to get products from same brand
+      let related = this.allProducts.filter(p =>
+        p.id !== this.product.id && p.brand === this.product.brand
+      )
+      console.log('Same brand products:', related.length)
+
+      // If not enough from same brand, add products from same category
+      if (related.length < 6) {
+        const categoryProducts = this.allProducts.filter(p =>
+          p.id !== this.product.id &&
+          p.category === this.product.category &&
+          !related.some(rp => rp.id === p.id)
+        )
+        related = [...related, ...categoryProducts]
+        console.log('After adding category products:', related.length)
+      }
+
+      // If still not enough, add any other products
+      if (related.length < 6) {
+        const otherProducts = this.allProducts.filter(p =>
+          p.id !== this.product.id &&
+          !related.some(rp => rp.id === p.id)
+        )
+        related = [...related, ...otherProducts]
+        console.log('After adding other products:', related.length)
+      }
+
+      const finalProducts = related.slice(0, 6)
+      console.log('Final related products:', finalProducts.length)
+      return finalProducts
     },
     
     isInCart() {
-      if (!this.product || !this.selectedSize || !this.selectedColor) return false
-      return this.getCartItem(this.product.id, this.selectedSize, this.selectedColor)
+      if (!this.product) return false
+
+      // Use the same default values as in addToCart method
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
+      return this.getCartItem(this.product.id, size, color)
     },
     
     cartItemQuantity() {
-      const item = this.isInCart
+      if (!this.product) return 0
+
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+      const item = this.getCartItem(this.product.id, size, color)
+
       return item ? item.quantity : 0
     },
     
@@ -520,13 +589,32 @@ export default {
   },
   
   methods: {
-    ...mapActions('cart', ['addToCart', 'removeFromCart', 'updateCartItemQuantity']),
+    ...mapActions('cart', ['removeFromCart', 'updateCartItemQuantity']),
+    ...mapActions('cart', { addItemToCart: 'addToCart' }),
     
     initializeProduct() {
       if (this.product) {
-        this.selectedColor = this.product.colors[0] // Set default color
-        this.selectedImage = this.productImages[0]
-        this.selectedSize = null
+        // Set default color only on first load
+        this.selectedColor = this.product.colors[0]
+
+        // Set default image
+        if (this.productImages.length > 0) {
+          this.selectedImage = this.productImages[0]
+        }
+
+        // Don't reset size - let user select it
+        // this.selectedSize = null
+
+        // Reset quantity
+        this.desiredQuantity = 1
+
+        console.log('Product initialized:', {
+          productId: this.product.id,
+          colors: this.product.colors,
+          sizes: this.product.sizes,
+          selectedColor: this.selectedColor,
+          selectedSize: this.selectedSize
+        })
       }
     },
 
@@ -598,25 +686,49 @@ export default {
       this.isZooming = false
     },
     
-    shareProduct(platform) {
+    async shareProduct(platform) {
       const url = window.location.href
       const text = `Check out this ${this.product.name} by ${this.product.brand}`
-      
-      switch (platform) {
-        case 'whatsapp':
-          window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`)
-          break
-        case 'instagram':
-          this.showToast({ message: 'Link copied! Share on Instagram', type: 'success' })
-          navigator.clipboard.writeText(url)
-          break
-        case 'facebook':
-          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`)
-          break
-        case 'copy':
-          navigator.clipboard.writeText(url)
-          this.showToastMessage('Link copied to clipboard!', 'success')
-          break
+
+      try {
+        switch (platform) {
+          case 'whatsapp':
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank')
+            break
+          case 'instagram':
+            await navigator.clipboard.writeText(url)
+            this.showToastMessage('Link copied! Share on Instagram', 'success')
+            break
+          case 'facebook':
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank')
+            break
+          case 'copy':
+            await navigator.clipboard.writeText(url)
+            this.showToastMessage('Link copied to clipboard!', 'success')
+            break
+          case 'twitter':
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank')
+            break
+        }
+      } catch (error) {
+        console.error('Sharing failed:', error)
+        // Fallback for clipboard operations
+        if (platform === 'copy' || platform === 'instagram') {
+          // Fallback method for older browsers
+          const textArea = document.createElement('textarea')
+          textArea.value = url
+          document.body.appendChild(textArea)
+          textArea.select()
+          try {
+            document.execCommand('copy')
+            this.showToastMessage(platform === 'copy' ? 'Link copied to clipboard!' : 'Link copied! Share on Instagram', 'success')
+          } catch (fallbackError) {
+            this.showToastMessage('Unable to copy link. Please copy manually: ' + url, 'error')
+          }
+          document.body.removeChild(textArea)
+        } else {
+          this.showToastMessage('Unable to share. Please try again.', 'error')
+        }
       }
     },
     
@@ -625,51 +737,87 @@ export default {
     },
     
     async addToCart() {
-      if (!this.selectedSize || !this.selectedColor) {
-        this.showToastMessage('Please select size and color', 'error')
-        return
-      }
-      
-      this.isAdding = true
-      
-      await this.addToCart({
+      console.log('Add to cart clicked!', {
+        selectedSize: this.selectedSize,
+        selectedColor: this.selectedColor,
         product: this.product,
-        size: this.selectedSize,
-        color: this.selectedColor,
-        quantity: 1
+        desiredQuantity: this.desiredQuantity
       })
-      
+
+      // Use default values if not selected
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
+      this.isAdding = true
+
+      await this.addItemToCart({
+        product: this.product,
+        size: size,
+        color: color,
+        quantity: this.desiredQuantity
+      })
+
       this.isAdding = false
-      this.showToastMessage('Added to cart!', 'success')
+      this.showToastMessage(`Added ${this.desiredQuantity} item${this.desiredQuantity > 1 ? 's' : ''} to cart! (Size: ${size}, Color: ${color})`, 'success')
+
+      // No automatic redirect - stay on the same page
     },
     
     increaseQuantity() {
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
       this.updateCartItemQuantity({
         id: this.product.id,
-        size: this.selectedSize,
-        color: this.selectedColor,
+        size: size,
+        color: color,
         quantity: this.cartItemQuantity + 1
       })
     },
-    
+
     decreaseQuantity() {
       if (this.cartItemQuantity > 1) {
+        const size = this.selectedSize || 'One Size'
+        const color = this.selectedColor || this.product.colors[0] || 'Default'
+
         this.updateCartItemQuantity({
           id: this.product.id,
-          size: this.selectedSize,
-          color: this.selectedColor,
+          size: size,
+          color: color,
           quantity: this.cartItemQuantity - 1
         })
       }
     },
+
+    increaseDesiredQuantity() {
+      if (this.desiredQuantity < 10) {
+        this.desiredQuantity++
+      }
+    },
+
+    decreaseDesiredQuantity() {
+      if (this.desiredQuantity > 1) {
+        this.desiredQuantity--
+      }
+    },
     
     removeFromCart() {
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
       this.removeFromCart({
         id: this.product.id,
-        size: this.selectedSize,
-        color: this.selectedColor
+        size: size,
+        color: color
       })
       this.showToastMessage('Removed from cart', 'info')
+    },
+
+    clearSelections() {
+      this.selectedSize = null
+      this.selectedColor = this.product.colors[0]
+      this.desiredQuantity = 1
+      this.showToastMessage('Selections cleared', 'info')
     },
     
     getRatingPercentage(rating) {
@@ -740,12 +888,40 @@ export default {
       window.open(image, '_blank')
     },
     
+    goToCart() {
+      this.$router.push('/cart')
+    },
+
     showToastMessage(message, type = 'info') {
       this.toast = { message, type }
       this.showToast = true
       setTimeout(() => {
         this.showToast = false
       }, 3000)
+    },
+
+    selectSize(size) {
+      console.log('Selecting size:', size, 'Previous size:', this.selectedSize)
+      this.selectedSize = size
+
+      // Force reactivity update
+      this.$forceUpdate()
+
+      // Use nextTick to ensure DOM is updated
+      this.$nextTick(() => {
+        console.log('Selected size is now:', this.selectedSize)
+        this.debugButtonState()
+      })
+    },
+
+    debugButtonState() {
+      console.log('Debug button state:', {
+        selectedSize: this.selectedSize,
+        selectedColor: this.selectedColor,
+        productInStock: this.product?.inStock,
+        productSizes: this.product?.sizes,
+        productColors: this.product?.colors
+      })
     }
   }
 }
@@ -987,11 +1163,11 @@ export default {
   margin-bottom: 2rem;
 }
 
-.size-selection, .color-selection {
+.size-selection, .color-selection, .quantity-selection {
   margin-bottom: 2rem;
 }
 
-.size-selection h3, .color-selection h3 {
+.size-selection h3, .color-selection h3, .quantity-selection h3 {
   font-size: 1.1rem;
   font-weight: 600;
   color: #1f2937;
@@ -1002,6 +1178,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  pointer-events: auto;
 }
 
 .size-btn {
@@ -1014,6 +1191,11 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 60px;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .size-btn:hover {
@@ -1065,6 +1247,74 @@ export default {
   white-space: nowrap;
 }
 
+/* Quantity Selection */
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.quantity-selector-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-selector-btn:hover:not(:disabled) {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+.quantity-selector-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.quantity-display {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  min-width: 30px;
+  text-align: center;
+}
+
+.remove-btn-inline {
+  width: 40px;
+  height: 40px;
+  background: #fef2f2;
+  color: #ef4444;
+  border: 2px solid #fecaca;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  margin-left: 0.5rem;
+}
+
+.remove-btn-inline:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  transform: scale(1.05);
+}
+
 /* Cart Section */
 .cart-section {
   background: white;
@@ -1073,6 +1323,10 @@ export default {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   position: sticky;
   bottom: 2rem;
+}
+
+.add-to-cart-container {
+  margin-bottom: 1rem;
 }
 
 .add-to-cart-btn {
@@ -1105,20 +1359,32 @@ export default {
   background: #10b981;
 }
 
-.modify-cart-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.add-to-cart-btn.go-to-cart {
+  background: #1e3a8a;
+  border: 2px solid #1e3a8a;
+  color: white;
 }
 
-.quantity-controls {
+.add-to-cart-btn.go-to-cart:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+}
+
+.modify-cart-container {
+  display: flex;
+  width: 100%;
+}
+
+.quantity-controls-cart {
   display: flex;
   align-items: center;
   gap: 1rem;
   background: #f3f4f6;
   padding: 0.5rem;
   border-radius: 12px;
-  flex: 1;
+  width: fit-content;
 }
 
 .quantity-btn {
@@ -1146,19 +1412,35 @@ export default {
   text-align: center;
 }
 
-.remove-btn {
-  padding: 0.75rem 1.5rem;
-  background: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.trash-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.remove-btn:hover {
-  background: #dc2626;
+.go-to-cart-btn-full {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.go-to-cart-btn-full:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
 }
 
 /* How to Use Section */
