@@ -474,6 +474,7 @@ export default {
         name: ''
       },
       saveCardForFuture: false,
+      cardFormCompleted: false,
 
       // Address
       showAddressModal: false,
