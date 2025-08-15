@@ -296,13 +296,22 @@
         <!-- Right Side - Order Summary -->
         <div class="order-summary">
           <div class="summary-header">
-            <div class="summary-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19,7H18V6A2,2 0 0,0 16,4H8A2,2 0 0,0 6,6V7H5A1,1 0 0,0 4,8V19A3,3 0 0,0 7,22H17A3,3 0 0,0 20,19V8A1,1 0 0,0 19,7M8,6H16V7H8V6M18,19A1,1 0 0,1 17,20H7A1,1 0 0,1 6,19V9H8V10A1,1 0 0,0 9,11H10A1,1 0 0,0 11,10V9H13V10A1,1 0 0,0 14,11H15A1,1 0 0,0 16,10V9H18V19Z"/>
-              </svg>
+            <div class="summary-header-top">
+              <button @click="goBack" class="back-arrow-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                </svg>
+              </button>
+              <h2>Order Summary</h2>
             </div>
-            <h2>Order Summary</h2>
-            <div class="item-count">{{ cartItemCount }} item{{ cartItemCount !== 1 ? 's' : '' }}</div>
+            <div class="summary-header-bottom">
+              <div class="summary-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19,7H18V6A2,2 0 0,0 16,4H8A2,2 0 0,0 6,6V7H5A1,1 0 0,0 4,8V19A3,3 0 0,0 7,22H17A3,3 0 0,0 20,19V8A1,1 0 0,0 19,7M8,6H16V7H8V6M18,19A1,1 0 0,1 17,20H7A1,1 0 0,1 6,19V9H8V10A1,1 0 0,0 9,11H10A1,1 0 0,0 11,10V9H13V10A1,1 0 0,0 14,11H15A1,1 0 0,0 16,10V9H18V19Z"/>
+                </svg>
+              </div>
+              <div class="item-count">{{ cartItemCount }} item{{ cartItemCount !== 1 ? 's' : '' }}</div>
+            </div>
           </div>
 
           <div class="summary-content">
