@@ -410,6 +410,14 @@ export default {
         pincode: ''
       },
       
+      // Delivery
+      selectedDelivery: 'standard',
+      deliveryOptions: {
+        standard: { price: 5.99, days: '5-7' },
+        express: { price: 12.99, days: '2-3' },
+        overnight: { price: 24.99, days: '1' }
+      },
+
       // Payment
       selectedPayment: '',
       cardDetails: {
