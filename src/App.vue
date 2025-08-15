@@ -32,7 +32,8 @@ export default {
     Header,
     Footer,
     ShoppingCart,
-    SplashScreen
+    SplashScreen,
+    AddedToCartModal
   },
   data() {
     return {
