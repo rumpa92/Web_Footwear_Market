@@ -1312,6 +1312,16 @@ export default {
   background: #10b981;
 }
 
+.add-to-cart-btn.go-to-cart {
+  background: #10b981;
+  border: 2px solid #10b981;
+}
+
+.add-to-cart-btn.go-to-cart:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
 .modify-cart-container {
   display: flex;
   justify-content: center;
