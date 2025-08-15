@@ -675,17 +675,20 @@ export default {
 }
 
 .bank-logo {
-  width: 80px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
+  background: #f3f4f6;
   border-radius: 8px;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  color: #6b7280;
 }
 
-.bank-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.bank-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .bank-info h4 {
