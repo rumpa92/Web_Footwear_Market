@@ -40,46 +40,6 @@
       </div>
     </section>
 
-    <!-- Filtered Products Section -->
-    <section class="filtered-products-section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Shop All Products</h2>
-          <p class="section-subtitle">Use filters to find exactly what you're looking for</p>
-        </div>
-
-        <div class="products-content">
-          <!-- Filters Sidebar -->
-          <ProductFilters />
-
-          <!-- Main Content -->
-          <main class="products-main">
-            <!-- Products Grid -->
-            <div class="products-container">
-              <div v-if="filteredProducts.length === 0" class="no-products">
-                <div class="no-products-content">
-                  <h3>No products found</h3>
-                  <p>Try adjusting your filters to see more products</p>
-                </div>
-              </div>
-
-              <div v-else class="products-grid">
-                <ProductCard
-                  v-for="product in filteredProducts.slice(0, 8)"
-                  :key="product.id"
-                  :product="product"
-                />
-              </div>
-
-              <div v-if="filteredProducts.length > 8" class="section-footer">
-                <router-link to="/products" class="btn btn-outline">View All Products</router-link>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </section>
-
     <!-- New Arrivals -->
     <section class="new-arrivals">
       <div class="container">
@@ -238,13 +198,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
-import ProductFilters from '../components/products/ProductFilters.vue'
 
 export default {
   name: 'Home',
   components: {
-    ProductCard,
-    ProductFilters
+    ProductCard
   },
   data() {
     return {
@@ -305,7 +263,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts', 'filteredProducts'])
+    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts'])
   },
   methods: {
     subscribeNewsletter() {
@@ -426,46 +384,6 @@ export default {
   color: var(--accent-color);
 }
 
-.filtered-products-section {
-  padding: var(--space-3xl) 0;
-  background-color: var(--bg-light);
-}
-
-.products-content {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: var(--space-2xl);
-}
-
-.products-main {
-  min-height: 400px;
-}
-
-.products-container {
-  width: 100%;
-}
-
-.no-products {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
-}
-
-.no-products-content {
-  text-align: center;
-}
-
-.no-products-content h3 {
-  font-size: var(--font-size-xl);
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.no-products-content p {
-  color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
-}
 
 .new-arrivals {
   padding: var(--space-3xl) 0;
@@ -780,12 +698,6 @@ export default {
     grid-template-columns: repeat(6, 1fr);
     max-width: 900px;
     margin: 0 auto;
-  }
-}
-
-@media (max-width: 1024px) {
-  .products-content {
-    grid-template-columns: 1fr;
   }
 }
 
