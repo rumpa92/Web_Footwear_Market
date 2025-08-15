@@ -713,8 +713,8 @@ export default {
 
       await this.addItemToCart({
         product: this.product,
-        size: this.selectedSize,
-        color: this.selectedColor,
+        size: size,
+        color: color,
         quantity: this.desiredQuantity
       })
 
