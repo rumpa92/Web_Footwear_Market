@@ -941,7 +941,7 @@ export default {
   font-weight: 600;
 }
 
-.upi-info, .bank-info {
+.upi-info, .bank-info, .cod-info {
   color: #6b7280;
   font-size: 0.9rem;
 }
