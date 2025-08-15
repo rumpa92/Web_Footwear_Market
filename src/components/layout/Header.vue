@@ -282,6 +282,31 @@ export default {
   color: var(--primary-color);
 }
 
+.location-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-left: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--bg-light);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.location-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.location-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
 .nav-desktop {
   display: none;
   align-items: center;
