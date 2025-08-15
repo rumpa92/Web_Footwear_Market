@@ -687,10 +687,13 @@ export default {
         return
       }
 
-      // Scroll to order summary or show success message
+      // Mark card form as completed
+      this.cardFormCompleted = true
+
+      // Show success message
       this.showToastMessage('Card details saved! Review your order to proceed.', 'success')
 
-      // Optionally scroll to order summary
+      // Scroll to order summary
       const orderSummary = document.querySelector('.order-summary')
       if (orderSummary) {
         orderSummary.scrollIntoView({ behavior: 'smooth' })
