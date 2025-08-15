@@ -487,6 +487,15 @@ export default {
       }
     })
   },
+
+  mounted() {
+    // Check for applied coupon from cart
+    const savedCoupon = sessionStorage.getItem('appliedCoupon')
+    if (savedCoupon) {
+      this.appliedCoupon = JSON.parse(savedCoupon)
+      sessionStorage.removeItem('appliedCoupon')
+    }
+  },
   
   methods: {
     openAddressModal() {
