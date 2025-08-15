@@ -719,7 +719,7 @@ export default {
       })
 
       this.isAdding = false
-      this.showToastMessage(`Added ${this.desiredQuantity} item${this.desiredQuantity > 1 ? 's' : ''} to cart!`, 'success')
+      this.showToastMessage(`Added ${this.desiredQuantity} item${this.desiredQuantity > 1 ? 's' : ''} to cart! (Size: ${size}, Color: ${color})`, 'success')
 
       // Navigate to cart page after a short delay to show the success message
       setTimeout(() => {
