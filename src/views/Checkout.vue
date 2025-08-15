@@ -445,7 +445,6 @@ export default {
       },
       
       // Pricing
-      shippingCost: 5.99,
       taxRate: 8.5
     }
   },
