@@ -241,6 +241,14 @@ export default {
     goToProfile() {
       this.$router.push('/login')
     },
+    closeDropdown() {
+      this.showUserMenu = false
+    },
+    handleLogout() {
+      this.logout()
+      this.showUserMenu = false
+      this.$router.push('/')
+    },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
     }
