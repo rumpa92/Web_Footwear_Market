@@ -43,10 +43,12 @@ export default {
     }
   },
   mounted() {
+    console.log('App mounted, splash screen will hide in 2 seconds')
     // Also hide splash screen after maximum time as fallback
     setTimeout(() => {
+      console.log('Hiding splash screen from App.vue fallback')
       this.showSplash = false
-    }, 5000)
+    }, 2000) // Reduced from 5000 to 2000
   }
 }
 </script>
