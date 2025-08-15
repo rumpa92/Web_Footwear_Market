@@ -92,18 +92,7 @@ const actions = {
   addToCart({ commit, state }, payload) {
     commit('ADD_TO_CART', payload)
 
-    // Show the added to cart modal with product information
-    const productInfo = {
-      id: payload.product.id,
-      name: payload.product.name,
-      brand: payload.product.brand,
-      price: payload.product.price,
-      image: payload.product.image,
-      size: payload.size,
-      color: payload.color,
-      quantity: payload.quantity || 1
-    }
-    commit('SHOW_ADDED_TO_CART_MODAL', productInfo)
+    // No popup modal - just add to cart silently
   },
   removeFromCart({ commit }, payload) {
     commit('REMOVE_FROM_CART', payload)
