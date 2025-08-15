@@ -413,13 +413,35 @@ export default {
     
     productImages() {
       if (!this.product) return []
-      // Generate multiple image variations
+
+      // Base image for the current color
+      const baseImage = this.getImageForColor(this.selectedColor || this.product.colors[0])
+
+      // Generate multiple image variations for the selected color
       return [
-        this.product.image,
-        this.product.image.replace('w=400', 'w=400&sat=-20'),
-        this.product.image.replace('w=400', 'w=400&hue=30'),
-        this.product.image.replace('w=400', 'w=400&flip=h')
+        baseImage,
+        baseImage.replace('w=400', 'w=400&sat=-20'),
+        baseImage.replace('w=400', 'w=400&hue=15'),
+        baseImage.replace('w=400', 'w=400&flip=h')
       ]
+    },
+
+    colorImages() {
+      if (!this.product) return {}
+
+      // Color-specific image mappings
+      const colorImageMap = {
+        'black': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1595950653106-6c9ebd614d3a'), // Black shoes
+        'white': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1549298916-b41d501d3772'), // White shoes
+        'blue': this.product.image, // Current image (blue shoes)
+        'red': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1584464491033-06628f3a6b7b'), // Red shoes
+        'gray': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1606107557195-0e29a4b5b4aa'), // Gray shoes
+        'navy': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1551107696-a4b0c5a0d9a2'), // Navy shoes
+        'burgundy': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1608667508764-33cf0726aae8'), // Burgundy shoes
+        'pink': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1605348532760-6753d2c43329') // Pink shoes
+      }
+
+      return colorImageMap
     },
     
     relatedProducts() {
@@ -455,6 +477,14 @@ export default {
       handler() {
         this.initializeProduct()
       }
+    },
+
+    selectedColor: {
+      handler(newColor) {
+        if (newColor && this.productImages.length > 0) {
+          this.selectedImage = this.productImages[0]
+        }
+      }
     }
   },
   
@@ -463,10 +493,17 @@ export default {
     
     initializeProduct() {
       if (this.product) {
+        this.selectedColor = this.product.colors[0] // Set default color
         this.selectedImage = this.productImages[0]
         this.selectedSize = null
-        this.selectedColor = null
       }
+    },
+
+    getImageForColor(color) {
+      if (!this.product || !color) return this.product?.image || ''
+
+      // Return color-specific image or fallback to default
+      return this.colorImages[color.toLowerCase()] || this.product.image
     },
     
     getColorCode(color) {
