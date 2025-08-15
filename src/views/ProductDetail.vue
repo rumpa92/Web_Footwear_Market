@@ -354,7 +354,7 @@
                 class="star-btn"
                 :class="{ filled: star <= newReview.rating }"
                 @click="newReview.rating = star"
-              >���</button>
+              >★</button>
             </div>
           </div>
           <div class="text-input">
@@ -491,12 +491,19 @@ export default {
     },
     
     relatedProducts() {
-      if (!this.product || !this.allProducts) return []
+      if (!this.product || !this.allProducts) {
+        console.log('No product or allProducts available')
+        return []
+      }
+
+      console.log('Current product:', this.product.name, 'Brand:', this.product.brand, 'Category:', this.product.category)
+      console.log('All products count:', this.allProducts.length)
 
       // First try to get products from same brand
       let related = this.allProducts.filter(p =>
         p.id !== this.product.id && p.brand === this.product.brand
       )
+      console.log('Same brand products:', related.length)
 
       // If not enough from same brand, add products from same category
       if (related.length < 6) {
@@ -506,6 +513,7 @@ export default {
           !related.some(rp => rp.id === p.id)
         )
         related = [...related, ...categoryProducts]
+        console.log('After adding category products:', related.length)
       }
 
       // If still not enough, add any other products
@@ -515,9 +523,12 @@ export default {
           !related.some(rp => rp.id === p.id)
         )
         related = [...related, ...otherProducts]
+        console.log('After adding other products:', related.length)
       }
 
-      return related.slice(0, 6)
+      const finalProducts = related.slice(0, 6)
+      console.log('Final related products:', finalProducts.length)
+      return finalProducts
     },
     
     isInCart() {
