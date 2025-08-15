@@ -287,7 +287,7 @@
                 <span class="review-date">{{ formatDate(review.date) }}</span>
               </div>
               <div class="review-stars">
-                <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">★</span>
+                <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">��</span>
                 <span class="rating-value">{{ review.rating }}.0</span>
               </div>
               <p class="review-text" :class="{ expanded: review.expanded }">{{ review.text }}</p>
@@ -711,6 +711,13 @@ export default {
         color: this.selectedColor
       })
       this.showToastMessage('Removed from cart', 'info')
+    },
+
+    clearSelections() {
+      this.selectedSize = null
+      this.selectedColor = this.product.colors[0]
+      this.desiredQuantity = 1
+      this.showToastMessage('Selections cleared', 'info')
     },
     
     getRatingPercentage(rating) {
