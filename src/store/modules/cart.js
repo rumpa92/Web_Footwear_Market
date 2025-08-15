@@ -19,10 +19,12 @@ const getters = {
   },
   isCartOpen: state => state.isOpen,
   getCartItem: state => (id, size, color) => {
-    return state.items.find(item => 
+    return state.items.find(item =>
       item.id === id && item.size === size && item.color === color
     )
-  }
+  },
+  isAddedToCartModalVisible: state => state.isAddedToCartModalVisible,
+  addedProductInfo: state => state.addedProductInfo
 }
 
 const mutations = {
