@@ -501,7 +501,7 @@ export default {
 
     clearSearch() {
       this.searchQuery = ''
-      this.filteredBanks = this.allBanks
+      this.filteredBanks = []
     },
 
     async proceedToPay() {
