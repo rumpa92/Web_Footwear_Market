@@ -85,6 +85,11 @@ const routes = [
     component: () => import('../views/WalletPayment.vue')
   },
   {
+    path: '/netbanking-payment',
+    name: 'NetBankingPayment',
+    component: () => import('../views/NetBankingPayment.vue')
+  },
+  {
     path: '/order-confirmation',
     name: 'OrderConfirmation',
     component: () => import('../views/OrderConfirmation.vue')
