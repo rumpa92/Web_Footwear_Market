@@ -1265,31 +1265,9 @@ export default {
   text-align: center;
 }
 
-.remove-btn {
-  width: 48px;
-  height: 48px;
-  background: #fef2f2;
-  color: #ef4444;
-  border: 2px solid #fecaca;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.remove-btn:hover {
-  background: #ef4444;
-  color: white;
-  border-color: #ef4444;
-  transform: scale(1.05);
-}
-
 .trash-icon {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   stroke: currentColor;
   stroke-width: 2;
   fill: none;
