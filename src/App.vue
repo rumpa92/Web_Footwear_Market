@@ -24,6 +24,7 @@ import Header from './components/layout/Header.vue'
 import Footer from './components/layout/Footer.vue'
 import ShoppingCart from './components/cart/ShoppingCart.vue'
 import SplashScreen from './components/SplashScreen.vue'
+import AddedToCartModal from './components/AddedToCartModal.vue'
 
 export default {
   name: 'App',
