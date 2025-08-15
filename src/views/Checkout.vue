@@ -661,6 +661,12 @@ export default {
         return
       }
 
+      // Handle Net Banking payment
+      if (this.selectedPayment === 'netbanking') {
+        this.redirectToNetBankingPayment()
+        return
+      }
+
       this.isPlacingOrder = true
 
       // Simulate API call
