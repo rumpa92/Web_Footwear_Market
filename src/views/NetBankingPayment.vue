@@ -85,26 +85,26 @@
             </div>
           </div>
 
-          <!-- All Banks Section -->
-          <div class="all-banks-section">
-            <h3>{{ searchQuery ? 'Search Results' : 'All Banks' }}</h3>
-            <div v-if="filteredBanks.length === 0 && searchQuery" class="no-results">
+          <!-- Search Results Section (only when searching) -->
+          <div v-if="searchQuery" class="search-results-section">
+            <h3>Search Results</h3>
+            <div v-if="filteredBanks.length === 0" class="no-results">
               <div class="no-results-icon">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
                 </svg>
               </div>
               <h4>No banks found</h4>
-              <p>Try searching with a different keyword or browse all banks below.</p>
-              <button @click="clearSearch" class="browse-all-btn">Browse All Banks</button>
+              <p>Try searching with a different keyword from the popular banks available.</p>
+              <button @click="clearSearch" class="browse-all-btn">View Popular Banks</button>
             </div>
-            
+
             <div v-else class="banks-list">
-              <div 
-                v-for="bank in filteredBanks" 
+              <div
+                v-for="bank in filteredBanks"
                 :key="bank.id"
                 class="bank-list-item"
-                :class="{ 
+                :class="{
                   selected: selectedBank?.id === bank.id,
                   disabled: bank.status !== 'available'
                 }"
@@ -193,7 +193,7 @@
                 </div>
                 <div class="price-row">
                   <span>Shipping</span>
-                  <span>���{{ orderData.shipping?.toFixed(2) || '0.00' }}</span>
+                  <span>₹{{ orderData.shipping?.toFixed(2) || '0.00' }}</span>
                 </div>
                 <div class="price-row">
                   <span>Tax</span>
