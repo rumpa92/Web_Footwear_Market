@@ -670,6 +670,11 @@ export default {
 
       this.isAdding = false
       this.showToastMessage(`Added ${this.desiredQuantity} item${this.desiredQuantity > 1 ? 's' : ''} to cart!`, 'success')
+
+      // Navigate to cart page after a short delay to show the success message
+      setTimeout(() => {
+        this.$router.push('/cart')
+      }, 1000)
     },
     
     increaseQuantity() {
