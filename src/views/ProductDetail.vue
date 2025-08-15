@@ -1340,40 +1340,54 @@ export default {
 .rating-breakdown {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
-.rating-bar {
+.rating-row {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.rating-number {
+.rating-label {
   font-size: 0.9rem;
   color: #6b7280;
-  min-width: 30px;
+  min-width: 100px;
+  font-weight: 500;
 }
 
 .bar-container {
   flex: 1;
-  height: 8px;
-  background: #e5e7eb;
-  border-radius: 4px;
+  height: 12px;
+  background: #f3f4f6;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .bar-fill {
   height: 100%;
-  background: #fbbf24;
   transition: width 0.3s ease;
+  border-radius: 6px;
 }
 
-.rating-count {
-  font-size: 0.9rem;
-  color: #6b7280;
-  min-width: 30px;
-  text-align: right;
+.bar-fill.excellent {
+  background: #22c55e;
+}
+
+.bar-fill.good {
+  background: #84cc16;
+}
+
+.bar-fill.average {
+  background: #f59e0b;
+}
+
+.bar-fill.below-average {
+  background: #f97316;
+}
+
+.bar-fill.poor {
+  background: #ef4444;
 }
 
 .reviews-filters {
