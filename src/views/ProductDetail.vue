@@ -149,13 +149,14 @@
         <div class="cart-section">
           <div v-if="!isInCart" class="add-to-cart-container">
             <button
-              @click="addToCart"
+              @click="isInCart ? goToCart() : addToCart()"
               class="add-to-cart-btn"
               :disabled="!product.inStock"
-              :class="{ adding: isAdding }"
-              :title="`Ready to add to cart! In Stock: ${product?.inStock !== false}`"
+              :class="{ adding: isAdding, 'go-to-cart': isInCart }"
+              :title="isInCart ? 'Go to cart page' : 'Add item to cart'"
             >
-              <span v-if="!isAdding">Add to Cart</span>
+              <span v-if="!isAdding && !isInCart">Add to Cart</span>
+              <span v-else-if="!isAdding && isInCart">Go to Cart</span>
               <span v-else>Adding...</span>
             </button>
           </div>
