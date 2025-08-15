@@ -260,6 +260,19 @@
                     Save this card for future purchases
                   </label>
                 </div>
+
+                <div class="card-continue-section">
+                  <button
+                    @click="continueToReview"
+                    class="continue-btn"
+                    :disabled="!isCardFormValid"
+                  >
+                    Continue
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
