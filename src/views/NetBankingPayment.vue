@@ -694,13 +694,12 @@ export default {
 .bank-logo {
   width: 48px;
   height: 48px;
-  background: #f3f4f6;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #6b7280;
+  transition: all 0.2s ease;
 }
 
 .bank-icon {
