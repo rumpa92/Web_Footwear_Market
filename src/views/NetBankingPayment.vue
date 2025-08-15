@@ -63,9 +63,9 @@
                     <div class="radio-dot"></div>
                   </div>
                 </div>
-                <div class="bank-logo">
+                <div class="bank-logo" :style="{ backgroundColor: bank.color + '20', color: bank.color }">
                   <svg class="bank-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5,6.09L7.91,3H16.09L19,6.09V17.91L16.09,21H7.91L5,17.91V6.09M11,8V14H13V8H11M11,16V18H13V16H11Z"/>
+                    <path :d="bank.icon"/>
                   </svg>
                 </div>
                 <div class="bank-info">
