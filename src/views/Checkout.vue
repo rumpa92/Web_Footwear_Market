@@ -648,23 +648,47 @@ export default {
           return
         }
       }
-      
+
+      // Handle UPI payment
+      if (this.selectedPayment === 'upi') {
+        this.redirectToUpiPayment()
+        return
+      }
+
       this.isPlacingOrder = true
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000))
-      
+
       // Generate order confirmation
       this.orderConfirmation = {
         orderId: `BM${Date.now().toString().slice(-8)}`,
         deliveryDate: this.getDeliveryDate()
       }
-      
+
       this.isPlacingOrder = false
       this.showOrderConfirmation = true
-      
+
       // Clear cart
       this.$store.dispatch('cart/clearCart')
+    },
+
+    redirectToUpiPayment() {
+      // Store order data for UPI payment page
+      const orderData = {
+        deliveryAddress: this.selectedAddress,
+        discount: this.appliedPromo ? this.appliedPromo.discount : 0,
+        items: this.cartItems,
+        subtotal: this.cartTotal,
+        shipping: this.shippingCost,
+        tax: this.taxAmount,
+        total: this.finalTotal
+      }
+
+      localStorage.setItem('currentOrder', JSON.stringify(orderData))
+
+      // Navigate to UPI payment page
+      this.$router.push('/upi-payment')
     },
 
     getDeliveryDate() {
