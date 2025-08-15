@@ -333,7 +333,16 @@ export default {
   font-size: 3rem;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cart-description {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .breadcrumb {
