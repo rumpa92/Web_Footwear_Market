@@ -2,91 +2,13 @@
   <div class="products-page">
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">All Products</h1>
-        <p class="page-subtitle">Discover our complete collection of premium footwear</p>
+        <h1 class="page-title">{{ pageTitle }}</h1>
+        <p class="page-subtitle">{{ pageSubtitle }}</p>
       </div>
 
       <div class="products-content">
         <!-- Filters Sidebar -->
-        <aside class="filters-sidebar">
-          <div class="filters-header">
-            <h3 class="filters-title">Filters</h3>
-            <button @click="clearAllFilters" class="clear-filters-btn">Clear All</button>
-          </div>
-
-          <!-- Category Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Category</h4>
-            <div class="filter-options">
-              <label v-for="category in categories" :key="category" class="filter-option">
-                <input 
-                  type="radio" 
-                  :value="category" 
-                  v-model="selectedCategory"
-                  @change="updateFilters"
-                  class="filter-input"
-                />
-                <span class="filter-label">{{ formatCategory(category) }}</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Brand Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Brand</h4>
-            <div class="filter-options">
-              <label v-for="brand in brands" :key="brand" class="filter-option">
-                <input 
-                  type="radio" 
-                  :value="brand" 
-                  v-model="selectedBrand"
-                  @change="updateFilters"
-                  class="filter-input"
-                />
-                <span class="filter-label">{{ brand }}</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Price Range Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Price Range</h4>
-            <div class="price-range">
-              <input 
-                type="range" 
-                min="0" 
-                max="500" 
-                v-model="priceRange[0]"
-                @input="updateFilters"
-                class="price-slider"
-              />
-              <input 
-                type="range" 
-                min="0" 
-                max="500" 
-                v-model="priceRange[1]"
-                @input="updateFilters"
-                class="price-slider"
-              />
-              <div class="price-display">
-                ${{ priceRange[0] }} - ${{ priceRange[1] }}
-              </div>
-            </div>
-          </div>
-
-          <!-- In Stock Filter -->
-          <div class="filter-group">
-            <label class="filter-option checkbox-option">
-              <input 
-                type="checkbox" 
-                v-model="inStockOnly"
-                @change="updateFilters"
-                class="filter-checkbox"
-              />
-              <span class="filter-label">In Stock Only</span>
-            </label>
-          </div>
-        </aside>
+        <ProductFilters />
 
         <!-- Main Content -->
         <main class="products-main">
@@ -160,54 +82,41 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
+import ProductFilters from '../components/products/ProductFilters.vue'
 
 export default {
   name: 'Products',
   components: {
-    ProductCard
+    ProductCard,
+    ProductFilters
   },
   data() {
     return {
-      selectedCategory: '',
-      selectedBrand: '',
-      priceRange: [0, 500],
-      inStockOnly: false,
       sortBy: 'featured',
       viewMode: 'grid'
     }
   },
   computed: {
-    ...mapGetters('products', ['filteredProducts', 'categories', 'brands'])
+    ...mapGetters('products', ['filteredProducts']),
+    pageTitle() {
+      if (this.$route.query.search) {
+        return `Search Results for "${this.$route.query.search}"`
+      }
+      return 'All Products'
+    },
+    pageSubtitle() {
+      if (this.$route.query.search) {
+        return `Found ${this.filteredProducts.length} products matching your search`
+      }
+      return 'Discover our complete collection of premium footwear'
+    }
   },
   methods: {
     ...mapActions('products', ['setFilter', 'clearFilters', 'setSortBy']),
-    updateFilters() {
-      this.setFilter({ type: 'category', value: this.selectedCategory })
-      this.setFilter({ type: 'brand', value: this.selectedBrand })
-      this.setFilter({ type: 'priceRange', value: this.priceRange })
-      this.setFilter({ type: 'inStock', value: this.inStockOnly })
-    },
     updateSort() {
       this.setSortBy(this.sortBy)
     },
-    clearAllFilters() {
-      this.selectedCategory = ''
-      this.selectedBrand = ''
-      this.priceRange = [0, 500]
-      this.inStockOnly = false
-      this.clearFilters()
-    },
-    formatCategory(category) {
-      return category.charAt(0).toUpperCase() + category.slice(1)
-    }
   },
-  mounted() {
-    // Initialize filters from URL query params if available
-    if (this.$route.query.category) {
-      this.selectedCategory = this.$route.query.category
-      this.updateFilters()
-    }
-  }
 }
 </script>
 
@@ -239,103 +148,7 @@ export default {
   gap: var(--space-2xl);
 }
 
-.filters-sidebar {
-  background-color: var(--bg-primary);
-  padding: var(--space-xl);
-  border-radius: var(--border-radius-lg);
-  height: fit-content;
-  position: sticky;
-  top: calc(80px + var(--space-md));
-}
 
-.filters-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.filters-title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-}
-
-.clear-filters-btn {
-  color: var(--accent-color);
-  background: none;
-  border: none;
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.clear-filters-btn:hover {
-  color: var(--accent-dark);
-}
-
-.filter-group {
-  margin-bottom: var(--space-lg);
-}
-
-.filter-title {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.filter-options {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.filter-option {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.filter-option:hover {
-  color: var(--accent-color);
-}
-
-.filter-input {
-  width: 1rem;
-  height: 1rem;
-}
-
-.filter-checkbox {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.filter-label {
-  font-size: var(--font-size-sm);
-  color: var(--text-primary);
-}
-
-.price-range {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.price-slider {
-  width: 100%;
-}
-
-.price-display {
-  text-align: center;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  font-weight: var(--font-weight-medium);
-}
 
 .products-main {
   min-height: 400px;
@@ -443,11 +256,6 @@ export default {
 @media (max-width: 1024px) {
   .products-content {
     grid-template-columns: 1fr;
-  }
-  
-  .filters-sidebar {
-    position: static;
-    margin-bottom: var(--space-xl);
   }
 }
 

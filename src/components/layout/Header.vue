@@ -16,18 +16,49 @@
         </nav>
 
         <!-- Search Bar -->
-        <div class="search-bar">
+        <div class="search-bar" v-click-outside="closeSuggestions">
           <div class="search-input">
             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
             <input
               type="text"
-              placeholder="Search shoes..."
+              placeholder="Search by brand, category, size, color..."
               class="form-input"
               v-model="searchQuery"
               @input="handleSearch"
+              @focus="showSuggestions = true"
+              @keydown.enter="performSearch"
+              @keydown.down="navigateSuggestions(1)"
+              @keydown.up="navigateSuggestions(-1)"
+              @keydown.esc="closeSuggestions"
             />
+            <button v-if="searchQuery" @click="clearSearch" class="clear-search-btn">
+              <svg class="clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Search Suggestions Dropdown -->
+          <div v-if="showSuggestions && suggestions.length > 0" class="suggestions-dropdown">
+            <div class="suggestions-header">
+              <span class="suggestions-title">Suggestions</span>
+            </div>
+            <ul class="suggestions-list">
+              <li
+                v-for="(suggestion, index) in suggestions"
+                :key="index"
+                @click="selectSuggestion(suggestion)"
+                class="suggestion-item"
+                :class="{ 'highlighted': index === highlightedIndex }"
+              >
+                <svg class="suggestion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <span class="suggestion-text">{{ suggestion }}</span>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -92,12 +123,32 @@ export default {
     return {
       searchQuery: '',
       showUserMenu: false,
-      showMobileMenu: false
+      showMobileMenu: false,
+      showSuggestions: false,
+      suggestions: [],
+      highlightedIndex: -1,
+      searchTimeout: null
+    }
+  },
+  directives: {
+    'click-outside': {
+      bind(el, binding) {
+        el._clickOutside = (event) => {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value()
+          }
+        }
+        document.addEventListener('click', el._clickOutside)
+      },
+      unbind(el) {
+        document.removeEventListener('click', el._clickOutside)
+      }
     }
   },
   computed: {
     ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist']),
     ...mapGetters('cart', ['cartItemCount']),
+    ...mapGetters('products', ['searchSuggestions']),
     wishlistCount() {
       return this.wishlist.length
     }
@@ -105,15 +156,69 @@ export default {
   methods: {
     ...mapActions('cart', ['toggleCart']),
     ...mapActions('user', ['logout']),
+    ...mapActions('products', ['generateSearchSuggestions', 'setFilter']),
     handleSearch() {
-      // Implement search functionality
-      console.log('Searching for:', this.searchQuery)
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        if (this.searchQuery.length >= 2) {
+          this.suggestions = this.generateSearchSuggestions(this.searchQuery)
+          this.showSuggestions = true
+          this.highlightedIndex = -1
+        } else {
+          this.suggestions = []
+          this.showSuggestions = false
+        }
+      }, 300)
+    },
+    selectSuggestion(suggestion) {
+      this.searchQuery = suggestion
+      this.closeSuggestions()
+      this.performSearch()
+    },
+    performSearch() {
+      if (this.searchQuery.trim()) {
+        this.setFilter({ type: 'search', value: this.searchQuery.trim() })
+        this.$router.push({ name: 'Products', query: { search: this.searchQuery.trim() } })
+        this.closeSuggestions()
+      }
+    },
+    clearSearch() {
+      this.searchQuery = ''
+      this.suggestions = []
+      this.showSuggestions = false
+      this.setFilter({ type: 'search', value: '' })
+    },
+    closeSuggestions() {
+      this.showSuggestions = false
+      this.highlightedIndex = -1
+    },
+    navigateSuggestions(direction) {
+      if (!this.showSuggestions || this.suggestions.length === 0) return
+
+      this.highlightedIndex += direction
+
+      if (this.highlightedIndex >= this.suggestions.length) {
+        this.highlightedIndex = 0
+      } else if (this.highlightedIndex < 0) {
+        this.highlightedIndex = this.suggestions.length - 1
+      }
+
+      if (this.highlightedIndex >= 0) {
+        this.searchQuery = this.suggestions[this.highlightedIndex]
+      }
     },
     goToWishlist() {
       this.$router.push('/wishlist')
     },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
+    }
+  },
+  mounted() {
+    // Initialize search from query params
+    if (this.$route.query.search) {
+      this.searchQuery = this.$route.query.search
+      this.setFilter({ type: 'search', value: this.searchQuery })
     }
   }
 }
@@ -182,6 +287,133 @@ export default {
   flex: 1;
   max-width: 400px;
   margin: 0 var(--space-md);
+  position: relative;
+}
+
+.search-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-sm);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-secondary);
+  z-index: 1;
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-2xl) var(--space-sm) 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-fast);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-color-20);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: var(--space-sm);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-fast);
+}
+
+.clear-search-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+.clear-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  margin-top: var(--space-xs);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestions-header {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-light);
+}
+
+.suggestions-title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.highlighted {
+  background-color: var(--bg-light);
+  color: var(--accent-color);
+}
+
+.suggestion-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.suggestion-item:hover .suggestion-icon,
+.suggestion-item.highlighted .suggestion-icon {
+  color: var(--accent-color);
+}
+
+.suggestion-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
 }
 
 .user-actions {
@@ -287,7 +519,18 @@ export default {
 
 @media (max-width: 767px) {
   .search-bar {
-    display: none;
+    order: 1;
+    width: 100%;
+    margin: var(--space-md) 0 0 0;
+    max-width: none;
+  }
+
+  .header-content {
+    flex-wrap: wrap;
+  }
+
+  .user-actions {
+    order: 0;
   }
 }
 </style>

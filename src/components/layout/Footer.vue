@@ -121,10 +121,10 @@
           <div class="payment-methods">
             <span class="payment-text">We accept:</span>
             <div class="payment-icons">
-              <span class="payment-icon">💳</span>
-              <span class="payment-icon">💰</span>
-              <span class="payment-icon">🏦</span>
-              <span class="payment-icon">📱</span>
+              <div class="payment-card">VISA</div>
+              <div class="payment-card">MC</div>
+              <div class="payment-card">AMEX</div>
+              <div class="payment-card">PP</div>
             </div>
           </div>
         </div>
@@ -156,9 +156,20 @@ export default {
 
 <style scoped>
 .footer {
-  background-color: var(--bg-dark);
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: var(--text-white);
   margin-top: auto;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
 }
 
 .footer-content {
@@ -211,6 +222,7 @@ export default {
 .social-link:hover {
   background-color: var(--accent-color);
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
 }
 
 .social-icon {
@@ -234,6 +246,18 @@ export default {
   font-weight: var(--font-weight-semibold);
   color: var(--text-white);
   margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.link-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
 }
 
 .link-list {
@@ -253,13 +277,16 @@ export default {
 }
 
 .footer-link:hover {
-  color: var(--text-white);
+  color: var(--accent-color);
+  padding-left: var(--space-xs);
 }
 
 .newsletter-section {
   padding: var(--space-xl) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .newsletter-content {
@@ -359,8 +386,20 @@ export default {
   gap: var(--space-sm);
 }
 
-.payment-icon {
-  font-size: var(--font-size-lg);
+.payment-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--transition-fast);
+}
+
+.payment-card:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 @media (min-width: 768px) {

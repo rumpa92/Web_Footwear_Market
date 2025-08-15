@@ -22,24 +22,79 @@
       </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="featured-products">
+    <!-- Sort By Section -->
+    <section class="sort-section">
+      <div class="container">
+        <div class="sort-controls">
+          <div class="sort-dropdown">
+            <label class="sort-label">Sort by:</label>
+            <select v-model="selectedSort" @change="updateSort" class="sort-select">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Featured Products</h2>
-          <p class="section-subtitle">Handpicked favorites from our collection</p>
+          <h2 class="section-title">Browse Products</h2>
+          <p class="section-subtitle">Use filters to find exactly what you're looking for</p>
         </div>
-        
+
+        <div class="filters-content">
+          <!-- Filters Sidebar -->
+          <ProductFilters />
+
+          <!-- Filtered Products -->
+          <div class="filtered-products">
+            <div v-if="filteredProducts.length === 0" class="no-products">
+              <div class="no-products-content">
+                <h3>No products found</h3>
+                <p>Try adjusting your filters to see more products</p>
+              </div>
+            </div>
+
+            <div v-else class="products-grid">
+              <ProductCard
+                v-for="product in filteredProducts.slice(0, 8)"
+                :key="product.id"
+                :product="product"
+              />
+            </div>
+
+            <div v-if="filteredProducts.length > 8" class="section-footer">
+              <router-link to="/products" class="btn btn-outline">View All Products</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="new-arrivals">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">New Arrivals</h2>
+          <p class="section-subtitle">Latest additions to our collection</p>
+        </div>
+
         <div class="products-grid">
-          <ProductCard 
-            v-for="product in featuredProducts" 
-            :key="product.id" 
+          <ProductCard
+            v-for="product in newArrivals"
+            :key="product.id"
             :product="product"
           />
         </div>
-        
+
         <div class="section-footer">
-          <router-link to="/products" class="btn btn-outline">View All Products</router-link>
+          <router-link to="/products?filter=new" class="btn btn-outline">View All New Arrivals</router-link>
         </div>
       </div>
     </section>
@@ -71,20 +126,62 @@
       </div>
     </section>
 
-    <!-- Brands -->
-    <section class="brands">
+    <!-- Suggested for You -->
+    <section class="suggested-products">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Popular Brands</h2>
-          <p class="section-subtitle">Shop from the world's leading footwear brands</p>
+          <h2 class="section-title">Suggested for You</h2>
+          <p class="section-subtitle">Highly rated products you might love</p>
         </div>
         
-        <div class="brands-grid">
-          <div class="brand-card" v-for="brand in brands" :key="brand.name">
-            <div class="brand-logo">{{ brand.logo }}</div>
-            <h3 class="brand-name">{{ brand.name }}</h3>
-            <router-link :to="`/brands/${brand.slug}`" class="brand-link">Shop {{ brand.name }}</router-link>
+        <div class="products-grid">
+          <ProductCard 
+            v-for="product in suggestedProducts" 
+            :key="product.id" 
+            :product="product"
+          />
+        </div>
+        
+        <div class="section-footer">
+          <router-link to="/products?sort=rating" class="btn btn-outline">View Top Rated</router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Trending Banner -->
+    <section class="trending-banner">
+      <div class="container">
+        <div class="banner-content">
+          <div class="banner-text">
+            <h2 class="banner-title">What's Trending</h2>
+            <p class="banner-subtitle">Discover the hottest shoes everyone's talking about</p>
+            <router-link to="/products?filter=trending" class="btn btn-primary btn-lg">Explore Trends</router-link>
           </div>
+          <div class="banner-image">
+            <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&h=400&fit=crop" alt="Trending Shoes" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Trending Products -->
+    <section class="trending-products">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Trending Now</h2>
+          <p class="section-subtitle">Popular picks flying off our shelves</p>
+        </div>
+        
+        <div class="products-grid">
+          <ProductCard 
+            v-for="product in trendingProducts" 
+            :key="product.id" 
+            :product="product"
+          />
+        </div>
+        
+        <div class="section-footer">
+          <router-link to="/products?filter=trending" class="btn btn-outline">View All Trending</router-link>
         </div>
       </div>
     </section>
@@ -120,15 +217,18 @@
 <script>
 import { mapGetters } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
+import ProductFilters from '../components/products/ProductFilters.vue'
 
 export default {
   name: 'Home',
   components: {
-    ProductCard
+    ProductCard,
+    ProductFilters
   },
   data() {
     return {
       email: '',
+      selectedSort: 'featured',
       categories: [
         {
           name: 'Men',
@@ -173,18 +273,10 @@ export default {
           link: '/products?category=formal'
         }
       ],
-      brands: [
-        { name: 'Nike', logo: '✓', slug: 'nike' },
-        { name: 'Adidas', logo: '⚡', slug: 'adidas' },
-        { name: 'Jordan', logo: '🏀', slug: 'jordan' },
-        { name: 'Converse', logo: '��', slug: 'converse' },
-        { name: 'Vans', logo: '🛹', slug: 'vans' },
-        { name: 'New Balance', logo: 'N', slug: 'new-balance' }
-      ]
     }
   },
   computed: {
-    ...mapGetters('products', ['featuredProducts'])
+    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts', 'filteredProducts'])
   },
   methods: {
     subscribeNewsletter() {
@@ -193,6 +285,9 @@ export default {
         this.email = ''
         // Show success message
       }
+    },
+    updateSort() {
+      this.$store.dispatch('products/setSortBy', this.selectedSort)
     }
   }
 }
@@ -252,8 +347,146 @@ export default {
   width: 100%;
 }
 
-.featured-products {
+.sort-section {
+  padding: var(--space-lg) 0;
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sort-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-dropdown {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: var(--bg-primary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.sort-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.sort-select {
+  background-color: transparent;
+  border: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2rem;
+  min-width: 160px;
+}
+
+.sort-select:focus {
+  color: var(--accent-color);
+}
+
+.filters-section {
   padding: var(--space-3xl) 0;
+  background-color: var(--bg-light);
+}
+
+.filters-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-2xl);
+}
+
+.filtered-products {
+  min-height: 400px;
+}
+
+.no-products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.no-products-content {
+  text-align: center;
+}
+
+.no-products-content h3 {
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.no-products-content p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+
+.new-arrivals {
+  padding: var(--space-3xl) 0;
+}
+
+.suggested-products {
+  padding: var(--space-3xl) 0;
+  background-color: var(--bg-light);
+}
+
+.trending-products {
+  padding: var(--space-3xl) 0;
+}
+
+.trending-banner {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  color: var(--text-white);
+  padding: var(--space-3xl) 0;
+}
+
+.banner-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  text-align: center;
+}
+
+.banner-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-md);
+}
+
+.banner-subtitle {
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+  margin-bottom: var(--space-xl);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-image {
+  display: flex;
+  justify-content: center;
+}
+
+.banner-image img {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 400px;
+  width: 100%;
 }
 
 .section-header {
@@ -384,52 +617,6 @@ export default {
   line-height: var(--line-height-tight);
 }
 
-.brands {
-  padding: var(--space-3xl) 0;
-}
-
-.brands-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-lg);
-}
-
-.brand-card {
-  background-color: var(--bg-primary);
-  padding: var(--space-xl);
-  border-radius: var(--border-radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
-}
-
-.brand-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.brand-logo {
-  font-size: var(--font-size-4xl);
-  margin-bottom: var(--space-md);
-}
-
-.brand-name {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.brand-link {
-  color: var(--accent-color);
-  font-weight: var(--font-weight-medium);
-  transition: var(--transition-fast);
-}
-
-.brand-link:hover {
-  color: var(--accent-dark);
-}
-
 .newsletter {
   background-color: var(--primary-color);
   color: var(--text-white);
@@ -498,6 +685,16 @@ export default {
   .categories-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
+
+  .banner-content {
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+  }
+
+  .banner-subtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -505,6 +702,12 @@ export default {
     grid-template-columns: repeat(6, 1fr);
     max-width: 900px;
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .filters-content {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -529,6 +732,15 @@ export default {
 
   .category-icon {
     font-size: 2rem;
+  }
+
+  .sort-dropdown {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sort-select {
+    min-width: 140px;
   }
 }
 </style>
