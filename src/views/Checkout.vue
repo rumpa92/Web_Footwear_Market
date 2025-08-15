@@ -775,7 +775,7 @@ export default {
       this.$router.push('/')
     },
 
-    continueToReview() {
+    async continueToReview() {
       if (!this.isCardFormValid) {
         this.showToastMessage('Please fill in all card details correctly', 'error')
         return
@@ -783,14 +783,29 @@ export default {
 
       // Mark card form as completed
       this.cardFormCompleted = true
+      this.isPlacingOrder = true
 
-      // Show success message
-      this.showToastMessage('Card details saved! Review your order to proceed.', 'success')
+      try {
+        // Simulate card payment processing
+        await new Promise(resolve => setTimeout(resolve, 2000))
 
-      // Scroll to order summary
-      const orderSummary = document.querySelector('.order-summary')
-      if (orderSummary) {
-        orderSummary.scrollIntoView({ behavior: 'smooth' })
+        // Generate order confirmation for card payment
+        this.orderConfirmation = {
+          orderId: `CD${Date.now().toString().slice(-8)}`,
+          deliveryDate: this.getDeliveryDate()
+        }
+
+        this.isPlacingOrder = false
+        this.showOrderConfirmation = true
+
+        // Clear cart
+        this.$store.dispatch('cart/clearCart')
+
+      } catch (error) {
+        console.error('Card payment processing error:', error)
+        this.showToastMessage('Payment processing failed. Please try again.', 'error')
+        this.isPlacingOrder = false
+        this.cardFormCompleted = false
       }
     },
 
