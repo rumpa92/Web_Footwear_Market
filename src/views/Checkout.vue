@@ -721,6 +721,24 @@ export default {
       this.$router.push('/wallet-payment')
     },
 
+    redirectToNetBankingPayment() {
+      // Store order data for net banking payment page
+      const orderData = {
+        deliveryAddress: this.selectedAddress,
+        discount: this.appliedPromo ? this.appliedPromo.discount : 0,
+        items: this.cartItems,
+        subtotal: this.cartTotal,
+        shipping: this.shippingCost,
+        tax: this.taxAmount,
+        total: this.finalTotal
+      }
+
+      localStorage.setItem('currentOrder', JSON.stringify(orderData))
+
+      // Navigate to net banking payment page
+      this.$router.push('/netbanking-payment')
+    },
+
     getDeliveryDate() {
       const date = new Date()
       date.setDate(date.getDate() + 5)
