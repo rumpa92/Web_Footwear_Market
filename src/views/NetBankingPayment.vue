@@ -778,6 +778,17 @@ export default {
   cursor: not-allowed;
 }
 
+.search-bank-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
 .bank-details {
   flex: 1;
 }
