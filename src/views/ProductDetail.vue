@@ -1158,6 +1158,29 @@ export default {
   text-align: center;
 }
 
+.remove-btn-inline {
+  width: 40px;
+  height: 40px;
+  background: #fef2f2;
+  color: #ef4444;
+  border: 2px solid #fecaca;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  margin-left: 0.5rem;
+}
+
+.remove-btn-inline:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  transform: scale(1.05);
+}
+
 /* Cart Section */
 .cart-section {
   background: white;
