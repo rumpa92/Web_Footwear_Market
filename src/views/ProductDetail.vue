@@ -504,8 +504,13 @@ export default {
     },
     
     isInCart() {
-      if (!this.product || !this.selectedSize || !this.selectedColor) return false
-      return this.getCartItem(this.product.id, this.selectedSize, this.selectedColor)
+      if (!this.product) return false
+
+      // Use the same default values as in addToCart method
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
+      return this.getCartItem(this.product.id, size, color)
     },
     
     cartItemQuantity() {
