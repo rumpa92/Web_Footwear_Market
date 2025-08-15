@@ -112,9 +112,11 @@ const state = {
     priceRange: [0, 500],
     sizes: [],
     colors: [],
-    inStock: false
+    inStock: false,
+    search: ''
   },
-  sortBy: 'featured'
+  sortBy: 'featured',
+  searchSuggestions: []
 }
 
 const getters = {
@@ -135,8 +137,19 @@ const getters = {
     if (state.filters.inStock) {
       products = products.filter(p => p.inStock)
     }
+    if (state.filters.search) {
+      const searchTerm = state.filters.search.toLowerCase()
+      products = products.filter(p =>
+        p.name.toLowerCase().includes(searchTerm) ||
+        p.brand.toLowerCase().includes(searchTerm) ||
+        p.category.toLowerCase().includes(searchTerm) ||
+        p.gender.toLowerCase().includes(searchTerm) ||
+        p.description.toLowerCase().includes(searchTerm) ||
+        p.colors.some(color => color.toLowerCase().includes(searchTerm))
+      )
+    }
 
-    products = products.filter(p => 
+    products = products.filter(p =>
       p.price >= state.filters.priceRange[0] && p.price <= state.filters.priceRange[1]
     )
 
@@ -157,7 +170,38 @@ const getters = {
   productById: state => id => state.allProducts.find(product => product.id === parseInt(id)),
   brands: state => [...new Set(state.allProducts.map(p => p.brand))],
   categories: state => [...new Set(state.allProducts.map(p => p.category))],
-  genders: state => [...new Set(state.allProducts.map(p => p.gender))]
+  genders: state => [...new Set(state.allProducts.map(p => p.gender))],
+  searchSuggestions: state => state.searchSuggestions,
+  generateSearchSuggestions: state => query => {
+    if (!query || query.length < 2) return []
+
+    const suggestions = new Set()
+    const searchTerm = query.toLowerCase()
+
+    // Add matching brands
+    state.allProducts.forEach(product => {
+      if (product.brand.toLowerCase().includes(searchTerm)) {
+        suggestions.add(product.brand)
+      }
+      if (product.category.toLowerCase().includes(searchTerm)) {
+        suggestions.add(product.category.charAt(0).toUpperCase() + product.category.slice(1))
+      }
+      if (product.gender.toLowerCase().includes(searchTerm)) {
+        const genderMap = { 'men': "Men's", 'women': "Women's", 'kids': "Kids'" }
+        suggestions.add(genderMap[product.gender] || product.gender)
+      }
+      if (product.name.toLowerCase().includes(searchTerm)) {
+        suggestions.add(product.name)
+      }
+      product.colors.forEach(color => {
+        if (color.toLowerCase().includes(searchTerm)) {
+          suggestions.add(color.charAt(0).toUpperCase() + color.slice(1))
+        }
+      })
+    })
+
+    return Array.from(suggestions).slice(0, 8)
+  }
 }
 
 const mutations = {
@@ -175,11 +219,15 @@ const mutations = {
       priceRange: [0, 500],
       sizes: [],
       colors: [],
-      inStock: false
+      inStock: false,
+      search: ''
     }
   },
   SET_SORT_BY(state, sortBy) {
     state.sortBy = sortBy
+  },
+  SET_SEARCH_SUGGESTIONS(state, suggestions) {
+    state.searchSuggestions = suggestions
   }
 }
 
@@ -195,6 +243,11 @@ const actions = {
   },
   setSortBy({ commit }, sortBy) {
     commit('SET_SORT_BY', sortBy)
+  },
+  generateSearchSuggestions({ commit, getters }, query) {
+    const suggestions = getters.generateSearchSuggestions(query)
+    commit('SET_SEARCH_SUGGESTIONS', suggestions)
+    return suggestions
   }
 }
 
