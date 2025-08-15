@@ -201,16 +201,39 @@
           <div class="stars-large">
             <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= Math.floor(product.rating) }">★</span>
           </div>
-          <div class="total-reviews">Based on {{ product.reviews }} reviews</div>
+          <div class="total-reviews">based on {{ product.reviews }} reviews</div>
         </div>
-        
+
         <div class="rating-breakdown">
-          <div v-for="rating in [5,4,3,2,1]" :key="rating" class="rating-bar">
-            <span class="rating-number">{{ rating }}★</span>
+          <div class="rating-row">
+            <span class="rating-label">Excellent</span>
             <div class="bar-container">
-              <div class="bar-fill" :style="{ width: getRatingPercentage(rating) + '%' }"></div>
+              <div class="bar-fill excellent" :style="{ width: getRatingPercentage(5) + '%' }"></div>
             </div>
-            <span class="rating-count">{{ getRatingCount(rating) }}</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Good</span>
+            <div class="bar-container">
+              <div class="bar-fill good" :style="{ width: getRatingPercentage(4) + '%' }"></div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Average</span>
+            <div class="bar-container">
+              <div class="bar-fill average" :style="{ width: getRatingPercentage(3) + '%' }"></div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Below Average</span>
+            <div class="bar-container">
+              <div class="bar-fill below-average" :style="{ width: getRatingPercentage(2) + '%' }"></div>
+            </div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-label">Poor</span>
+            <div class="bar-container">
+              <div class="bar-fill poor" :style="{ width: getRatingPercentage(1) + '%' }"></div>
+            </div>
           </div>
         </div>
       </div>
