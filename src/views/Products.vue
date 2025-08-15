@@ -17,16 +17,17 @@
           <!-- Gender & Age Filter -->
           <div class="filter-group">
             <h4 class="filter-title">Gender & Age</h4>
-            <div class="gender-toggle-buttons">
-              <button
-                v-for="gender in genders"
-                :key="gender"
-                @click="selectGender(gender)"
-                class="gender-toggle-btn"
-                :class="{ 'active': selectedGender === gender }"
-              >
-                {{ formatGender(gender) }}
-              </button>
+            <div class="filter-options">
+              <label v-for="gender in genders" :key="gender" class="filter-option">
+                <input
+                  type="radio"
+                  :value="gender"
+                  v-model="selectedGender"
+                  @change="updateFilters"
+                  class="filter-input"
+                />
+                <span class="filter-label">{{ formatGender(gender) }}</span>
+              </label>
             </div>
           </div>
 
