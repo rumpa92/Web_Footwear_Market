@@ -1388,23 +1388,25 @@ export default {
   stroke-linejoin: round;
 }
 
-.go-to-cart-btn-inline {
-  padding: 0.75rem 2rem;
+.go-to-cart-btn-full {
+  width: 100%;
+  padding: 1rem 2rem;
   background: #1e3a8a;
   color: white;
   border: none;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 140px;
+  position: relative;
+  overflow: hidden;
 }
 
-.go-to-cart-btn-inline:hover {
+.go-to-cart-btn-full:hover {
   background: #1e40af;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
 }
 
 /* How to Use Section */
