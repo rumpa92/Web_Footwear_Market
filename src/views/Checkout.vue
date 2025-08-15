@@ -697,6 +697,24 @@ export default {
       this.$router.push('/upi-payment')
     },
 
+    redirectToWalletPayment() {
+      // Store order data for wallet payment page
+      const orderData = {
+        deliveryAddress: this.selectedAddress,
+        discount: this.appliedPromo ? this.appliedPromo.discount : 0,
+        items: this.cartItems,
+        subtotal: this.cartTotal,
+        shipping: this.shippingCost,
+        tax: this.taxAmount,
+        total: this.finalTotal
+      }
+
+      localStorage.setItem('currentOrder', JSON.stringify(orderData))
+
+      // Navigate to wallet payment page
+      this.$router.push('/wallet-payment')
+    },
+
     getDeliveryDate() {
       const date = new Date()
       date.setDate(date.getDate() + 5)
