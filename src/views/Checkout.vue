@@ -811,6 +811,65 @@ export default {
   background: #dc2626;
 }
 
+/* Delivery Options */
+.delivery-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.delivery-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delivery-option:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+}
+
+.delivery-option.selected {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.delivery-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.delivery-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delivery-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.delivery-time {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.delivery-price {
+  font-weight: 600;
+  color: #3b82f6;
+  font-size: 1.1rem;
+}
+
 /* Payment Methods */
 .payment-methods {
   display: flex;
