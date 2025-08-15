@@ -655,6 +655,12 @@ export default {
         return
       }
 
+      // Handle Wallet payment
+      if (this.selectedPayment === 'wallet') {
+        this.redirectToWalletPayment()
+        return
+      }
+
       this.isPlacingOrder = true
 
       // Simulate API call
