@@ -1401,6 +1401,25 @@ export default {
   stroke-linejoin: round;
 }
 
+.go-to-cart-btn-inline {
+  padding: 0.75rem 2rem;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.go-to-cart-btn-inline:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+}
+
 /* How to Use Section */
 .how-to-use-section {
   background: white;
