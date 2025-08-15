@@ -33,6 +33,7 @@ export default {
   components: {
     Header,
     Footer,
+    BackButton,
     ShoppingCart,
     SplashScreen,
     AddedToCartModal
