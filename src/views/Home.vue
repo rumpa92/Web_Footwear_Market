@@ -22,6 +22,24 @@
       </div>
     </section>
 
+    <!-- Sort By Section -->
+    <section class="sort-section">
+      <div class="container">
+        <div class="sort-controls">
+          <div class="sort-dropdown">
+            <label class="sort-label">Sort by:</label>
+            <select v-model="selectedSort" @change="updateSort" class="sort-select">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- New Arrivals -->
     <section class="new-arrivals">
       <div class="container">
@@ -189,6 +207,7 @@ export default {
   data() {
     return {
       email: '',
+      selectedSort: 'featured',
       categories: [
         {
           name: 'Men',
@@ -253,6 +272,9 @@ export default {
         this.email = ''
         // Show success message
       }
+    },
+    updateSort() {
+      this.$store.dispatch('products/setSortBy', this.selectedSort)
     }
   }
 }
@@ -310,6 +332,56 @@ export default {
   box-shadow: var(--shadow-xl);
   max-width: 500px;
   width: 100%;
+}
+
+.sort-section {
+  padding: var(--space-lg) 0;
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sort-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-dropdown {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: var(--bg-primary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.sort-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.sort-select {
+  background-color: transparent;
+  border: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2rem;
+  min-width: 160px;
+}
+
+.sort-select:focus {
+  color: var(--accent-color);
 }
 
 .new-arrivals {
@@ -649,6 +721,15 @@ export default {
 
   .category-icon {
     font-size: 2rem;
+  }
+
+  .sort-dropdown {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sort-select {
+    min-width: 140px;
   }
 }
 </style>
