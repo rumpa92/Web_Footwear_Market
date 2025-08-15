@@ -287,7 +287,7 @@
                 <span class="review-date">{{ formatDate(review.date) }}</span>
               </div>
               <div class="review-stars">
-                <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">��</span>
+                <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">★</span>
                 <span class="rating-value">{{ review.rating }}.0</span>
               </div>
               <p class="review-text" :class="{ expanded: review.expanded }">{{ review.text }}</p>
@@ -1168,8 +1168,14 @@ export default {
   bottom: 2rem;
 }
 
+.add-to-cart-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .add-to-cart-btn {
-  width: 100%;
+  flex: 1;
   padding: 1rem 2rem;
   background: #3b82f6;
   color: white;
