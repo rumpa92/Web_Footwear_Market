@@ -1018,7 +1018,7 @@ export default {
   margin-bottom: 2rem;
 }
 
-.size-selection, .color-selection {
+.size-selection, .color-selection, .quantity-selection {
   margin-bottom: 2rem;
 }
 
