@@ -15,19 +15,12 @@
         Out of Stock
       </div>
       
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <button @click="toggleWishlist" class="quick-action-btn wishlist-btn" :class="{ active: isInWishlist }">
-          <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-          </svg>
-        </button>
-        <button @click="quickAddToCart" class="quick-action-btn cart-btn" :disabled="!product.inStock">
-          <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l-2.5-5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
-          </svg>
-        </button>
-      </div>
+      <!-- Wishlist Button -->
+      <button @click="toggleWishlist" class="wishlist-btn" :class="{ active: isInWishlist }">
+        <svg class="wishlist-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+      </button>
     </div>
     
     <div class="product-content">
@@ -58,6 +51,20 @@
           <span v-for="color in product.colors.slice(0, 3)" :key="color" class="color-option" :class="color"></span>
           <span v-if="product.colors.length > 3" class="color-more">+{{ product.colors.length - 3 }}</span>
         </div>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <div class="product-actions">
+        <button
+          @click="quickAddToCart"
+          class="add-to-cart-btn"
+          :disabled="!product.inStock"
+        >
+          <svg class="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l-2.5-5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
+          </svg>
+          {{ product.inStock ? 'Add to Cart' : 'Out of Stock' }}
+        </button>
       </div>
     </div>
   </div>
@@ -175,22 +182,10 @@ export default {
   z-index: 1;
 }
 
-.quick-actions {
+.wishlist-btn {
   position: absolute;
   top: var(--space-sm);
   right: var(--space-sm);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  opacity: 0;
-  transition: var(--transition-fast);
-}
-
-.product-card:hover .quick-actions {
-  opacity: 1;
-}
-
-.quick-action-btn {
   width: 2.5rem;
   height: 2.5rem;
   background-color: rgba(255, 255, 255, 0.9);
@@ -202,31 +197,70 @@ export default {
   cursor: pointer;
   transition: var(--transition-fast);
   color: var(--text-secondary);
+  opacity: 0;
+  z-index: 2;
 }
 
-.quick-action-btn:hover {
+.product-card:hover .wishlist-btn {
+  opacity: 1;
+}
+
+.wishlist-btn:hover {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transform: scale(1.1);
 }
 
-.quick-action-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .wishlist-btn.active {
   color: var(--secondary-color);
   background-color: rgba(231, 76, 60, 0.1);
+  opacity: 1;
 }
 
-.action-icon {
+.wishlist-icon {
   width: 1.25rem;
   height: 1.25rem;
 }
 
+.product-actions {
+  margin-top: var(--space-md);
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--accent-color);
+  color: var(--text-white);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+.add-to-cart-btn:disabled {
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.cart-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
 .product-content {
-  padding: var(--space-lg);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
 }
 
 .product-brand {
