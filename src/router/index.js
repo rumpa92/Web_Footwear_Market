@@ -75,6 +75,21 @@ const routes = [
     component: () => import('../views/Checkout.vue')
   },
   {
+    path: '/upi-payment',
+    name: 'UpiPayment',
+    component: () => import('../views/UpiPayment.vue')
+  },
+  {
+    path: '/wallet-payment',
+    name: 'WalletPayment',
+    component: () => import('../views/WalletPayment.vue')
+  },
+  {
+    path: '/order-confirmation',
+    name: 'OrderConfirmation',
+    component: () => import('../views/OrderConfirmation.vue')
+  },
+  {
     path: '*',
     name: 'NotFound',
     component: () => import('../views/NotFound.vue')
