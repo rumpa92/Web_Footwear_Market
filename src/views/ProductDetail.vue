@@ -841,6 +841,10 @@ export default {
       window.open(image, '_blank')
     },
     
+    goToCart() {
+      this.$router.push('/cart')
+    },
+
     showToastMessage(message, type = 'info') {
       this.toast = { message, type }
       this.showToast = true
