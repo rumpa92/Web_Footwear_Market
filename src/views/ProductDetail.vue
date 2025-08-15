@@ -96,6 +96,7 @@
                 class="size-btn"
                 :class="{ selected: selectedSize === size }"
                 @click="selectSize(size)"
+                :title="`Select size ${size}. Currently selected: ${selectedSize || 'none'}`"
               >
                 {{ size }}
               </button>
