@@ -219,6 +219,9 @@ export default {
     goToWishlist() {
       this.$router.push('/wishlist')
     },
+    goToProfile() {
+      this.$router.push('/login')
+    },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
     }
