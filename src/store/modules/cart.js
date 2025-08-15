@@ -1,6 +1,8 @@
 const state = {
   items: [],
-  isOpen: false
+  isOpen: false,
+  isAddedToCartModalVisible: false,
+  addedProductInfo: null
 }
 
 const getters = {
