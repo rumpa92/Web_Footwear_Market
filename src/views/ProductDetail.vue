@@ -825,6 +825,16 @@ export default {
       setTimeout(() => {
         this.showToast = false
       }, 3000)
+    },
+
+    debugButtonState() {
+      console.log('Debug button state:', {
+        selectedSize: this.selectedSize,
+        selectedColor: this.selectedColor,
+        productInStock: this.product?.inStock,
+        productSizes: this.product?.sizes,
+        productColors: this.product?.colors
+      })
     }
   }
 }
