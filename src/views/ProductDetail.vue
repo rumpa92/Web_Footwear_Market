@@ -554,26 +554,27 @@ export default {
     
     initializeProduct() {
       if (this.product) {
-        // Only set default color if none is selected
-        if (!this.selectedColor) {
-          this.selectedColor = this.product.colors[0]
-        }
+        // Set default color only on first load
+        this.selectedColor = this.product.colors[0]
 
         // Set default image
         if (this.productImages.length > 0) {
           this.selectedImage = this.productImages[0]
         }
 
-        // Only reset size if we're switching products, not on initial load
-        // Keep the current selection if user has already selected something
-        if (!this.selectedSize && this.$route.params.id) {
-          this.selectedSize = null
-        }
+        // Don't reset size - let user select it
+        // this.selectedSize = null
 
-        // Only reset quantity if we're switching products
-        if (this.desiredQuantity === undefined) {
-          this.desiredQuantity = 1
-        }
+        // Reset quantity
+        this.desiredQuantity = 1
+
+        console.log('Product initialized:', {
+          productId: this.product.id,
+          colors: this.product.colors,
+          sizes: this.product.sizes,
+          selectedColor: this.selectedColor,
+          selectedSize: this.selectedSize
+        })
       }
     },
 
