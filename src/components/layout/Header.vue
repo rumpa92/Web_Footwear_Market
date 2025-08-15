@@ -90,7 +90,7 @@
           </button>
 
           <!-- User Menu -->
-          <div class="user-menu" v-if="isAuthenticated" @click="showUserMenu = !showUserMenu">
+          <div class="user-menu" v-if="isAuthenticated" @click="showUserMenu = !showUserMenu" v-click-outside="closeDropdown">
             <div class="user-profile-info">
               <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
               <div class="user-details">
