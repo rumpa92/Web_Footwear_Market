@@ -354,7 +354,7 @@
                 class="star-btn"
                 :class="{ filled: star <= newReview.rating }"
                 @click="newReview.rating = star"
-              >★</button>
+              >���</button>
             </div>
           </div>
           <div class="text-input">
@@ -491,10 +491,33 @@ export default {
     },
     
     relatedProducts() {
-      if (!this.product) return []
-      return this.allProducts
-        .filter(p => p.id !== this.product.id && (p.brand === this.product.brand || p.category === this.product.category))
-        .slice(0, 6)
+      if (!this.product || !this.allProducts) return []
+
+      // First try to get products from same brand
+      let related = this.allProducts.filter(p =>
+        p.id !== this.product.id && p.brand === this.product.brand
+      )
+
+      // If not enough from same brand, add products from same category
+      if (related.length < 6) {
+        const categoryProducts = this.allProducts.filter(p =>
+          p.id !== this.product.id &&
+          p.category === this.product.category &&
+          !related.some(rp => rp.id === p.id)
+        )
+        related = [...related, ...categoryProducts]
+      }
+
+      // If still not enough, add any other products
+      if (related.length < 6) {
+        const otherProducts = this.allProducts.filter(p =>
+          p.id !== this.product.id &&
+          !related.some(rp => rp.id === p.id)
+        )
+        related = [...related, ...otherProducts]
+      }
+
+      return related.slice(0, 6)
     },
     
     isInCart() {
