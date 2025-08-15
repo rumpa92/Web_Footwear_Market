@@ -54,11 +54,13 @@ export default {
     }
   },
   mounted() {
+    console.log('SplashScreen mounted, will hide in 1.5 seconds')
     // Hide splash screen after animation completes
     setTimeout(() => {
+      console.log('Hiding splash screen from SplashScreen component')
       this.showSplash = false
       this.$emit('splash-complete')
-    }, 4000) // 4 seconds total duration
+    }, 1500) // Reduced from 4000 to 1500
   }
 }
 </script>
