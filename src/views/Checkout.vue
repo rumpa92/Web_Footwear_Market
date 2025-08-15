@@ -1248,6 +1248,26 @@ export default {
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
+.continue-btn.processing {
+  background: #3b82f6;
+  cursor: default;
+}
+
+.continue-btn.processing:hover {
+  background: #3b82f6;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .continue-btn svg {
   width: 18px;
   height: 18px;
