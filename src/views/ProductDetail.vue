@@ -548,7 +548,8 @@ export default {
   },
   
   methods: {
-    ...mapActions('cart', ['addToCart', 'removeFromCart', 'updateCartItemQuantity']),
+    ...mapActions('cart', ['removeFromCart', 'updateCartItemQuantity']),
+    ...mapActions('cart', { addItemToCart: 'addToCart' }),
     
     initializeProduct() {
       if (this.product) {
