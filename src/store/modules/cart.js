@@ -1,6 +1,8 @@
 const state = {
   items: [],
-  isOpen: false
+  isOpen: false,
+  isAddedToCartModalVisible: false,
+  addedProductInfo: null
 }
 
 const getters = {
@@ -17,10 +19,12 @@ const getters = {
   },
   isCartOpen: state => state.isOpen,
   getCartItem: state => (id, size, color) => {
-    return state.items.find(item => 
+    return state.items.find(item =>
       item.id === id && item.size === size && item.color === color
     )
-  }
+  },
+  isAddedToCartModalVisible: state => state.isAddedToCartModalVisible,
+  addedProductInfo: state => state.addedProductInfo
 }
 
 const mutations = {
@@ -73,13 +77,33 @@ const mutations = {
   },
   SET_CART_OPEN(state, isOpen) {
     state.isOpen = isOpen
+  },
+  SHOW_ADDED_TO_CART_MODAL(state, productInfo) {
+    state.isAddedToCartModalVisible = true
+    state.addedProductInfo = productInfo
+  },
+  HIDE_ADDED_TO_CART_MODAL(state) {
+    state.isAddedToCartModalVisible = false
+    state.addedProductInfo = null
   }
 }
 
 const actions = {
   addToCart({ commit, state }, payload) {
     commit('ADD_TO_CART', payload)
-    commit('SET_CART_OPEN', true)
+
+    // Show the added to cart modal with product information
+    const productInfo = {
+      id: payload.product.id,
+      name: payload.product.name,
+      brand: payload.product.brand,
+      price: payload.product.price,
+      image: payload.product.image,
+      size: payload.size,
+      color: payload.color,
+      quantity: payload.quantity || 1
+    }
+    commit('SHOW_ADDED_TO_CART_MODAL', productInfo)
   },
   removeFromCart({ commit }, payload) {
     commit('REMOVE_FROM_CART', payload)
@@ -96,6 +120,12 @@ const actions = {
   },
   setCartOpen({ commit }, isOpen) {
     commit('SET_CART_OPEN', isOpen)
+  },
+  showAddedToCartModal({ commit }, productInfo) {
+    commit('SHOW_ADDED_TO_CART_MODAL', productInfo)
+  },
+  hideAddedToCartModal({ commit }) {
+    commit('HIDE_ADDED_TO_CART_MODAL')
   }
 }
 
