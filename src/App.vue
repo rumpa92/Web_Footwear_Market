@@ -9,6 +9,7 @@
     <!-- Main App Content -->
     <div v-else class="app-content">
       <Header />
+      <BackButton />
       <main class="main-content">
         <router-view />
       </main>
