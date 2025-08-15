@@ -265,17 +265,23 @@
                   <button
                     @click="continueToReview"
                     class="continue-btn"
-                    :class="{ completed: cardFormCompleted }"
-                    :disabled="!isCardFormValid"
+                    :class="{ completed: cardFormCompleted && !isPlacingOrder, processing: isPlacingOrder }"
+                    :disabled="!isCardFormValid || isPlacingOrder"
                   >
-                    <span v-if="!cardFormCompleted">
+                    <span v-if="!cardFormCompleted && !isPlacingOrder">
                       Continue
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
                       </svg>
                     </span>
+                    <span v-else-if="isPlacingOrder">
+                      Processing Payment...
+                      <svg class="loading-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+                      </svg>
+                    </span>
                     <span v-else>
-                      Card Details Saved
+                      Payment Completed
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
                       </svg>
