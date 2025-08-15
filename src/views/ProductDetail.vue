@@ -1496,7 +1496,8 @@ export default {
 .review-text {
   color: #4b5563;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
   max-height: 4.8em;
   overflow: hidden;
   transition: max-height 0.3s ease;
