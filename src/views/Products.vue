@@ -8,102 +8,7 @@
 
       <div class="products-content">
         <!-- Filters Sidebar -->
-        <aside class="filters-sidebar">
-          <div class="filters-header">
-            <h3 class="filters-title">Filters</h3>
-            <button @click="clearAllFilters" class="clear-filters-btn">Clear All</button>
-          </div>
-
-          <!-- Gender & Age Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Gender & Age</h4>
-            <div class="filter-options">
-              <label v-for="gender in genders" :key="gender" class="filter-option">
-                <input
-                  type="radio"
-                  :value="gender"
-                  v-model="selectedGender"
-                  @change="updateFilters"
-                  class="filter-input"
-                />
-                <span class="filter-label">{{ formatGender(gender) }}</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Category Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Category</h4>
-            <div class="filter-options">
-              <label v-for="category in categories" :key="category" class="filter-option">
-                <input
-                  type="radio"
-                  :value="category"
-                  v-model="selectedCategory"
-                  @change="updateFilters"
-                  class="filter-input"
-                />
-                <span class="filter-label">{{ formatCategory(category) }}</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Brand Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Brand</h4>
-            <div class="filter-options">
-              <label v-for="brand in brands" :key="brand" class="filter-option">
-                <input 
-                  type="radio" 
-                  :value="brand" 
-                  v-model="selectedBrand"
-                  @change="updateFilters"
-                  class="filter-input"
-                />
-                <span class="filter-label">{{ brand }}</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Price Range Filter -->
-          <div class="filter-group">
-            <h4 class="filter-title">Price Range</h4>
-            <div class="price-range">
-              <input 
-                type="range" 
-                min="0" 
-                max="500" 
-                v-model="priceRange[0]"
-                @input="updateFilters"
-                class="price-slider"
-              />
-              <input 
-                type="range" 
-                min="0" 
-                max="500" 
-                v-model="priceRange[1]"
-                @input="updateFilters"
-                class="price-slider"
-              />
-              <div class="price-display">
-                ${{ priceRange[0] }} - ${{ priceRange[1] }}
-              </div>
-            </div>
-          </div>
-
-          <!-- In Stock Filter -->
-          <div class="filter-group">
-            <label class="filter-option checkbox-option">
-              <input 
-                type="checkbox" 
-                v-model="inStockOnly"
-                @change="updateFilters"
-                class="filter-checkbox"
-              />
-              <span class="filter-label">In Stock Only</span>
-            </label>
-          </div>
-        </aside>
+        <ProductFilters />
 
         <!-- Main Content -->
         <main class="products-main">
@@ -177,25 +82,22 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
+import ProductFilters from '../components/products/ProductFilters.vue'
 
 export default {
   name: 'Products',
   components: {
-    ProductCard
+    ProductCard,
+    ProductFilters
   },
   data() {
     return {
-      selectedCategory: '',
-      selectedBrand: '',
-      selectedGender: '',
-      priceRange: [0, 500],
-      inStockOnly: false,
       sortBy: 'featured',
       viewMode: 'grid'
     }
   },
   computed: {
-    ...mapGetters('products', ['filteredProducts', 'categories', 'brands', 'genders']),
+    ...mapGetters('products', ['filteredProducts']),
     pageTitle() {
       if (this.$route.query.search) {
         return `Search Results for "${this.$route.query.search}"`
@@ -211,59 +113,10 @@ export default {
   },
   methods: {
     ...mapActions('products', ['setFilter', 'clearFilters', 'setSortBy']),
-    updateFilters() {
-      this.setFilter({ type: 'category', value: this.selectedCategory })
-      this.setFilter({ type: 'brand', value: this.selectedBrand })
-      this.setFilter({ type: 'gender', value: this.selectedGender })
-      this.setFilter({ type: 'priceRange', value: this.priceRange })
-      this.setFilter({ type: 'inStock', value: this.inStockOnly })
-    },
     updateSort() {
       this.setSortBy(this.sortBy)
     },
-    clearAllFilters() {
-      this.selectedCategory = ''
-      this.selectedBrand = ''
-      this.selectedGender = ''
-      this.priceRange = [0, 500]
-      this.inStockOnly = false
-      this.clearFilters()
-      // Remove search query param from URL
-      if (this.$route.query.search) {
-        this.$router.replace({ query: {} })
-      }
-    },
-    formatCategory(category) {
-      return category.charAt(0).toUpperCase() + category.slice(1)
-    },
-    formatGender(gender) {
-      const genderMap = {
-        'men': "Men's",
-        'women': "Women's",
-        'kids': "Kids'"
-      }
-      return genderMap[gender] || gender
-    }
   },
-  mounted() {
-    // Initialize filters from URL query params if available
-    if (this.$route.query.category) {
-      this.selectedCategory = this.$route.query.category
-      this.updateFilters()
-    }
-    if (this.$route.query.search) {
-      this.setFilter({ type: 'search', value: this.$route.query.search })
-    }
-  },
-  watch: {
-    '$route.query.search'(newSearch) {
-      if (newSearch) {
-        this.setFilter({ type: 'search', value: newSearch })
-      } else {
-        this.setFilter({ type: 'search', value: '' })
-      }
-    }
-  }
 }
 </script>
 
