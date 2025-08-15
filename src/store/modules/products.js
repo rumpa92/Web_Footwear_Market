@@ -8,6 +8,7 @@ const state = {
       originalPrice: 179.99,
       image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop",
       category: "sneakers",
+      gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       colors: ["white", "black", "red"],
       description: "The classic basketball shoe with timeless style and comfort.",
@@ -24,6 +25,7 @@ const state = {
       originalPrice: 189.99,
       image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
       category: "running",
+      gender: "women",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       colors: ["black", "white", "blue"],
       description: "Revolutionary running shoe with responsive BOOST midsole.",
@@ -40,6 +42,7 @@ const state = {
       originalPrice: 69.99,
       image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop",
       category: "casual",
+      gender: "kids",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       colors: ["black", "white", "red"],
       description: "Iconic canvas sneaker that's been a favorite for decades.",
@@ -56,6 +59,7 @@ const state = {
       originalPrice: 79.99,
       image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&h=400&fit=crop",
       category: "skate",
+      gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       colors: ["black", "white"],
       description: "Classic skate shoe with durable construction and timeless design.",
@@ -72,6 +76,7 @@ const state = {
       originalPrice: 119.99,
       image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop",
       category: "lifestyle",
+      gender: "women",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       colors: ["gray", "navy", "burgundy"],
       description: "Retro-inspired sneaker with premium suede and mesh construction.",
@@ -88,6 +93,7 @@ const state = {
       originalPrice: 199.99,
       image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop",
       category: "basketball",
+      gender: "kids",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       colors: ["black", "white", "red"],
       description: "Legendary basketball shoe that revolutionized sneaker culture.",
@@ -102,6 +108,7 @@ const state = {
   filters: {
     category: '',
     brand: '',
+    gender: '',
     priceRange: [0, 500],
     sizes: [],
     colors: [],
@@ -121,6 +128,9 @@ const getters = {
     }
     if (state.filters.brand) {
       products = products.filter(p => p.brand === state.filters.brand)
+    }
+    if (state.filters.gender) {
+      products = products.filter(p => p.gender === state.filters.gender)
     }
     if (state.filters.inStock) {
       products = products.filter(p => p.inStock)
@@ -146,7 +156,8 @@ const getters = {
   currentProduct: state => state.currentProduct,
   productById: state => id => state.allProducts.find(product => product.id === parseInt(id)),
   brands: state => [...new Set(state.allProducts.map(p => p.brand))],
-  categories: state => [...new Set(state.allProducts.map(p => p.category))]
+  categories: state => [...new Set(state.allProducts.map(p => p.category))],
+  genders: state => [...new Set(state.allProducts.map(p => p.gender))]
 }
 
 const mutations = {
@@ -160,6 +171,7 @@ const mutations = {
     state.filters = {
       category: '',
       brand: '',
+      gender: '',
       priceRange: [0, 500],
       sizes: [],
       colors: [],
