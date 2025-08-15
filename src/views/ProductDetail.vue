@@ -1226,27 +1226,18 @@ export default {
 }
 
 .modify-cart-container {
-  margin-bottom: 1rem;
-}
-
-.remove-button-section {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
 }
 
-.quantity-controls {
+.quantity-controls-cart {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
   background: #f3f4f6;
   padding: 0.5rem;
   border-radius: 12px;
   width: fit-content;
-  margin: 0 auto;
 }
 
 .quantity-btn {
