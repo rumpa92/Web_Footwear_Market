@@ -705,11 +705,9 @@ export default {
         desiredQuantity: this.desiredQuantity
       })
 
-      if (!this.selectedSize || !this.selectedColor) {
-        this.showToastMessage('Please select size and color', 'error')
-        console.log('Missing selections - showing error')
-        return
-      }
+      // Use default values if not selected
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
 
       this.isAdding = true
 
