@@ -14,6 +14,7 @@
       </main>
       <Footer />
       <ShoppingCart />
+      <AddedToCartModal />
     </div>
   </div>
 </template>
