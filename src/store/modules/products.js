@@ -216,6 +216,7 @@ const state = {
     category: '',
     brand: '',
     gender: '',
+    age: '',
     priceRange: [0, 500],
     sizes: [],
     colors: [],
@@ -240,6 +241,9 @@ const getters = {
     }
     if (state.filters.gender) {
       products = products.filter(p => p.gender === state.filters.gender)
+    }
+    if (state.filters.age) {
+      products = products.filter(p => p.ageGroup === state.filters.age)
     }
     if (state.filters.inStock) {
       products = products.filter(p => p.inStock)
@@ -326,6 +330,7 @@ const mutations = {
       category: '',
       brand: '',
       gender: '',
+      age: '',
       priceRange: [0, 500],
       sizes: [],
       colors: [],
