@@ -120,6 +120,12 @@ const actions = {
   },
   setCartOpen({ commit }, isOpen) {
     commit('SET_CART_OPEN', isOpen)
+  },
+  showAddedToCartModal({ commit }, productInfo) {
+    commit('SHOW_ADDED_TO_CART_MODAL', productInfo)
+  },
+  hideAddedToCartModal({ commit }) {
+    commit('HIDE_ADDED_TO_CART_MODAL')
   }
 }
 
