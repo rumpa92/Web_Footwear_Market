@@ -296,37 +296,49 @@ export default {
           id: 'sbi',
           name: 'State Bank of India',
           description: 'India\'s largest bank',
-          status: 'available'
+          status: 'available',
+          icon: 'M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z', // Shield with check - secure
+          color: '#1e40af' // Blue
         },
         {
           id: 'hdfc',
           name: 'HDFC Bank',
           description: 'Private banking leader',
-          status: 'available'
+          status: 'available',
+          icon: 'M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z M17,8.5V7A1,1 0 0,0 16,6H8A1,1 0 0,0 7,7V8.5A0.5,0.5 0 0,0 7.5,9H16.5A0.5,0.5 0 0,0 17,8.5M16,17H8V11H16V17Z', // Vault/safe
+          color: '#dc2626' // Red
         },
         {
           id: 'icici',
           name: 'ICICI Bank',
           description: 'Digital banking pioneer',
-          status: 'available'
+          status: 'available',
+          icon: 'M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4A2,2 0 0,1 6,2H14L18,6V8M18,20V10H15A1,1 0 0,1 14,9V6H6V20H18M12,11A3,3 0 0,1 15,14A3,3 0 0,1 12,17A3,3 0 0,1 9,14A3,3 0 0,1 12,11M12,12.5A1.5,1.5 0 0,0 10.5,14A1.5,1.5 0 0,0 12,15.5A1.5,1.5 0 0,0 13.5,14A1.5,1.5 0 0,0 12,12.5Z', // Digital document
+          color: '#ea580c' // Orange
         },
         {
           id: 'axis',
           name: 'Axis Bank',
           description: 'Modern banking solutions',
-          status: 'available'
+          status: 'available',
+          icon: 'M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,17H13V11H11V17M11,9H13V7H11V9Z', // Info circle - modern
+          color: '#7c3aed' // Purple
         },
         {
           id: 'kotak',
           name: 'Kotak Mahindra Bank',
           description: 'Premium banking services',
-          status: 'available'
+          status: 'available',
+          icon: 'M5,9V21H9V9H5M10,3V21H14V3H10M15,6V21H19V6H15Z', // Bar chart - growth/premium
+          color: '#059669' // Green
         },
         {
           id: 'pnb',
           name: 'Punjab National Bank',
           description: 'Trusted nationwide banking',
-          status: 'available'
+          status: 'available',
+          icon: 'M12,2C6.48,2 2,6.48 2,12S6.48,22 12,22S22,17.52 22,12S17.52,2 12,2M12,20C7.59,20 4,16.41 4,12S7.59,4 12,4S20,7.59 20,12S16.41,20 12,20M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z', // Plus in circle - comprehensive
+          color: '#dc2626' // Red
         }
       ],
 
