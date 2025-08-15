@@ -148,103 +148,6 @@ export default {
   gap: var(--space-2xl);
 }
 
-.filters-sidebar {
-  background-color: var(--bg-primary);
-  padding: var(--space-xl);
-  border-radius: var(--border-radius-lg);
-  height: fit-content;
-  position: sticky;
-  top: calc(80px + var(--space-md));
-}
-
-.filters-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.filters-title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-}
-
-.clear-filters-btn {
-  color: var(--accent-color);
-  background: none;
-  border: none;
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.clear-filters-btn:hover {
-  color: var(--accent-dark);
-}
-
-.filter-group {
-  margin-bottom: var(--space-lg);
-}
-
-.filter-title {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.filter-options {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.filter-option {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.filter-option:hover {
-  color: var(--accent-color);
-}
-
-.filter-input {
-  width: 1rem;
-  height: 1rem;
-}
-
-.filter-checkbox {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.filter-label {
-  font-size: var(--font-size-sm);
-  color: var(--text-primary);
-}
-
-.price-range {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.price-slider {
-  width: 100%;
-}
-
-.price-display {
-  text-align: center;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  font-weight: var(--font-weight-medium);
-}
 
 
 .products-main {
@@ -353,11 +256,6 @@ export default {
 @media (max-width: 1024px) {
   .products-content {
     grid-template-columns: 1fr;
-  }
-  
-  .filters-sidebar {
-    position: static;
-    margin-bottom: var(--space-xl);
   }
 }
 
