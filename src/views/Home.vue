@@ -22,24 +22,24 @@
       </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="featured-products">
+    <!-- New Arrivals -->
+    <section class="new-arrivals">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Featured Products</h2>
-          <p class="section-subtitle">Handpicked favorites from our collection</p>
+          <h2 class="section-title">New Arrivals</h2>
+          <p class="section-subtitle">Latest additions to our collection</p>
         </div>
         
         <div class="products-grid">
           <ProductCard 
-            v-for="product in featuredProducts" 
+            v-for="product in newArrivals" 
             :key="product.id" 
             :product="product"
           />
         </div>
         
         <div class="section-footer">
-          <router-link to="/products" class="btn btn-outline">View All Products</router-link>
+          <router-link to="/products?filter=new" class="btn btn-outline">View All New Arrivals</router-link>
         </div>
       </div>
     </section>
@@ -67,6 +67,66 @@
               <p class="category-description">{{ category.description }}</p>
             </div>
           </router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- Suggested for You -->
+    <section class="suggested-products">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Suggested for You</h2>
+          <p class="section-subtitle">Highly rated products you might love</p>
+        </div>
+        
+        <div class="products-grid">
+          <ProductCard 
+            v-for="product in suggestedProducts" 
+            :key="product.id" 
+            :product="product"
+          />
+        </div>
+        
+        <div class="section-footer">
+          <router-link to="/products?sort=rating" class="btn btn-outline">View Top Rated</router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Trending Banner -->
+    <section class="trending-banner">
+      <div class="container">
+        <div class="banner-content">
+          <div class="banner-text">
+            <h2 class="banner-title">What's Trending</h2>
+            <p class="banner-subtitle">Discover the hottest shoes everyone's talking about</p>
+            <router-link to="/products?filter=trending" class="btn btn-primary btn-lg">Explore Trends</router-link>
+          </div>
+          <div class="banner-image">
+            <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&h=400&fit=crop" alt="Trending Shoes" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Trending Products -->
+    <section class="trending-products">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Trending Now</h2>
+          <p class="section-subtitle">Popular picks flying off our shelves</p>
+        </div>
+        
+        <div class="products-grid">
+          <ProductCard 
+            v-for="product in trendingProducts" 
+            :key="product.id" 
+            :product="product"
+          />
+        </div>
+        
+        <div class="section-footer">
+          <router-link to="/products?filter=trending" class="btn btn-outline">View All Trending</router-link>
         </div>
       </div>
     </section>
@@ -177,14 +237,14 @@ export default {
         { name: 'Nike', logo: '✓', slug: 'nike' },
         { name: 'Adidas', logo: '⚡', slug: 'adidas' },
         { name: 'Jordan', logo: '🏀', slug: 'jordan' },
-        { name: 'Converse', logo: '��', slug: 'converse' },
+        { name: 'Converse', logo: '⭐', slug: 'converse' },
         { name: 'Vans', logo: '🛹', slug: 'vans' },
         { name: 'New Balance', logo: 'N', slug: 'new-balance' }
       ]
     }
   },
   computed: {
-    ...mapGetters('products', ['featuredProducts'])
+    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts'])
   },
   methods: {
     subscribeNewsletter() {
@@ -252,8 +312,58 @@ export default {
   width: 100%;
 }
 
-.featured-products {
+.new-arrivals {
   padding: var(--space-3xl) 0;
+}
+
+.suggested-products {
+  padding: var(--space-3xl) 0;
+  background-color: var(--bg-light);
+}
+
+.trending-products {
+  padding: var(--space-3xl) 0;
+}
+
+.trending-banner {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  color: var(--text-white);
+  padding: var(--space-3xl) 0;
+}
+
+.banner-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  text-align: center;
+}
+
+.banner-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-md);
+}
+
+.banner-subtitle {
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+  margin-bottom: var(--space-xl);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-image {
+  display: flex;
+  justify-content: center;
+}
+
+.banner-image img {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 400px;
+  width: 100%;
 }
 
 .section-header {
@@ -497,6 +607,16 @@ export default {
 
   .categories-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .banner-content {
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+  }
+
+  .banner-subtitle {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
