@@ -1351,7 +1351,9 @@ export default {
 
 .modify-cart-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
 .quantity-controls-cart {
