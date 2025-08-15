@@ -3,6 +3,7 @@
     <div class="cart-container">
       <div class="cart-header">
         <h1>Shopping Cart</h1>
+        <p class="cart-description">Review your selected items, adjust quantities, apply coupons, and proceed to checkout.</p>
         <div class="breadcrumb">
           <span class="active">Cart</span>
           <span class="separator">→</span>
