@@ -292,42 +292,36 @@ export default {
           id: 'sbi',
           name: 'State Bank of India',
           description: 'India\'s largest bank',
-          logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=120&h=80&fit=crop&crop=center',
           status: 'available'
         },
         {
           id: 'hdfc',
           name: 'HDFC Bank',
           description: 'Private banking leader',
-          logo: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=120&h=80&fit=crop&crop=center',
           status: 'available'
         },
         {
           id: 'icici',
           name: 'ICICI Bank',
           description: 'Digital banking pioneer',
-          logo: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=120&h=80&fit=crop&crop=center',
           status: 'available'
         },
         {
           id: 'axis',
           name: 'Axis Bank',
           description: 'Modern banking solutions',
-          logo: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=120&h=80&fit=crop&crop=center',
           status: 'available'
         },
         {
           id: 'kotak',
           name: 'Kotak Mahindra Bank',
           description: 'Premium banking services',
-          logo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=80&fit=crop&crop=center',
           status: 'available'
         },
         {
           id: 'pnb',
           name: 'Punjab National Bank',
           description: 'Trusted nationwide banking',
-          logo: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=120&h=80&fit=crop&crop=center',
           status: 'available'
         }
       ],
