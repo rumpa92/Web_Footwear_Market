@@ -827,6 +827,13 @@ export default {
       }, 3000)
     },
 
+    selectSize(size) {
+      console.log('Selecting size:', size)
+      this.selectedSize = size
+      console.log('Selected size is now:', this.selectedSize)
+      this.debugButtonState()
+    },
+
     debugButtonState() {
       console.log('Debug button state:', {
         selectedSize: this.selectedSize,
