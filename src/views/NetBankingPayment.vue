@@ -604,7 +604,7 @@ export default {
 }
 
 .popular-banks-section h3,
-.all-banks-section h3 {
+.search-results-section h3 {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;
