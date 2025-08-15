@@ -106,6 +106,51 @@
             </div>
           </div>
 
+          <!-- Delivery Options Section -->
+          <div class="checkout-section">
+            <div class="section-header">
+              <h2>Delivery Options</h2>
+            </div>
+            <div class="delivery-options">
+              <div
+                class="delivery-option"
+                :class="{ selected: selectedDelivery === 'standard' }"
+                @click="selectedDelivery = 'standard'"
+              >
+                <input type="radio" name="delivery" value="standard" v-model="selectedDelivery" />
+                <div class="delivery-info">
+                  <div class="delivery-title">Standard Delivery</div>
+                  <div class="delivery-time">5-7 business days</div>
+                  <div class="delivery-price">$5.99</div>
+                </div>
+              </div>
+              <div
+                class="delivery-option"
+                :class="{ selected: selectedDelivery === 'express' }"
+                @click="selectedDelivery = 'express'"
+              >
+                <input type="radio" name="delivery" value="express" v-model="selectedDelivery" />
+                <div class="delivery-info">
+                  <div class="delivery-title">Express Delivery</div>
+                  <div class="delivery-time">2-3 business days</div>
+                  <div class="delivery-price">$12.99</div>
+                </div>
+              </div>
+              <div
+                class="delivery-option"
+                :class="{ selected: selectedDelivery === 'overnight' }"
+                @click="selectedDelivery = 'overnight'"
+              >
+                <input type="radio" name="delivery" value="overnight" v-model="selectedDelivery" />
+                <div class="delivery-info">
+                  <div class="delivery-title">Overnight Delivery</div>
+                  <div class="delivery-time">Next business day</div>
+                  <div class="delivery-price">$24.99</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Discount Section -->
           <div class="checkout-section">
             <div class="section-header">
@@ -113,14 +158,14 @@
             </div>
             <div class="discount-section">
               <div class="coupon-input">
-                <input 
-                  v-model="couponCode" 
-                  type="text" 
+                <input
+                  v-model="couponCode"
+                  type="text"
                   placeholder="Enter coupon code"
                   :disabled="appliedCoupon"
                 />
-                <button 
-                  @click="applyCoupon" 
+                <button
+                  @click="applyCoupon"
                   class="apply-btn"
                   :disabled="!couponCode || appliedCoupon"
                 >
