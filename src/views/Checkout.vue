@@ -455,7 +455,11 @@ export default {
     selectedAddress() {
       return this.savedAddresses.find(addr => addr.id === this.selectedAddressId) || this.savedAddresses[0]
     },
-    
+
+    shippingCost() {
+      return this.deliveryOptions[this.selectedDelivery]?.price || 5.99
+    },
+
     taxAmount() {
       return (this.cartTotal * this.taxRate) / 100
     },
