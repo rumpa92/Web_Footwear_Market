@@ -388,6 +388,7 @@ export default {
       selectedImage: '',
       selectedSize: null,
       selectedColor: null,
+      desiredQuantity: 1,
       isZooming: false,
       isAdding: false,
       activeAccordion: null,
