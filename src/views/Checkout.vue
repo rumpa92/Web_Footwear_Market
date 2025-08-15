@@ -824,6 +824,11 @@ export default {
       }
     },
 
+    goBack() {
+      // Navigate back to cart or previous page
+      this.$router.push('/cart')
+    },
+
     showToastMessage(message, type = 'info') {
       this.toast = { message, type }
       this.showToast = true
