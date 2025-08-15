@@ -482,6 +482,23 @@ export default {
   cursor: pointer;
 }
 
+.user-profile-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.profile-btn {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+}
+
+.profile-btn:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
 .mobile-menu-btn {
   display: flex;
   background: none;
