@@ -596,7 +596,7 @@ export default {
 
 /* Popular Banks Section */
 .popular-banks-section,
-.all-banks-section {
+.search-results-section {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
