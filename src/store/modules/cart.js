@@ -77,6 +77,14 @@ const mutations = {
   },
   SET_CART_OPEN(state, isOpen) {
     state.isOpen = isOpen
+  },
+  SHOW_ADDED_TO_CART_MODAL(state, productInfo) {
+    state.isAddedToCartModalVisible = true
+    state.addedProductInfo = productInfo
+  },
+  HIDE_ADDED_TO_CART_MODAL(state) {
+    state.isAddedToCartModalVisible = false
+    state.addedProductInfo = null
   }
 }
 
