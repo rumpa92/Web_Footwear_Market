@@ -514,7 +514,12 @@ export default {
     },
     
     cartItemQuantity() {
-      const item = this.isInCart
+      if (!this.product) return 0
+
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+      const item = this.getCartItem(this.product.id, size, color)
+
       return item ? item.quantity : 0
     },
     
