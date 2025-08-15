@@ -550,6 +550,17 @@ export default {
     finalTotal() {
       const total = this.cartTotal + this.shippingCost + this.taxAmount - this.discountAmount
       return Math.max(0, total)
+    },
+
+    isCardFormValid() {
+      if (this.selectedPayment !== 'card') return true
+      return this.cardDetails.number &&
+             this.cardDetails.expiry &&
+             this.cardDetails.cvv &&
+             this.cardDetails.name &&
+             this.cardDetails.number.replace(/\s/g, '').length >= 13 &&
+             this.cardDetails.expiry.length === 5 &&
+             this.cardDetails.cvv.length >= 3
     }
   },
 
