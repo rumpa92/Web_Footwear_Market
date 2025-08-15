@@ -22,6 +22,23 @@
       </div>
     </div>
 
+    <!-- Age Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title">Age</h4>
+      <div class="filter-options">
+        <label v-for="age in ageRanges" :key="age.value" class="filter-option">
+          <input
+            type="radio"
+            :value="age.value"
+            v-model="selectedAge"
+            @change="updateFilters"
+            class="filter-input"
+          />
+          <span class="filter-label">{{ age.label }}</span>
+        </label>
+      </div>
+    </div>
+
     <!-- Category Filter -->
     <div class="filter-group">
       <h4 class="filter-title">Category</h4>
@@ -107,8 +124,15 @@ export default {
       selectedCategory: '',
       selectedBrand: '',
       selectedGender: '',
+      selectedAge: '',
       priceRange: [0, 500],
-      inStockOnly: false
+      inStockOnly: false,
+      ageRanges: [
+        { value: 'toddler', label: 'Toddler (1-3 years)' },
+        { value: 'kids', label: 'Kids (4-12 years)' },
+        { value: 'teen', label: 'Teen (13-17 years)' },
+        { value: 'adult', label: 'Adult (18+ years)' }
+      ]
     }
   },
   computed: {
@@ -120,6 +144,7 @@ export default {
       this.setFilter({ type: 'category', value: this.selectedCategory })
       this.setFilter({ type: 'brand', value: this.selectedBrand })
       this.setFilter({ type: 'gender', value: this.selectedGender })
+      this.setFilter({ type: 'age', value: this.selectedAge })
       this.setFilter({ type: 'priceRange', value: this.priceRange })
       this.setFilter({ type: 'inStock', value: this.inStockOnly })
     },
@@ -127,6 +152,7 @@ export default {
       this.selectedCategory = ''
       this.selectedBrand = ''
       this.selectedGender = ''
+      this.selectedAge = ''
       this.priceRange = [0, 500]
       this.inStockOnly = false
       this.clearFilters()
