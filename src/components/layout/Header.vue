@@ -88,6 +88,9 @@
                 <div class="user-name">{{ currentUser.name }}</div>
                 <div class="user-status">Orders</div>
               </div>
+              <svg class="dropdown-arrow" :class="{ 'rotated': showUserMenu }" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
+              </svg>
             </div>
             <div class="dropdown">
               <div class="dropdown-menu" v-if="showUserMenu">
