@@ -736,20 +736,26 @@ export default {
     },
     
     increaseQuantity() {
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
       this.updateCartItemQuantity({
         id: this.product.id,
-        size: this.selectedSize,
-        color: this.selectedColor,
+        size: size,
+        color: color,
         quantity: this.cartItemQuantity + 1
       })
     },
 
     decreaseQuantity() {
       if (this.cartItemQuantity > 1) {
+        const size = this.selectedSize || 'One Size'
+        const color = this.selectedColor || this.product.colors[0] || 'Default'
+
         this.updateCartItemQuantity({
           id: this.product.id,
-          size: this.selectedSize,
-          color: this.selectedColor,
+          size: size,
+          color: color,
           quantity: this.cartItemQuantity - 1
         })
       }
