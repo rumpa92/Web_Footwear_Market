@@ -1131,6 +1131,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  pointer-events: auto;
 }
 
 .size-btn {
