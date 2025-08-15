@@ -429,16 +429,16 @@ export default {
     colorImages() {
       if (!this.product) return {}
 
-      // Color-specific image mappings
+      // High-quality shoe images for different colors
       const colorImageMap = {
-        'black': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1595950653106-6c9ebd614d3a'), // Black shoes
-        'white': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1549298916-b41d501d3772'), // White shoes
-        'blue': this.product.image, // Current image (blue shoes)
-        'red': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1584464491033-06628f3a6b7b'), // Red shoes
-        'gray': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1606107557195-0e29a4b5b4aa'), // Gray shoes
-        'navy': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1551107696-a4b0c5a0d9a2'), // Navy shoes
-        'burgundy': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1608667508764-33cf0726aae8'), // Burgundy shoes
-        'pink': this.product.image.replace('photo-1542291026-7eec264c27ff', 'photo-1605348532760-6753d2c43329') // Pink shoes
+        'black': 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop', // Black Air Force 1
+        'white': 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop', // White Converse
+        'blue': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop', // Blue Adidas
+        'red': 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop', // Red Jordan
+        'gray': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop', // Gray New Balance
+        'navy': 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400&h=400&fit=crop', // Navy Under Armour
+        'burgundy': 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=400&h=400&fit=crop', // Burgundy Puma
+        'pink': 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=400&h=400&fit=crop' // Pink Reebok
       }
 
       return colorImageMap
@@ -502,8 +502,11 @@ export default {
     getImageForColor(color) {
       if (!this.product || !color) return this.product?.image || ''
 
+      const colorLower = color.toLowerCase()
+      console.log('Getting image for color:', colorLower, 'Available colors:', this.colorImages)
+
       // Return color-specific image or fallback to default
-      return this.colorImages[color.toLowerCase()] || this.product.image
+      return this.colorImages[colorLower] || this.product.image
     },
     
     getColorCode(color) {
