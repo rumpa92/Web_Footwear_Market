@@ -252,38 +252,36 @@
       
       <div class="reviews-list">
         <div v-for="review in filteredReviews" :key="review.id" class="review-item">
-          <div class="review-header">
-            <div class="reviewer-info">
-              <img :src="review.avatar" :alt="review.name" class="reviewer-avatar" />
-              <div class="reviewer-details">
+          <div class="reviewer-info">
+            <img :src="review.avatar" :alt="review.name" class="reviewer-avatar" />
+            <div class="reviewer-content">
+              <div class="reviewer-header">
                 <h4 class="reviewer-name">{{ review.name }}</h4>
-                <div class="review-stars">
-                  <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">★</span>
-                </div>
+                <span class="review-date">{{ formatDate(review.date) }}</span>
               </div>
-            </div>
-            <span class="review-date">{{ formatDate(review.date) }}</span>
-          </div>
-          
-          <div class="review-content">
-            <p class="review-text" :class="{ expanded: review.expanded }">{{ review.text }}</p>
-            <button 
-              v-if="review.text.length > 150"
-              @click="toggleReviewExpansion(review)"
-              class="expand-btn"
-            >
-              {{ review.expanded ? 'Show Less' : 'Read More' }}
-            </button>
-            
-            <div v-if="review.images && review.images.length" class="review-images">
-              <img 
-                v-for="(image, index) in review.images" 
-                :key="index"
-                :src="image" 
-                :alt="`Review image ${index + 1}`"
-                class="review-image"
-                @click="openImageModal(image)"
-              />
+              <div class="review-stars">
+                <span v-for="star in 5" :key="star" class="star" :class="{ filled: star <= review.rating }">★</span>
+                <span class="rating-value">{{ review.rating }}.0</span>
+              </div>
+              <p class="review-text" :class="{ expanded: review.expanded }">{{ review.text }}</p>
+              <button
+                v-if="review.text.length > 150"
+                @click="toggleReviewExpansion(review)"
+                class="expand-btn"
+              >
+                {{ review.expanded ? 'Show Less' : 'Read More' }}
+              </button>
+
+              <div v-if="review.images && review.images.length" class="review-images">
+                <img
+                  v-for="(image, index) in review.images"
+                  :key="index"
+                  :src="image"
+                  :alt="`Review image ${index + 1}`"
+                  class="review-image"
+                  @click="openImageModal(image)"
+                />
+              </div>
             </div>
           </div>
         </div>
