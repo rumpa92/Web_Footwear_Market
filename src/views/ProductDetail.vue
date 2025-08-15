@@ -95,7 +95,7 @@
                 :key="size"
                 class="size-btn"
                 :class="{ selected: selectedSize === size }"
-                @click="selectSize(size)"
+                @click.stop="selectedSize = size; console.log('Size selected:', size)"
                 :title="`Select size ${size}. Currently selected: ${selectedSize || 'none'}`"
               >
                 {{ size }}
