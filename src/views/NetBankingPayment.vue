@@ -1054,11 +1054,21 @@ export default {
   gap: 0.75rem;
 }
 
-.bank-preview img {
-  width: 40px;
-  height: 25px;
-  border-radius: 4px;
-  object-fit: cover;
+.selected-bank-icon {
+  width: 32px;
+  height: 32px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.selected-bank-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .bank-text .bank-name {
