@@ -1351,9 +1351,7 @@ export default {
   font-weight: 600;
   color: #1f2937;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex: 1;
 }
 
 .item-count {
