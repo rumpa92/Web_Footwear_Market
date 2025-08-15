@@ -239,9 +239,9 @@
               <!-- Selected Bank Info -->
               <div v-if="selectedBank" class="selected-bank-info">
                 <div class="bank-preview">
-                  <div class="selected-bank-icon">
+                  <div class="selected-bank-icon" :style="{ backgroundColor: selectedBank.color + '20', color: selectedBank.color }">
                     <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M5,6.09L7.91,3H16.09L19,6.09V17.91L16.09,21H7.91L5,17.91V6.09M11,8V14H13V8H11M11,16V18H13V16H11Z"/>
+                      <path :d="selectedBank.icon"/>
                     </svg>
                   </div>
                   <div class="bank-text">
