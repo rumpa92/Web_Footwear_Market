@@ -846,10 +846,17 @@ export default {
     },
 
     selectSize(size) {
-      console.log('Selecting size:', size)
+      console.log('Selecting size:', size, 'Previous size:', this.selectedSize)
       this.selectedSize = size
-      console.log('Selected size is now:', this.selectedSize)
-      this.debugButtonState()
+
+      // Force reactivity update
+      this.$forceUpdate()
+
+      // Use nextTick to ensure DOM is updated
+      this.$nextTick(() => {
+        console.log('Selected size is now:', this.selectedSize)
+        this.debugButtonState()
+      })
     },
 
     debugButtonState() {
