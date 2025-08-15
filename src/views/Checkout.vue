@@ -680,6 +680,22 @@ export default {
       this.$router.push('/')
     },
 
+    continueToReview() {
+      if (!this.isCardFormValid) {
+        this.showToastMessage('Please fill in all card details correctly', 'error')
+        return
+      }
+
+      // Scroll to order summary or show success message
+      this.showToastMessage('Card details saved! Review your order to proceed.', 'success')
+
+      // Optionally scroll to order summary
+      const orderSummary = document.querySelector('.order-summary')
+      if (orderSummary) {
+        orderSummary.scrollIntoView({ behavior: 'smooth' })
+      }
+    },
+
     showToastMessage(message, type = 'info') {
       this.toast = { message, type }
       this.showToast = true
