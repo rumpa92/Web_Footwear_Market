@@ -686,7 +686,7 @@ export default {
 
       this.isAdding = true
 
-      await this.addToCart({
+      await this.addItemToCart({
         product: this.product,
         size: this.selectedSize,
         color: this.selectedColor,
