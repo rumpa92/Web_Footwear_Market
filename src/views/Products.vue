@@ -2,8 +2,8 @@
   <div class="products-page">
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">All Products</h1>
-        <p class="page-subtitle">Discover our complete collection of premium footwear</p>
+        <h1 class="page-title">{{ pageTitle }}</h1>
+        <p class="page-subtitle">{{ pageSubtitle }}</p>
       </div>
 
       <div class="products-content">
@@ -195,7 +195,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('products', ['filteredProducts', 'categories', 'brands', 'genders'])
+    ...mapGetters('products', ['filteredProducts', 'categories', 'brands', 'genders']),
+    pageTitle() {
+      if (this.$route.query.search) {
+        return `Search Results for "${this.$route.query.search}"`
+      }
+      return 'All Products'
+    },
+    pageSubtitle() {
+      if (this.$route.query.search) {
+        return `Found ${this.filteredProducts.length} products matching your search`
+      }
+      return 'Discover our complete collection of premium footwear'
+    }
   },
   methods: {
     ...mapActions('products', ['setFilter', 'clearFilters', 'setSortBy']),
@@ -216,6 +228,10 @@ export default {
       this.priceRange = [0, 500]
       this.inStockOnly = false
       this.clearFilters()
+      // Remove search query param from URL
+      if (this.$route.query.search) {
+        this.$router.replace({ query: {} })
+      }
     },
     formatCategory(category) {
       return category.charAt(0).toUpperCase() + category.slice(1)
@@ -234,6 +250,18 @@ export default {
     if (this.$route.query.category) {
       this.selectedCategory = this.$route.query.category
       this.updateFilters()
+    }
+    if (this.$route.query.search) {
+      this.setFilter({ type: 'search', value: this.$route.query.search })
+    }
+  },
+  watch: {
+    '$route.query.search'(newSearch) {
+      if (newSearch) {
+        this.setFilter({ type: 'search', value: newSearch })
+      } else {
+        this.setFilter({ type: 'search', value: '' })
+      }
     }
   }
 }
