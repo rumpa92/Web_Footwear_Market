@@ -691,5 +691,9 @@ export default {
   .user-actions {
     order: 0;
   }
+
+  .location-display {
+    display: none;
+  }
 }
 </style>
