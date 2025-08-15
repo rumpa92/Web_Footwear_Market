@@ -337,7 +337,7 @@
             </div>
           </div>
         </div>
-        <button @click="scrollRelatedProducts('left')" class="carousel-btn left">���</button>
+        <button @click="scrollRelatedProducts('left')" class="carousel-btn left">‹</button>
         <button @click="scrollRelatedProducts('right')" class="carousel-btn right">›</button>
       </div>
     </div>
@@ -1143,6 +1143,11 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 60px;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .size-btn:hover {
