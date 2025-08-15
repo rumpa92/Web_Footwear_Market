@@ -112,7 +112,7 @@
                 class="color-btn"
                 :class="{ selected: selectedColor === color }"
                 :style="{ backgroundColor: getColorCode(color) }"
-                @click="selectedColor = color"
+                @click="changeColor(color)"
                 :title="color"
               >
                 <span class="color-name">{{ color }}</span>
@@ -481,8 +481,18 @@ export default {
 
     selectedColor: {
       handler(newColor) {
+        console.log('Color changed to:', newColor)
         if (newColor && this.productImages.length > 0) {
           this.selectedImage = this.productImages[0]
+          console.log('Updated selected image to:', this.selectedImage)
+        }
+      }
+    },
+
+    productImages: {
+      handler(newImages) {
+        if (newImages.length > 0) {
+          this.selectedImage = newImages[0]
         }
       }
     }
@@ -497,6 +507,18 @@ export default {
         this.selectedImage = this.productImages[0]
         this.selectedSize = null
       }
+    },
+
+    changeColor(color) {
+      console.log('Changing color to:', color)
+      this.selectedColor = color
+      // Force update of images
+      this.$nextTick(() => {
+        if (this.productImages.length > 0) {
+          this.selectedImage = this.productImages[0]
+          console.log('Force updated image to:', this.selectedImage)
+        }
+      })
     },
 
     getImageForColor(color) {
