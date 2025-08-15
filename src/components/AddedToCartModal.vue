@@ -56,9 +56,6 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'AddedToCartModal',
   computed: {
-    ...mapGetters('cart', ['isAddedToCartModalVisible', 'addedProductInfo'])
-  },
-  computed: {
     isVisible() {
       return this.$store.getters['cart/isAddedToCartModalVisible']
     },
