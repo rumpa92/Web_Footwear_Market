@@ -80,6 +80,11 @@ const routes = [
     component: () => import('../views/UpiPayment.vue')
   },
   {
+    path: '/wallet-payment',
+    name: 'WalletPayment',
+    component: () => import('../views/WalletPayment.vue')
+  },
+  {
     path: '/order-confirmation',
     name: 'OrderConfirmation',
     component: () => import('../views/OrderConfirmation.vue')
