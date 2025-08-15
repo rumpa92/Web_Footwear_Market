@@ -1433,34 +1433,48 @@ export default {
   border-bottom: none;
 }
 
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
 .reviewer-info {
   display: flex;
   gap: 1rem;
+  align-items: flex-start;
 }
 
 .reviewer-avatar {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reviewer-content {
+  flex: 1;
+}
+
+.reviewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .reviewer-name {
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   font-weight: 600;
   color: #1f2937;
+  font-size: 1rem;
+}
+
+.review-date {
+  color: #9ca3af;
+  font-size: 0.875rem;
 }
 
 .review-stars {
   display: flex;
-  gap: 0.2rem;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .review-stars .star {
@@ -1472,8 +1486,10 @@ export default {
   color: #fbbf24;
 }
 
-.review-date {
-  color: #9ca3af;
+.rating-value {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
   font-size: 0.9rem;
 }
 
