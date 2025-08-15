@@ -1202,9 +1202,15 @@ export default {
 }
 
 .modify-cart-container {
+  margin-bottom: 1rem;
+}
+
+.remove-button-section {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
 }
 
 .quantity-controls {
