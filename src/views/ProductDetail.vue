@@ -627,25 +627,49 @@ export default {
       this.isZooming = false
     },
     
-    shareProduct(platform) {
+    async shareProduct(platform) {
       const url = window.location.href
       const text = `Check out this ${this.product.name} by ${this.product.brand}`
-      
-      switch (platform) {
-        case 'whatsapp':
-          window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`)
-          break
-        case 'instagram':
-          this.showToast({ message: 'Link copied! Share on Instagram', type: 'success' })
-          navigator.clipboard.writeText(url)
-          break
-        case 'facebook':
-          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`)
-          break
-        case 'copy':
-          navigator.clipboard.writeText(url)
-          this.showToastMessage('Link copied to clipboard!', 'success')
-          break
+
+      try {
+        switch (platform) {
+          case 'whatsapp':
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank')
+            break
+          case 'instagram':
+            await navigator.clipboard.writeText(url)
+            this.showToastMessage('Link copied! Share on Instagram', 'success')
+            break
+          case 'facebook':
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank')
+            break
+          case 'copy':
+            await navigator.clipboard.writeText(url)
+            this.showToastMessage('Link copied to clipboard!', 'success')
+            break
+          case 'twitter':
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank')
+            break
+        }
+      } catch (error) {
+        console.error('Sharing failed:', error)
+        // Fallback for clipboard operations
+        if (platform === 'copy' || platform === 'instagram') {
+          // Fallback method for older browsers
+          const textArea = document.createElement('textarea')
+          textArea.value = url
+          document.body.appendChild(textArea)
+          textArea.select()
+          try {
+            document.execCommand('copy')
+            this.showToastMessage(platform === 'copy' ? 'Link copied to clipboard!' : 'Link copied! Share on Instagram', 'success')
+          } catch (fallbackError) {
+            this.showToastMessage('Unable to copy link. Please copy manually: ' + url, 'error')
+          }
+          document.body.removeChild(textArea)
+        } else {
+          this.showToastMessage('Unable to share. Please try again.', 'error')
+        }
       }
     },
     
