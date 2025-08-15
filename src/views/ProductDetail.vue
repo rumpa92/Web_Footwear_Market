@@ -106,8 +106,8 @@
           <div class="color-selection">
             <h3>Color</h3>
             <div class="color-options">
-              <button 
-                v-for="color in product.colors" 
+              <button
+                v-for="color in product.colors"
                 :key="color"
                 class="color-btn"
                 :class="{ selected: selectedColor === color }"
@@ -117,6 +117,24 @@
               >
                 <span class="color-name">{{ color }}</span>
               </button>
+            </div>
+          </div>
+
+          <!-- Quantity Selection -->
+          <div class="quantity-selection">
+            <h3>Quantity</h3>
+            <div class="quantity-selector">
+              <button
+                @click="decreaseDesiredQuantity"
+                class="quantity-selector-btn"
+                :disabled="desiredQuantity <= 1"
+              >−</button>
+              <span class="quantity-display">{{ desiredQuantity }}</span>
+              <button
+                @click="increaseDesiredQuantity"
+                class="quantity-selector-btn"
+                :disabled="desiredQuantity >= 10"
+              >+</button>
             </div>
           </div>
         </div>
