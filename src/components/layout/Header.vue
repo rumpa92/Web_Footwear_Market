@@ -81,8 +81,14 @@
           </button>
 
           <!-- User Menu -->
-          <div class="user-menu" v-if="isAuthenticated">
-            <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
+          <div class="user-menu" v-if="isAuthenticated" @click="showUserMenu = !showUserMenu">
+            <div class="user-profile-info">
+              <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
+              <div class="user-details">
+                <div class="user-name">{{ currentUser.name }}</div>
+                <div class="user-status">Orders</div>
+              </div>
+            </div>
             <div class="dropdown">
               <div class="dropdown-menu" v-if="showUserMenu">
                 <router-link to="/profile" class="dropdown-item">Profile</router-link>
