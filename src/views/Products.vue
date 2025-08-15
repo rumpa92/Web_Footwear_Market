@@ -14,14 +14,30 @@
             <button @click="clearAllFilters" class="clear-filters-btn">Clear All</button>
           </div>
 
+          <!-- Gender & Age Filter -->
+          <div class="filter-group">
+            <h4 class="filter-title">Gender & Age</h4>
+            <div class="gender-toggle-buttons">
+              <button
+                v-for="gender in genders"
+                :key="gender"
+                @click="selectGender(gender)"
+                class="gender-toggle-btn"
+                :class="{ 'active': selectedGender === gender }"
+              >
+                {{ formatGender(gender) }}
+              </button>
+            </div>
+          </div>
+
           <!-- Category Filter -->
           <div class="filter-group">
             <h4 class="filter-title">Category</h4>
             <div class="filter-options">
               <label v-for="category in categories" :key="category" class="filter-option">
-                <input 
-                  type="radio" 
-                  :value="category" 
+                <input
+                  type="radio"
+                  :value="category"
                   v-model="selectedCategory"
                   @change="updateFilters"
                   class="filter-input"
@@ -170,6 +186,7 @@ export default {
     return {
       selectedCategory: '',
       selectedBrand: '',
+      selectedGender: '',
       priceRange: [0, 500],
       inStockOnly: false,
       sortBy: 'featured',
@@ -177,15 +194,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('products', ['filteredProducts', 'categories', 'brands'])
+    ...mapGetters('products', ['filteredProducts', 'categories', 'brands', 'genders'])
   },
   methods: {
     ...mapActions('products', ['setFilter', 'clearFilters', 'setSortBy']),
     updateFilters() {
       this.setFilter({ type: 'category', value: this.selectedCategory })
       this.setFilter({ type: 'brand', value: this.selectedBrand })
+      this.setFilter({ type: 'gender', value: this.selectedGender })
       this.setFilter({ type: 'priceRange', value: this.priceRange })
       this.setFilter({ type: 'inStock', value: this.inStockOnly })
+    },
+    selectGender(gender) {
+      this.selectedGender = this.selectedGender === gender ? '' : gender
+      this.updateFilters()
     },
     updateSort() {
       this.setSortBy(this.sortBy)
@@ -193,12 +215,21 @@ export default {
     clearAllFilters() {
       this.selectedCategory = ''
       this.selectedBrand = ''
+      this.selectedGender = ''
       this.priceRange = [0, 500]
       this.inStockOnly = false
       this.clearFilters()
     },
     formatCategory(category) {
       return category.charAt(0).toUpperCase() + category.slice(1)
+    },
+    formatGender(gender) {
+      const genderMap = {
+        'men': "Men's",
+        'women': "Women's",
+        'kids': "Kids'"
+      }
+      return genderMap[gender] || gender
     }
   },
   mounted() {
