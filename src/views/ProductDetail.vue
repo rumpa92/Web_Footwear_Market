@@ -1022,7 +1022,7 @@ export default {
   margin-bottom: 2rem;
 }
 
-.size-selection h3, .color-selection h3 {
+.size-selection h3, .color-selection h3, .quantity-selection h3 {
   font-size: 1.1rem;
   font-weight: 600;
   color: #1f2937;
