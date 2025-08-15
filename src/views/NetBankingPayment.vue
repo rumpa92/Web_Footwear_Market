@@ -336,7 +336,6 @@ export default {
 
   mounted() {
     this.loadOrderData()
-    this.filteredBanks = this.allBanks
   },
 
   methods: {
