@@ -197,12 +197,13 @@ export default {
   cursor: pointer;
   transition: var(--transition-fast);
   color: var(--text-secondary);
-  opacity: 0;
+  opacity: 1;
   z-index: 2;
 }
 
 .product-card:hover .wishlist-btn {
-  opacity: 1;
+  background-color: var(--bg-primary);
+  transform: scale(1.05);
 }
 
 .wishlist-btn:hover {
