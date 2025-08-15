@@ -337,7 +337,7 @@
             </div>
           </div>
         </div>
-        <button @click="scrollRelatedProducts('left')" class="carousel-btn left">‹</button>
+        <button @click="scrollRelatedProducts('left')" class="carousel-btn left">���</button>
         <button @click="scrollRelatedProducts('right')" class="carousel-btn right">›</button>
       </div>
     </div>
@@ -698,8 +698,16 @@ export default {
     },
     
     async addToCart() {
+      console.log('Add to cart clicked!', {
+        selectedSize: this.selectedSize,
+        selectedColor: this.selectedColor,
+        product: this.product,
+        desiredQuantity: this.desiredQuantity
+      })
+
       if (!this.selectedSize || !this.selectedColor) {
         this.showToastMessage('Please select size and color', 'error')
+        console.log('Missing selections - showing error')
         return
       }
 
