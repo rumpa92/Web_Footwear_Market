@@ -774,10 +774,13 @@ export default {
     },
     
     removeFromCart() {
+      const size = this.selectedSize || 'One Size'
+      const color = this.selectedColor || this.product.colors[0] || 'Default'
+
       this.removeFromCart({
         id: this.product.id,
-        size: this.selectedSize,
-        color: this.selectedColor
+        size: size,
+        color: color
       })
       this.showToastMessage('Removed from cart', 'info')
     },
