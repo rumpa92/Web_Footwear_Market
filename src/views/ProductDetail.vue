@@ -1096,6 +1096,51 @@ export default {
   white-space: nowrap;
 }
 
+/* Quantity Selection */
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.quantity-selector-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-selector-btn:hover:not(:disabled) {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+.quantity-selector-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.quantity-display {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  min-width: 30px;
+  text-align: center;
+}
+
 /* Cart Section */
 .cart-section {
   background: white;
