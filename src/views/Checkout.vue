@@ -235,7 +235,7 @@
               </div>
 
               <!-- Net Banking -->
-              <div 
+              <div
                 class="payment-option"
                 :class="{ selected: selectedPayment === 'netbanking' }"
                 @click="selectedPayment = 'netbanking'"
@@ -244,6 +244,19 @@
                 <div class="payment-info">
                   <div class="payment-title">Net Banking</div>
                   <div class="bank-info">Select your bank</div>
+                </div>
+              </div>
+
+              <!-- Cash on Delivery -->
+              <div
+                class="payment-option"
+                :class="{ selected: selectedPayment === 'cod' }"
+                @click="selectedPayment = 'cod'"
+              >
+                <input type="radio" name="payment" value="cod" v-model="selectedPayment" />
+                <div class="payment-info">
+                  <div class="payment-title">Cash on Delivery</div>
+                  <div class="cod-info">Pay when you receive</div>
                 </div>
               </div>
             </div>
