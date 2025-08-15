@@ -206,10 +206,6 @@ export default {
       this.setFilter({ type: 'priceRange', value: this.priceRange })
       this.setFilter({ type: 'inStock', value: this.inStockOnly })
     },
-    selectGender(gender) {
-      this.selectedGender = this.selectedGender === gender ? '' : gender
-      this.updateFilters()
-    },
     updateSort() {
       this.setSortBy(this.sortBy)
     },
