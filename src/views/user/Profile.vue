@@ -11,6 +11,24 @@
       <div class="profile-content">
         <!-- Sidebar Navigation -->
         <div class="profile-sidebar">
+          <!-- User Profile Section -->
+          <div class="sidebar-profile">
+            <div class="sidebar-avatar">
+              <img :src="currentUser.avatar" :alt="currentUser.name" class="sidebar-avatar-img" />
+            </div>
+            <div class="sidebar-user-info">
+              <h3 class="sidebar-user-name">{{ currentUser.name }}</h3>
+              <p class="sidebar-user-email">{{ currentUser.email }}</p>
+              <div class="premium-badge">
+                <svg class="premium-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Premium Member
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Menu -->
           <nav class="profile-nav">
             <a
               v-for="section in profileSections"
@@ -21,6 +39,7 @@
             >
               <span class="nav-icon" v-html="section.icon"></span>
               <span class="nav-text">{{ section.name }}</span>
+              <span v-if="section.badge" class="nav-badge">{{ section.badge }}</span>
             </a>
           </nav>
         </div>
@@ -361,23 +380,24 @@ export default {
       profileSections: [
         {
           id: 'profile',
-          name: 'Profile',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
+          name: 'Personal Feed',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
         },
         {
           id: 'notifications',
           name: 'Notifications',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>'
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>',
+          badge: '3'
         },
         {
           id: 'customer-support',
           name: 'Customer Support',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>'
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>'
         },
         {
           id: 'language-region',
           name: 'Language & Region',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>'
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>'
         },
         {
           id: 'privacy-terms',
@@ -387,12 +407,12 @@ export default {
         {
           id: 'account-deletion',
           name: 'Account Deletion',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>'
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-2.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>'
         },
         {
           id: 'refund-history',
           name: 'Refund History',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm.5-9H11v6l5.25 3.15.75-1.23-4.5-2.67V8z"/></svg>'
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>'
         },
         {
           id: 'delivery-management',
@@ -535,46 +555,114 @@ export default {
 /* Sidebar Navigation */
 .profile-sidebar {
   background: white;
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: fit-content;
   position: sticky;
   top: 2rem;
+  border: 1px solid #f1f3f4;
 }
 
+/* Sidebar Profile Section */
+.sidebar-profile {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f1f3f4;
+  text-align: center;
+}
+
+.sidebar-avatar {
+  margin-bottom: 1rem;
+}
+
+.sidebar-avatar-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f1f3f4;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar-user-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.sidebar-user-email {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: #ec4899;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.premium-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Navigation Menu */
 .profile-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
+  padding: 0.875rem 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   text-decoration: none;
-  color: #6b7280;
+  color: #374151;
+  position: relative;
+  border: none;
+  background: none;
 }
 
 .nav-item:hover {
-  background: #f8fafc;
-  color: #3b82f6;
+  background: #f9fafb;
+  color: #1f2937;
 }
 
 .nav-item.active {
-  background: #3b82f6;
-  color: white;
+  background: #fef7f7;
+  color: #ec4899;
+  border-right: 3px solid #ec4899;
+}
+
+.nav-item.active .nav-icon {
+  color: #ec4899;
 }
 
 .nav-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  color: #6b7280;
+  transition: color 0.2s ease;
 }
 
 .nav-icon svg {
@@ -584,7 +672,23 @@ export default {
 
 .nav-text {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+.nav-badge {
+  background: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.125rem 0.375rem;
+  border-radius: 8px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 /* Main Content */
@@ -1358,20 +1462,43 @@ export default {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .profile-sidebar {
     position: static;
+    border-radius: 8px;
   }
-  
+
+  .sidebar-profile {
+    padding: 1rem;
+  }
+
+  .sidebar-avatar-img {
+    width: 50px;
+    height: 50px;
+  }
+
   .profile-nav {
     flex-direction: row;
     overflow-x: auto;
-    gap: 0.5rem;
+    padding: 0.5rem;
+    gap: 0.25rem;
   }
-  
+
   .nav-item {
     white-space: nowrap;
     flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-right: none;
+  }
+
+  .nav-item.active {
+    border-right: none;
+    border-bottom: 2px solid #ec4899;
+  }
+
+  .nav-text {
+    font-size: 0.8rem;
   }
 }
 
