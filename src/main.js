@@ -5,6 +5,9 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+// Initialize authentication state
+store.dispatch('user/initializeAuth')
+
 new Vue({
   router,
   store,
