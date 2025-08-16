@@ -3114,6 +3114,8 @@ export default {
   gap: 1rem;
   margin-bottom: 2rem;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header-icon {
