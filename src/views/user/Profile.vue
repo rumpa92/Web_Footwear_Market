@@ -1721,6 +1721,360 @@ export default {
   background: #4b5563;
 }
 
+/* Notifications Card */
+.notifications-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.mark-all-read-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.mark-all-read-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.mark-all-read-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Notifications Content */
+.notifications-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Notifications List */
+.notifications-list-section {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.notification-item.unread {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.notification-item.unread::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notification-icon.order {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.notification-icon.promotion {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.notification-icon.delivery {
+  background: #d1fae5;
+  color: #10b981;
+}
+
+.notification-icon.general {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+.notification-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.notification-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.notification-message {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+}
+
+.notification-action {
+  margin-top: 0.75rem;
+}
+
+.notification-action-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.notification-action-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.mark-read-btn {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mark-read-btn:hover {
+  background: #10b981;
+  color: white;
+}
+
+.mark-read-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Notification Settings */
+.notification-settings-section {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.setting-item {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.setting-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.setting-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.setting-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.setting-icon.order {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.setting-icon.promotion {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.setting-icon.delivery {
+  background: #d1fae5;
+  color: #10b981;
+}
+
+.setting-icon.general {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+.setting-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.setting-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.setting-content p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.setting-toggle {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.setting-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.setting-toggle .toggle-label {
+  width: 50px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: block;
+}
+
+.setting-toggle .toggle-label::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.setting-toggle input[type="checkbox"]:checked + .toggle-label {
+  background: #3b82f6;
+}
+
+.setting-toggle input[type="checkbox"]:checked + .toggle-label::after {
+  transform: translateX(26px);
+}
+
+.settings-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-settings-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.save-settings-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.save-settings-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* Simple Cards for other sections */
 .simple-card {
   background: white;
