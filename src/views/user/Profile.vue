@@ -1623,6 +1623,30 @@ export default {
 
     unreadNotifications() {
       return this.notifications.filter(notification => !notification.read)
+    },
+
+    filteredRefunds() {
+      let filtered = this.refunds
+
+      if (this.refundStatusFilter) {
+        filtered = filtered.filter(refund => refund.status === this.refundStatusFilter)
+      }
+
+      if (this.refundDateFilter) {
+        const now = new Date()
+        const filterDays = {
+          '30-days': 30,
+          '90-days': 90,
+          '1-year': 365
+        }
+
+        if (filterDays[this.refundDateFilter]) {
+          const cutoffDate = new Date(now - filterDays[this.refundDateFilter] * 24 * 60 * 60 * 1000)
+          filtered = filtered.filter(refund => refund.requestDate >= cutoffDate)
+        }
+      }
+
+      return filtered.sort((a, b) => b.requestDate - a.requestDate)
     }
   },
   methods: {
