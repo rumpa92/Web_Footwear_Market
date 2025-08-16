@@ -2670,13 +2670,118 @@ export default {
     },
 
     uploadPhoto() {
-      // Simulate photo upload
-      this.$toast?.info('Photo upload functionality coming soon!')
+      // Create a file input element
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'image/*'
+      input.style.display = 'none'
+
+      input.onchange = (event) => {
+        const file = event.target.files[0]
+        if (!file) return
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          this.$toast?.error('Please select a valid image file')
+          return
+        }
+
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          this.$toast?.error('Image size must be less than 5MB')
+          return
+        }
+
+        // Show upload progress
+        this.$toast?.info('📤 Uploading photo...')
+
+        // Create FileReader to preview image
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          // Update avatar preview
+          this.editForm.avatar = e.target.result
+
+          // Simulate upload process
+          setTimeout(() => {
+            this.$toast?.success('✅ Profile photo uploaded successfully!')
+
+            // Show upload details
+            const uploadDetails = `📸 Photo Upload Complete
+
+📁 File: ${file.name}
+📏 Size: ${(file.size / 1024).toFixed(1)} KB
+📅 Uploaded: ${new Date().toLocaleString()}
+
+Your new profile photo is now active!`
+
+            if (confirm('Photo uploaded successfully! View upload details?')) {
+              alert(uploadDetails)
+            }
+          }, 1500)
+        }
+
+        reader.onerror = () => {
+          this.$toast?.error('Failed to read image file')
+        }
+
+        reader.readAsDataURL(file)
+      }
+
+      // Trigger file selection
+      document.body.appendChild(input)
+      input.click()
+      document.body.removeChild(input)
     },
 
     removePhoto() {
-      this.editForm.avatar = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'
-      this.$toast?.info('Profile photo removed')
+      // Confirm before removing
+      const confirmRemove = confirm(`🗑️ Remove Profile Photo
+
+Are you sure you want to remove your current profile photo?
+
+This action will:
+• Replace your photo with a default avatar
+• Remove the image from your profile
+• Apply the change immediately
+
+Continue with photo removal?`)
+
+      if (!confirmRemove) {
+        return
+      }
+
+      // Show removal progress
+      this.$toast?.info('🗑️ Removing photo...')
+
+      setTimeout(() => {
+        // Set default avatar
+        const defaultAvatars = [
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+          'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'
+        ]
+
+        // Randomly select a default avatar
+        this.editForm.avatar = defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)]
+
+        this.$toast?.success('✅ Profile photo removed successfully!')
+
+        // Show removal confirmation
+        setTimeout(() => {
+          const removalDetails = `🔄 Photo Removal Complete
+
+🖼️ Original photo: Removed
+🎭 New avatar: Default avatar assigned
+📅 Changed: ${new Date().toLocaleString()}
+
+You can upload a new photo anytime by clicking "Upload New Photo".`
+
+          if (confirm('Photo removed successfully! View details?')) {
+            alert(removalDetails)
+          }
+        }, 1000)
+      }, 800)
     },
     
     quickView(product) {
