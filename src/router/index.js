@@ -117,10 +117,15 @@ const router = new VueRouter({
 // Navigation guard for authentication
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const isAuthenticated = localStorage.getItem('user') // Simple auth check
-  
-  if (requiresAuth && !isAuthenticated) {
-    next('/login')
+
+  if (requiresAuth) {
+    // Check if user is authenticated in Vuex store
+    const isAuthenticated = localStorage.getItem('user') || sessionStorage.getItem('user')
+    if (!isAuthenticated) {
+      next('/login')
+    } else {
+      next()
+    }
   } else {
     next()
   }

@@ -11,6 +11,24 @@
       <div class="profile-content">
         <!-- Sidebar Navigation -->
         <div class="profile-sidebar">
+          <!-- User Profile Section -->
+          <div class="sidebar-profile">
+            <div class="sidebar-avatar">
+              <img :src="currentUser.avatar" :alt="currentUser.name" class="sidebar-avatar-img" />
+            </div>
+            <div class="sidebar-user-info">
+              <h3 class="sidebar-user-name">{{ currentUser.name }}</h3>
+              <p class="sidebar-user-email">{{ currentUser.email }}</p>
+              <div class="premium-badge">
+                <svg class="premium-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Premium Member
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Menu -->
           <nav class="profile-nav">
             <a
               v-for="section in profileSections"
@@ -21,398 +39,273 @@
             >
               <span class="nav-icon" v-html="section.icon"></span>
               <span class="nav-text">{{ section.name }}</span>
+              <span v-if="section.badge" class="nav-badge">{{ section.badge }}</span>
             </a>
           </nav>
         </div>
 
         <!-- Main Content -->
         <div class="profile-main">
-          <!-- Section 1: Profile Overview -->
-          <div v-if="activeSection === 'overview'" class="section">
-            <div class="section-header">
-              <h2>Profile Overview</h2>
-              <p>Your basic profile information</p>
-            </div>
-            
-            <div class="overview-card">
-              <div class="profile-avatar-section">
-                <div class="avatar-container">
-                  <img :src="currentUser.avatar" :alt="currentUser.name" class="profile-avatar" />
-                  <button class="edit-avatar-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              
-              <div class="profile-info">
-                <h3>{{ currentUser.name }}</h3>
-                <div class="contact-details">
-                  <div class="detail-item">
-                    <span class="label">Email:</span>
-                    <span class="value">{{ currentUser.email }}</span>
-                  </div>
-                  <div class="detail-item">
-                    <span class="label">Phone:</span>
-                    <span class="value">{{ currentUser.phone || '+1 (555) 123-4567' }}</span>
-                  </div>
-                  <div class="detail-item">
-                    <span class="label">Member since:</span>
-                    <span class="value">{{ formatDate(currentUser.joinDate || new Date()) }}</span>
-                  </div>
-                </div>
-                
-                <button class="edit-profile-btn">
+          <!-- Section 1: Profile Information -->
+          <div v-if="activeSection === 'profile'" class="section">
+            <div class="profile-info-card">
+              <div class="card-header">
+                <div class="header-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                </div>
+                <h2>{{ editMode ? 'Edit Profile' : 'Profile Information' }}</h2>
+                <button class="edit-profile-btn" @click="toggleEditMode" :class="{ 'cancel-btn': editMode }">
+                  <svg v-if="!editMode" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                   </svg>
-                  Edit Profile
+                  <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                  {{ editMode ? 'Cancel' : 'Edit Profile' }}
                 </button>
               </div>
-            </div>
-          </div>
 
-          <!-- Section 2: Account Details -->
-          <div v-if="activeSection === 'account'" class="section">
-            <div class="section-header">
-              <h2>Account Details</h2>
-              <p>Manage your account information and security</p>
-            </div>
-            
-            <div class="account-cards">
-              <div class="account-card">
-                <h3>Personal Information</h3>
-                <form class="account-form">
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label>Full Name</label>
-                      <input v-model="accountForm.name" type="text" />
-                    </div>
-                    <div class="form-group">
-                      <label>Email</label>
-                      <input v-model="accountForm.email" type="email" />
+              <!-- View Mode -->
+              <div v-if="!editMode" class="profile-details">
+                <div class="profile-avatar-section">
+                  <img :src="currentUser.avatar" :alt="currentUser.name" class="profile-avatar" />
+                </div>
+                <div class="profile-info-section">
+                  <div class="detail-row">
+                    <span class="detail-label">NAME:</span>
+                    <span class="detail-value">{{ currentUser.name }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">EMAIL:</span>
+                    <span class="detail-value">{{ currentUser.email }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">PHONE NUMBER:</span>
+                    <span class="detail-value">{{ currentUser.phone || '9775637590' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edit Mode -->
+              <div v-else class="edit-profile-section">
+                <p class="edit-description">
+                  Update your personal details including name, profile picture, contact information, and preferences to keep your account up to date.
+                </p>
+
+                <form @submit.prevent="saveProfile" class="edit-profile-form">
+                  <!-- Profile Picture Section -->
+                  <div class="form-section">
+                    <h3 class="section-title">Profile Picture</h3>
+                    <div class="avatar-edit-section">
+                      <div class="current-avatar">
+                        <img :src="editForm.avatar" :alt="editForm.name" class="edit-avatar" />
+                      </div>
+                      <div class="avatar-actions">
+                        <button type="button" class="upload-photo-btn" @click="uploadPhoto">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                          </svg>
+                          Upload New Photo
+                        </button>
+                        <button type="button" class="remove-photo-btn" @click="removePhoto">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                          </svg>
+                          Remove Photo
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label>Phone</label>
-                      <input v-model="accountForm.phone" type="tel" />
-                    </div>
-                    <div class="form-group">
-                      <label>Date of Birth</label>
-                      <input v-model="accountForm.dob" type="date" />
+
+                  <!-- Personal Information -->
+                  <div class="form-section">
+                    <h3 class="section-title">Personal Information</h3>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input
+                          id="fullName"
+                          type="text"
+                          v-model="editForm.name"
+                          placeholder="Enter your full name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                          id="email"
+                          type="email"
+                          v-model="editForm.email"
+                          placeholder="Enter your email address"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label>Gender</label>
-                    <select v-model="accountForm.gender">
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
+
+                  <!-- Contact Information -->
+                  <div class="form-section">
+                    <h3 class="section-title">Contact Information</h3>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                          id="phone"
+                          type="tel"
+                          v-model="editForm.phone"
+                          placeholder="Enter your phone number"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input
+                          id="dateOfBirth"
+                          type="date"
+                          v-model="editForm.dateOfBirth"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <button type="button" @click="updateAccount" class="save-btn">Save Changes</button>
+
+                  <!-- Additional Information -->
+                  <div class="form-section">
+                    <h3 class="section-title">Additional Information</h3>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" v-model="editForm.gender">
+                          <option value="">Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                          <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="location">Location</label>
+                        <input
+                          id="location"
+                          type="text"
+                          v-model="editForm.location"
+                          placeholder="City, State/Province"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Preferences -->
+                  <div class="form-section">
+                    <h3 class="section-title">Preferences</h3>
+                    <div class="preferences-section">
+                      <div class="preference-item">
+                        <div class="preference-info">
+                          <h4>Email Notifications</h4>
+                          <p>Receive updates about orders, promotions, and new arrivals</p>
+                        </div>
+                        <div class="preference-toggle">
+                          <input type="checkbox" v-model="editForm.emailNotifications" id="emailNotifications">
+                          <label for="emailNotifications" class="toggle-label"></label>
+                        </div>
+                      </div>
+                      <div class="preference-item">
+                        <div class="preference-info">
+                          <h4>SMS Notifications</h4>
+                          <p>Get text messages for order updates and delivery notifications</p>
+                        </div>
+                        <div class="preference-toggle">
+                          <input type="checkbox" v-model="editForm.smsNotifications" id="smsNotifications">
+                          <label for="smsNotifications" class="toggle-label"></label>
+                        </div>
+                      </div>
+                      <div class="preference-item">
+                        <div class="preference-info">
+                          <h4>Marketing Communications</h4>
+                          <p>Receive promotional offers and product recommendations</p>
+                        </div>
+                        <div class="preference-toggle">
+                          <input type="checkbox" v-model="editForm.marketingCommunications" id="marketingCommunications">
+                          <label for="marketingCommunications" class="toggle-label"></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Form Actions -->
+                  <div class="form-actions">
+                    <button type="button" class="cancel-form-btn" @click="cancelEdit">
+                      Cancel
+                    </button>
+                    <button type="submit" class="save-form-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      Save Changes
+                    </button>
+                  </div>
                 </form>
               </div>
-              
-              <div class="account-card">
-                <h3>Security</h3>
-                <div class="security-actions">
-                  <button @click="changePassword" class="security-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                      <circle cx="12" cy="16" r="1"/>
-                      <path d="M7 11V7a5 5 0 0110 0v4"/>
-                    </svg>
-                    Change Password
-                  </button>
-                  <button @click="forgotPassword" class="security-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Reset Password
-                  </button>
-                  <button @click="signOut" class="security-btn danger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                    </svg>
-                    Sign Out
-                  </button>
-                </div>
-              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Other sections remain the same but simplified -->
+          <div v-if="activeSection === 'notifications'" class="section">
+            <div class="simple-card">
+              <h2>Notifications</h2>
+              <p>Manage your notification preferences</p>
+              <!-- Notification settings content -->
             </div>
           </div>
 
-          <!-- Section 3: Saved Addresses -->
-          <div v-if="activeSection === 'addresses'" class="section">
-            <div class="section-header">
-              <h2>Saved Addresses</h2>
-              <p>Manage your shipping and billing addresses</p>
-              <button @click="addNewAddress" class="add-btn">Add New Address</button>
-            </div>
-            
-            <div class="addresses-grid">
-              <div v-for="address in addresses" :key="address.id" class="address-card">
-                <div class="address-header">
-                  <h4>{{ address.label }}</h4>
-                  <span v-if="address.isDefault" class="default-badge">Default</span>
-                </div>
-                <div class="address-content">
-                  <p>{{ address.name }}</p>
-                  <p>{{ address.street }}</p>
-                  <p>{{ address.city }}, {{ address.state }} {{ address.zip }}</p>
-                  <p>{{ address.phone }}</p>
-                </div>
-                <div class="address-actions">
-                  <button @click="editAddress(address)" class="edit-btn">Edit</button>
-                  <button @click="deleteAddress(address.id)" class="delete-btn">Delete</button>
-                </div>
-              </div>
+          <div v-if="activeSection === 'customer-support'" class="section">
+            <div class="simple-card">
+              <h2>Customer Support</h2>
+              <p>Get help and assistance</p>
+              <!-- Support content -->
             </div>
           </div>
 
-          <!-- Section 4: Payment & Wallet -->
-          <div v-if="activeSection === 'payment'" class="section">
-            <div class="section-header">
-              <h2>Payment & Wallet</h2>
-              <p>Manage your payment methods and wallet</p>
-            </div>
-            
-            <div class="payment-sections">
-              <div class="payment-card">
-                <h3>Wallet Balance</h3>
-                <div class="wallet-info">
-                  <div class="balance">
-                    <span class="amount">${{ walletBalance.toFixed(2) }}</span>
-                    <span class="label">Available Balance</span>
-                  </div>
-                  <button @click="topUpWallet" class="topup-btn">Top Up</button>
-                </div>
-                <div class="recent-transactions">
-                  <h4>Recent Transactions</h4>
-                  <div v-for="transaction in recentTransactions" :key="transaction.id" class="transaction-item">
-                    <span class="transaction-desc">{{ transaction.description }}</span>
-                    <span class="transaction-amount" :class="transaction.type">{{ transaction.type === 'credit' ? '+' : '-' }}${{ transaction.amount }}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="payment-card">
-                <h3>Saved Cards</h3>
-                <div class="cards-list">
-                  <div v-for="card in savedCards" :key="card.id" class="card-item">
-                    <div class="card-info">
-                      <span class="card-number">**** **** **** {{ card.lastFour }}</span>
-                      <span class="card-type">{{ card.type }}</span>
-                    </div>
-                    <div class="card-actions">
-                      <button @click="editCard(card)" class="edit-btn">Edit</button>
-                      <button @click="deleteCard(card.id)" class="delete-btn">Remove</button>
-                    </div>
-                  </div>
-                </div>
-                <button @click="addNewCard" class="add-card-btn">Add New Card</button>
-              </div>
+          <div v-if="activeSection === 'language-region'" class="section">
+            <div class="simple-card">
+              <h2>Language & Region</h2>
+              <p>Customize your language and regional settings</p>
+              <!-- Language settings content -->
             </div>
           </div>
 
-          <!-- Section 5: Orders & Tracking -->
-          <div v-if="activeSection === 'orders'" class="section">
-            <div class="section-header">
-              <h2>Orders & Tracking</h2>
-              <p>View your order history and track current orders</p>
-            </div>
-            
-            <div class="orders-content">
-              <div class="orders-filter">
-                <select v-model="orderFilter">
-                  <option value="all">All Orders</option>
-                  <option value="pending">Pending</option>
-                  <option value="shipped">Shipped</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
-              
-              <div class="orders-list">
-                <div v-for="order in filteredOrders" :key="order.id" class="order-card">
-                  <div class="order-header">
-                    <div class="order-info">
-                      <h4>Order #{{ order.id }}</h4>
-                      <span class="order-date">{{ formatDate(order.date) }}</span>
-                    </div>
-                    <div class="order-status">
-                      <span class="status-badge" :class="order.status">{{ order.status }}</span>
-                      <span class="order-total">${{ order.total.toFixed(2) }}</span>
-                    </div>
-                  </div>
-                  
-                  <div class="order-items">
-                    <div v-for="item in order.items" :key="item.id" class="order-item">
-                      <img :src="item.image" :alt="item.name" class="item-image" />
-                      <div class="item-details">
-                        <h5>{{ item.name }}</h5>
-                        <p>Size: {{ item.size }}, Color: {{ item.color }}</p>
-                        <p>Qty: {{ item.quantity }}</p>
-                      </div>
-                      <div class="item-price">${{ (item.price * item.quantity).toFixed(2) }}</div>
-                    </div>
-                  </div>
-                  
-                  <div class="order-actions">
-                    <button @click="trackOrder(order)" class="track-btn">Track Order</button>
-                    <button @click="reorderItems(order)" class="reorder-btn">Reorder</button>
-                    <button v-if="order.status === 'delivered'" @click="returnOrder(order)" class="return-btn">Return</button>
-                  </div>
-                </div>
-              </div>
+          <div v-if="activeSection === 'privacy-terms'" class="section">
+            <div class="simple-card">
+              <h2>Privacy & Terms</h2>
+              <p>Review our policies and manage your privacy</p>
+              <!-- Privacy settings content -->
             </div>
           </div>
 
-          <!-- Section 6: Wishlist & Recently Viewed -->
-          <div v-if="activeSection === 'wishlist'" class="section">
-            <div class="section-header">
-              <h2>Wishlist & Recently Viewed</h2>
-              <p>Your saved items and browsing history</p>
-            </div>
-            
-            <div class="wishlist-content">
-              <div class="wishlist-section">
-                <h3>Wishlist ({{ wishlist.length }})</h3>
-                <div class="products-grid">
-                  <div v-for="item in wishlist" :key="item.id" class="product-card">
-                    <img :src="item.image" :alt="item.name" />
-                    <h4>{{ item.name }}</h4>
-                    <p class="brand">{{ item.brand }}</p>
-                    <p class="price">${{ item.price }}</p>
-                    <div class="card-actions">
-                      <button @click="addToCart(item)" class="add-cart-btn">Add to Cart</button>
-                      <button @click="removeFromWishlist(item.id)" class="remove-btn">Remove</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="recently-viewed-section">
-                <h3>Recently Viewed</h3>
-                <div class="products-carousel">
-                  <div v-for="item in recentlyViewed" :key="item.id" class="product-card">
-                    <img :src="item.image" :alt="item.name" />
-                    <h4>{{ item.name }}</h4>
-                    <p class="brand">{{ item.brand }}</p>
-                    <p class="price">${{ item.price }}</p>
-                  </div>
-                </div>
-              </div>
+          <div v-if="activeSection === 'account-deletion'" class="section">
+            <div class="simple-card">
+              <h2>Account Deletion</h2>
+              <p>Permanently delete your account</p>
+              <!-- Account deletion content -->
             </div>
           </div>
 
-          <!-- Section 7: Returns, Refunds & Reviews -->
-          <div v-if="activeSection === 'returns'" class="section">
-            <div class="section-header">
-              <h2>Returns, Refunds & Reviews</h2>
-              <p>Manage returns, track refunds, and submit reviews</p>
-            </div>
-            
-            <div class="returns-content">
-              <div class="returns-section">
-                <h3>Return Requests</h3>
-                <div v-for="returnReq in returnRequests" :key="returnReq.id" class="return-card">
-                  <div class="return-info">
-                    <h4>Return #{{ returnReq.id }}</h4>
-                    <span class="return-status">{{ returnReq.status }}</span>
-                  </div>
-                  <p>Order #{{ returnReq.orderId }} - {{ returnReq.reason }}</p>
-                  <div class="return-progress">
-                    <div class="progress-bar" :style="{ width: returnReq.progress + '%' }"></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="reviews-section">
-                <h3>Pending Reviews</h3>
-                <div v-for="review in pendingReviews" :key="review.id" class="review-card">
-                  <img :src="review.product.image" :alt="review.product.name" />
-                  <div class="review-details">
-                    <h4>{{ review.product.name }}</h4>
-                    <button @click="writeReview(review)" class="review-btn">Write Review</button>
-                  </div>
-                </div>
-              </div>
+          <div v-if="activeSection === 'refund-history'" class="section">
+            <div class="simple-card">
+              <h2>Refund History</h2>
+              <p>Track your refunds and reimbursements</p>
+              <!-- Refund history content -->
             </div>
           </div>
 
-          <!-- Section 8: Support & Help -->
-          <div v-if="activeSection === 'support'" class="section">
-            <div class="section-header">
-              <h2>Support & Help</h2>
-              <p>Get help and support for your account</p>
-            </div>
-            
-            <div class="support-content">
-              <div class="support-options">
-                <div class="support-card">
-                  <h3>FAQ & Help Center</h3>
-                  <p>Find answers to common questions</p>
-                  <button @click="openFAQ" class="support-btn">View FAQ</button>
-                </div>
-                
-                <div class="support-card">
-                  <h3>Live Chat</h3>
-                  <p>Chat with our support team</p>
-                  <button @click="startChat" class="support-btn">Start Chat</button>
-                </div>
-                
-                <div class="support-card">
-                  <h3>Support Tickets</h3>
-                  <p>Track your support requests</p>
-                  <button @click="viewTickets" class="support-btn">View Tickets</button>
-                </div>
-              </div>
-              
-              <div class="contact-info">
-                <h3>Contact Information</h3>
-                <div class="contact-details">
-                  <p><strong>Email:</strong> support@footmarket.com</p>
-                  <p><strong>Phone:</strong> 1-800-FOOTMARKET</p>
-                  <p><strong>Hours:</strong> 24/7 Customer Support</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 9: Policies & Legal -->
-          <div v-if="activeSection === 'policies'" class="section">
-            <div class="section-header">
-              <h2>Policies & Legal</h2>
-              <p>Review our terms, privacy policy, and legal information</p>
-            </div>
-            
-            <div class="policies-content">
-              <div class="policy-links">
-                <a href="/terms" class="policy-link">
-                  <h4>Terms of Service</h4>
-                  <p>Read our terms and conditions</p>
-                </a>
-                
-                <a href="/privacy" class="policy-link">
-                  <h4>Privacy Policy</h4>
-                  <p>How we handle your personal data</p>
-                </a>
-                
-                <a href="/return-policy" class="policy-link">
-                  <h4>Return Policy</h4>
-                  <p>Our return and exchange guidelines</p>
-                </a>
-                
-                <a href="/shipping-policy" class="policy-link">
-                  <h4>Shipping Policy</h4>
-                  <p>Delivery terms and conditions</p>
-                </a>
-              </div>
+          <div v-if="activeSection === 'delivery-management'" class="section">
+            <div class="simple-card">
+              <h2>Delivery Management</h2>
+              <p>Manage your delivery preferences</p>
+              <!-- Delivery management content -->
             </div>
           </div>
         </div>
@@ -428,59 +321,118 @@ export default {
   name: 'Profile',
   data() {
     return {
-      activeSection: 'overview',
-      accountForm: {
+      activeSection: 'profile',
+      editMode: false,
+      editForm: {
         name: '',
         email: '',
         phone: '',
-        dob: '',
-        gender: ''
+        dateOfBirth: '',
+        gender: '',
+        location: '',
+        avatar: '',
+        emailNotifications: true,
+        smsNotifications: false,
+        marketingCommunications: false
       },
-      orderFilter: 'all',
-      walletBalance: 245.50,
-      recentTransactions: [
-        { id: 1, description: 'Order #12345', amount: 89.99, type: 'debit' },
-        { id: 2, description: 'Wallet Top-up', amount: 100.00, type: 'credit' },
-        { id: 3, description: 'Refund #12340', amount: 45.50, type: 'credit' }
-      ],
-      savedCards: [
-        { id: 1, lastFour: '4567', type: 'Visa' },
-        { id: 2, lastFour: '8901', type: 'Mastercard' }
-      ],
-      returnRequests: [
-        { id: 1001, orderId: 12345, reason: 'Size too small', status: 'Processing', progress: 60 }
-      ],
-      pendingReviews: [
-        { id: 1, product: { name: 'Nike Air Force 1', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=100&h=100&fit=crop' } }
-      ],
-      recentlyViewed: [
-        { id: 1, name: 'Nike Air Force 1', brand: 'Nike', price: 149.99, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop' }
+      recommendedProducts: [
+        {
+          id: 1,
+          name: 'Premium Running Shoes',
+          brand: 'Nike',
+          price: 129.99,
+          originalPrice: 159.99,
+          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop',
+          rating: 4.5,
+          reviews: 142,
+          discount: true
+        },
+        {
+          id: 2,
+          name: 'Classic White Sneakers',
+          brand: 'Adidas',
+          price: 89.99,
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop',
+          rating: 4.2,
+          reviews: 87
+        },
+        {
+          id: 3,
+          name: 'Luxury Cosmetic Set',
+          brand: 'Clinique',
+          price: 199.99,
+          originalPrice: 249.99,
+          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=300&fit=crop',
+          rating: 4.7,
+          reviews: 203,
+          discount: true
+        },
+        {
+          id: 4,
+          name: 'Botanical Collection',
+          brand: 'Nature Beauty',
+          price: 156.00,
+          image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&h=300&fit=crop',
+          rating: 4.3,
+          reviews: 95
+        }
       ],
       profileSections: [
-        { id: 'overview', name: 'Profile Overview', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>' },
-        { id: 'account', name: 'Account Details', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>' },
-        { id: 'addresses', name: 'Saved Addresses', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>' },
-        { id: 'payment', name: 'Payment & Wallet', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>' },
-        { id: 'orders', name: 'Orders & Tracking', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v12z"/></svg>' },
-        { id: 'wishlist', name: 'Wishlist & Recently Viewed', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>' },
-        { id: 'returns', name: 'Returns & Reviews', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' },
-        { id: 'support', name: 'Support & Help', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>' },
-        { id: 'policies', name: 'Policies & Legal', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>' }
+        {
+          id: 'profile',
+          name: 'Update Profile',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
+        },
+        {
+          id: 'notifications',
+          name: 'Notifications',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>',
+          badge: '3'
+        },
+        {
+          id: 'customer-support',
+          name: 'Customer Support',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>'
+        },
+        {
+          id: 'language-region',
+          name: 'Language & Region',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>'
+        },
+        {
+          id: 'privacy-terms',
+          name: 'Privacy & Terms',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>'
+        },
+        {
+          id: 'account-deletion',
+          name: 'Account Deletion',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-2.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>'
+        },
+        {
+          id: 'refund-history',
+          name: 'Refund History',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>'
+        },
+        {
+          id: 'delivery-management',
+          name: 'Delivery Management',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>'
+        }
       ]
     }
   },
   computed: {
-    ...mapGetters('user', ['currentUser', 'wishlist', 'addresses', 'orders']),
-    ...mapGetters('cart', ['cartItems']),
+    ...mapGetters('user', ['currentUser', 'wishlist']),
     
-    filteredOrders() {
-      if (this.orderFilter === 'all') return this.orders
-      return this.orders.filter(order => order.status === this.orderFilter)
+    isInWishlist() {
+      return (productId) => {
+        return this.wishlist.some(item => item.id === productId)
+      }
     }
   },
   methods: {
-    ...mapActions('user', ['logout', 'updateProfile', 'addAddress', 'updateAddress', 'deleteAddress']),
-    ...mapActions('cart', ['addToCart']),
+    ...mapActions('user', ['addToWishlist', 'removeFromWishlist']),
     
     formatDate(date) {
       return new Date(date).toLocaleDateString('en-US', {
@@ -490,111 +442,76 @@ export default {
       })
     },
     
-    updateAccount() {
-      this.updateProfile(this.accountForm)
-      this.$toast.success('Account updated successfully!')
+    toggleEditMode() {
+      this.editMode = !this.editMode
+      if (this.editMode) {
+        // Initialize edit form with current user data
+        this.editForm = {
+          name: this.currentUser.name || '',
+          email: this.currentUser.email || '',
+          phone: this.currentUser.phone || '9775637590',
+          dateOfBirth: this.currentUser.dateOfBirth || '',
+          gender: this.currentUser.gender || '',
+          location: this.currentUser.location || '',
+          avatar: this.currentUser.avatar || '',
+          emailNotifications: this.currentUser.emailNotifications !== false,
+          smsNotifications: this.currentUser.smsNotifications || false,
+          marketingCommunications: this.currentUser.marketingCommunications || false
+        }
+      }
+    },
+
+    saveProfile() {
+      // Update user profile with form data
+      const updatedUser = {
+        ...this.currentUser,
+        ...this.editForm
+      }
+
+      // Update localStorage
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+
+      // Update Vuex store (you might need to dispatch an action)
+      this.$store.commit('user/SET_USER', updatedUser)
+
+      this.editMode = false
+      this.$toast?.success('Profile updated successfully!')
+    },
+
+    cancelEdit() {
+      this.editMode = false
+      this.editForm = {}
+    },
+
+    uploadPhoto() {
+      // Simulate photo upload
+      this.$toast?.info('Photo upload functionality coming soon!')
+    },
+
+    removePhoto() {
+      this.editForm.avatar = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'
+      this.$toast?.info('Profile photo removed')
     },
     
-    changePassword() {
-      // Implementation for password change
-      console.log('Change password')
+    quickView(product) {
+      console.log('Quick view:', product)
+      this.$toast?.info(`Quick view for ${product.name}`)
     },
     
-    forgotPassword() {
-      // Implementation for password reset
-      console.log('Forgot password')
+    toggleWishlist(product) {
+      if (this.isInWishlist(product.id)) {
+        this.removeFromWishlist(product.id)
+        this.$toast?.success('Removed from wishlist')
+      } else {
+        this.addToWishlist(product)
+        this.$toast?.success('Added to wishlist')
+      }
     },
     
-    signOut() {
-      this.logout()
-      this.$router.push('/')
+    loadMoreRecommendations() {
+      this.$toast?.info('Loading more recommendations...')
     },
     
-    addNewAddress() {
-      // Implementation for adding new address
-      console.log('Add new address')
-    },
-    
-    editAddress(address) {
-      // Implementation for editing address
-      console.log('Edit address', address)
-    },
-    
-    deleteAddress(addressId) {
-      // Implementation for deleting address
-      console.log('Delete address', addressId)
-    },
-    
-    topUpWallet() {
-      // Implementation for wallet top-up
-      console.log('Top up wallet')
-    },
-    
-    addNewCard() {
-      // Implementation for adding new card
-      console.log('Add new card')
-    },
-    
-    editCard(card) {
-      // Implementation for editing card
-      console.log('Edit card', card)
-    },
-    
-    deleteCard(cardId) {
-      // Implementation for deleting card
-      console.log('Delete card', cardId)
-    },
-    
-    trackOrder(order) {
-      // Implementation for order tracking
-      console.log('Track order', order)
-    },
-    
-    reorderItems(order) {
-      // Implementation for reordering
-      console.log('Reorder', order)
-    },
-    
-    returnOrder(order) {
-      // Implementation for return request
-      console.log('Return order', order)
-    },
-    
-    removeFromWishlist(productId) {
-      // Implementation for wishlist removal
-      console.log('Remove from wishlist', productId)
-    },
-    
-    writeReview(review) {
-      // Implementation for writing review
-      console.log('Write review', review)
-    },
-    
-    openFAQ() {
-      // Implementation for FAQ
-      console.log('Open FAQ')
-    },
-    
-    startChat() {
-      // Implementation for live chat
-      console.log('Start chat')
-    },
-    
-    viewTickets() {
-      // Implementation for support tickets
-      console.log('View tickets')
-    }
-  },
-  
-  mounted() {
-    // Initialize form with current user data
-    this.accountForm = {
-      name: this.currentUser.name || '',
-      email: this.currentUser.email || '',
-      phone: this.currentUser.phone || '',
-      dob: this.currentUser.dob || '',
-      gender: this.currentUser.gender || ''
-    }
   }
 }
 </script>
@@ -638,46 +555,116 @@ export default {
 /* Sidebar Navigation */
 .profile-sidebar {
   background: white;
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: fit-content;
   position: sticky;
   top: 2rem;
+  border: 1px solid #f1f3f4;
 }
 
+/* Sidebar Profile Section */
+.sidebar-profile {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f1f3f4;
+  text-align: center;
+}
+
+.sidebar-avatar {
+  margin-bottom: 1rem;
+}
+
+.sidebar-avatar-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f1f3f4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar-user-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.sidebar-user-email {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: #ec4899;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.premium-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Navigation Menu */
 .profile-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
+  padding: 0.875rem 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   text-decoration: none;
-  color: #6b7280;
+  color: #374151;
+  position: relative;
+  border: none;
+  background: none;
 }
 
 .nav-item:hover {
-  background: #f8fafc;
-  color: #3b82f6;
+  background: #f9fafb;
+  color: #1f2937;
 }
 
 .nav-item.active {
-  background: #3b82f6;
-  color: white;
+  background: #fef7f7;
+  color: #ec4899;
+  border-right: 3px solid #ec4899;
+}
+
+.nav-item.active .nav-icon {
+  color: #ec4899;
 }
 
 .nav-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  color: #6b7280;
+  transition: color 0.2s ease;
 }
 
 .nav-icon svg {
@@ -687,148 +674,89 @@ export default {
 
 .nav-text {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+.nav-badge {
+  background: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.125rem 0.375rem;
+  border-radius: 8px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 /* Main Content */
 .profile-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Profile Information Card */
+.profile-info-card {
   background: white;
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.section-header {
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.section-header h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.section-header p {
-  color: #6b7280;
-  margin-bottom: 0;
-}
-
-.add-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-/* Profile Overview */
-.overview-card {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  background: #f8fafc;
-  border-radius: 16px;
-  border: 2px solid #e5e7eb;
-}
-
-.profile-avatar-section {
-  flex-shrink: 0;
-}
-
-.avatar-container {
   position: relative;
 }
 
-.profile-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.edit-avatar-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+.header-icon {
+  width: 40px;
+  height: 40px;
+  background: #f3f4f6;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.edit-avatar-btn:hover {
-  background: #2563eb;
-  transform: scale(1.1);
-}
-
-.edit-avatar-btn svg {
-  width: 18px;
-  height: 18px;
-}
-
-.profile-info h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.contact-details {
-  margin-bottom: 1.5rem;
-}
-
-.detail-item {
-  display: flex;
-  margin-bottom: 0.5rem;
-}
-
-.detail-item .label {
-  font-weight: 600;
-  color: #374151;
-  min-width: 120px;
-}
-
-.detail-item .value {
   color: #6b7280;
 }
 
+.header-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.card-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  flex: 1;
+}
+
 .edit-profile-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #10b981;
+  background: #ec4899;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .edit-profile-btn:hover {
-  background: #059669;
+  background: #db2777;
   transform: translateY(-2px);
 }
 
@@ -837,874 +765,804 @@ export default {
   height: 16px;
 }
 
-/* Account Details */
-.account-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.profile-details {
+  display: flex;
   gap: 2rem;
-}
-
-.account-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-}
-
-.account-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.account-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.form-group input,
-.form-group select {
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: #3b82f6;
-}
-
-.save-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.save-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-.security-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.security-btn {
-  display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  color: #374151;
 }
 
-.security-btn:hover {
-  border-color: #3b82f6;
-  background: #f8fafc;
-}
-
-.security-btn.danger {
-  border-color: #ef4444;
-  color: #ef4444;
-}
-
-.security-btn.danger:hover {
-  background: #fef2f2;
-}
-
-.security-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Addresses */
-.addresses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.address-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  transition: all 0.3s ease;
-}
-
-.address-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.address-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.address-header h4 {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.default-badge {
-  background: #10b981;
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.address-content p {
-  margin-bottom: 0.25rem;
-  color: #6b7280;
-}
-
-.address-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.edit-btn,
-.delete-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.edit-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-}
-
-.edit-btn:hover {
-  background: #2563eb;
-}
-
-.delete-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-}
-
-.delete-btn:hover {
-  background: #dc2626;
-}
-
-/* Payment & Wallet */
-.payment-sections {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-.payment-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-}
-
-.payment-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.wallet-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.balance .amount {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f2937;
-  display: block;
-}
-
-.balance .label {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.topup-btn {
-  background: #10b981;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.topup-btn:hover {
-  background: #059669;
-  transform: translateY(-2px);
-}
-
-.recent-transactions h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.transaction-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.transaction-item:last-child {
-  border-bottom: none;
-}
-
-.transaction-desc {
-  color: #374151;
-  font-weight: 500;
-}
-
-.transaction-amount {
-  font-weight: 600;
-}
-
-.transaction-amount.credit {
-  color: #10b981;
-}
-
-.transaction-amount.debit {
-  color: #ef4444;
-}
-
-.cards-list {
-  margin-bottom: 1.5rem;
-}
-
-.card-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  border: 2px solid #e5e7eb;
-}
-
-.card-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.card-number {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.card-type {
-  color: #6b7280;
-  font-size: 0.85rem;
-}
-
-.card-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.add-card-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.add-card-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-/* Orders */
-.orders-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.orders-filter select {
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  background: white;
-}
-
-.orders-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.order-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  transition: all 0.3s ease;
-}
-
-.order-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.order-info h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
-}
-
-.order-date {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.order-status {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.status-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.status-badge.pending {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.status-badge.shipped {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.status-badge.delivered {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.status-badge.cancelled {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.order-total {
-  font-weight: 700;
-  color: #1f2937;
-  font-size: 1.1rem;
-}
-
-.order-items {
-  margin-bottom: 1rem;
-}
-
-.order-item {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 0.75rem;
-  border: 2px solid #e5e7eb;
-}
-
-.order-item:last-child {
-  margin-bottom: 0;
-}
-
-.item-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
+.profile-avatar-section {
   flex-shrink: 0;
 }
 
-.item-details {
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
+}
+
+.profile-info-section {
   flex: 1;
-}
-
-.item-details h5 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
-}
-
-.item-details p {
-  color: #6b7280;
-  font-size: 0.85rem;
-  margin-bottom: 0.25rem;
-}
-
-.item-price {
-  font-weight: 600;
-  color: #1f2937;
-  align-self: center;
-}
-
-.order-actions {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.track-btn,
-.reorder-btn,
-.return-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.track-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-}
-
-.track-btn:hover {
-  background: #2563eb;
-}
-
-.reorder-btn {
-  background: #10b981;
-  color: white;
-  border: none;
-}
-
-.reorder-btn:hover {
-  background: #059669;
-}
-
-.return-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-}
-
-.return-btn:hover {
-  background: #dc2626;
-}
-
-/* Wishlist */
-.wishlist-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.wishlist-section h3,
-.recently-viewed-section h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.products-grid,
-.products-carousel {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
+.detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Feed Section */
+.feed-section {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feed-header {
+  margin-bottom: 2rem;
+}
+
+.feed-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+  color: #fbbf24;
+}
+
+.feed-title h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.feed-description {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* AI Recommendations */
+.recommendations-section {
+  margin-bottom: 2rem;
+}
+
+.recommendations-header {
+  margin-bottom: 1.5rem;
+}
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.ai-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Products Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
 .product-card {
   background: #f8fafc;
   border-radius: 16px;
-  padding: 1rem;
-  border: 2px solid #e5e7eb;
+  overflow: hidden;
   transition: all 0.3s ease;
-  text-align: center;
+  border: 2px solid transparent;
 }
 
 .product-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  border-color: #e5e7eb;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.product-card img {
+.product-image-container {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.product-image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
 }
 
-.product-card h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+.product-card:hover .product-image {
+  transform: scale(1.05);
 }
 
-.product-card .brand {
-  color: #6b7280;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-
-.product-card .price {
-  font-weight: 700;
-  color: #3b82f6;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-.card-actions {
+.product-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.quick-view-btn,
+.wishlist-btn {
+  background: white;
+  color: #1f2937;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
+  font-weight: 500;
+}
+
+.quick-view-btn:hover {
+  background: #f3f4f6;
+  transform: scale(1.05);
+}
+
+.wishlist-btn {
+  width: 40px;
+  height: 40px;
   justify-content: center;
 }
 
-.add-cart-btn,
-.remove-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+.wishlist-btn.active {
+  background: #ec4899;
+  color: white;
+}
+
+.wishlist-btn:hover {
+  background: #ec4899;
+  color: white;
+}
+
+.quick-view-btn svg,
+.wishlist-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #ef4444;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-info {
+  padding: 1.5rem;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.product-brand {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.product-pricing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.current-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.original-price {
+  font-size: 1rem;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.star {
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+.rating-text {
   font-size: 0.85rem;
-  font-weight: 500;
+  color: #6b7280;
+}
+
+/* View More Section */
+.view-more-section {
+  text-align: center;
+}
+
+.view-more-btn {
+  background: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.add-cart-btn {
+.view-more-btn:hover {
   background: #3b82f6;
   color: white;
-  border: none;
-  flex: 1;
+  transform: translateY(-2px);
 }
 
-.add-cart-btn:hover {
+.view-more-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Avatar Management */
+.avatar-management-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-content {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.current-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+.avatar-info h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.avatar-info p {
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.member-since {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.avatar-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload-btn,
+.remove-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+}
+
+.upload-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.upload-btn:hover {
   background: #2563eb;
 }
 
 .remove-btn {
   background: #ef4444;
   color: white;
-  border: none;
 }
 
 .remove-btn:hover {
   background: #dc2626;
 }
 
-/* Returns */
-.returns-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.upload-btn svg,
+.remove-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
-.returns-section h3,
-.reviews-section h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
+/* Edit Profile Section */
+.edit-profile-section {
+  padding-top: 1rem;
 }
 
-.return-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  margin-bottom: 1rem;
-}
-
-.return-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.return-info h4 {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.return-status {
-  background: #dbeafe;
-  color: #1d4ed8;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.return-progress {
-  background: #e5e7eb;
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.progress-bar {
-  background: #3b82f6;
-  height: 100%;
-  transition: width 0.3s ease;
-}
-
-.review-card {
-  display: flex;
-  gap: 1rem;
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  margin-bottom: 1rem;
-}
-
-.review-card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 12px;
-  flex-shrink: 0;
-}
-
-.review-details {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.review-details h4 {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.review-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.review-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-/* Support */
-.support-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.support-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.support-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.support-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.support-card h3 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.support-card p {
+.edit-description {
   color: #6b7280;
-  margin-bottom: 1.5rem;
-}
-
-.support-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.support-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-.contact-info {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  padding: 1rem;
   background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
 }
 
-.contact-info h3 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.contact-details p {
-  margin-bottom: 0.5rem;
-  color: #374151;
-}
-
-/* Policies */
-.policies-content {
+.edit-profile-form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.policy-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.policy-link {
+.form-section {
   background: #f8fafc;
   border-radius: 16px;
   padding: 1.5rem;
-  border: 2px solid #e5e7eb;
+  border: 1px solid #e5e7eb;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: #3b82f6;
+  border-radius: 2px;
+}
+
+/* Avatar Edit Section */
+.avatar-edit-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.current-avatar {
+  flex-shrink: 0;
+}
+
+.edit-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
+}
+
+.avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.upload-photo-btn,
+.remove-photo-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
-  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.upload-photo-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.upload-photo-btn:hover {
+  background: #2563eb;
+}
+
+.remove-photo-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.remove-photo-btn:hover {
+  background: #dc2626;
+}
+
+.upload-photo-btn svg,
+.remove-photo-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Preferences Section */
+.preferences-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.preference-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.preference-info h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.preference-info p {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.preference-toggle {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.preference-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-label {
+  width: 50px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
   display: block;
 }
 
-.policy-link:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
+.toggle-label::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.policy-link h4 {
+.preference-toggle input[type="checkbox"]:checked + .toggle-label {
+  background: #3b82f6;
+}
+
+.preference-toggle input[type="checkbox"]:checked + .toggle-label::after {
+  transform: translateX(26px);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cancel-form-btn,
+.save-form-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cancel-form-btn {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.cancel-form-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.save-form-btn {
+  background: #10b981;
+  color: white;
+}
+
+.save-form-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.save-form-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Edit Profile Button States */
+.edit-profile-btn.cancel-btn {
+  background: #6b7280;
+}
+
+.edit-profile-btn.cancel-btn:hover {
+  background: #4b5563;
+}
+
+/* Simple Cards for other sections */
+.simple-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.simple-card h2 {
+  font-size: 1.5rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
 }
 
-.policy-link p {
+.simple-card p {
   color: #6b7280;
   margin: 0;
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 1024px) {
   .profile-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .profile-sidebar {
     position: static;
+    border-radius: 8px;
   }
-  
+
+  .sidebar-profile {
+    padding: 1rem;
+  }
+
+  .sidebar-avatar-img {
+    width: 50px;
+    height: 50px;
+  }
+
   .profile-nav {
     flex-direction: row;
     overflow-x: auto;
-    gap: 1rem;
+    padding: 0.5rem;
+    gap: 0.25rem;
   }
-  
+
   .nav-item {
     white-space: nowrap;
     flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-right: none;
+  }
+
+  .nav-item.active {
+    border-right: none;
+    border-bottom: 2px solid #ec4899;
+  }
+
+  .nav-text {
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 768px) {
+  .profile-details {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .profile-info-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-edit-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .preference-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-form-btn,
+  .save-form-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .edit-profile-btn {
+    align-self: flex-end;
+  }
+  
+  .avatar-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
   .container {
     padding: 0 1rem;
   }
@@ -1713,39 +1571,14 @@ export default {
     padding: 1rem 0;
   }
   
-  .profile-header h1 {
-    font-size: 2rem;
+  .profile-info-card,
+  .feed-section,
+  .avatar-management-card,
+  .simple-card {
+    padding: 1.5rem;
   }
   
-  .overview-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .account-cards,
-  .payment-sections {
-    grid-template-columns: 1fr;
-  }
-  
-  .addresses-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .order-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .order-actions {
-    flex-wrap: wrap;
-  }
-  
-  .support-options {
-    grid-template-columns: 1fr;
-  }
-  
-  .policy-links {
+  .products-grid {
     grid-template-columns: 1fr;
   }
 }
