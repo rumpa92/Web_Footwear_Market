@@ -63,6 +63,7 @@ export default {
 @import './assets/styles/variables.css';
 @import './assets/styles/utilities.css';
 @import './assets/styles/components.css';
+@import './assets/styles/delivery-management.css';
 
 * {
   margin: 0;
