@@ -539,11 +539,140 @@
             </div>
           </div>
 
+          <!-- Language & Region Section -->
           <div v-if="activeSection === 'language-region'" class="section">
-            <div class="simple-card">
-              <h2>Language & Region</h2>
-              <p>Customize your language and regional settings</p>
-              <!-- Language settings content -->
+            <div class="language-region-card">
+              <div class="card-header">
+                <div class="header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                  </svg>
+                </div>
+                <h2>Language & Region</h2>
+              </div>
+
+              <div class="language-region-content">
+                <!-- Language Selection -->
+                <div class="settings-section">
+                  <h3 class="section-title">Language Preferences</h3>
+                  <div class="language-selector">
+                    <div class="current-language">
+                      <div class="language-flag">
+                        <img :src="selectedLanguage.flag" :alt="selectedLanguage.name" />
+                      </div>
+                      <div class="language-info">
+                        <h4>{{ selectedLanguage.name }}</h4>
+                        <p>{{ selectedLanguage.nativeName }}</p>
+                      </div>
+                    </div>
+
+                    <div class="language-options">
+                      <div
+                        v-for="language in availableLanguages"
+                        :key="language.code"
+                        @click="selectLanguage(language)"
+                        class="language-option"
+                        :class="{ 'active': selectedLanguage.code === language.code }"
+                      >
+                        <img :src="language.flag" :alt="language.name" class="option-flag" />
+                        <div class="option-info">
+                          <span class="option-name">{{ language.name }}</span>
+                          <span class="option-native">{{ language.nativeName }}</span>
+                        </div>
+                        <div v-if="selectedLanguage.code === language.code" class="selected-indicator">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Currency Format -->
+                <div class="settings-section">
+                  <h3 class="section-title">Currency & Format</h3>
+                  <div class="currency-settings">
+                    <div class="currency-selector">
+                      <label for="currency">Currency</label>
+                      <select v-model="selectedCurrency" @change="updateCurrency" id="currency">
+                        <option v-for="currency in availableCurrencies" :key="currency.code" :value="currency.code">
+                          {{ currency.symbol }} {{ currency.name }} ({{ currency.code }})
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="format-preview">
+                      <h4>Format Preview</h4>
+                      <div class="preview-examples">
+                        <div class="preview-item">
+                          <span class="preview-label">Price:</span>
+                          <span class="preview-value">{{ formatCurrencyPreview(99.99) }}</span>
+                        </div>
+                        <div class="preview-item">
+                          <span class="preview-label">Large Amount:</span>
+                          <span class="preview-value">{{ formatCurrencyPreview(1234.56) }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Region/Location -->
+                <div class="settings-section">
+                  <h3 class="section-title">Region & Location</h3>
+                  <div class="region-settings">
+                    <div class="region-selector">
+                      <label for="region">Country/Region</label>
+                      <select v-model="selectedRegion" @change="updateRegion" id="region">
+                        <option v-for="region in availableRegions" :key="region.code" :value="region.code">
+                          {{ region.flag }} {{ region.name }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="location-benefits">
+                      <h4>Regional Benefits</h4>
+                      <ul class="benefits-list">
+                        <li>
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                          </svg>
+                          Personalized product recommendations
+                        </li>
+                        <li>
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                          </svg>
+                          Regional shipping options
+                        </li>
+                        <li>
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                          </svg>
+                          Local promotions and offers
+                        </li>
+                        <li>
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                          </svg>
+                          Accurate delivery estimates
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Save Settings -->
+                <div class="settings-actions">
+                  <button @click="saveLanguageSettings" class="save-settings-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Save Language & Region Settings
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
