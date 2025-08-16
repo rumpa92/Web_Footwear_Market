@@ -2278,7 +2278,7 @@ export default {
       selectedRegion: 'US',
       availableRegions: [
         { code: 'US', name: 'United States', flag: '🇺🇸' },
-        { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+        { code: 'CA', name: 'Canada', flag: '���🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
         { code: 'FR', name: 'France', flag: '🇫🇷' },
@@ -3188,7 +3188,49 @@ They will receive it shortly.`)
     },
 
     viewDeliveryDetails(deliveryId) {
-      this.$toast?.info(`Viewing details for delivery ${deliveryId}`)
+      // Find the delivery
+      const delivery = this.activeDeliveries.find(d => d.id === deliveryId)
+      if (!delivery) {
+        this.$toast?.error('Delivery not found')
+        return
+      }
+
+      // Show detailed delivery information
+      const details = `📦 Delivery Details - Order #${delivery.orderId}
+
+📋 ORDER INFORMATION:
+• Order Date: ${this.formatDate(delivery.orderDate)}
+• Order Total: $${delivery.orderTotal || '89.99'}
+• Items: ${delivery.itemCount || '2'} items
+• Weight: ${delivery.weight || '1.2'} lbs
+
+🚚 SHIPPING DETAILS:
+• Carrier: ${delivery.carrier || 'FastTrack Express'}
+• Service: ${delivery.serviceType || 'Standard Delivery'}
+• Tracking ID: ${delivery.trackingId || 'FT' + delivery.orderId}
+• Expected: ${this.formatDate(delivery.estimatedDate)}
+
+📍 DELIVERY ADDRESS:
+${delivery.shippingAddress || `123 Main Street
+New York, NY 10001`}
+
+👤 COURIER INFO:
+• Name: ${delivery.courierName || 'John Doe'}
+• Phone: ${delivery.courierPhone || '+1 (555) 123-4567'}
+• Vehicle: ${delivery.vehicleType || 'Van - License: ABC123'}
+
+📊 CURRENT STATUS:
+• ${this.formatDeliveryStatus(delivery.status)}
+• Progress: ${delivery.progress}%
+• Last Update: ${new Date().toLocaleString()}
+
+💡 DELIVERY INSTRUCTIONS:
+${this.deliveryInstructions || 'No special instructions'}
+
+Need help? Contact customer service at support@footmarket.com`
+
+      alert(details)
+      this.$toast?.info('Delivery details displayed')
     },
 
     resetPreferences() {
