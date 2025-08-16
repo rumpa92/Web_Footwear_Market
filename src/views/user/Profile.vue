@@ -3147,13 +3147,55 @@ They will receive it shortly.`)
     },
 
     saveDeliverySettings() {
+      // Validate input
+      if (this.deliveryInstructions && this.deliveryInstructions.length > 500) {
+        this.$toast?.error('Special instructions must be 500 characters or less')
+        return
+      }
+
+      // Show loading state
+      this.$toast?.info('Saving preferences...')
+
       const settings = {
         selectedTimeSlot: this.selectedTimeSlot,
         deliveryInstructions: this.deliveryInstructions,
-        deliveryNotifications: this.deliveryNotifications
+        deliveryNotifications: this.deliveryNotifications,
+        savedAt: new Date().toISOString()
       }
-      localStorage.setItem('deliverySettings', JSON.stringify(settings))
-      this.$toast?.success('Delivery preferences saved!')
+
+      try {
+        localStorage.setItem('deliverySettings', JSON.stringify(settings))
+
+        // Simulate API call delay
+        setTimeout(() => {
+          this.$toast?.success('✅ Delivery preferences saved successfully!')
+
+          // Show summary of saved settings
+          const summary = `📝 Settings Saved:
+
+⏰ Preferred Time: ${this.getTimeSlotLabel(this.selectedTimeSlot)}
+📝 Instructions: ${this.deliveryInstructions || 'None'}
+📱 SMS Updates: ${this.deliveryNotifications.sms ? 'Enabled' : 'Disabled'}
+📧 Email Updates: ${this.deliveryNotifications.email ? 'Enabled' : 'Disabled'}
+📸 Photo Confirmation: ${this.deliveryNotifications.photo ? 'Enabled' : 'Disabled'}
+
+Your preferences will apply to all future deliveries.`
+
+          // Optional: Show detailed confirmation
+          if (confirm('Settings saved! Would you like to see a summary?')) {
+            alert(summary)
+          }
+        }, 800)
+
+      } catch (error) {
+        console.error('Error saving delivery settings:', error)
+        this.$toast?.error('Failed to save preferences. Please try again.')
+      }
+    },
+
+    getTimeSlotLabel(slotId) {
+      const slot = this.deliveryTimeSlots.find(s => s.id === slotId)
+      return slot ? slot.time : 'Not selected'
     },
 
     // New delivery management methods
