@@ -4,7 +4,7 @@
       <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5M12 19l-7-7 7-7"/>
       </svg>
-      <span>Back</span>
+      <span>{{ backButtonText }}</span>
     </button>
   </div>
 </template>
@@ -14,18 +14,104 @@ export default {
   name: 'BackButton',
   computed: {
     shouldShowBackButton() {
-      // Show back button on all pages except home page
-      return this.$route.path !== '/'
+      // Hide back button on home page, sign in, and sign up pages
+      const excludedRoutes = ['/', '/login', '/register']
+      return !excludedRoutes.includes(this.$route.path)
+    },
+    backButtonText() {
+      // Map route paths to readable page names
+      const pageNames = {
+        '/products': 'Back to Products',
+        '/brands': 'Back to Brands',
+        '/sale': 'Back to Sale',
+        '/cart': 'Back to Cart',
+        '/wishlist': 'Back to Wishlist',
+        '/profile': 'Back to Profile',
+        '/orders': 'Back to Orders',
+        '/checkout': 'Back to Checkout',
+        '/ticket': 'Back to Support',
+        '/upi-payment': 'Back to Payment',
+        '/wallet-payment': 'Back to Payment',
+        '/netbanking-payment': 'Back to Payment',
+        '/order-confirmation': 'Back to Orders'
+      }
+
+      // Handle 404 Not Found page
+      if (this.$route.name === 'NotFound') {
+        return 'Back to Home'
+      }
+
+      // Handle dynamic routes (like /product/:id, /brands/:brand)
+      if (this.$route.path.startsWith('/product/')) {
+        return 'Back to Products'
+      }
+      if (this.$route.path.startsWith('/brands/')) {
+        return 'Back to Brands'
+      }
+
+      // Return mapped page name or default "Back"
+      return pageNames[this.$route.path] || 'Back'
     }
   },
   methods: {
     goBack() {
-      // Check if there's browser history to go back to
-      if (window.history.length > 1) {
-        this.$router.go(-1)
-      } else {
-        // If no history, go to home page
+      // Smart back navigation based on current route
+      const currentPath = this.$route.path
+
+      // Define specific navigation paths for each route
+      const backNavigation = {
+        '/products': '/',
+        '/brands': '/',
+        '/sale': '/',
+        '/cart': '/',
+        '/wishlist': '/',
+        '/profile': '/',
+        '/orders': '/profile',
+        '/checkout': '/cart',
+        '/ticket': '/profile',
+        '/upi-payment': '/checkout',
+        '/wallet-payment': '/checkout',
+        '/netbanking-payment': '/checkout',
+        '/order-confirmation': '/'
+      }
+
+      // Handle dynamic routes
+      if (currentPath.startsWith('/product/')) {
+        this.$router.push('/products')
+        return
+      }
+
+      if (currentPath.startsWith('/brands/')) {
+        this.$router.push('/brands')
+        return
+      }
+
+      // Handle 404 pages
+      if (this.$route.name === 'NotFound') {
         this.$router.push('/')
+        return
+      }
+
+      // Navigate to the defined back route or fallback to browser back
+      const backRoute = backNavigation[currentPath]
+      if (backRoute) {
+        this.$router.push(backRoute)
+      } else {
+        // Fallback: try browser back, then home
+        try {
+          this.$router.go(-1)
+          // Set a timeout to check if navigation happened
+          setTimeout(() => {
+            // If we're still on the same route after attempting to go back,
+            // it means there was no history, so go to home
+            if (this.$route.path === currentPath) {
+              this.$router.push('/')
+            }
+          }, 100)
+        } catch (error) {
+          // If router.go fails, go to home
+          this.$router.push('/')
+        }
       }
     }
   }
@@ -37,33 +123,48 @@ export default {
   padding: 1rem 2rem;
   background: white;
   border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .back-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: #f8fafc;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #64748b;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .back-button:hover {
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
   border-color: #cbd5e1;
   color: #475569;
-  transform: translateX(-2px);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active {
+  transform: translateX(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .back-icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.back-button:hover .back-icon {
+  transform: translateX(-2px);
 }
 
 /* Responsive */
@@ -73,8 +174,24 @@ export default {
   }
   
   .back-button {
-    padding: 0.5rem 0.75rem;
+    padding: 0.625rem 1rem;
     font-size: 0.85rem;
+  }
+  
+  .back-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button-container {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .back-button {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
   }
   
   .back-icon {

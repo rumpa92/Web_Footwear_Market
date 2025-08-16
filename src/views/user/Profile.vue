@@ -2308,8 +2308,7 @@ export default {
     },
 
     createTicket() {
-      this.$toast?.info('Opening support ticket form...')
-      // In a real app, this would open a ticket creation modal
+      this.$router.push('/ticket')
     },
 
     emailSupport() {
