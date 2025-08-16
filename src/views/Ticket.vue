@@ -476,8 +476,59 @@ export default {
       currentStep: 1,
       isSubmitting: false,
       showSuccess: false,
+      showTicketList: false,
+      showTicketDetails: false,
       generatedTicketId: '',
       isDragOver: false,
+      selectedTicket: null,
+      newReplyText: '',
+      userTickets: [
+        // Sample existing tickets for demonstration
+        {
+          id: 'TK001234',
+          subject: 'Product not received',
+          issueType: 'shipping-problem',
+          priority: 'high',
+          status: 'in-progress',
+          dateRaised: '2024-01-15T10:30:00Z',
+          lastReply: '2024-01-16T14:20:00Z',
+          description: 'I ordered a pair of sneakers but haven\'t received them yet.',
+          attachments: 2,
+          replies: [
+            {
+              id: 1,
+              text: 'Thank you for contacting us. We are looking into your shipping issue.',
+              timestamp: '2024-01-15T12:00:00Z',
+              sender: 'support'
+            },
+            {
+              id: 2,
+              text: 'We found your package and it will be delivered tomorrow.',
+              timestamp: '2024-01-16T14:20:00Z',
+              sender: 'support'
+            }
+          ]
+        },
+        {
+          id: 'TK001235',
+          subject: 'Refund Request - Order #5678',
+          issueType: 'return-exchange',
+          priority: 'medium',
+          status: 'resolved',
+          dateRaised: '2024-01-10T09:15:00Z',
+          lastReply: '2024-01-12T16:45:00Z',
+          description: 'I would like to return these shoes as they don\'t fit properly.',
+          attachments: 1,
+          replies: [
+            {
+              id: 1,
+              text: 'We have processed your refund request. You should receive the refund in 3-5 business days.',
+              timestamp: '2024-01-12T16:45:00Z',
+              sender: 'support'
+            }
+          ]
+        }
+      ],
       steps: [
         {
           id: 1,
