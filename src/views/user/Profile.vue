@@ -2622,15 +2622,45 @@ export default {
     },
 
     cancelRefund(refundId) {
-      this.$toast?.info(`Cancelling refund request ${refundId}...`)
+      // Show confirmation dialog
+      if (confirm('Are you sure you want to cancel this refund request? This action cannot be undone.')) {
+        // Find and update the refund status
+        const refundIndex = this.refunds.findIndex(r => r.id === refundId)
+        if (refundIndex !== -1) {
+          // In a real app, this would make an API call
+          this.refunds[refundIndex].status = 'cancelled'
+          this.$toast?.success('Refund request cancelled successfully')
+        }
+      }
     },
 
     viewRefundDetails(refundId) {
-      this.$toast?.info(`Viewing details for refund ${refundId}...`)
+      // Find the refund and show details modal
+      const refund = this.refunds.find(r => r.id === refundId)
+      if (refund) {
+        this.selectedRefund = refund
+        this.showRefundDetailsModal = true
+      }
     },
 
     resubmitRefund(refundId) {
-      this.$toast?.info(`Resubmitting refund request ${refundId}...`)
+      // Show confirmation dialog
+      if (confirm('Resubmit this refund request with the same details?')) {
+        // Find and update the refund status
+        const refundIndex = this.refunds.findIndex(r => r.id === refundId)
+        if (refundIndex !== -1) {
+          // In a real app, this would make an API call
+          this.refunds[refundIndex].status = 'pending'
+          this.refunds[refundIndex].requestDate = new Date()
+          this.$toast?.success('Refund request resubmitted successfully')
+        }
+      }
+    },
+
+    closeRefundDetailsModal() {
+      this.showRefundDetailsModal = false
+      this.selectedRefund = null
+    }
     },
 
     // Delivery methods
