@@ -78,7 +78,7 @@
       </div>
 
       <!-- Step 1: Issue Details -->
-      <div v-if="currentStep === 1" class="step-content-wrapper">
+      <div v-if="currentStep === 1 && isCreateTicketView" class="step-content-wrapper">
         <div class="content-card">
           <div class="card-header">
             <div class="card-icon">
