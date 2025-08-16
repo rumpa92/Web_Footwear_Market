@@ -3,12 +3,6 @@
     <div class="container">
       <!-- Enhanced Header -->
       <div class="ticket-header">
-        <button @click="goBack" class="back-button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7"/>
-          </svg>
-          <span>Back to Support</span>
-        </button>
         <div class="header-content">
           <div class="header-icon">
             <svg viewBox="0 0 24 24" fill="currentColor">
