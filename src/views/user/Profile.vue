@@ -2255,6 +2255,11 @@ export default {
       this.$toast?.success('Privacy settings saved!')
     },
 
+    viewDataSummary() {
+      this.$toast?.info('Opening data summary...')
+      // In a real app, this would show a detailed data summary
+    },
+
     // Account deletion methods
     initiateDeactivation() {
       this.$toast?.info('Account deactivation process initiated. You will receive a confirmation email.')
