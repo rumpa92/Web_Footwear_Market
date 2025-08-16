@@ -644,6 +644,135 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Help Center Modal -->
+                <div v-if="showHelpCenter" class="modal-overlay" @click="closeHelpCenter">
+                  <div class="modal-content help-center-modal" @click.stop>
+                    <div class="modal-header">
+                      <h3>Help Center</h3>
+                      <button @click="closeHelpCenter" class="modal-close-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="help-categories">
+                        <div v-for="category in helpCategories" :key="category.id" class="help-category" @click="selectHelpCategory(category)">
+                          <div class="category-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" v-html="category.icon"></svg>
+                          </div>
+                          <div class="category-content">
+                            <h4>{{ category.title }}</h4>
+                            <p>{{ category.description }}</p>
+                            <span class="article-count">{{ category.articles }} articles</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Community Forum Modal -->
+                <div v-if="showCommunityForum" class="modal-overlay" @click="closeCommunityForum">
+                  <div class="modal-content community-modal" @click.stop>
+                    <div class="modal-header">
+                      <h3>Community Forum</h3>
+                      <button @click="closeCommunityForum" class="modal-close-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="forum-stats">
+                        <div class="stat-box">
+                          <div class="stat-number">12.5K</div>
+                          <div class="stat-label">Members</div>
+                        </div>
+                        <div class="stat-box">
+                          <div class="stat-number">3.2K</div>
+                          <div class="stat-label">Topics</div>
+                        </div>
+                        <div class="stat-box">
+                          <div class="stat-number">847</div>
+                          <div class="stat-label">Online Now</div>
+                        </div>
+                      </div>
+                      <div class="forum-topics">
+                        <h4>Popular Topics</h4>
+                        <div v-for="topic in forumTopics" :key="topic.id" class="forum-topic">
+                          <div class="topic-avatar">
+                            <img :src="topic.author.avatar" :alt="topic.author.name" />
+                          </div>
+                          <div class="topic-content">
+                            <h5>{{ topic.title }}</h5>
+                            <p>{{ topic.excerpt }}</p>
+                            <div class="topic-meta">
+                              <span>By {{ topic.author.name }}</span>
+                              <span>{{ topic.replies }} replies</span>
+                              <span>{{ formatDate(topic.lastActivity) }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="forum-actions">
+                        <button class="forum-btn primary">Join Community</button>
+                        <button class="forum-btn secondary">Browse All Topics</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Video Tutorials Modal -->
+                <div v-if="showVideoTutorials" class="modal-overlay" @click="closeVideoTutorials">
+                  <div class="modal-content video-modal" @click.stop>
+                    <div class="modal-header">
+                      <h3>Video Tutorials</h3>
+                      <button @click="closeVideoTutorials" class="modal-close-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="video-categories">
+                        <div class="category-tabs">
+                          <button
+                            v-for="category in videoCategories"
+                            :key="category.id"
+                            @click="selectedVideoCategory = category.id"
+                            class="category-tab"
+                            :class="{ 'active': selectedVideoCategory === category.id }"
+                          >
+                            {{ category.name }}
+                          </button>
+                        </div>
+                      </div>
+                      <div class="video-list">
+                        <div v-for="video in filteredVideos" :key="video.id" class="video-item" @click="playVideo(video)">
+                          <div class="video-thumbnail">
+                            <img :src="video.thumbnail" :alt="video.title" />
+                            <div class="play-overlay">
+                              <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                              </svg>
+                            </div>
+                            <div class="video-duration">{{ video.duration }}</div>
+                          </div>
+                          <div class="video-info">
+                            <h5>{{ video.title }}</h5>
+                            <p>{{ video.description }}</p>
+                            <div class="video-meta">
+                              <span>{{ video.views }} views</span>
+                              <span>{{ formatDate(video.publishedAt) }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
