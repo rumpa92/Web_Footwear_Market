@@ -2095,7 +2095,7 @@ export default {
         { code: 'CA', name: 'Canada', flag: '🇨🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', name: 'France', flag: '🇫��' },
+        { code: 'FR', name: 'France', flag: '🇫🇷' },
         { code: 'IT', name: 'Italy', flag: '🇮🇹' },
         { code: 'ES', name: 'Spain', flag: '🇪🇸' },
         { code: 'AU', name: 'Australia', flag: '🇦🇺' },
@@ -7756,23 +7756,36 @@ export default {
   .refund-details-modal {
     max-width: 95vw;
     margin: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .product-details-grid {
     grid-template-columns: 1fr;
+    width: 100%;
   }
 
   .modal-footer {
     flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .modal-btn {
+    width: 100%;
   }
 
   .amount-breakdown-table {
     padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .amount-row.total {
     margin: 1rem -1rem -1rem;
     padding: 1rem;
+    width: calc(100% + 2rem);
+    box-sizing: border-box;
   }
 }
 </style>
