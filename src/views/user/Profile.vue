@@ -4244,6 +4244,47 @@ export default {
   .language-native {
     font-size: 0.7rem;
   }
+
+  /* Modern Support responsive */
+  .support-hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero-stats {
+    gap: 1rem;
+  }
+
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .action-card {
+    padding: 1.25rem;
+  }
+
+  .card-badge {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .additional-resources {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-card {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 640px) {
