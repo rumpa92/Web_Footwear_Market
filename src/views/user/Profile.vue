@@ -2596,6 +2596,20 @@ export default {
       return statusMap[status] || status
     },
 
+    getCompletedRefunds() {
+      return this.refunds.filter(refund => refund.status === 'completed').length
+    },
+
+    clearFilters() {
+      this.refundStatusFilter = ''
+      this.refundDateFilter = ''
+    },
+
+    requestNewRefund() {
+      this.$toast?.info('Redirecting to order history to request a refund...')
+      // In a real app, this would redirect to orders page
+    },
+
     calculateTotalRefunds() {
       const total = this.refunds
         .filter(r => r.status === 'completed')
