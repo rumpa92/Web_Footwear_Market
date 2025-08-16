@@ -2194,6 +2194,11 @@ export default {
       this.$toast?.info('Calling +1 (555) 123-4567...')
     },
 
+    openFaqHelpCenter() {
+      this.$toast?.info('Opening FAQ & Help Center...')
+      this.visitHelpCenter()
+    },
+
     toggleFaq(faqId) {
       const faq = this.faqs.find(f => f.id === faqId)
       if (faq) {
