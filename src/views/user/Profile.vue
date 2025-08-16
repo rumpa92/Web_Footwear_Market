@@ -1536,6 +1536,80 @@
       </div>
     </div>
   </div>
+
+  <!-- Privacy Policy Modal -->
+  <div v-if="showPrivacyPolicyModal" class="modal-overlay" @click="closePrivacyPolicyModal">
+    <div class="modal-content privacy-modal" @click.stop>
+      <div class="modal-header">
+        <h3>Privacy Policy</h3>
+        <button @click="closePrivacyPolicyModal" class="modal-close-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-content">
+          <h4>1. Information We Collect</h4>
+          <p>We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us for support.</p>
+
+          <h4>2. How We Use Your Information</h4>
+          <p>We use the information we collect to provide, maintain, and improve our services, process transactions, and communicate with you.</p>
+
+          <h4>3. Information Sharing and Disclosure</h4>
+          <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.</p>
+
+          <h4>4. Data Security</h4>
+          <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+
+          <h4>5. Your Rights</h4>
+          <p>You have the right to access, update, or delete your personal information. You may also opt out of certain communications from us.</p>
+
+          <h4>6. Changes to This Policy</h4>
+          <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+
+          <p class="last-updated">Last updated: March 15, 2024</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms of Service Modal -->
+  <div v-if="showTermsModal" class="modal-overlay" @click="closeTermsModal">
+    <div class="modal-content terms-modal" @click.stop>
+      <div class="modal-header">
+        <h3>Terms of Service</h3>
+        <button @click="closeTermsModal" class="modal-close-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="terms-content">
+          <h4>1. Acceptance of Terms</h4>
+          <p>By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+          <h4>2. Use License</h4>
+          <p>Permission is granted to temporarily download one copy of the materials on our website for personal, non-commercial transitory viewing only.</p>
+
+          <h4>3. Disclaimer</h4>
+          <p>The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+
+          <h4>4. Limitations</h4>
+          <p>In no event shall our company or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our website.</p>
+
+          <h4>5. Account Terms</h4>
+          <p>You are responsible for safeguarding the password and for any activities that occur under your account. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+
+          <h4>6. Modifications</h4>
+          <p>We may revise these terms of service at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.</p>
+
+          <p class="last-updated">Last updated: March 10, 2024</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
