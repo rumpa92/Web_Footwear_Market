@@ -4192,40 +4192,95 @@ Are you sure you want to continue?`)
 
 .upload-photo-btn,
 .remove-photo-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   border: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-photo-btn::before,
+.remove-photo-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.upload-photo-btn:hover::before,
+.remove-photo-btn:hover::before {
+  left: 100%;
 }
 
 .upload-photo-btn {
-  background: #3b82f6;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
+  border: 1px solid #3b82f6;
 }
 
 .upload-photo-btn:hover {
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.upload-photo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .remove-photo-btn {
-  background: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
+  border: 1px solid #ef4444;
 }
 
 .remove-photo-btn:hover {
-  background: #dc2626;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+}
+
+.remove-photo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .upload-photo-btn svg,
 .remove-photo-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.upload-photo-btn:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.remove-photo-btn:hover svg {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+/* Enhanced focus states for accessibility */
+.upload-photo-btn:focus,
+.remove-photo-btn:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 /* Form Grid */
