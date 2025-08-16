@@ -1643,7 +1643,7 @@ export default {
       },
       availableLanguages: [
         { code: 'en', name: 'English', nativeName: 'English', flag: 'https://flagcdn.com/us.svg' },
-        { code: 'es', name: 'Spanish', nativeName: 'Español', flag: 'https://flagcdn.com/es.svg' },
+        { code: 'es', name: 'Spanish', nativeName: 'Espa��ol', flag: 'https://flagcdn.com/es.svg' },
         { code: 'fr', name: 'French', nativeName: 'Français', flag: 'https://flagcdn.com/fr.svg' },
         { code: 'de', name: 'German', nativeName: 'Deutsch', flag: 'https://flagcdn.com/de.svg' },
         { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: 'https://flagcdn.com/it.svg' },
@@ -4003,6 +4003,11 @@ export default {
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+}
+
+.card-icon.faq {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
 }
 
 .card-icon.chat {
