@@ -3065,6 +3065,22 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .ticket-nav-bar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .nav-section {
+    width: 100%;
+  }
+
+  .nav-option {
+    flex: 1;
+    justify-content: center;
+    padding: 14px 16px;
+  }
+
   .card-header {
     flex-direction: column;
     gap: 16px;
