@@ -1617,7 +1617,7 @@ export default {
         { code: 'CA', name: 'Canada', flag: '🇨🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', name: 'France', flag: '🇫🇷' },
+        { code: 'FR', name: 'France', flag: '🇫���' },
         { code: 'IT', name: 'Italy', flag: '🇮🇹' },
         { code: 'ES', name: 'Spain', flag: '🇪🇸' },
         { code: 'AU', name: 'Australia', flag: '🇦🇺' },
@@ -1915,6 +1915,10 @@ export default {
       }
 
       return filtered.sort((a, b) => b.requestDate - a.requestDate)
+    },
+
+    filteredVideos() {
+      return this.videos.filter(video => video.categoryId === this.selectedVideoCategory)
     }
   },
   methods: {
