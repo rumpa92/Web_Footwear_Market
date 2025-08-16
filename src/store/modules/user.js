@@ -97,7 +97,7 @@ const actions = {
       setTimeout(() => {
         const user = {
           id: 1,
-          name: 'Rumpa Samanta',
+          name: 'Anushka Sen',
           email: credentials.email,
           avatar: 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
         }
