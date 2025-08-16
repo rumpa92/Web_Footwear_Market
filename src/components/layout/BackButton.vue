@@ -55,17 +55,61 @@ export default {
   },
   methods: {
     goBack() {
-      // Check if there's browser history to go back to
-      if (window.history.length > 1) {
-        this.$router.go(-1)
+      // Smart back navigation based on current route
+      const currentPath = this.$route.path
+
+      // Define specific navigation paths for each route
+      const backNavigation = {
+        '/products': '/',
+        '/brands': '/',
+        '/sale': '/',
+        '/cart': '/',
+        '/wishlist': '/',
+        '/profile': '/',
+        '/orders': '/profile',
+        '/checkout': '/cart',
+        '/ticket': '/profile',
+        '/upi-payment': '/checkout',
+        '/wallet-payment': '/checkout',
+        '/netbanking-payment': '/checkout',
+        '/order-confirmation': '/'
+      }
+
+      // Handle dynamic routes
+      if (currentPath.startsWith('/product/')) {
+        this.$router.push('/products')
+        return
+      }
+
+      if (currentPath.startsWith('/brands/')) {
+        this.$router.push('/brands')
+        return
+      }
+
+      // Handle 404 pages
+      if (this.$route.name === 'NotFound') {
+        this.$router.push('/')
+        return
+      }
+
+      // Navigate to the defined back route or fallback to browser back
+      const backRoute = backNavigation[currentPath]
+      if (backRoute) {
+        this.$router.push(backRoute)
       } else {
-        // If no history, go to appropriate parent page based on current route
-        if (this.$route.path.startsWith('/product/')) {
-          this.$router.push('/products')
-        } else if (this.$route.path.startsWith('/brands/')) {
-          this.$router.push('/brands')
-        } else {
-          // Default fallback to home page
+        // Fallback: try browser back, then home
+        try {
+          this.$router.go(-1)
+          // Set a timeout to check if navigation happened
+          setTimeout(() => {
+            // If we're still on the same route after attempting to go back,
+            // it means there was no history, so go to home
+            if (this.$route.path === currentPath) {
+              this.$router.push('/')
+            }
+          }, 100)
+        } catch (error) {
+          // If router.go fails, go to home
           this.$router.push('/')
         }
       }
