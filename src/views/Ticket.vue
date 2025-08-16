@@ -692,6 +692,7 @@ export default {
     },
     createAnotherTicket() {
       this.showSuccess = false
+      this.showTicketList = false
       this.currentStep = 1
       this.ticket = {
         issueType: '',
@@ -700,6 +701,86 @@ export default {
         priority: 'medium',
         attachments: []
       }
+    },
+    showMyTickets() {
+      this.showSuccess = false
+      this.showTicketList = true
+      this.loadUserTickets()
+    },
+    loadUserTickets() {
+      // In a real app, this would fetch from API
+      // For now, we'll add the newly created ticket to the list
+      if (this.generatedTicketId && !this.userTickets.find(t => t.id === this.generatedTicketId)) {
+        const newTicket = {
+          id: this.generatedTicketId,
+          subject: this.ticket.subject,
+          issueType: this.ticket.issueType,
+          priority: this.ticket.priority,
+          status: 'open',
+          dateRaised: new Date().toISOString(),
+          lastReply: new Date().toISOString(),
+          description: this.ticket.description,
+          attachments: this.ticket.attachments.length,
+          replies: []
+        }
+        this.userTickets.unshift(newTicket)
+      }
+    },
+    getStatusClass(status) {
+      const statusClasses = {
+        'open': 'status-open',
+        'in-progress': 'status-in-progress',
+        'resolved': 'status-resolved',
+        'closed': 'status-closed'
+      }
+      return statusClasses[status] || 'status-open'
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString)
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    },
+    viewTicketDetails(ticket) {
+      this.selectedTicket = ticket
+      this.showTicketDetails = true
+    },
+    closeTicketDetails() {
+      this.showTicketDetails = false
+      this.selectedTicket = null
+    },
+    addReply(ticketId) {
+      if (!this.newReplyText.trim()) return
+
+      const ticket = this.userTickets.find(t => t.id === ticketId)
+      if (ticket) {
+        const reply = {
+          id: Date.now(),
+          text: this.newReplyText,
+          timestamp: new Date().toISOString(),
+          sender: 'user'
+        }
+        ticket.replies.push(reply)
+        ticket.lastReply = reply.timestamp
+        this.newReplyText = ''
+        this.$toast?.success('Reply added successfully!')
+      }
+    },
+    closeTicket(ticketId) {
+      const ticket = this.userTickets.find(t => t.id === ticketId)
+      if (ticket) {
+        ticket.status = 'closed'
+        this.$toast?.success('Ticket closed successfully!')
+      }
+    },
+    backToTicketList() {
+      this.showTicketList = false
+      this.showTicketDetails = false
+      this.currentStep = 1
     }
   }
 }
