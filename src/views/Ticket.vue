@@ -226,7 +226,7 @@
       </div>
 
       <!-- Step 2: Enhanced Attachments -->
-      <div v-if="currentStep === 2" class="step-content-wrapper">
+      <div v-if="currentStep === 2 && isCreateTicketView" class="step-content-wrapper">
         <div class="content-card">
           <div class="card-header">
             <div class="card-icon">
