@@ -2558,7 +2558,130 @@ export default {
       showPrivacyPolicyModal: false,
       showTermsModal: false,
       showRefundDetailsModal: false,
-      selectedRefund: null
+      selectedRefund: null,
+      showOrderDetailsModal: false,
+      selectedOrder: null,
+      showRefundModal: false,
+      refundReason: '',
+      refundComments: '',
+      // Order history data
+      orders: [
+        {
+          id: 'ORD-12347',
+          orderNumber: '12347',
+          date: new Date('2024-01-15'),
+          status: 'delivered',
+          total: 129.99,
+          items: [
+            {
+              id: 1,
+              name: 'Nike Air Max 270',
+              variant: 'Black/White - Size 9',
+              price: 89.99,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop'
+            },
+            {
+              id: 2,
+              name: 'Adidas UltraBoost 22',
+              variant: 'Core Black - Size 9',
+              price: 40.00,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=100&h=100&fit=crop'
+            }
+          ],
+          shipping: {
+            method: 'Standard Delivery',
+            cost: 0,
+            address: '123 Main Street, New York, NY 10001'
+          },
+          payment: {
+            method: 'Credit Card',
+            last4: '4242'
+          },
+          tracking: {
+            carrier: 'FastTrack Express',
+            trackingNumber: 'FT12347890',
+            deliveredDate: new Date('2024-01-18')
+          },
+          canRefund: true,
+          refundDeadline: new Date('2024-02-18')
+        },
+        {
+          id: 'ORD-12346',
+          orderNumber: '12346',
+          date: new Date('2024-01-10'),
+          status: 'in-transit',
+          total: 199.98,
+          items: [
+            {
+              id: 3,
+              name: 'Converse Chuck Taylor All Star',
+              variant: 'White High Top - Size 9',
+              price: 65.99,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1611537227264-3b99df41e8c2?w=100&h=100&fit=crop'
+            },
+            {
+              id: 4,
+              name: 'Vans Old Skool',
+              variant: 'Black/White - Size 9',
+              price: 124.99,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=100&h=100&fit=crop'
+            }
+          ],
+          shipping: {
+            method: 'Express Delivery',
+            cost: 9.00,
+            address: '123 Main Street, New York, NY 10001'
+          },
+          payment: {
+            method: 'PayPal',
+            last4: 'PayPal'
+          },
+          tracking: {
+            carrier: 'DHL Express',
+            trackingNumber: 'DHL12346789',
+            estimatedDelivery: new Date('2024-01-16')
+          },
+          canRefund: false,
+          refundDeadline: null
+        },
+        {
+          id: 'ORD-12345',
+          orderNumber: '12345',
+          date: new Date('2024-01-05'),
+          status: 'cancelled',
+          total: 75.50,
+          items: [
+            {
+              id: 5,
+              name: 'Puma RS-X3',
+              variant: 'White/Blue - Size 9',
+              price: 75.50,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=100&h=100&fit=crop'
+            }
+          ],
+          shipping: {
+            method: 'Standard Delivery',
+            cost: 0,
+            address: '123 Main Street, New York, NY 10001'
+          },
+          payment: {
+            method: 'Credit Card',
+            last4: '1234'
+          },
+          tracking: {
+            carrier: 'N/A',
+            trackingNumber: 'N/A',
+            cancelledDate: new Date('2024-01-06')
+          },
+          canRefund: false,
+          refundDeadline: null
+        }
+      ]
     }
   },
   computed: {
