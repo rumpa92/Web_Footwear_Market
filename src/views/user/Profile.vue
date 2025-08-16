@@ -1440,6 +1440,94 @@
             </div>
           </div>
 
+          <!-- My Orders Section -->
+          <div v-if="activeSection === 'my-orders'" class="section">
+            <div class="orders-container">
+              <!-- Header -->
+              <div class="orders-header">
+                <div class="header-content">
+                  <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z"/>
+                    </svg>
+                  </div>
+                  <div class="header-text">
+                    <h1>My Orders</h1>
+                    <p>View your order history and track your purchases</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Orders List -->
+              <div class="orders-list">
+                <div v-for="order in orders" :key="order.id" class="order-card">
+                  <div class="order-header">
+                    <div class="order-info">
+                      <h3 class="order-number">Order #{{ order.orderNumber }}</h3>
+                      <p class="order-date">{{ formatDate(order.date) }}</p>
+                    </div>
+                    <div class="order-status">
+                      <span class="status-badge" :class="order.status">
+                        {{ formatOrderStatus(order.status) }}
+                      </span>
+                      <div class="order-total">${{ order.total.toFixed(2) }}</div>
+                    </div>
+                  </div>
+
+                  <div class="order-items">
+                    <div v-for="item in order.items" :key="item.id" class="order-item">
+                      <img :src="item.image" :alt="item.name" class="item-image" />
+                      <div class="item-details">
+                        <h4 class="item-name">{{ item.name }}</h4>
+                        <p class="item-variant">{{ item.variant }}</p>
+                        <div class="item-price-qty">
+                          <span class="item-price">${{ item.price.toFixed(2) }}</span>
+                          <span class="item-quantity">Qty: {{ item.quantity }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="order-actions">
+                    <button @click="viewOrderDetails(order)" class="action-btn primary">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                      </svg>
+                      View Details
+                    </button>
+                    <button v-if="order.tracking && order.tracking.trackingNumber !== 'N/A'" @click="trackOrder(order)" class="action-btn secondary">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      Track Order
+                    </button>
+                    <button v-if="order.canRefund" @click="initiateRefund(order)" class="action-btn refund">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                      </svg>
+                      Request Refund
+                    </button>
+                  </div>
+                </div>
+
+                <div v-if="orders.length === 0" class="empty-orders">
+                  <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"/>
+                    </svg>
+                  </div>
+                  <h3>No Orders Found</h3>
+                  <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+                  <button @click="$router.push('/')" class="shop-now-btn">
+                    Start Shopping
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Delivery Management Section -->
           <div v-if="activeSection === 'delivery-management'" class="section">
             <div class="modern-delivery-container">
@@ -2018,6 +2106,197 @@
         </div>
       </div>
     </div>
+
+    <!-- Order Details Modal -->
+    <div v-if="showOrderDetailsModal && selectedOrder" class="modal-overlay" @click="closeOrderDetailsModal">
+      <div class="modal-content order-details-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Order Details #{{ selectedOrder.orderNumber }}</h3>
+          <button @click="closeOrderDetailsModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="order-details-content">
+            <!-- Order Status -->
+            <div class="detail-section">
+              <h4>Order Status</h4>
+              <div class="status-display" :class="selectedOrder.status">
+                <div class="status-dot"></div>
+                <span class="status-text">{{ formatOrderStatus(selectedOrder.status) }}</span>
+              </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="detail-section">
+              <h4>Order Items</h4>
+              <div class="order-items-detail">
+                <div v-for="item in selectedOrder.items" :key="item.id" class="detail-item-card">
+                  <img :src="item.image" :alt="item.name" class="detail-item-image" />
+                  <div class="detail-item-info">
+                    <h5 class="detail-item-name">{{ item.name }}</h5>
+                    <p class="detail-item-variant">{{ item.variant }}</p>
+                    <div class="detail-item-pricing">
+                      <span class="detail-item-price">${{ item.price.toFixed(2) }}</span>
+                      <span class="detail-item-qty">Qty: {{ item.quantity }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Information -->
+            <div class="detail-section">
+              <h4>Shipping Information</h4>
+              <div class="shipping-details">
+                <div class="detail-row">
+                  <span class="detail-label">Method:</span>
+                  <span class="detail-value">{{ selectedOrder.shipping.method }}</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Address:</span>
+                  <span class="detail-value">{{ selectedOrder.shipping.address }}</span>
+                </div>
+                <div class="detail-row" v-if="selectedOrder.tracking && selectedOrder.tracking.trackingNumber !== 'N/A'">
+                  <span class="detail-label">Tracking:</span>
+                  <span class="detail-value">{{ selectedOrder.tracking.trackingNumber }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="detail-section">
+              <h4>Payment Information</h4>
+              <div class="payment-details">
+                <div class="detail-row">
+                  <span class="detail-label">Method:</span>
+                  <span class="detail-value">{{ selectedOrder.payment.method }}</span>
+                </div>
+                <div class="detail-row" v-if="selectedOrder.payment.last4 !== 'PayPal'">
+                  <span class="detail-label">Card ending in:</span>
+                  <span class="detail-value">****{{ selectedOrder.payment.last4 }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="detail-section">
+              <h4>Order Summary</h4>
+              <div class="order-summary">
+                <div class="summary-row">
+                  <span class="summary-label">Subtotal:</span>
+                  <span class="summary-value">${{ (selectedOrder.total - selectedOrder.shipping.cost).toFixed(2) }}</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Shipping:</span>
+                  <span class="summary-value">${{ selectedOrder.shipping.cost.toFixed(2) }}</span>
+                </div>
+                <div class="summary-row total">
+                  <span class="summary-label">Total:</span>
+                  <span class="summary-value">${{ selectedOrder.total.toFixed(2) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button @click="closeOrderDetailsModal" class="modal-btn secondary">Close</button>
+          <button v-if="selectedOrder.tracking && selectedOrder.tracking.trackingNumber !== 'N/A'" @click="trackOrder(selectedOrder)" class="modal-btn primary">
+            Track Order
+          </button>
+          <button v-if="selectedOrder.canRefund" @click="initiateRefund(selectedOrder); closeOrderDetailsModal()" class="modal-btn refund">
+            Request Refund
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refund Request Modal -->
+    <div v-if="showRefundModal && selectedOrder" class="modal-overlay" @click="closeRefundModal">
+      <div class="modal-content refund-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Request Refund - Order #{{ selectedOrder.orderNumber }}</h3>
+          <button @click="closeRefundModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="refund-form">
+            <!-- Refund Items -->
+            <div class="form-section">
+              <h4>Items to Refund</h4>
+              <div class="refund-items">
+                <div v-for="item in selectedOrder.items" :key="item.id" class="refund-item-card">
+                  <img :src="item.image" :alt="item.name" class="refund-item-image" />
+                  <div class="refund-item-info">
+                    <h5 class="refund-item-name">{{ item.name }}</h5>
+                    <p class="refund-item-variant">{{ item.variant }}</p>
+                    <div class="refund-item-price">${{ item.price.toFixed(2) }}</div>
+                  </div>
+                  <div class="refund-item-checkbox">
+                    <input type="checkbox" :id="'refund-item-' + item.id" checked />
+                    <label :for="'refund-item-' + item.id">Refund</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Refund Reason -->
+            <div class="form-section">
+              <h4>Reason for Refund</h4>
+              <select v-model="refundReason" class="form-select" required>
+                <option value="">Select a reason</option>
+                <option value="defective">Item is defective</option>
+                <option value="wrong-item">Wrong item received</option>
+                <option value="not-as-described">Item not as described</option>
+                <option value="size-issue">Size/fit issue</option>
+                <option value="changed-mind">Changed my mind</option>
+                <option value="damaged-shipping">Damaged during shipping</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Additional Comments -->
+            <div class="form-section">
+              <h4>Additional Comments (Optional)</h4>
+              <textarea
+                v-model="refundComments"
+                class="form-textarea"
+                rows="4"
+                placeholder="Please provide any additional details about your refund request..."
+              ></textarea>
+            </div>
+
+            <!-- Refund Policy Notice -->
+            <div class="refund-policy-notice">
+              <div class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div class="notice-text">
+                <h5>Refund Policy</h5>
+                <p>Refunds are processed within 5-7 business days. Items must be returned in original condition. Shipping costs are non-refundable unless the item was defective or damaged.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button @click="closeRefundModal" class="modal-btn secondary">Cancel</button>
+          <button @click="submitRefundRequest" class="modal-btn refund" :disabled="!refundReason">
+            Submit Refund Request
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -2278,7 +2557,7 @@ export default {
       selectedRegion: 'US',
       availableRegions: [
         { code: 'US', name: 'United States', flag: '🇺🇸' },
-        { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+        { code: 'CA', name: 'Canada', flag: '���🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
         { code: 'FR', name: 'France', flag: '🇫🇷' },
@@ -2539,6 +2818,11 @@ export default {
           icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-2.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>'
         },
         {
+          id: 'my-orders',
+          name: 'My Orders',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z"/></svg>'
+        },
+        {
           id: 'refund-history',
           name: 'Refund History',
           icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>'
@@ -2553,7 +2837,130 @@ export default {
       showPrivacyPolicyModal: false,
       showTermsModal: false,
       showRefundDetailsModal: false,
-      selectedRefund: null
+      selectedRefund: null,
+      showOrderDetailsModal: false,
+      selectedOrder: null,
+      showRefundModal: false,
+      refundReason: '',
+      refundComments: '',
+      // Order history data
+      orders: [
+        {
+          id: 'ORD-12347',
+          orderNumber: '12347',
+          date: new Date('2024-01-15'),
+          status: 'delivered',
+          total: 129.99,
+          items: [
+            {
+              id: 1,
+              name: 'Nike Air Max 270',
+              variant: 'Black/White - Size 9',
+              price: 89.99,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop'
+            },
+            {
+              id: 2,
+              name: 'Adidas UltraBoost 22',
+              variant: 'Core Black - Size 9',
+              price: 40.00,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=100&h=100&fit=crop'
+            }
+          ],
+          shipping: {
+            method: 'Standard Delivery',
+            cost: 0,
+            address: '123 Main Street, New York, NY 10001'
+          },
+          payment: {
+            method: 'Credit Card',
+            last4: '4242'
+          },
+          tracking: {
+            carrier: 'FastTrack Express',
+            trackingNumber: 'FT12347890',
+            deliveredDate: new Date('2024-01-18')
+          },
+          canRefund: true,
+          refundDeadline: new Date('2024-02-18')
+        },
+        {
+          id: 'ORD-12346',
+          orderNumber: '12346',
+          date: new Date('2024-01-10'),
+          status: 'in-transit',
+          total: 199.98,
+          items: [
+            {
+              id: 3,
+              name: 'Converse Chuck Taylor All Star',
+              variant: 'White High Top - Size 9',
+              price: 65.99,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1611537227264-3b99df41e8c2?w=100&h=100&fit=crop'
+            },
+            {
+              id: 4,
+              name: 'Vans Old Skool',
+              variant: 'Black/White - Size 9',
+              price: 124.99,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=100&h=100&fit=crop'
+            }
+          ],
+          shipping: {
+            method: 'Express Delivery',
+            cost: 9.00,
+            address: '123 Main Street, New York, NY 10001'
+          },
+          payment: {
+            method: 'PayPal',
+            last4: 'PayPal'
+          },
+          tracking: {
+            carrier: 'DHL Express',
+            trackingNumber: 'DHL12346789',
+            estimatedDelivery: new Date('2024-01-16')
+          },
+          canRefund: false,
+          refundDeadline: null
+        },
+        {
+          id: 'ORD-12345',
+          orderNumber: '12345',
+          date: new Date('2024-01-05'),
+          status: 'cancelled',
+          total: 75.50,
+          items: [
+            {
+              id: 5,
+              name: 'Puma RS-X3',
+              variant: 'White/Blue - Size 9',
+              price: 75.50,
+              quantity: 1,
+              image: 'https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=100&h=100&fit=crop'
+            }
+          ],
+          shipping: {
+            method: 'Standard Delivery',
+            cost: 0,
+            address: '123 Main Street, New York, NY 10001'
+          },
+          payment: {
+            method: 'Credit Card',
+            last4: '1234'
+          },
+          tracking: {
+            carrier: 'N/A',
+            trackingNumber: 'N/A',
+            cancelledDate: new Date('2024-01-06')
+          },
+          canRefund: false,
+          refundDeadline: null
+        }
+      ]
     }
   },
   computed: {
@@ -2670,13 +3077,118 @@ export default {
     },
 
     uploadPhoto() {
-      // Simulate photo upload
-      this.$toast?.info('Photo upload functionality coming soon!')
+      // Create a file input element
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'image/*'
+      input.style.display = 'none'
+
+      input.onchange = (event) => {
+        const file = event.target.files[0]
+        if (!file) return
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          this.$toast?.error('Please select a valid image file')
+          return
+        }
+
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          this.$toast?.error('Image size must be less than 5MB')
+          return
+        }
+
+        // Show upload progress
+        this.$toast?.info('📤 Uploading photo...')
+
+        // Create FileReader to preview image
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          // Update avatar preview
+          this.editForm.avatar = e.target.result
+
+          // Simulate upload process
+          setTimeout(() => {
+            this.$toast?.success('✅ Profile photo uploaded successfully!')
+
+            // Show upload details
+            const uploadDetails = `📸 Photo Upload Complete
+
+📁 File: ${file.name}
+📏 Size: ${(file.size / 1024).toFixed(1)} KB
+📅 Uploaded: ${new Date().toLocaleString()}
+
+Your new profile photo is now active!`
+
+            if (confirm('Photo uploaded successfully! View upload details?')) {
+              alert(uploadDetails)
+            }
+          }, 1500)
+        }
+
+        reader.onerror = () => {
+          this.$toast?.error('Failed to read image file')
+        }
+
+        reader.readAsDataURL(file)
+      }
+
+      // Trigger file selection
+      document.body.appendChild(input)
+      input.click()
+      document.body.removeChild(input)
     },
 
     removePhoto() {
-      this.editForm.avatar = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'
-      this.$toast?.info('Profile photo removed')
+      // Confirm before removing
+      const confirmRemove = confirm(`🗑️ Remove Profile Photo
+
+Are you sure you want to remove your current profile photo?
+
+This action will:
+• Replace your photo with a default avatar
+• Remove the image from your profile
+• Apply the change immediately
+
+Continue with photo removal?`)
+
+      if (!confirmRemove) {
+        return
+      }
+
+      // Show removal progress
+      this.$toast?.info('🗑️ Removing photo...')
+
+      setTimeout(() => {
+        // Set default avatar
+        const defaultAvatars = [
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+          'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'
+        ]
+
+        // Randomly select a default avatar
+        this.editForm.avatar = defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)]
+
+        this.$toast?.success('✅ Profile photo removed successfully!')
+
+        // Show removal confirmation
+        setTimeout(() => {
+          const removalDetails = `🔄 Photo Removal Complete
+
+🖼️ Original photo: Removed
+🎭 New avatar: Default avatar assigned
+📅 Changed: ${new Date().toLocaleString()}
+
+You can upload a new photo anytime by clicking "Upload New Photo".`
+
+          if (confirm('Photo removed successfully! View details?')) {
+            alert(removalDetails)
+          }
+        }, 1000)
+      }, 800)
     },
     
     quickView(product) {
@@ -3056,21 +3568,146 @@ export default {
     },
 
     trackPackage(deliveryId) {
-      this.$toast?.info(`Opening tracking for delivery ${deliveryId}...`)
+      // Find the delivery
+      const delivery = this.activeDeliveries.find(d => d.id === deliveryId)
+      if (!delivery) {
+        this.$toast?.error('Delivery not found')
+        return
+      }
+
+      // Simulate opening tracking in a new window
+      this.$toast?.success('Opening live tracking map...')
+
+      // In a real app, this would open a tracking page or modal
+      setTimeout(() => {
+        // Show detailed tracking info
+        const trackingInfo = {
+          courierName: delivery.courierName || 'John Doe',
+          courierPhone: delivery.courierPhone || '+1 (555) 123-4567',
+          vehicleType: delivery.vehicleType || 'Van',
+          estimatedArrival: delivery.estimatedDate,
+          currentLocation: 'Main Street & 5th Avenue',
+          lastUpdate: new Date().toLocaleTimeString()
+        }
+
+        alert(`📦 Live Tracking - Order #${delivery.orderId}
+
+🚚 Courier: ${trackingInfo.courierName}
+📱 Phone: ${trackingInfo.courierPhone}
+🚗 Vehicle: ${trackingInfo.vehicleType}
+📍 Current Location: ${trackingInfo.currentLocation}
+⏰ Last Update: ${trackingInfo.lastUpdate}
+🎯 ETA: ${this.formatDate(trackingInfo.estimatedArrival)}
+
+Your package is on the way!`)
+      }, 1000)
     },
 
     contactCourier(deliveryId) {
-      this.$toast?.info(`Contacting courier for delivery ${deliveryId}...`)
+      // Find the delivery
+      const delivery = this.activeDeliveries.find(d => d.id === deliveryId)
+      if (!delivery) {
+        this.$toast?.error('Delivery not found')
+        return
+      }
+
+      const courierInfo = {
+        name: delivery.courierName || 'John Doe',
+        phone: delivery.courierPhone || '+1 (555) 123-4567',
+        company: delivery.courierCompany || 'FastTrack Delivery'
+      }
+
+      // Show contact options
+      const contactChoice = confirm(`📞 Contact Courier - Order #${delivery.orderId}
+
+🚚 Courier: ${courierInfo.name}
+🏢 Company: ${courierInfo.company}
+📱 Phone: ${courierInfo.phone}
+
+Click OK to call courier, or Cancel to send a message.`)
+
+      if (contactChoice) {
+        // Simulate calling
+        this.$toast?.info('Connecting you to the courier...')
+        setTimeout(() => {
+          alert(`📞 Calling ${courierInfo.name} at ${courierInfo.phone}...
+
+(In a real app, this would initiate a phone call)`)
+        }, 1500)
+      } else {
+        // Show message options
+        const messageChoice = prompt(`💬 Send message to courier:
+
+Quick messages:
+1. "Please call before delivery"
+2. "I'll be home after 3 PM"
+3. "Leave package at front door"
+
+Or type your custom message:`, "Please call before delivery")
+
+        if (messageChoice) {
+          this.$toast?.success('Message sent to courier!')
+          setTimeout(() => {
+            alert(`✅ Message sent to ${courierInfo.name}:
+
+"${messageChoice}"
+
+They will receive it shortly.`)
+          }, 1000)
+        }
+      }
     },
 
     saveDeliverySettings() {
+      // Validate input
+      if (this.deliveryInstructions && this.deliveryInstructions.length > 500) {
+        this.$toast?.error('Special instructions must be 500 characters or less')
+        return
+      }
+
+      // Show loading state
+      this.$toast?.info('Saving preferences...')
+
       const settings = {
         selectedTimeSlot: this.selectedTimeSlot,
         deliveryInstructions: this.deliveryInstructions,
-        deliveryNotifications: this.deliveryNotifications
+        deliveryNotifications: this.deliveryNotifications,
+        savedAt: new Date().toISOString()
       }
-      localStorage.setItem('deliverySettings', JSON.stringify(settings))
-      this.$toast?.success('Delivery preferences saved!')
+
+      try {
+        localStorage.setItem('deliverySettings', JSON.stringify(settings))
+
+        // Simulate API call delay
+        setTimeout(() => {
+          this.$toast?.success('✅ Delivery preferences saved successfully!')
+
+          // Show summary of saved settings
+          const summary = `📝 Settings Saved:
+
+⏰ Preferred Time: ${this.getTimeSlotLabel(this.selectedTimeSlot)}
+📝 Instructions: ${this.deliveryInstructions || 'None'}
+📱 SMS Updates: ${this.deliveryNotifications.sms ? 'Enabled' : 'Disabled'}
+📧 Email Updates: ${this.deliveryNotifications.email ? 'Enabled' : 'Disabled'}
+📸 Photo Confirmation: ${this.deliveryNotifications.photo ? 'Enabled' : 'Disabled'}
+
+Your preferences will apply to all future deliveries.`
+
+          // Optional: Show detailed confirmation
+          if (confirm('Settings saved! Would you like to see a summary?')) {
+            alert(summary)
+          }
+        }, 800)
+
+      } catch (error) {
+        console.error('Error saving delivery settings:', error)
+        this.$toast?.error('Failed to save preferences. Please try again.')
+      }
+    },
+
+    getTimeSlotLabel(slotId) {
+      const slot = this.deliveryTimeSlots.find(s => s.id === slotId)
+      return slot ? slot.time : 'Not selected'
     },
 
     // New delivery management methods
@@ -3105,18 +3742,95 @@ export default {
     },
 
     viewDeliveryDetails(deliveryId) {
-      this.$toast?.info(`Viewing details for delivery ${deliveryId}`)
+      // Find the delivery
+      const delivery = this.activeDeliveries.find(d => d.id === deliveryId)
+      if (!delivery) {
+        this.$toast?.error('Delivery not found')
+        return
+      }
+
+      // Show detailed delivery information
+      const details = `📦 Delivery Details - Order #${delivery.orderId}
+
+📋 ORDER INFORMATION:
+• Order Date: ${this.formatDate(delivery.orderDate)}
+• Order Total: $${delivery.orderTotal || '89.99'}
+• Items: ${delivery.itemCount || '2'} items
+• Weight: ${delivery.weight || '1.2'} lbs
+
+🚚 SHIPPING DETAILS:
+• Carrier: ${delivery.carrier || 'FastTrack Express'}
+• Service: ${delivery.serviceType || 'Standard Delivery'}
+• Tracking ID: ${delivery.trackingId || 'FT' + delivery.orderId}
+• Expected: ${this.formatDate(delivery.estimatedDate)}
+
+📍 DELIVERY ADDRESS:
+${delivery.shippingAddress || `123 Main Street
+New York, NY 10001`}
+
+👤 COURIER INFO:
+• Name: ${delivery.courierName || 'John Doe'}
+• Phone: ${delivery.courierPhone || '+1 (555) 123-4567'}
+• Vehicle: ${delivery.vehicleType || 'Van - License: ABC123'}
+
+📊 CURRENT STATUS:
+• ${this.formatDeliveryStatus(delivery.status)}
+• Progress: ${delivery.progress}%
+• Last Update: ${new Date().toLocaleString()}
+
+💡 DELIVERY INSTRUCTIONS:
+${this.deliveryInstructions || 'No special instructions'}
+
+Need help? Contact customer service at support@footmarket.com`
+
+      alert(details)
+      this.$toast?.info('Delivery details displayed')
     },
 
     resetPreferences() {
-      this.selectedTimeSlot = 4
-      this.deliveryInstructions = ''
-      this.deliveryNotifications = {
-        sms: true,
-        email: true,
-        photo: false
+      // Confirm before resetting
+      const confirmReset = confirm(`🔄 Reset Delivery Preferences
+
+This will restore all delivery preferences to their default values:
+
+⏰ Preferred Time: Anytime (No preference)
+📝 Special Instructions: (Cleared)
+📱 SMS Updates: Enabled
+📧 Email Updates: Enabled
+📸 Photo Confirmation: Disabled
+
+Are you sure you want to continue?`)
+
+      if (!confirmReset) {
+        return
       }
-      this.$toast?.success('Preferences reset to default!')
+
+      // Show loading state
+      this.$toast?.info('Resetting preferences...')
+
+      setTimeout(() => {
+        this.selectedTimeSlot = 4 // "Anytime" option
+        this.deliveryInstructions = ''
+        this.deliveryNotifications = {
+          sms: true,
+          email: true,
+          photo: false
+        }
+
+        // Clear from localStorage too
+        try {
+          localStorage.removeItem('deliverySettings')
+        } catch (error) {
+          console.error('Error clearing delivery settings:', error)
+        }
+
+        this.$toast?.success('✅ Preferences reset to default values!')
+
+        // Optional detailed confirmation
+        setTimeout(() => {
+          this.$toast?.info('All delivery preferences have been restored to their original settings')
+        }, 1500)
+      }, 600)
     }
   },
 
@@ -3140,6 +3854,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../../assets/styles/delivery-management.css';
 .profile-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -3884,40 +4599,95 @@ export default {
 
 .upload-photo-btn,
 .remove-photo-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   border: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-photo-btn::before,
+.remove-photo-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.upload-photo-btn:hover::before,
+.remove-photo-btn:hover::before {
+  left: 100%;
 }
 
 .upload-photo-btn {
-  background: #3b82f6;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
+  border: 1px solid #3b82f6;
 }
 
 .upload-photo-btn:hover {
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.upload-photo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .remove-photo-btn {
-  background: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
+  border: 1px solid #ef4444;
 }
 
 .remove-photo-btn:hover {
-  background: #dc2626;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+}
+
+.remove-photo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .upload-photo-btn svg,
 .remove-photo-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.upload-photo-btn:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.remove-photo-btn:hover svg {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+/* Enhanced focus states for accessibility */
+.upload-photo-btn:focus,
+.remove-photo-btn:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 /* Form Grid */
