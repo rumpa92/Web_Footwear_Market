@@ -1175,6 +1175,90 @@ export default {
   font-size: 16px;
 }
 
+/* Ticket Navigation Bar */
+.ticket-nav-bar {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-section {
+  display: flex;
+  align-items: center;
+}
+
+.nav-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  color: #6b7280;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-option:hover {
+  border-color: #cbd5e1;
+  background: #f9fafb;
+  color: #374151;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-option.active {
+  border-color: #ec4899;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+  color: #ec4899;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.2);
+}
+
+.nav-option svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-option.create-ticket svg {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.nav-option.create-ticket:hover svg {
+  transform: rotate(90deg);
+}
+
+.ticket-count {
+  background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+}
+
+.nav-option.active .ticket-count {
+  background: #ec4899;
+}
+
 /* Enhanced Progress Steps */
 .progress-container {
   background: white;
