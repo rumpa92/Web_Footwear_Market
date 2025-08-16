@@ -3134,6 +3134,20 @@ export default {
 }
 
 @media (max-width: 480px) {
+  .ticket-nav-bar {
+    padding: 12px;
+  }
+
+  .nav-option {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .nav-option svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .header-content {
     flex-direction: column;
     text-align: center;
