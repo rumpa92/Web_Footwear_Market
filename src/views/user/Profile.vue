@@ -2095,7 +2095,7 @@ export default {
         { code: 'CA', name: 'Canada', flag: '🇨🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', name: 'France', flag: '🇫🇷' },
+        { code: 'FR', name: 'France', flag: '🇫����' },
         { code: 'IT', name: 'Italy', flag: '🇮🇹' },
         { code: 'ES', name: 'Spain', flag: '🇪🇸' },
         { code: 'AU', name: 'Australia', flag: '🇦🇺' },
@@ -5771,14 +5771,20 @@ export default {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+
   .profile-content {
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: 100%;
   }
 
   .profile-sidebar {
     position: static;
     border-radius: 8px;
+    width: 100%;
   }
 
   .sidebar-profile {
