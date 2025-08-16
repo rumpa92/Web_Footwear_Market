@@ -2095,7 +2095,7 @@ export default {
         { code: 'CA', name: 'Canada', flag: '🇨🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', name: 'France', flag: '🇫🇷' },
+        { code: 'FR', name: 'France', flag: '🇫��' },
         { code: 'IT', name: 'Italy', flag: '🇮🇹' },
         { code: 'ES', name: 'Spain', flag: '🇪🇸' },
         { code: 'AU', name: 'Australia', flag: '🇦🇺' },
@@ -7426,11 +7426,13 @@ export default {
 
   .refund-stats {
     grid-template-columns: repeat(2, 1fr);
+    width: 100%;
   }
 
   .filters-container {
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
   }
 
   .clear-filters-btn {
@@ -7439,29 +7441,36 @@ export default {
 
   .modern-refund-card {
     padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .modern-refund-card .card-header {
     flex-direction: column;
     align-items: start;
     gap: 1rem;
+    width: 100%;
   }
 
   .product-section {
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
   }
 
   .refund-amount {
     text-align: left;
+    width: 100%;
   }
 
   .card-actions {
     flex-direction: column;
+    width: 100%;
   }
 
   .action-btn {
     text-align: center;
+    width: 100%;
   }
 }
 
