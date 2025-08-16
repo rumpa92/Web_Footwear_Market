@@ -2246,6 +2246,12 @@ export default {
       ],
       selectedTimeSlot: 4,
       deliveryInstructions: '',
+      activeAddressMenu: null,
+      deliveryNotifications: {
+        sms: true,
+        email: true,
+        photo: false
+      },
       activeDeliveries: [
         {
           id: 1,
