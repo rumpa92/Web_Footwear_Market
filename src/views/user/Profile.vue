@@ -7408,4 +7408,306 @@ export default {
     text-align: center;
   }
 }
+
+/* Refund Details Modal Styles */
+.refund-details-modal {
+  max-width: 700px;
+  max-height: 90vh;
+}
+
+.refund-details-content {
+  padding: 0;
+}
+
+.detail-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-section h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.status-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-display.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-display.approved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-display.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-display.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-display.cancelled {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.product-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.amount-breakdown-table {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.amount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.amount-row:last-child {
+  border-bottom: none;
+}
+
+.amount-row.total {
+  background: #10b981;
+  color: white;
+  margin: 1rem -1.5rem -1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0 0 8px 8px;
+  font-weight: 700;
+}
+
+.amount-row .amount-label {
+  font-weight: 500;
+}
+
+.amount-row .amount-value {
+  font-weight: 600;
+}
+
+.timeline-container {
+  position: relative;
+}
+
+.timeline-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.timeline-step:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 2rem;
+  width: 2px;
+  height: 1.5rem;
+  background: #e5e7eb;
+}
+
+.timeline-step.completed:not(:last-child)::after {
+  background: #10b981;
+}
+
+.timeline-step .timeline-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  background: white;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.timeline-step.completed .timeline-dot {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.timeline-step .timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.timeline-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.timeline-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.reason-display,
+.notes-display {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.payment-display {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.payment-method-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.payment-method-info svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.payment-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.payment-method {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.payment-account {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.modal-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-btn.secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.modal-btn.secondary:hover {
+  background: #e5e7eb;
+}
+
+.modal-btn.danger {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-btn.danger:hover {
+  background: #dc2626;
+}
+
+.modal-btn.success {
+  background: #10b981;
+  color: white;
+}
+
+.modal-btn.success:hover {
+  background: #059669;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+  .refund-details-modal {
+    max-width: 95vw;
+    margin: 0.5rem;
+  }
+
+  .product-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .amount-breakdown-table {
+    padding: 1rem;
+  }
+
+  .amount-row.total {
+    margin: 1rem -1rem -1rem;
+    padding: 1rem;
+  }
+}
 </style>
