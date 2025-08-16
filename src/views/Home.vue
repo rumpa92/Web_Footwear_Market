@@ -294,8 +294,23 @@ export default {
 
 <style scoped>
 .hero {
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-light) 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #ffffff 70%, #f1f3f4 100%);
   padding: var(--space-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+  z-index: 1;
 }
 
 .hero-content {
@@ -304,10 +319,13 @@ export default {
   gap: var(--space-2xl);
   align-items: center;
   min-height: 500px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-text {
   text-align: center;
+  animation: fadeInUp 1s ease-out;
 }
 
 .hero-title {
@@ -316,6 +334,11 @@ export default {
   color: var(--text-primary);
   margin-bottom: var(--space-md);
   line-height: var(--line-height-tight);
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #9b59b6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hero-subtitle {
@@ -325,6 +348,7 @@ export default {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
 }
 
 .hero-actions {
@@ -337,13 +361,42 @@ export default {
 .hero-image {
   display: flex;
   justify-content: center;
+  animation: slideInRight 1s ease-out;
 }
 
 .hero-image img {
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-width: 500px;
   width: 100%;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.hero-image img:hover {
+  transform: scale(1.02) rotate(1deg);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .sort-section {
