@@ -453,7 +453,7 @@
                 <h3 class="section-heading">Get Instant Help</h3>
                 <div class="quick-actions-grid">
                   <!-- FAQ & Help Center Card -->
-                  <div class="action-card featured" @click="openFaqHelpCenter">
+                  <div class="action-card faq-card" @click="openFaqHelpCenter">
                     <div class="card-badge">Self-Service</div>
                     <div class="card-icon faq">
                       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -481,7 +481,7 @@
                   </div>
 
                   <!-- Ticket Support Card -->
-                  <div class="action-card priority" @click="createTicket">
+                  <div class="action-card ticket-card" @click="createTicket">
                     <div class="card-badge">Priority</div>
                     <div class="card-icon ticket">
                       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -505,76 +505,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                       </svg>
                       Create Ticket
-                    </div>
-                  </div>
-
-                  <!-- Live Chat Card -->
-                  <div class="action-card premium" @click="startLiveChat">
-                    <div class="card-badge">Most Popular</div>
-                    <div class="card-icon chat">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                      </svg>
-                    </div>
-                    <div class="card-content">
-                      <h4>Live Chat</h4>
-                      <p>Chat with our support agents in real-time</p>
-                      <div class="status-indicator online">
-                        <span class="status-dot"></span>
-                        <span>3 agents online</span>
-                      </div>
-                    </div>
-                    <div class="card-action">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                      </svg>
-                      Start Chat
-                    </div>
-                  </div>
-
-                  <!-- Phone Support Card -->
-                  <div class="action-card" @click="callSupport">
-                    <div class="card-icon phone">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                      </svg>
-                    </div>
-                    <div class="card-content">
-                      <h4>Phone Support</h4>
-                      <p>Speak directly with our support team</p>
-                      <div class="phone-info">
-                        <span class="phone-number">+1 (555) 123-4567</span>
-                        <span class="availability">9 AM - 8 PM EST</span>
-                      </div>
-                    </div>
-                    <div class="card-action">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                      </svg>
-                      Call Now
-                    </div>
-                  </div>
-
-                  <!-- Email Support Card -->
-                  <div class="action-card" @click="emailSupport">
-                    <div class="card-icon email">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                      </svg>
-                    </div>
-                    <div class="card-content">
-                      <h4>Email Support</h4>
-                      <p>Send us detailed questions via email</p>
-                      <div class="email-info">
-                        <span class="email-address">support@footmarket.com</span>
-                        <span class="response-time">Response within 4 hours</span>
-                      </div>
-                    </div>
-                    <div class="card-action">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                      </svg>
-                      Send Email
                     </div>
                   </div>
                 </div>
