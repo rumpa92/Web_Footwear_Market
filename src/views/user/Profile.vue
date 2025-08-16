@@ -2372,13 +2372,19 @@ export default {
 
     // Privacy methods
     viewPrivacyPolicy() {
-      this.$toast?.info('Opening Privacy Policy...')
-      // In a real app, this would open the privacy policy
+      this.showPrivacyPolicyModal = true
     },
 
     viewTerms() {
-      this.$toast?.info('Opening Terms & Conditions...')
-      // In a real app, this would open the terms
+      this.showTermsModal = true
+    },
+
+    closePrivacyPolicyModal() {
+      this.showPrivacyPolicyModal = false
+    },
+
+    closeTermsModal() {
+      this.showTermsModal = false
     },
 
     requestDataDownload() {
