@@ -6291,6 +6291,7 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
+  align-items: stretch;
 }
 
 .modern-option-card {
@@ -6302,6 +6303,9 @@ export default {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .safe-option {
