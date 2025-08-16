@@ -6067,15 +6067,31 @@ export default {
   .notifications-card,
   .simple-card {
     padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .notifications-list-section,
   .notification-settings-section {
     padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
-  
+
   .products-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
   }
 }
 
