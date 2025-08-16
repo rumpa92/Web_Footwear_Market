@@ -6907,15 +6907,19 @@ export default {
   .deletion-options-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    width: 100%;
   }
 
   .modern-option-card {
     padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .help-card {
     flex-direction: column;
     text-align: center;
+    width: 100%;
   }
 }
 
