@@ -2218,6 +2218,76 @@ export default {
     flex-direction: column;
     gap: 2rem;
   }
+
+  /* Notifications mobile */
+  .mark-all-read-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .notification-item {
+    padding: 0.875rem;
+    gap: 0.625rem;
+  }
+
+  .notification-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .notification-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .notification-title {
+    font-size: 0.9rem;
+  }
+
+  .notification-message {
+    font-size: 0.8rem;
+  }
+
+  .notification-time {
+    font-size: 0.7rem;
+  }
+
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .setting-info {
+    width: 100%;
+  }
+
+  .setting-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .setting-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .setting-content h4 {
+    font-size: 0.9rem;
+  }
+
+  .setting-content p {
+    font-size: 0.8rem;
+  }
+
+  .settings-actions {
+    margin-top: 1.5rem;
+  }
+
+  .save-settings-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 640px) {
