@@ -2302,8 +2302,14 @@ export default {
   .profile-info-card,
   .feed-section,
   .avatar-management-card,
+  .notifications-card,
   .simple-card {
     padding: 1.5rem;
+  }
+
+  .notifications-list-section,
+  .notification-settings-section {
+    padding: 1rem;
   }
   
   .products-grid {
