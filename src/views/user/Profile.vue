@@ -2905,35 +2905,46 @@ export default {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   padding: 2rem 0;
+  box-sizing: border-box;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .profile-header {
   text-align: center;
   margin-bottom: 3rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .profile-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
 }
 
 .profile-header p {
   color: #6b7280;
   font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .profile-content {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 3rem;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Sidebar Navigation */
