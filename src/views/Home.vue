@@ -5,19 +5,38 @@
       <div class="container">
         <div class="hero-content">
           <div class="hero-text">
-            <h1 class="hero-title">Step Into Style</h1>
-            <p class="hero-subtitle">
-              Discover the latest in premium footwear from top brands.
-              Quality, comfort, and style in every step.
-            </p>
+            <div class="hero-badge">New Collection</div>
+            <div class="hero-main-text">
+              <h1 class="hero-title">FASHION<br><span class="hero-sale">SALE</span></h1>
+            </div>
             <div class="hero-actions">
-              <router-link to="/products" class="btn btn-primary btn-lg">Shop Now</router-link>
-              <router-link to="/sale" class="btn btn-outline btn-lg">View Sale</router-link>
+              <router-link to="/products" class="offer-now-btn">OFFER NOW</router-link>
+            </div>
+            <div class="hero-contact">
+              <div class="contact-info">
+                <span class="contact-icon">📞</span>
+                <span class="contact-text">+001 123 456 790</span>
+              </div>
+              <div class="contact-info">
+                <span class="contact-icon">🌐</span>
+                <span class="contact-text">WWW.FOOTMARKET.COM</span>
+              </div>
             </div>
           </div>
           <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop" alt="Featured Shoes" />
+            <img src="https://cdn.builder.io/api/v1/image/assets%2F23a04e702fb74360aba7a9f27b2d6e80%2Fc2ee6c976bc5475e86114ec944b0f859?format=webp&width=800" alt="Featured Shoes" />
+            <div class="discount-badge">
+              <span class="discount-text">75%<br>OFF</span>
+            </div>
           </div>
+        </div>
+        <div class="hero-logo">
+          <span class="logo-text">LOGO</span>
+        </div>
+        <div class="hero-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
         </div>
       </div>
     </section>
@@ -294,56 +313,200 @@ export default {
 
 <style scoped>
 .hero {
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-light) 100%);
+  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
   padding: var(--space-3xl) 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
 }
 
 .hero-content {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-2xl);
   align-items: center;
-  min-height: 500px;
+  position: relative;
+  z-index: 10;
+  width: 100%;
 }
 
 .hero-text {
-  text-align: center;
+  color: white;
+  z-index: 10;
+  position: relative;
+}
+
+.hero-badge {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-lg);
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.hero-main-text {
+  margin-bottom: var(--space-2xl);
 }
 
 .hero-title {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-  line-height: var(--line-height-tight);
+  font-size: 64px;
+  font-weight: 700;
+  color: #ffd700;
+  line-height: 0.9;
+  letter-spacing: 4px;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-.hero-subtitle {
-  font-size: var(--font-size-lg);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-xl);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+.hero-sale {
+  font-size: 80px;
+  font-weight: 900;
+  color: white;
+  display: block;
+  margin-top: -10px;
 }
 
 .hero-actions {
+  margin-bottom: var(--space-2xl);
+}
+
+.offer-now-btn {
+  background-color: white;
+  color: #1a237e;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 25px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.offer-now-btn:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hero-contact {
   display: flex;
-  gap: var(--space-md);
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 12px;
+  color: white;
+  opacity: 0.8;
+}
+
+.contact-icon {
+  font-size: 14px;
+}
+
+.contact-text {
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .hero-image {
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
 }
 
 .hero-image img {
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
+  max-width: 450px;
   width: 100%;
+  height: auto;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.03) rotate(-3deg);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+  animation: pulse 2s infinite;
+}
+
+.discount-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.hero-logo {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 20;
+}
+
+.logo-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0.9;
+}
+
+.hero-dots {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 152, 0, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+  }
 }
 
 .sort-section {
@@ -665,17 +828,58 @@ export default {
   margin-right: auto;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .hero-content {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--space-lg);
   }
 
+  .hero-title {
+    font-size: 42px;
+  }
+
+  .hero-sale {
+    font-size: 56px;
+  }
+
+  .hero-logo {
+    top: 20px;
+    left: 20px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .hero-dots {
+    top: 20px;
+    right: 20px;
+  }
+
+  .discount-badge {
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .discount-text {
+    font-size: 14px;
+  }
+
+  .hero-contact {
+    margin-top: var(--space-lg);
+  }
+
+  .contact-info {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
   .hero-text {
     text-align: left;
-  }
-
-  .hero-actions {
-    justify-content: flex-start;
   }
 
   .newsletter-content {

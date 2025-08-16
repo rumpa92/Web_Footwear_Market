@@ -452,46 +452,51 @@
               <div class="quick-actions-section">
                 <h3 class="section-heading">Get Instant Help</h3>
                 <div class="quick-actions-grid">
-                  <!-- Live Chat Card -->
-                  <div class="action-card premium" @click="startLiveChat">
-                    <div class="card-badge">Most Popular</div>
-                    <div class="card-icon chat">
+                  <!-- FAQ & Help Center Card -->
+                  <div class="action-card faq-card" @click="openFaqHelpCenter">
+                    <div class="card-badge">Self-Service</div>
+                    <div class="card-icon faq">
                       <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
                       </svg>
                     </div>
                     <div class="card-content">
-                      <h4>Live Chat</h4>
-                      <p>Chat with our support agents in real-time</p>
-                      <div class="status-indicator online">
-                        <span class="status-dot"></span>
-                        <span>3 agents online</span>
+                      <h4>FAQ & Help Center</h4>
+                      <p>Find instant answers to common questions</p>
+                      <div class="faq-info">
+                        <span class="info-item">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                          200+ articles
+                        </span>
                       </div>
                     </div>
                     <div class="card-action">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                       </svg>
-                      Start Chat
+                      Browse FAQ
                     </div>
                   </div>
 
-                  <!-- Support Ticket Card -->
-                  <div class="action-card" @click="createTicket">
+                  <!-- Ticket Support Card -->
+                  <div class="action-card ticket-card" @click="createTicket">
+                    <div class="card-badge">Priority</div>
                     <div class="card-icon ticket">
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M22 10V6a2 2 0 00-2-2H4a2 2 0 00-2 2v4a2 2 0 102 0V8h16v2a2 2 0 102 0zM2 14a2 2 0 102 0v4h16v-4a2 2 0 102 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
                       </svg>
                     </div>
                     <div class="card-content">
-                      <h4>Support Ticket</h4>
+                      <h4>Ticket</h4>
                       <p>Submit detailed requests and track progress</p>
                       <div class="ticket-info">
                         <span class="info-item">
                           <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 15h2v2h-2v-2zm0-10h2v8h-2V7z"/>
                           </svg>
-                          Priority support
+                          24-48h response
                         </span>
                       </div>
                     </div>
@@ -500,52 +505,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                       </svg>
                       Create Ticket
-                    </div>
-                  </div>
-
-                  <!-- Phone Support Card -->
-                  <div class="action-card" @click="callSupport">
-                    <div class="card-icon phone">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                      </svg>
-                    </div>
-                    <div class="card-content">
-                      <h4>Phone Support</h4>
-                      <p>Speak directly with our support team</p>
-                      <div class="phone-info">
-                        <span class="phone-number">+1 (555) 123-4567</span>
-                        <span class="availability">9 AM - 8 PM EST</span>
-                      </div>
-                    </div>
-                    <div class="card-action">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                      </svg>
-                      Call Now
-                    </div>
-                  </div>
-
-                  <!-- Email Support Card -->
-                  <div class="action-card" @click="emailSupport">
-                    <div class="card-icon email">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                      </svg>
-                    </div>
-                    <div class="card-content">
-                      <h4>Email Support</h4>
-                      <p>Send us detailed questions via email</p>
-                      <div class="email-info">
-                        <span class="email-address">support@footmarket.com</span>
-                        <span class="response-time">Response within 4 hours</span>
-                      </div>
-                    </div>
-                    <div class="card-action">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                      </svg>
-                      Send Email
                     </div>
                   </div>
                 </div>
@@ -772,6 +731,105 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dedicated FAQ & Help Center Page -->
+          <div v-if="showFaqPage" class="section">
+            <div class="faq-page-container">
+              <!-- Header -->
+              <div class="faq-page-header">
+                <button @click="closeFaqPage" class="back-to-support-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7"/>
+                  </svg>
+                  Back to Support
+                </button>
+
+                <div class="faq-page-title">
+                  <div class="title-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                    </svg>
+                  </div>
+                  <div class="title-content">
+                    <h1>FAQ & Help Center</h1>
+                    <p>Find answers to your footwear and shopping questions</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Search Bar -->
+              <div class="faq-search-section">
+                <div class="search-input-container">
+                  <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/>
+                  </svg>
+                  <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Search for help articles..."
+                    class="search-input"
+                  />
+                </div>
+              </div>
+
+              <!-- FAQ Categories -->
+              <div class="faq-categories-section">
+                <div class="categories-nav">
+                  <button
+                    v-for="category in faqCategories"
+                    :key="category.id"
+                    @click="selectedFaqCategory = category.id"
+                    class="category-btn"
+                    :class="{ 'active': selectedFaqCategory === category.id }"
+                  >
+                    {{ category.name }}
+                    <span class="category-count">{{ category.count }}</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Current Category Display -->
+              <div class="current-category-section">
+                <h2 class="category-title">{{ getCurrentCategoryName() }}</h2>
+              </div>
+
+              <!-- FAQ List -->
+              <div class="faq-list-section">
+                <div class="faq-items">
+                  <div
+                    v-for="faq in filteredFaqsForPage"
+                    :key="faq.id"
+                    class="faq-item-page"
+                    :class="{ 'expanded': faq.expanded }"
+                    @click="toggleFaq(faq.id)"
+                  >
+                    <div class="faq-question-page">
+                      <h3>{{ faq.question }}</h3>
+                      <svg class="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </div>
+                    <div class="faq-answer-page">
+                      <p>{{ faq.answer }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- No Results -->
+                <div v-if="filteredFaqsForPage.length === 0" class="no-results">
+                  <div class="no-results-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="11" cy="11" r="8"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/>
+                    </svg>
+                  </div>
+                  <h3>No articles found</h3>
+                  <p>Try adjusting your search terms or browse different categories</p>
                 </div>
               </div>
             </div>
@@ -1016,7 +1074,7 @@
                       <p>Share data with vetted partners to enhance functionality and provide better services</p>
                       <div class="control-benefits">
                         <span>• Enhanced payment security</span>
-                        <span>• Better shipping options</span>
+                        <span>�� Better shipping options</span>
                         <span>• Social media integration</span>
                       </div>
                     </div>
@@ -1649,29 +1707,105 @@ export default {
         generalAlerts: true
       },
       // Support data
+      searchQuery: '',
+      selectedFaqCategory: 'all',
+      faqCategories: [
+        { id: 'all', name: 'All Categories', count: 12 },
+        { id: 'shopping', name: 'Shopping & Orders', count: 4 },
+        { id: 'footwear', name: 'Footwear Tips & Advice', count: 3 },
+        { id: 'account', name: 'Account & Profile', count: 3 },
+        { id: 'shipping', name: 'Shipping & Returns', count: 2 }
+      ],
       faqs: [
+        // Shopping & Orders
         {
           id: 1,
+          category: 'shopping',
           question: "How do I track my order?",
           answer: "You can track your order by going to the 'Orders' section in your profile or using the tracking link in your confirmation email.",
           expanded: false
         },
         {
           id: 2,
+          category: 'shopping',
+          question: "Can I change my order after placing it?",
+          answer: "Orders can be modified within 1 hour of placement. After that, you'll need to contact our support team for assistance.",
+          expanded: false
+        },
+        {
+          id: 3,
+          category: 'shopping',
+          question: "How do I apply a discount code?",
+          answer: "Enter your discount code in the 'Promo Code' field during checkout. The discount will be applied automatically to eligible items.",
+          expanded: false
+        },
+        {
+          id: 4,
+          category: 'shopping',
+          question: "What payment methods do you accept?",
+          answer: "We accept all major credit cards, PayPal, Apple Pay, Google Pay, and buy now, pay later options like Klarna.",
+          expanded: false
+        },
+
+        // Footwear Tips & Advice
+        {
+          id: 5,
+          category: 'footwear',
+          question: "How do I choose the right shoe size?",
+          answer: "Use our size guide on each product page. Measure your feet in the evening and check brand-specific sizing as they may vary.",
+          expanded: false
+        },
+        {
+          id: 6,
+          category: 'footwear',
+          question: "What's the best way to care for my shoes?",
+          answer: "Clean regularly with appropriate products, use shoe trees to maintain shape, rotate your shoes, and store in a cool, dry place.",
+          expanded: false
+        },
+        {
+          id: 7,
+          category: 'footwear',
+          question: "How do I choose shoes for my foot type?",
+          answer: "Consider your arch type (high, normal, or flat), gait pattern, and intended use. Check our fitting guide for personalized recommendations.",
+          expanded: false
+        },
+
+        // Account & Profile
+        {
+          id: 8,
+          category: 'account',
+          question: "How do I change my password?",
+          answer: "Go to Account Settings > Security to change your password. You'll need your current password and must choose a new secure one.",
+          expanded: false
+        },
+        {
+          id: 9,
+          category: 'account',
+          question: "How do I update my profile information?",
+          answer: "Visit your Profile page and click 'Edit Profile'. You can update your name, email, phone number, and preferences.",
+          expanded: false
+        },
+        {
+          id: 10,
+          category: 'account',
+          question: "How do I manage my notification preferences?",
+          answer: "Go to Profile > Notifications to customize emails and alerts for marketing, orders, and delivery notifications.",
+          expanded: false
+        },
+
+        // Shipping & Returns
+        {
+          id: 11,
+          category: 'shipping',
           question: "What is your return policy?",
           answer: "We offer a 30-day return policy for unused items in original packaging. Simply initiate a return request through your order history.",
           expanded: false
         },
         {
-          id: 3,
+          id: 12,
+          category: 'shipping',
           question: "How long does shipping take?",
           answer: "Standard shipping takes 3-5 business days, while express shipping takes 1-2 business days. Delivery times may vary based on location.",
-          expanded: false
-        },
-        {
-          id: 4,
-          question: "Can I change my order after placing it?",
-          answer: "Orders can be modified within 1 hour of placement. After that, you'll need to contact our support team for assistance.",
           expanded: false
         }
       ],
@@ -1825,6 +1959,7 @@ export default {
       showHelpCenter: false,
       showCommunityForum: false,
       showVideoTutorials: false,
+      showFaqPage: false,
       selectedVideoCategory: 1,
       // Help Center data
       helpCategories: [
@@ -2007,6 +2142,26 @@ export default {
 
     filteredVideos() {
       return this.videos.filter(video => video.categoryId === this.selectedVideoCategory)
+    },
+
+    filteredFaqsForPage() {
+      let filtered = this.faqs
+
+      // Filter by category
+      if (this.selectedFaqCategory && this.selectedFaqCategory !== 'all') {
+        filtered = filtered.filter(faq => faq.category === this.selectedFaqCategory)
+      }
+
+      // Filter by search query
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase()
+        filtered = filtered.filter(faq =>
+          faq.question.toLowerCase().includes(query) ||
+          faq.answer.toLowerCase().includes(query)
+        )
+      }
+
+      return filtered
     }
   },
   methods: {
@@ -2163,6 +2318,28 @@ export default {
 
     callSupport() {
       this.$toast?.info('Calling +1 (555) 123-4567...')
+    },
+
+    openFaqHelpCenter() {
+      this.showFaqPage = true
+      this.activeSection = 'faq-page'
+    },
+
+    closeFaqPage() {
+      this.showFaqPage = false
+      this.activeSection = 'customer-support'
+      this.searchQuery = ''
+      this.selectedFaqCategory = 'all'
+    },
+
+    goBackToCategories() {
+      this.selectedFaqCategory = 'all'
+      this.searchQuery = ''
+    },
+
+    getCurrentCategoryName() {
+      const category = this.faqCategories.find(cat => cat.id === this.selectedFaqCategory)
+      return category ? category.name : 'All Categories'
     },
 
     toggleFaq(faqId) {
@@ -3991,6 +4168,34 @@ export default {
   background: linear-gradient(135deg, #fef7f7 0%, #fdf2f8 100%);
 }
 
+.action-card.faq-card {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+}
+
+.action-card.faq-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+}
+
+.action-card.faq-card .card-badge {
+  background: #10b981;
+}
+
+.action-card.ticket-card {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+.action-card.ticket-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.action-card.ticket-card .card-badge {
+  background: #3b82f6;
+}
+
 .card-badge {
   position: absolute;
   top: 1rem;
@@ -4011,6 +4216,11 @@ export default {
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+}
+
+.card-icon.faq {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
 }
 
 .card-icon.chat {
@@ -5509,6 +5719,297 @@ export default {
   
   .products-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* FAQ Page Styles */
+.faq-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.faq-page-header {
+  margin-bottom: 2rem;
+}
+
+.back-to-support-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.back-to-support-btn:hover {
+  color: #2563eb;
+}
+
+.back-to-support-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.faq-page-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.title-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.title-content h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.title-content p {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.faq-search-section {
+  margin-bottom: 2rem;
+}
+
+.search-input-container {
+  position: relative;
+  max-width: 500px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #9ca3af;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.faq-categories-section {
+  margin-bottom: 2rem;
+}
+
+.categories-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.category-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.category-count {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.category-btn.active .category-count {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.current-category-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.faq-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item-page {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.faq-item-page:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.faq-question-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  background: #f9fafb;
+}
+
+.faq-question-page h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  flex: 1;
+}
+
+.expand-icon {
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.faq-item-page.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer-page {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-item-page.expanded .faq-answer-page {
+  max-height: 500px;
+}
+
+.faq-answer-page p {
+  padding: 1.25rem;
+  margin: 0;
+  color: #6b7280;
+  line-height: 1.6;
+  background: white;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+}
+
+.no-results-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.no-results-icon svg {
+  width: 48px;
+  height: 48px;
+  color: #d1d5db;
+}
+
+.no-results h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.no-results p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .faq-page-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .title-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .categories-nav {
+    flex-direction: column;
+  }
+
+  .category-btn {
+    justify-content: space-between;
+  }
+
+  .faq-question-page {
+    padding: 1rem;
+  }
+
+  .faq-answer-page p {
+    padding: 1rem;
   }
 }
 </style>
