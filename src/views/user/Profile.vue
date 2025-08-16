@@ -2328,8 +2328,25 @@ export default {
     },
 
     openFaqHelpCenter() {
-      this.$toast?.info('Opening FAQ & Help Center...')
-      this.visitHelpCenter()
+      this.showFaqPage = true
+      this.activeSection = 'faq-page'
+    },
+
+    closeFaqPage() {
+      this.showFaqPage = false
+      this.activeSection = 'customer-support'
+      this.searchQuery = ''
+      this.selectedFaqCategory = 'all'
+    },
+
+    goBackToCategories() {
+      this.selectedFaqCategory = 'all'
+      this.searchQuery = ''
+    },
+
+    getCurrentCategoryName() {
+      const category = this.faqCategories.find(cat => cat.id === this.selectedFaqCategory)
+      return category ? category.name : 'All Categories'
     },
 
     toggleFaq(faqId) {
