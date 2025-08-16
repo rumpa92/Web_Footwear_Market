@@ -3955,6 +3955,34 @@ export default {
   background: linear-gradient(135deg, #fef7f7 0%, #fdf2f8 100%);
 }
 
+.action-card.faq-card {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+}
+
+.action-card.faq-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+}
+
+.action-card.faq-card .card-badge {
+  background: #10b981;
+}
+
+.action-card.ticket-card {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+.action-card.ticket-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.action-card.ticket-card .card-badge {
+  background: #3b82f6;
+}
+
 .card-badge {
   position: absolute;
   top: 1rem;
