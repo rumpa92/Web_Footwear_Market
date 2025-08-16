@@ -532,6 +532,70 @@ export default {
           reviews: 95
         }
       ],
+      notifications: [
+        {
+          id: 1,
+          type: 'order',
+          title: 'Order Confirmed',
+          message: 'Your order #12345 for Premium Running Shoes has been confirmed and is being processed.',
+          time: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+          read: false,
+          action: {
+            text: 'View Order',
+            url: '/orders/12345'
+          }
+        },
+        {
+          id: 2,
+          type: 'promotion',
+          title: 'Special Offer: 25% Off',
+          message: 'Limited time offer! Get 25% off on all Nike products. Use code NIKE25 at checkout.',
+          time: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+          read: false,
+          action: {
+            text: 'Shop Now',
+            url: '/brands/nike'
+          }
+        },
+        {
+          id: 3,
+          type: 'delivery',
+          title: 'Out for Delivery',
+          message: 'Your order #12340 is out for delivery and will arrive today between 2-4 PM.',
+          time: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
+          read: false,
+          action: {
+            text: 'Track Package',
+            url: '/orders/12340/track'
+          }
+        },
+        {
+          id: 4,
+          type: 'order',
+          title: 'Order Delivered',
+          message: 'Your order #12338 has been successfully delivered. Thank you for shopping with us!',
+          time: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+          read: true
+        },
+        {
+          id: 5,
+          type: 'promotion',
+          title: 'New Arrivals',
+          message: 'Check out the latest footwear collection from top brands. Fresh styles just added!',
+          time: new Date(Date.now() - 48 * 60 * 60 * 1000), // 2 days ago
+          read: true,
+          action: {
+            text: 'Browse Collection',
+            url: '/products/new-arrivals'
+          }
+        }
+      ],
+      notificationSettings: {
+        orderUpdates: true,
+        promotions: true,
+        deliveryReminders: true,
+        generalAlerts: true
+      },
       profileSections: [
         {
           id: 'profile',
@@ -542,7 +606,7 @@ export default {
           id: 'notifications',
           name: 'Notifications',
           icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>',
-          badge: '3'
+          badge: this.unreadNotifications?.length || '3'
         },
         {
           id: 'customer-support',
