@@ -614,16 +614,33 @@
 .default-indicator {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   color: var(--success-color);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.15), rgba(39, 174, 96, 0.05));
+  border-radius: var(--border-radius-full);
+  border: 1px solid rgba(39, 174, 96, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: defaultGlow 2s ease-in-out infinite alternate;
 }
 
 .default-indicator svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 2px 4px rgba(39, 174, 96, 0.3));
+}
+
+@keyframes defaultGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(39, 174, 96, 0.5), 0 0 30px rgba(39, 174, 96, 0.2);
+  }
 }
 
 /* Preferences Section */
