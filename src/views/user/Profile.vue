@@ -1617,7 +1617,7 @@ export default {
         { code: 'CA', name: 'Canada', flag: '🇨🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', name: 'France', flag: '🇫���' },
+        { code: 'FR', name: 'France', flag: '🇫🇷' },
         { code: 'IT', name: 'Italy', flag: '🇮🇹' },
         { code: 'ES', name: 'Spain', flag: '🇪🇸' },
         { code: 'AU', name: 'Australia', flag: '🇦🇺' },
@@ -2085,18 +2085,37 @@ export default {
     },
 
     visitHelpCenter() {
-      this.$toast?.info('Opening Help Center...')
-      // In a real app, this would navigate to help center
+      this.showHelpCenter = true
+    },
+
+    closeHelpCenter() {
+      this.showHelpCenter = false
+    },
+
+    selectHelpCategory(category) {
+      this.$toast?.success(`Opening ${category.title} articles...`)
+      this.closeHelpCenter()
     },
 
     openCommunityForum() {
-      this.$toast?.info('Opening Community Forum...')
-      // In a real app, this would navigate to community forum
+      this.showCommunityForum = true
+    },
+
+    closeCommunityForum() {
+      this.showCommunityForum = false
     },
 
     viewVideoTutorials() {
-      this.$toast?.info('Opening Video Tutorials...')
-      // In a real app, this would navigate to video tutorials
+      this.showVideoTutorials = true
+    },
+
+    closeVideoTutorials() {
+      this.showVideoTutorials = false
+    },
+
+    playVideo(video) {
+      this.$toast?.success(`Playing: ${video.title}`)
+      this.closeVideoTutorials()
     },
 
     // Language & Region methods
