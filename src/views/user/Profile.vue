@@ -1643,7 +1643,7 @@ export default {
       },
       availableLanguages: [
         { code: 'en', name: 'English', nativeName: 'English', flag: 'https://flagcdn.com/us.svg' },
-        { code: 'es', name: 'Spanish', nativeName: 'Espa��ol', flag: 'https://flagcdn.com/es.svg' },
+        { code: 'es', name: 'Spanish', nativeName: 'Español', flag: 'https://flagcdn.com/es.svg' },
         { code: 'fr', name: 'French', nativeName: 'Français', flag: 'https://flagcdn.com/fr.svg' },
         { code: 'de', name: 'German', nativeName: 'Deutsch', flag: 'https://flagcdn.com/de.svg' },
         { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: 'https://flagcdn.com/it.svg' },
@@ -1784,6 +1784,7 @@ export default {
       showHelpCenter: false,
       showCommunityForum: false,
       showVideoTutorials: false,
+      showFaqPage: false,
       selectedVideoCategory: 1,
       // Help Center data
       helpCategories: [
