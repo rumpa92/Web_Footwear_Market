@@ -795,13 +795,6 @@
 
               <!-- Current Category Display -->
               <div class="current-category-section">
-                <button @click="goBackToCategories" class="back-link">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7"/>
-                  </svg>
-                  Back
-                </button>
-
                 <h2 class="category-title">{{ getCurrentCategoryName() }}</h2>
               </div>
 
