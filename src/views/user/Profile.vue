@@ -3598,6 +3598,38 @@ export default {
     width: 100%;
     justify-content: center;
   }
+
+  /* Language & Region responsive */
+  .language-region-card {
+    margin: 0 -0.5rem;
+  }
+
+  .card-header-simple {
+    padding: 1rem 1rem 0 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .language-region-content {
+    padding: 0 1rem 1rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .language-card {
+    padding: 0.75rem;
+  }
+
+  .language-flag-container {
+    width: 20px;
+    height: 15px;
+  }
+
+  .language-name {
+    font-size: 0.8rem;
+  }
+
+  .language-native {
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 640px) {
