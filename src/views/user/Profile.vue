@@ -1082,47 +1082,6 @@
                 </div>
               </div>
 
-              <!-- Data Management -->
-              <div class="modern-data-management">
-                <h3 class="modern-section-title">Data Management</h3>
-                <div class="data-actions-grid">
-                  <div class="data-action-card export" @click="requestDataDownload">
-                    <div class="action-icon export">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM12 19l-4-4h3V9h2v6h3l-4 4z"/>
-                      </svg>
-                    </div>
-                    <div class="action-content">
-                      <h4>Export Your Data</h4>
-                      <p>Download a complete copy of your personal data in a portable format</p>
-                      <div class="action-details">
-                        <span>📄 Includes profile, orders, preferences</span>
-                        <span>⏱️ Ready within 24-48 hours</span>
-                        <span>📧 Delivered via secure email link</span>
-                      </div>
-                    </div>
-                    <div class="action-button">Request Export</div>
-                  </div>
-
-                  <div class="data-action-card view" @click="viewDataSummary">
-                    <div class="action-icon view">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                      </svg>
-                    </div>
-                    <div class="action-content">
-                      <h4>View Data Summary</h4>
-                      <p>See an overview of what personal data we have stored about you</p>
-                      <div class="action-details">
-                        <span>📊 Data categories breakdown</span>
-                        <span>📅 Collection and usage dates</span>
-                        <span>🔍 Sources and purposes</span>
-                      </div>
-                    </div>
-                    <div class="action-button">View Summary</div>
-                  </div>
-                </div>
-              </div>
 
               <!-- Save Actions -->
               <div class="modern-save-section">
