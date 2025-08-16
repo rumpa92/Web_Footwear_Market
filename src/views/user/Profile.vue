@@ -1608,6 +1608,15 @@ export default {
         generalAlerts: true
       },
       // Support data
+      searchQuery: '',
+      selectedFaqCategory: 'all',
+      faqCategories: [
+        { id: 'all', name: 'All Categories', count: 12 },
+        { id: 'shopping', name: 'Shopping & Orders', count: 4 },
+        { id: 'footwear', name: 'Footwear Tips & Advice', count: 3 },
+        { id: 'account', name: 'Account & Profile', count: 3 },
+        { id: 'shipping', name: 'Shipping & Returns', count: 2 }
+      ],
       faqs: [
         {
           id: 1,
