@@ -1618,28 +1618,95 @@ export default {
         { id: 'shipping', name: 'Shipping & Returns', count: 2 }
       ],
       faqs: [
+        // Shopping & Orders
         {
           id: 1,
+          category: 'shopping',
           question: "How do I track my order?",
           answer: "You can track your order by going to the 'Orders' section in your profile or using the tracking link in your confirmation email.",
           expanded: false
         },
         {
           id: 2,
+          category: 'shopping',
+          question: "Can I change my order after placing it?",
+          answer: "Orders can be modified within 1 hour of placement. After that, you'll need to contact our support team for assistance.",
+          expanded: false
+        },
+        {
+          id: 3,
+          category: 'shopping',
+          question: "How do I apply a discount code?",
+          answer: "Enter your discount code in the 'Promo Code' field during checkout. The discount will be applied automatically to eligible items.",
+          expanded: false
+        },
+        {
+          id: 4,
+          category: 'shopping',
+          question: "What payment methods do you accept?",
+          answer: "We accept all major credit cards, PayPal, Apple Pay, Google Pay, and buy now, pay later options like Klarna.",
+          expanded: false
+        },
+
+        // Footwear Tips & Advice
+        {
+          id: 5,
+          category: 'footwear',
+          question: "How do I choose the right shoe size?",
+          answer: "Use our size guide on each product page. Measure your feet in the evening and check brand-specific sizing as they may vary.",
+          expanded: false
+        },
+        {
+          id: 6,
+          category: 'footwear',
+          question: "What's the best way to care for my shoes?",
+          answer: "Clean regularly with appropriate products, use shoe trees to maintain shape, rotate your shoes, and store in a cool, dry place.",
+          expanded: false
+        },
+        {
+          id: 7,
+          category: 'footwear',
+          question: "How do I choose shoes for my foot type?",
+          answer: "Consider your arch type (high, normal, or flat), gait pattern, and intended use. Check our fitting guide for personalized recommendations.",
+          expanded: false
+        },
+
+        // Account & Profile
+        {
+          id: 8,
+          category: 'account',
+          question: "How do I change my password?",
+          answer: "Go to Account Settings > Security to change your password. You'll need your current password and must choose a new secure one.",
+          expanded: false
+        },
+        {
+          id: 9,
+          category: 'account',
+          question: "How do I update my profile information?",
+          answer: "Visit your Profile page and click 'Edit Profile'. You can update your name, email, phone number, and preferences.",
+          expanded: false
+        },
+        {
+          id: 10,
+          category: 'account',
+          question: "How do I manage my notification preferences?",
+          answer: "Go to Profile > Notifications to customize emails and alerts for marketing, orders, and delivery notifications.",
+          expanded: false
+        },
+
+        // Shipping & Returns
+        {
+          id: 11,
+          category: 'shipping',
           question: "What is your return policy?",
           answer: "We offer a 30-day return policy for unused items in original packaging. Simply initiate a return request through your order history.",
           expanded: false
         },
         {
-          id: 3,
+          id: 12,
+          category: 'shipping',
           question: "How long does shipping take?",
           answer: "Standard shipping takes 3-5 business days, while express shipping takes 1-2 business days. Delivery times may vary based on location.",
-          expanded: false
-        },
-        {
-          id: 4,
-          question: "Can I change my order after placing it?",
-          answer: "Orders can be modified within 1 hour of placement. After that, you'll need to contact our support team for assistance.",
           expanded: false
         }
       ],
