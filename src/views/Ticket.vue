@@ -1098,6 +1098,19 @@ export default {
       this.showTicketList = false
       this.showTicketDetails = false
       this.currentStep = 1
+    },
+    switchToCreateTicket() {
+      this.showSuccess = false
+      this.showTicketList = false
+      this.showTicketDetails = false
+      this.currentStep = 1
+      this.selectedTicket = null
+    },
+    switchToMyTickets() {
+      this.showSuccess = false
+      this.showTicketList = true
+      this.showTicketDetails = false
+      this.loadUserTickets()
     }
   }
 }
