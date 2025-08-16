@@ -27,392 +27,682 @@
 
         <!-- Main Content -->
         <div class="profile-main">
-          <!-- Section 1: Profile Overview -->
-          <div v-if="activeSection === 'overview'" class="section">
+          <!-- Section 1: Update Profile -->
+          <div v-if="activeSection === 'update-profile'" class="section">
             <div class="section-header">
-              <h2>Profile Overview</h2>
-              <p>Your basic profile information</p>
+              <h2>Update Profile</h2>
+              <p>Manage your personal information and account details</p>
             </div>
             
-            <div class="overview-card">
-              <div class="profile-avatar-section">
+            <div class="profile-update-content">
+              <!-- Avatar Section -->
+              <div class="avatar-section">
                 <div class="avatar-container">
                   <img :src="currentUser.avatar" :alt="currentUser.name" class="profile-avatar" />
-                  <button class="edit-avatar-btn">
+                  <button class="edit-avatar-btn" @click="changeAvatar">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
                   </button>
                 </div>
-              </div>
-              
-              <div class="profile-info">
                 <h3>{{ currentUser.name }}</h3>
-                <div class="contact-details">
-                  <div class="detail-item">
-                    <span class="label">Email:</span>
-                    <span class="value">{{ currentUser.email }}</span>
-                  </div>
-                  <div class="detail-item">
-                    <span class="label">Phone:</span>
-                    <span class="value">{{ currentUser.phone || '+1 (555) 123-4567' }}</span>
-                  </div>
-                  <div class="detail-item">
-                    <span class="label">Member since:</span>
-                    <span class="value">{{ formatDate(currentUser.joinDate || new Date()) }}</span>
-                  </div>
-                </div>
-                
-                <button class="edit-profile-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                  </svg>
-                  Edit Profile
-                </button>
+                <p class="user-email">{{ currentUser.email }}</p>
               </div>
-            </div>
-          </div>
 
-          <!-- Section 2: Account Details -->
-          <div v-if="activeSection === 'account'" class="section">
-            <div class="section-header">
-              <h2>Account Details</h2>
-              <p>Manage your account information and security</p>
-            </div>
-            
-            <div class="account-cards">
-              <div class="account-card">
-                <h3>Personal Information</h3>
-                <form class="account-form">
+              <!-- Update Form -->
+              <div class="update-form-section">
+                <form class="profile-form" @submit.prevent="updateProfile">
                   <div class="form-row">
                     <div class="form-group">
                       <label>Full Name</label>
-                      <input v-model="accountForm.name" type="text" />
+                      <input v-model="profileForm.name" type="text" placeholder="Enter your full name" required />
                     </div>
                     <div class="form-group">
-                      <label>Email</label>
-                      <input v-model="accountForm.email" type="email" />
+                      <label>Email Address</label>
+                      <input v-model="profileForm.email" type="email" placeholder="Enter your email" required />
                     </div>
                   </div>
+                  
                   <div class="form-row">
                     <div class="form-group">
-                      <label>Phone</label>
-                      <input v-model="accountForm.phone" type="tel" />
+                      <label>Phone Number</label>
+                      <input v-model="profileForm.phone" type="tel" placeholder="+1 (555) 123-4567" />
                     </div>
                     <div class="form-group">
                       <label>Date of Birth</label>
-                      <input v-model="accountForm.dob" type="date" />
+                      <input v-model="profileForm.dob" type="date" />
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label>Gender</label>
-                    <select v-model="accountForm.gender">
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Gender</label>
+                      <select v-model="profileForm.gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Location</label>
+                      <input v-model="profileForm.location" type="text" placeholder="City, State" />
+                    </div>
                   </div>
-                  <button type="button" @click="updateAccount" class="save-btn">Save Changes</button>
+
+                  <div class="form-group">
+                    <label>Bio</label>
+                    <textarea v-model="profileForm.bio" placeholder="Tell us about yourself..." rows="3"></textarea>
+                  </div>
+
+                  <button type="submit" class="save-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Save Changes
+                  </button>
                 </form>
               </div>
-              
-              <div class="account-card">
-                <h3>Security</h3>
-                <div class="security-actions">
-                  <button @click="changePassword" class="security-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                      <circle cx="12" cy="16" r="1"/>
-                      <path d="M7 11V7a5 5 0 0110 0v4"/>
-                    </svg>
-                    Change Password
-                  </button>
-                  <button @click="forgotPassword" class="security-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Reset Password
-                  </button>
-                  <button @click="signOut" class="security-btn danger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                    </svg>
-                    Sign Out
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
 
-          <!-- Section 3: Saved Addresses -->
-          <div v-if="activeSection === 'addresses'" class="section">
+          <!-- Section 2: Customer Support -->
+          <div v-if="activeSection === 'customer-support'" class="section">
             <div class="section-header">
-              <h2>Saved Addresses</h2>
-              <p>Manage your shipping and billing addresses</p>
-              <button @click="addNewAddress" class="add-btn">Add New Address</button>
-            </div>
-            
-            <div class="addresses-grid">
-              <div v-for="address in addresses" :key="address.id" class="address-card">
-                <div class="address-header">
-                  <h4>{{ address.label }}</h4>
-                  <span v-if="address.isDefault" class="default-badge">Default</span>
-                </div>
-                <div class="address-content">
-                  <p>{{ address.name }}</p>
-                  <p>{{ address.street }}</p>
-                  <p>{{ address.city }}, {{ address.state }} {{ address.zip }}</p>
-                  <p>{{ address.phone }}</p>
-                </div>
-                <div class="address-actions">
-                  <button @click="editAddress(address)" class="edit-btn">Edit</button>
-                  <button @click="deleteAddress(address.id)" class="delete-btn">Delete</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 4: Payment & Wallet -->
-          <div v-if="activeSection === 'payment'" class="section">
-            <div class="section-header">
-              <h2>Payment & Wallet</h2>
-              <p>Manage your payment methods and wallet</p>
-            </div>
-            
-            <div class="payment-sections">
-              <div class="payment-card">
-                <h3>Wallet Balance</h3>
-                <div class="wallet-info">
-                  <div class="balance">
-                    <span class="amount">${{ walletBalance.toFixed(2) }}</span>
-                    <span class="label">Available Balance</span>
-                  </div>
-                  <button @click="topUpWallet" class="topup-btn">Top Up</button>
-                </div>
-                <div class="recent-transactions">
-                  <h4>Recent Transactions</h4>
-                  <div v-for="transaction in recentTransactions" :key="transaction.id" class="transaction-item">
-                    <span class="transaction-desc">{{ transaction.description }}</span>
-                    <span class="transaction-amount" :class="transaction.type">{{ transaction.type === 'credit' ? '+' : '-' }}${{ transaction.amount }}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="payment-card">
-                <h3>Saved Cards</h3>
-                <div class="cards-list">
-                  <div v-for="card in savedCards" :key="card.id" class="card-item">
-                    <div class="card-info">
-                      <span class="card-number">**** **** **** {{ card.lastFour }}</span>
-                      <span class="card-type">{{ card.type }}</span>
-                    </div>
-                    <div class="card-actions">
-                      <button @click="editCard(card)" class="edit-btn">Edit</button>
-                      <button @click="deleteCard(card.id)" class="delete-btn">Remove</button>
-                    </div>
-                  </div>
-                </div>
-                <button @click="addNewCard" class="add-card-btn">Add New Card</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 5: Orders & Tracking -->
-          <div v-if="activeSection === 'orders'" class="section">
-            <div class="section-header">
-              <h2>Orders & Tracking</h2>
-              <p>View your order history and track current orders</p>
-            </div>
-            
-            <div class="orders-content">
-              <div class="orders-filter">
-                <select v-model="orderFilter">
-                  <option value="all">All Orders</option>
-                  <option value="pending">Pending</option>
-                  <option value="shipped">Shipped</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
-              
-              <div class="orders-list">
-                <div v-for="order in filteredOrders" :key="order.id" class="order-card">
-                  <div class="order-header">
-                    <div class="order-info">
-                      <h4>Order #{{ order.id }}</h4>
-                      <span class="order-date">{{ formatDate(order.date) }}</span>
-                    </div>
-                    <div class="order-status">
-                      <span class="status-badge" :class="order.status">{{ order.status }}</span>
-                      <span class="order-total">${{ order.total.toFixed(2) }}</span>
-                    </div>
-                  </div>
-                  
-                  <div class="order-items">
-                    <div v-for="item in order.items" :key="item.id" class="order-item">
-                      <img :src="item.image" :alt="item.name" class="item-image" />
-                      <div class="item-details">
-                        <h5>{{ item.name }}</h5>
-                        <p>Size: {{ item.size }}, Color: {{ item.color }}</p>
-                        <p>Qty: {{ item.quantity }}</p>
-                      </div>
-                      <div class="item-price">${{ (item.price * item.quantity).toFixed(2) }}</div>
-                    </div>
-                  </div>
-                  
-                  <div class="order-actions">
-                    <button @click="trackOrder(order)" class="track-btn">Track Order</button>
-                    <button @click="reorderItems(order)" class="reorder-btn">Reorder</button>
-                    <button v-if="order.status === 'delivered'" @click="returnOrder(order)" class="return-btn">Return</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 6: Wishlist & Recently Viewed -->
-          <div v-if="activeSection === 'wishlist'" class="section">
-            <div class="section-header">
-              <h2>Wishlist & Recently Viewed</h2>
-              <p>Your saved items and browsing history</p>
-            </div>
-            
-            <div class="wishlist-content">
-              <div class="wishlist-section">
-                <h3>Wishlist ({{ wishlist.length }})</h3>
-                <div class="products-grid">
-                  <div v-for="item in wishlist" :key="item.id" class="product-card">
-                    <img :src="item.image" :alt="item.name" />
-                    <h4>{{ item.name }}</h4>
-                    <p class="brand">{{ item.brand }}</p>
-                    <p class="price">${{ item.price }}</p>
-                    <div class="card-actions">
-                      <button @click="addToCart(item)" class="add-cart-btn">Add to Cart</button>
-                      <button @click="removeFromWishlist(item.id)" class="remove-btn">Remove</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="recently-viewed-section">
-                <h3>Recently Viewed</h3>
-                <div class="products-carousel">
-                  <div v-for="item in recentlyViewed" :key="item.id" class="product-card">
-                    <img :src="item.image" :alt="item.name" />
-                    <h4>{{ item.name }}</h4>
-                    <p class="brand">{{ item.brand }}</p>
-                    <p class="price">${{ item.price }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 7: Returns, Refunds & Reviews -->
-          <div v-if="activeSection === 'returns'" class="section">
-            <div class="section-header">
-              <h2>Returns, Refunds & Reviews</h2>
-              <p>Manage returns, track refunds, and submit reviews</p>
-            </div>
-            
-            <div class="returns-content">
-              <div class="returns-section">
-                <h3>Return Requests</h3>
-                <div v-for="returnReq in returnRequests" :key="returnReq.id" class="return-card">
-                  <div class="return-info">
-                    <h4>Return #{{ returnReq.id }}</h4>
-                    <span class="return-status">{{ returnReq.status }}</span>
-                  </div>
-                  <p>Order #{{ returnReq.orderId }} - {{ returnReq.reason }}</p>
-                  <div class="return-progress">
-                    <div class="progress-bar" :style="{ width: returnReq.progress + '%' }"></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="reviews-section">
-                <h3>Pending Reviews</h3>
-                <div v-for="review in pendingReviews" :key="review.id" class="review-card">
-                  <img :src="review.product.image" :alt="review.product.name" />
-                  <div class="review-details">
-                    <h4>{{ review.product.name }}</h4>
-                    <button @click="writeReview(review)" class="review-btn">Write Review</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 8: Support & Help -->
-          <div v-if="activeSection === 'support'" class="section">
-            <div class="section-header">
-              <h2>Support & Help</h2>
-              <p>Get help and support for your account</p>
+              <h2>Customer Support</h2>
+              <p>Get help and assistance with your account</p>
             </div>
             
             <div class="support-content">
               <div class="support-options">
-                <div class="support-card">
+                <div class="support-card" @click="startLiveChat">
+                  <div class="support-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                  </div>
+                  <h3>Live Chat</h3>
+                  <p>Chat with our support team in real-time</p>
+                  <span class="support-status online">Available 24/7</span>
+                </div>
+
+                <div class="support-card" @click="createTicket">
+                  <div class="support-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                    </svg>
+                  </div>
+                  <h3>Support Ticket</h3>
+                  <p>Create a detailed support request</p>
+                  <span class="support-status">Response within 24hrs</span>
+                </div>
+
+                <div class="support-card" @click="callSupport">
+                  <div class="support-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                  </div>
+                  <h3>Phone Support</h3>
+                  <p>Call us directly for immediate assistance</p>
+                  <span class="support-phone">1-800-FOOTMARKET</span>
+                </div>
+
+                <div class="support-card" @click="openFAQ">
+                  <div class="support-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
                   <h3>FAQ & Help Center</h3>
                   <p>Find answers to common questions</p>
-                  <button @click="openFAQ" class="support-btn">View FAQ</button>
-                </div>
-                
-                <div class="support-card">
-                  <h3>Live Chat</h3>
-                  <p>Chat with our support team</p>
-                  <button @click="startChat" class="support-btn">Start Chat</button>
-                </div>
-                
-                <div class="support-card">
-                  <h3>Support Tickets</h3>
-                  <p>Track your support requests</p>
-                  <button @click="viewTickets" class="support-btn">View Tickets</button>
+                  <span class="support-link">Browse FAQ →</span>
                 </div>
               </div>
-              
-              <div class="contact-info">
-                <h3>Contact Information</h3>
-                <div class="contact-details">
-                  <p><strong>Email:</strong> support@footmarket.com</p>
-                  <p><strong>Phone:</strong> 1-800-FOOTMARKET</p>
-                  <p><strong>Hours:</strong> 24/7 Customer Support</p>
+
+              <div class="recent-tickets" v-if="supportTickets.length > 0">
+                <h3>Your Recent Tickets</h3>
+                <div class="tickets-list">
+                  <div v-for="ticket in supportTickets" :key="ticket.id" class="ticket-item">
+                    <div class="ticket-info">
+                      <h4>{{ ticket.subject }}</h4>
+                      <p>{{ ticket.description }}</p>
+                      <span class="ticket-date">{{ formatDate(ticket.date) }}</span>
+                    </div>
+                    <div class="ticket-status">
+                      <span class="status-badge" :class="ticket.status">{{ ticket.status }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Section 9: Policies & Legal -->
-          <div v-if="activeSection === 'policies'" class="section">
+          <!-- Section 3: Language & Region -->
+          <div v-if="activeSection === 'language-region'" class="section">
             <div class="section-header">
-              <h2>Policies & Legal</h2>
-              <p>Review our terms, privacy policy, and legal information</p>
+              <h2>Language & Region</h2>
+              <p>Customize your language preferences and regional settings</p>
             </div>
             
-            <div class="policies-content">
-              <div class="policy-links">
-                <a href="/terms" class="policy-link">
-                  <h4>Terms of Service</h4>
-                  <p>Read our terms and conditions</p>
-                </a>
-                
-                <a href="/privacy" class="policy-link">
-                  <h4>Privacy Policy</h4>
-                  <p>How we handle your personal data</p>
-                </a>
-                
-                <a href="/return-policy" class="policy-link">
-                  <h4>Return Policy</h4>
-                  <p>Our return and exchange guidelines</p>
-                </a>
-                
-                <a href="/shipping-policy" class="policy-link">
-                  <h4>Shipping Policy</h4>
-                  <p>Delivery terms and conditions</p>
-                </a>
+            <div class="language-region-content">
+              <div class="settings-card">
+                <h3>Language Preferences</h3>
+                <div class="setting-item">
+                  <label>Display Language</label>
+                  <select v-model="settings.language">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt">Português</option>
+                    <option value="zh">中文</option>
+                    <option value="ja">日本語</option>
+                  </select>
+                </div>
               </div>
+
+              <div class="settings-card">
+                <h3>Regional Settings</h3>
+                <div class="setting-item">
+                  <label>Country/Region</label>
+                  <select v-model="settings.country">
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="IT">Italy</option>
+                    <option value="ES">Spain</option>
+                    <option value="JP">Japan</option>
+                    <option value="CN">China</option>
+                    <option value="AU">Australia</option>
+                  </select>
+                </div>
+                <div class="setting-item">
+                  <label>Currency</label>
+                  <select v-model="settings.currency">
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="CAD">CAD ($)</option>
+                    <option value="JPY">JPY (¥)</option>
+                    <option value="CNY">CNY (¥)</option>
+                    <option value="AUD">AUD ($)</option>
+                  </select>
+                </div>
+                <div class="setting-item">
+                  <label>Time Zone</label>
+                  <select v-model="settings.timezone">
+                    <option value="America/New_York">Eastern Time (ET)</option>
+                    <option value="America/Chicago">Central Time (CT)</option>
+                    <option value="America/Denver">Mountain Time (MT)</option>
+                    <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                    <option value="Europe/London">Greenwich Mean Time (GMT)</option>
+                    <option value="Europe/Paris">Central European Time (CET)</option>
+                    <option value="Asia/Tokyo">Japan Standard Time (JST)</option>
+                    <option value="Asia/Shanghai">China Standard Time (CST)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="settings-card">
+                <h3>Format Preferences</h3>
+                <div class="setting-item">
+                  <label>Date Format</label>
+                  <select v-model="settings.dateFormat">
+                    <option value="MM/DD/YYYY">MM/DD/YYYY (US)</option>
+                    <option value="DD/MM/YYYY">DD/MM/YYYY (UK)</option>
+                    <option value="YYYY-MM-DD">YYYY-MM-DD (ISO)</option>
+                    <option value="DD.MM.YYYY">DD.MM.YYYY (DE)</option>
+                  </select>
+                </div>
+                <div class="setting-item">
+                  <label>Number Format</label>
+                  <select v-model="settings.numberFormat">
+                    <option value="1,234.56">1,234.56 (US)</option>
+                    <option value="1.234,56">1.234,56 (EU)</option>
+                    <option value="1 234,56">1 234,56 (FR)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button @click="saveLanguageSettings" class="save-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Save Language & Region Settings
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 4: Privacy & Terms -->
+          <div v-if="activeSection === 'privacy-terms'" class="section">
+            <div class="section-header">
+              <h2>Privacy & Terms</h2>
+              <p>Review our policies and manage your privacy preferences</p>
+            </div>
+            
+            <div class="privacy-content">
+              <div class="privacy-settings">
+                <h3>Privacy Settings</h3>
+                <div class="privacy-item">
+                  <div class="privacy-info">
+                    <h4>Data Collection</h4>
+                    <p>Allow FootMarket to collect data to improve your experience</p>
+                  </div>
+                  <div class="privacy-toggle">
+                    <input type="checkbox" v-model="privacySettings.dataCollection" id="dataCollection">
+                    <label for="dataCollection" class="toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="privacy-item">
+                  <div class="privacy-info">
+                    <h4>Marketing Communications</h4>
+                    <p>Receive promotional emails and marketing updates</p>
+                  </div>
+                  <div class="privacy-toggle">
+                    <input type="checkbox" v-model="privacySettings.marketing" id="marketing">
+                    <label for="marketing" class="toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="privacy-item">
+                  <div class="privacy-info">
+                    <h4>Analytics & Performance</h4>
+                    <p>Help us improve our service with anonymous usage data</p>
+                  </div>
+                  <div class="privacy-toggle">
+                    <input type="checkbox" v-model="privacySettings.analytics" id="analytics">
+                    <label for="analytics" class="toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="privacy-item">
+                  <div class="privacy-info">
+                    <h4>Personalized Recommendations</h4>
+                    <p>Show personalized product recommendations based on your browsing</p>
+                  </div>
+                  <div class="privacy-toggle">
+                    <input type="checkbox" v-model="privacySettings.personalization" id="personalization">
+                    <label for="personalization" class="toggle-label"></label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="policy-links">
+                <h3>Legal Documents</h3>
+                <div class="policy-list">
+                  <a href="/terms-of-service" class="policy-link" target="_blank">
+                    <div class="policy-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                      </svg>
+                    </div>
+                    <div class="policy-info">
+                      <h4>Terms of Service</h4>
+                      <p>Our terms and conditions for using FootMarket</p>
+                    </div>
+                    <svg class="policy-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+
+                  <a href="/privacy-policy" class="policy-link" target="_blank">
+                    <div class="policy-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                      </svg>
+                    </div>
+                    <div class="policy-info">
+                      <h4>Privacy Policy</h4>
+                      <p>How we collect, use, and protect your personal data</p>
+                    </div>
+                    <svg class="policy-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+
+                  <a href="/return-policy" class="policy-link" target="_blank">
+                    <div class="policy-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                      </svg>
+                    </div>
+                    <div class="policy-info">
+                      <h4>Return & Exchange Policy</h4>
+                      <p>Guidelines for returns, exchanges, and refunds</p>
+                    </div>
+                    <svg class="policy-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+
+                  <a href="/shipping-policy" class="policy-link" target="_blank">
+                    <div class="policy-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                      </svg>
+                    </div>
+                    <div class="policy-info">
+                      <h4>Shipping Policy</h4>
+                      <p>Delivery options, timeframes, and shipping costs</p>
+                    </div>
+                    <svg class="policy-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <button @click="savePrivacySettings" class="save-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Save Privacy Settings
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 5: Account Deletion -->
+          <div v-if="activeSection === 'account-deletion'" class="section">
+            <div class="section-header">
+              <h2>Account Deletion</h2>
+              <p>Permanently delete your account and all associated data</p>
+            </div>
+            
+            <div class="deletion-content">
+              <div class="warning-card">
+                <div class="warning-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                  </svg>
+                </div>
+                <h3>Before You Delete Your Account</h3>
+                <p>Account deletion is permanent and cannot be undone. Please consider the following:</p>
+                <ul class="warning-list">
+                  <li>All your personal data will be permanently deleted</li>
+                  <li>Your order history will be removed</li>
+                  <li>Saved addresses and payment methods will be deleted</li>
+                  <li>Wishlist items will be lost</li>
+                  <li>Any pending orders or returns will be cancelled</li>
+                  <li>You won't be able to access your account or recover any data</li>
+                </ul>
+              </div>
+
+              <div class="alternatives-card">
+                <h3>Alternatives to Account Deletion</h3>
+                <div class="alternative-options">
+                  <div class="alternative-option" @click="deactivateAccount">
+                    <div class="option-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18 21l-5.197-5.197m0 0L5.636 5.636M18.364 18.364L12 12"/>
+                      </svg>
+                    </div>
+                    <div class="option-info">
+                      <h4>Deactivate Account</h4>
+                      <p>Temporarily disable your account without losing data</p>
+                    </div>
+                  </div>
+
+                  <div class="alternative-option" @click="updatePrivacy">
+                    <div class="option-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                      </svg>
+                    </div>
+                    <div class="option-info">
+                      <h4>Update Privacy Settings</h4>
+                      <p>Control what data we collect and how it's used</p>
+                    </div>
+                  </div>
+
+                  <div class="alternative-option" @click="unsubscribeEmails">
+                    <div class="option-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0L12 13 4 13"/>
+                      </svg>
+                    </div>
+                    <div class="option-info">
+                      <h4>Unsubscribe from Emails</h4>
+                      <p>Stop receiving marketing emails while keeping your account</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="deletion-form-card">
+                <h3>Delete Account</h3>
+                <p>If you're sure you want to proceed, please confirm your decision:</p>
+                
+                <form @submit.prevent="initiateAccountDeletion" class="deletion-form">
+                  <div class="form-group">
+                    <label>Please tell us why you're leaving (optional)</label>
+                    <select v-model="deletionReason">
+                      <option value="">Select a reason</option>
+                      <option value="privacy-concerns">Privacy concerns</option>
+                      <option value="not-using">Not using the service</option>
+                      <option value="found-alternative">Found an alternative</option>
+                      <option value="too-expensive">Too expensive</option>
+                      <option value="poor-experience">Poor user experience</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group" v-if="deletionReason === 'other'">
+                    <label>Please specify</label>
+                    <textarea v-model="deletionReasonOther" placeholder="Tell us more about your reason..." rows="3"></textarea>
+                  </div>
+
+                  <div class="confirmation-checkbox">
+                    <input type="checkbox" v-model="confirmDeletion" id="confirmDeletion" required>
+                    <label for="confirmDeletion">
+                      I understand that this action is permanent and cannot be undone. I want to delete my account and all associated data.
+                    </label>
+                  </div>
+
+                  <button type="submit" class="delete-btn" :disabled="!confirmDeletion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    Delete My Account
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: Refund History -->
+          <div v-if="activeSection === 'refund-history'" class="section">
+            <div class="section-header">
+              <h2>Refund History</h2>
+              <p>Track your refunds and reimbursements</p>
+            </div>
+            
+            <div class="refund-content">
+              <div class="refund-summary">
+                <div class="summary-card">
+                  <h3>Total Refunds</h3>
+                  <p class="summary-amount">${{ totalRefunds.toFixed(2) }}</p>
+                  <span class="summary-period">All time</span>
+                </div>
+                <div class="summary-card">
+                  <h3>Pending Refunds</h3>
+                  <p class="summary-amount">${{ pendingRefunds.toFixed(2) }}</p>
+                  <span class="summary-period">Processing</span>
+                </div>
+                <div class="summary-card">
+                  <h3>This Year</h3>
+                  <p class="summary-amount">${{ yearlyRefunds.toFixed(2) }}</p>
+                  <span class="summary-period">{{ new Date().getFullYear() }}</span>
+                </div>
+              </div>
+
+              <div class="refund-filters">
+                <select v-model="refundFilter">
+                  <option value="all">All Refunds</option>
+                  <option value="completed">Completed</option>
+                  <option value="pending">Pending</option>
+                  <option value="failed">Failed</option>
+                </select>
+                <select v-model="refundYear">
+                  <option value="all">All Years</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                </select>
+              </div>
+
+              <div class="refund-list">
+                <div v-if="filteredRefunds.length === 0" class="no-refunds">
+                  <div class="no-refunds-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0L12 13 4 13"/>
+                    </svg>
+                  </div>
+                  <h3>No Refunds Found</h3>
+                  <p>You don't have any refunds matching the selected criteria.</p>
+                </div>
+
+                <div v-else>
+                  <div v-for="refund in filteredRefunds" :key="refund.id" class="refund-item">
+                    <div class="refund-info">
+                      <div class="refund-details">
+                        <h4>Refund #{{ refund.id }}</h4>
+                        <p class="refund-description">{{ refund.description }}</p>
+                        <span class="refund-date">{{ formatDate(refund.date) }}</span>
+                      </div>
+                      <div class="refund-order">
+                        <span class="order-link">Order #{{ refund.orderId }}</span>
+                        <span class="refund-method">{{ refund.method }}</span>
+                      </div>
+                    </div>
+                    <div class="refund-status-amount">
+                      <span class="refund-amount">${{ refund.amount.toFixed(2) }}</span>
+                      <span class="refund-status" :class="refund.status">{{ refund.status }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 7: Delivery Management -->
+          <div v-if="activeSection === 'delivery-management'" class="section">
+            <div class="section-header">
+              <h2>Delivery Management</h2>
+              <p>Manage your delivery preferences and saved addresses</p>
+            </div>
+            
+            <div class="delivery-content">
+              <div class="delivery-preferences">
+                <h3>Delivery Preferences</h3>
+                <div class="preference-card">
+                  <div class="preference-item">
+                    <div class="preference-info">
+                      <h4>Default Delivery Speed</h4>
+                      <p>Choose your preferred delivery option</p>
+                    </div>
+                    <select v-model="deliveryPreferences.defaultSpeed">
+                      <option value="standard">Standard (5-7 days) - Free</option>
+                      <option value="express">Express (2-3 days) - $9.99</option>
+                      <option value="overnight">Overnight (1 day) - $19.99</option>
+                    </select>
+                  </div>
+
+                  <div class="preference-item">
+                    <div class="preference-info">
+                      <h4>Delivery Instructions</h4>
+                      <p>Special instructions for delivery drivers</p>
+                    </div>
+                    <textarea v-model="deliveryPreferences.instructions" placeholder="Leave at front door, ring doorbell, etc." rows="2"></textarea>
+                  </div>
+
+                  <div class="preference-item">
+                    <div class="preference-info">
+                      <h4>Delivery Notifications</h4>
+                      <p>Get updates about your deliveries</p>
+                    </div>
+                    <div class="notification-options">
+                      <div class="notification-option">
+                        <input type="checkbox" v-model="deliveryPreferences.smsNotifications" id="smsNotifications">
+                        <label for="smsNotifications">SMS notifications</label>
+                      </div>
+                      <div class="notification-option">
+                        <input type="checkbox" v-model="deliveryPreferences.emailNotifications" id="emailNotifications">
+                        <label for="emailNotifications">Email notifications</label>
+                      </div>
+                      <div class="notification-option">
+                        <input type="checkbox" v-model="deliveryPreferences.pushNotifications" id="pushNotifications">
+                        <label for="pushNotifications">Push notifications</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="saved-addresses">
+                <div class="addresses-header">
+                  <h3>Saved Addresses</h3>
+                  <button @click="addNewAddress" class="add-address-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                    Add New Address
+                  </button>
+                </div>
+
+                <div class="addresses-grid">
+                  <div v-for="address in deliveryAddresses" :key="address.id" class="address-card">
+                    <div class="address-header">
+                      <h4>{{ address.label }}</h4>
+                      <div class="address-badges">
+                        <span v-if="address.isDefault" class="default-badge">Default</span>
+                        <span v-if="address.type === 'home'" class="type-badge home">Home</span>
+                        <span v-else-if="address.type === 'work'" class="type-badge work">Work</span>
+                        <span v-else class="type-badge other">Other</span>
+                      </div>
+                    </div>
+                    
+                    <div class="address-details">
+                      <p class="address-name">{{ address.name }}</p>
+                      <p class="address-line">{{ address.street }}</p>
+                      <p class="address-line">{{ address.city }}, {{ address.state }} {{ address.zip }}</p>
+                      <p class="address-line">{{ address.country }}</p>
+                      <p class="address-phone">{{ address.phone }}</p>
+                    </div>
+
+                    <div class="address-actions">
+                      <button @click="editAddress(address)" class="edit-address-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                        Edit
+                      </button>
+                      <button @click="setDefaultAddress(address.id)" v-if="!address.isDefault" class="default-btn">
+                        Set as Default
+                      </button>
+                      <button @click="deleteAddress(address.id)" class="delete-address-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button @click="saveDeliverySettings" class="save-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Save Delivery Settings
+              </button>
             </div>
           </div>
         </div>
@@ -428,59 +718,188 @@ export default {
   name: 'Profile',
   data() {
     return {
-      activeSection: 'overview',
-      accountForm: {
+      activeSection: 'update-profile',
+      profileForm: {
         name: '',
         email: '',
         phone: '',
         dob: '',
-        gender: ''
+        gender: '',
+        location: '',
+        bio: ''
       },
-      orderFilter: 'all',
-      walletBalance: 245.50,
-      recentTransactions: [
-        { id: 1, description: 'Order #12345', amount: 89.99, type: 'debit' },
-        { id: 2, description: 'Wallet Top-up', amount: 100.00, type: 'credit' },
-        { id: 3, description: 'Refund #12340', amount: 45.50, type: 'credit' }
+      settings: {
+        language: 'en',
+        country: 'US',
+        currency: 'USD',
+        timezone: 'America/New_York',
+        dateFormat: 'MM/DD/YYYY',
+        numberFormat: '1,234.56'
+      },
+      privacySettings: {
+        dataCollection: true,
+        marketing: false,
+        analytics: true,
+        personalization: true
+      },
+      deletionReason: '',
+      deletionReasonOther: '',
+      confirmDeletion: false,
+      refundFilter: 'all',
+      refundYear: 'all',
+      deliveryPreferences: {
+        defaultSpeed: 'standard',
+        instructions: '',
+        smsNotifications: true,
+        emailNotifications: true,
+        pushNotifications: false
+      },
+      supportTickets: [
+        {
+          id: 1001,
+          subject: 'Order delivery issue',
+          description: 'Package was not delivered to the correct address',
+          date: new Date('2024-01-15'),
+          status: 'open'
+        },
+        {
+          id: 1002,
+          subject: 'Product defect report',
+          description: 'Received damaged shoes',
+          date: new Date('2024-01-10'),
+          status: 'resolved'
+        }
       ],
-      savedCards: [
-        { id: 1, lastFour: '4567', type: 'Visa' },
-        { id: 2, lastFour: '8901', type: 'Mastercard' }
+      refunds: [
+        {
+          id: 'REF001',
+          orderId: '12345',
+          description: 'Defective product return',
+          amount: 89.99,
+          date: new Date('2024-01-20'),
+          status: 'completed',
+          method: 'Credit Card'
+        },
+        {
+          id: 'REF002',
+          orderId: '12346',
+          description: 'Size exchange refund',
+          amount: 45.50,
+          date: new Date('2024-01-15'),
+          status: 'pending',
+          method: 'PayPal'
+        },
+        {
+          id: 'REF003',
+          orderId: '12347',
+          description: 'Cancelled order refund',
+          amount: 129.99,
+          date: new Date('2023-12-28'),
+          status: 'completed',
+          method: 'Credit Card'
+        }
       ],
-      returnRequests: [
-        { id: 1001, orderId: 12345, reason: 'Size too small', status: 'Processing', progress: 60 }
-      ],
-      pendingReviews: [
-        { id: 1, product: { name: 'Nike Air Force 1', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=100&h=100&fit=crop' } }
-      ],
-      recentlyViewed: [
-        { id: 1, name: 'Nike Air Force 1', brand: 'Nike', price: 149.99, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop' }
+      deliveryAddresses: [
+        {
+          id: 1,
+          label: 'Home',
+          name: 'John Doe',
+          street: '123 Main Street, Apt 4B',
+          city: 'New York',
+          state: 'NY',
+          zip: '10001',
+          country: 'United States',
+          phone: '+1 (555) 123-4567',
+          type: 'home',
+          isDefault: true
+        },
+        {
+          id: 2,
+          label: 'Work',
+          name: 'John Doe',
+          street: '456 Business Ave, Suite 200',
+          city: 'New York',
+          state: 'NY',
+          zip: '10002',
+          country: 'United States',
+          phone: '+1 (555) 987-6543',
+          type: 'work',
+          isDefault: false
+        }
       ],
       profileSections: [
-        { id: 'overview', name: 'Profile Overview', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>' },
-        { id: 'account', name: 'Account Details', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>' },
-        { id: 'addresses', name: 'Saved Addresses', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>' },
-        { id: 'payment', name: 'Payment & Wallet', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>' },
-        { id: 'orders', name: 'Orders & Tracking', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v12z"/></svg>' },
-        { id: 'wishlist', name: 'Wishlist & Recently Viewed', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>' },
-        { id: 'returns', name: 'Returns & Reviews', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' },
-        { id: 'support', name: 'Support & Help', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>' },
-        { id: 'policies', name: 'Policies & Legal', icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>' }
+        {
+          id: 'update-profile',
+          name: 'Update Profile',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
+        },
+        {
+          id: 'customer-support',
+          name: 'Customer Support',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>'
+        },
+        {
+          id: 'language-region',
+          name: 'Language & Region',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>'
+        },
+        {
+          id: 'privacy-terms',
+          name: 'Privacy & Terms',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>'
+        },
+        {
+          id: 'account-deletion',
+          name: 'Account Deletion',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>'
+        },
+        {
+          id: 'refund-history',
+          name: 'Refund History',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm.5-9H11v6l5.25 3.15.75-1.23-4.5-2.67V8z"/></svg>'
+        },
+        {
+          id: 'delivery-management',
+          name: 'Delivery Management',
+          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>'
+        }
       ]
     }
   },
   computed: {
-    ...mapGetters('user', ['currentUser', 'wishlist', 'addresses', 'orders']),
-    ...mapGetters('cart', ['cartItems']),
+    ...mapGetters('user', ['currentUser']),
     
-    filteredOrders() {
-      if (this.orderFilter === 'all') return this.orders
-      return this.orders.filter(order => order.status === this.orderFilter)
+    filteredRefunds() {
+      let filtered = this.refunds
+      
+      if (this.refundFilter !== 'all') {
+        filtered = filtered.filter(refund => refund.status === this.refundFilter)
+      }
+      
+      if (this.refundYear !== 'all') {
+        filtered = filtered.filter(refund => refund.date.getFullYear().toString() === this.refundYear)
+      }
+      
+      return filtered.sort((a, b) => b.date - a.date)
+    },
+    
+    totalRefunds() {
+      return this.refunds.filter(r => r.status === 'completed').reduce((sum, refund) => sum + refund.amount, 0)
+    },
+    
+    pendingRefunds() {
+      return this.refunds.filter(r => r.status === 'pending').reduce((sum, refund) => sum + refund.amount, 0)
+    },
+    
+    yearlyRefunds() {
+      const currentYear = new Date().getFullYear()
+      return this.refunds
+        .filter(r => r.date.getFullYear() === currentYear && r.status === 'completed')
+        .reduce((sum, refund) => sum + refund.amount, 0)
     }
   },
   methods: {
-    ...mapActions('user', ['logout', 'updateProfile', 'addAddress', 'updateAddress', 'deleteAddress']),
-    ...mapActions('cart', ['addToCart']),
+    ...mapActions('user', ['updateUserProfile']),
     
     formatDate(date) {
       return new Date(date).toLocaleDateString('en-US', {
@@ -490,110 +909,122 @@ export default {
       })
     },
     
-    updateAccount() {
-      this.updateProfile(this.accountForm)
-      this.$toast.success('Account updated successfully!')
+    updateProfile() {
+      this.updateUserProfile(this.profileForm)
+      this.$toast?.success('Profile updated successfully!')
     },
     
-    changePassword() {
-      // Implementation for password change
-      console.log('Change password')
+    changeAvatar() {
+      console.log('Change avatar clicked')
+      // Implementation for avatar change
     },
     
-    forgotPassword() {
-      // Implementation for password reset
-      console.log('Forgot password')
+    saveLanguageSettings() {
+      localStorage.setItem('userSettings', JSON.stringify(this.settings))
+      this.$toast?.success('Language & region settings saved!')
     },
     
-    signOut() {
-      this.logout()
-      this.$router.push('/')
+    savePrivacySettings() {
+      localStorage.setItem('privacySettings', JSON.stringify(this.privacySettings))
+      this.$toast?.success('Privacy settings updated!')
     },
     
-    addNewAddress() {
-      // Implementation for adding new address
-      console.log('Add new address')
+    saveDeliverySettings() {
+      localStorage.setItem('deliveryPreferences', JSON.stringify(this.deliveryPreferences))
+      this.$toast?.success('Delivery settings saved!')
     },
     
-    editAddress(address) {
-      // Implementation for editing address
-      console.log('Edit address', address)
+    initiateAccountDeletion() {
+      if (!this.confirmDeletion) return
+      
+      // Implementation for account deletion
+      console.log('Initiating account deletion with reason:', this.deletionReason)
+      this.$toast?.warning('Account deletion request submitted. You will receive a confirmation email.')
     },
     
-    deleteAddress(addressId) {
-      // Implementation for deleting address
-      console.log('Delete address', addressId)
+    deactivateAccount() {
+      this.$toast?.info('Account deactivation feature coming soon!')
     },
     
-    topUpWallet() {
-      // Implementation for wallet top-up
-      console.log('Top up wallet')
+    updatePrivacy() {
+      this.activeSection = 'privacy-terms'
     },
     
-    addNewCard() {
-      // Implementation for adding new card
-      console.log('Add new card')
+    unsubscribeEmails() {
+      this.privacySettings.marketing = false
+      this.savePrivacySettings()
     },
     
-    editCard(card) {
-      // Implementation for editing card
-      console.log('Edit card', card)
+    // Support methods
+    startLiveChat() {
+      console.log('Starting live chat')
+      this.$toast?.info('Live chat will open in a new window')
     },
     
-    deleteCard(cardId) {
-      // Implementation for deleting card
-      console.log('Delete card', cardId)
+    createTicket() {
+      console.log('Creating support ticket')
+      this.$toast?.info('Support ticket form will open')
     },
     
-    trackOrder(order) {
-      // Implementation for order tracking
-      console.log('Track order', order)
-    },
-    
-    reorderItems(order) {
-      // Implementation for reordering
-      console.log('Reorder', order)
-    },
-    
-    returnOrder(order) {
-      // Implementation for return request
-      console.log('Return order', order)
-    },
-    
-    removeFromWishlist(productId) {
-      // Implementation for wishlist removal
-      console.log('Remove from wishlist', productId)
-    },
-    
-    writeReview(review) {
-      // Implementation for writing review
-      console.log('Write review', review)
+    callSupport() {
+      console.log('Calling support')
+      this.$toast?.info('Redirecting to phone support')
     },
     
     openFAQ() {
-      // Implementation for FAQ
-      console.log('Open FAQ')
+      window.open('/faq', '_blank')
     },
     
-    startChat() {
-      // Implementation for live chat
-      console.log('Start chat')
+    // Address management
+    addNewAddress() {
+      console.log('Adding new address')
+      this.$toast?.info('Add address form will open')
     },
     
-    viewTickets() {
-      // Implementation for support tickets
-      console.log('View tickets')
+    editAddress(address) {
+      console.log('Editing address:', address)
+      this.$toast?.info('Edit address form will open')
+    },
+    
+    setDefaultAddress(addressId) {
+      this.deliveryAddresses.forEach(addr => {
+        addr.isDefault = addr.id === addressId
+      })
+      this.$toast?.success('Default address updated!')
+    },
+    
+    deleteAddress(addressId) {
+      this.deliveryAddresses = this.deliveryAddresses.filter(addr => addr.id !== addressId)
+      this.$toast?.success('Address deleted successfully!')
     }
   },
   
   mounted() {
-    // Initialize form with current user data
-    this.accountForm = {
+    // Initialize forms with current user data
+    this.profileForm = {
       name: this.currentUser.name || '',
       email: this.currentUser.email || '',
       phone: this.currentUser.phone || '',
       dob: this.currentUser.dob || '',
-      gender: this.currentUser.gender || ''
+      gender: this.currentUser.gender || '',
+      location: this.currentUser.location || '',
+      bio: this.currentUser.bio || ''
+    }
+    
+    // Load saved settings
+    const savedSettings = localStorage.getItem('userSettings')
+    if (savedSettings) {
+      this.settings = { ...this.settings, ...JSON.parse(savedSettings) }
+    }
+    
+    const savedPrivacySettings = localStorage.getItem('privacySettings')
+    if (savedPrivacySettings) {
+      this.privacySettings = { ...this.privacySettings, ...JSON.parse(savedPrivacySettings) }
+    }
+    
+    const savedDeliveryPreferences = localStorage.getItem('deliveryPreferences')
+    if (savedDeliveryPreferences) {
+      this.deliveryPreferences = { ...this.deliveryPreferences, ...JSON.parse(savedDeliveryPreferences) }
     }
   }
 }
@@ -700,9 +1131,6 @@ export default {
 
 .section-header {
   margin-bottom: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .section-header h2 {
@@ -717,43 +1145,26 @@ export default {
   margin-bottom: 0;
 }
 
-.add-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Update Profile Section */
+.profile-update-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
 }
 
-.add-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-/* Profile Overview */
-.overview-card {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  background: #f8fafc;
-  border-radius: 16px;
-  border: 2px solid #e5e7eb;
-}
-
-.profile-avatar-section {
-  flex-shrink: 0;
+.avatar-section {
+  text-align: center;
 }
 
 .avatar-container {
   position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
 }
 
 .profile-avatar {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
@@ -762,19 +1173,20 @@ export default {
 
 .edit-avatar-btn {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   background: #3b82f6;
   color: white;
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .edit-avatar-btn:hover {
@@ -783,91 +1195,37 @@ export default {
 }
 
 .edit-avatar-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
-.profile-info h3 {
+.avatar-section h3 {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.contact-details {
-  margin-bottom: 1.5rem;
-}
-
-.detail-item {
-  display: flex;
   margin-bottom: 0.5rem;
 }
 
-.detail-item .label {
-  font-weight: 600;
-  color: #374151;
-  min-width: 120px;
-}
-
-.detail-item .value {
+.user-email {
   color: #6b7280;
+  font-size: 0.9rem;
 }
 
-.edit-profile-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #10b981;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.update-form-section {
+  padding-left: 2rem;
+  border-left: 1px solid #e5e7eb;
 }
 
-.edit-profile-btn:hover {
-  background: #059669;
-  transform: translateY(-2px);
-}
-
-.edit-profile-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* Account Details */
-.account-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-.account-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-}
-
-.account-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.account-form {
+.profile-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .form-group {
@@ -883,21 +1241,832 @@ export default {
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   padding: 0.75rem;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
   font-size: 0.9rem;
   transition: border-color 0.3s ease;
+  background: white;
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: #3b82f6;
 }
 
-.save-btn {
+.form-group textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Customer Support Section */
+.support-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.support-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.support-card {
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.support-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.support-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  background: #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.support-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.support-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.support-card p {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.support-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #10b981;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.support-status.online {
+  background: #10b981;
+}
+
+.support-phone {
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.support-link {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.recent-tickets h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ticket-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.ticket-info h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.ticket-info p {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.ticket-date {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.open {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.resolved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* Language & Region Section */
+.language-region-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.settings-card {
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.settings-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.setting-item label {
+  font-weight: 500;
+  color: #374151;
+  flex: 1;
+}
+
+.setting-item select {
+  width: 200px;
+  padding: 0.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+}
+
+/* Privacy & Terms Section */
+.privacy-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.privacy-settings h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.privacy-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.privacy-info h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.privacy-info p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.privacy-toggle {
+  position: relative;
+}
+
+.privacy-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-label {
+  width: 50px;
+  height: 24px;
+  background: #e5e7eb;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-label::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.privacy-toggle input[type="checkbox"]:checked + .toggle-label {
+  background: #3b82f6;
+}
+
+.privacy-toggle input[type="checkbox"]:checked + .toggle-label::after {
+  transform: translateX(26px);
+}
+
+.policy-links h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.policy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.policy-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.policy-link:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.policy-icon {
+  width: 40px;
+  height: 40px;
+  background: #3b82f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.policy-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.policy-info {
+  flex: 1;
+}
+
+.policy-info h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.policy-info p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.policy-arrow {
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+/* Account Deletion Section */
+.deletion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.warning-card {
+  background: #fef2f2;
+  border: 2px solid #fecaca;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.warning-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  background: #ef4444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.warning-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.warning-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #991b1b;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.warning-card p {
+  color: #7f1d1d;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.warning-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.warning-list li {
+  color: #7f1d1d;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.warning-list li::before {
+  content: '•';
+  color: #ef4444;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.alternatives-card {
+  background: #f0f9ff;
+  border: 2px solid #bae6fd;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.alternatives-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0c4a6e;
+  margin-bottom: 1.5rem;
+}
+
+.alternative-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.alternative-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border: 2px solid #e0f2fe;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.alternative-option:hover {
+  border-color: #0ea5e9;
+  transform: translateY(-2px);
+}
+
+.option-icon {
+  width: 40px;
+  height: 40px;
+  background: #0ea5e9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.option-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.option-info h4 {
+  font-weight: 600;
+  color: #0c4a6e;
+  margin-bottom: 0.25rem;
+}
+
+.option-info p {
+  color: #0369a1;
+  font-size: 0.9rem;
+}
+
+.deletion-form-card {
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.deletion-form-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.deletion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.confirmation-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.confirmation-checkbox input[type="checkbox"] {
+  margin-top: 0.25rem;
+}
+
+.confirmation-checkbox label {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.delete-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.delete-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Refund History Section */
+.refund-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.refund-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.summary-card h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.summary-period {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.refund-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.refund-filters select {
+  padding: 0.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.refund-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.no-refunds {
+  text-align: center;
+  padding: 3rem;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 2px dashed #d1d5db;
+}
+
+.no-refunds-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: #e5e7eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.no-refunds-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.no-refunds h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.no-refunds p {
+  color: #6b7280;
+}
+
+.refund-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.refund-item:hover {
+  border-color: #3b82f6;
+}
+
+.refund-info {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+}
+
+.refund-details h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.refund-description {
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.refund-date {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.refund-order {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.order-link {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.refund-method {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.refund-status-amount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.refund-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.refund-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.refund-status.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.refund-status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.refund-status.failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Delivery Management Section */
+.delivery-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.delivery-preferences h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.preference-card {
+  background: #f8fafc;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.preference-item {
+  margin-bottom: 2rem;
+}
+
+.preference-item:last-child {
+  margin-bottom: 0;
+}
+
+.preference-info h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.preference-info p {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.preference-item select,
+.preference-item textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.notification-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.notification-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notification-option input[type="checkbox"] {
+  width: auto;
+}
+
+.notification-option label {
+  color: #374151;
+  font-weight: 500;
+}
+
+.saved-addresses h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.addresses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.add-address-btn {
   background: #3b82f6;
   color: white;
   border: none;
@@ -906,65 +2075,32 @@ export default {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.save-btn:hover {
+.add-address-btn:hover {
   background: #2563eb;
   transform: translateY(-2px);
 }
 
-.security-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.add-address-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
-.security-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  color: #374151;
-}
-
-.security-btn:hover {
-  border-color: #3b82f6;
-  background: #f8fafc;
-}
-
-.security-btn.danger {
-  border-color: #ef4444;
-  color: #ef4444;
-}
-
-.security-btn.danger:hover {
-  background: #fef2f2;
-}
-
-.security-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Addresses */
 .addresses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 1.5rem;
 }
 
 .address-card {
   background: #f8fafc;
+  border: 2px solid #e5e7eb;
   border-radius: 16px;
   padding: 1.5rem;
-  border: 2px solid #e5e7eb;
   transition: all 0.3s ease;
 }
 
@@ -976,7 +2112,7 @@ export default {
 .address-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1rem;
 }
 
@@ -985,183 +2121,120 @@ export default {
   color: #1f2937;
 }
 
+.address-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .default-badge {
   background: #10b981;
   color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
-.address-content p {
+.type-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.type-badge.home {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.type-badge.work {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.type-badge.other {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+
+.address-details {
+  margin-bottom: 1.5rem;
+}
+
+.address-name {
+  font-weight: 600;
+  color: #1f2937;
   margin-bottom: 0.25rem;
+}
+
+.address-line {
   color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.address-phone {
+  color: #6b7280;
+  font-size: 0.9rem;
 }
 
 .address-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
-.edit-btn,
-.delete-btn {
+.edit-address-btn,
+.delete-address-btn,
+.default-btn {
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.edit-btn {
+.edit-address-btn {
   background: #3b82f6;
   color: white;
-  border: none;
 }
 
-.edit-btn:hover {
+.edit-address-btn:hover {
   background: #2563eb;
 }
 
-.delete-btn {
-  background: #ef4444;
+.default-btn {
+  background: #10b981;
   color: white;
-  border: none;
 }
 
-.delete-btn:hover {
+.default-btn:hover {
+  background: #059669;
+}
+
+.delete-address-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-address-btn:hover {
   background: #dc2626;
 }
 
-/* Payment & Wallet */
-.payment-sections {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+.edit-address-btn svg,
+.delete-address-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
-.payment-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-}
-
-.payment-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.wallet-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.balance .amount {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1f2937;
-  display: block;
-}
-
-.balance .label {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.topup-btn {
-  background: #10b981;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.topup-btn:hover {
-  background: #059669;
-  transform: translateY(-2px);
-}
-
-.recent-transactions h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.transaction-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.transaction-item:last-child {
-  border-bottom: none;
-}
-
-.transaction-desc {
-  color: #374151;
-  font-weight: 500;
-}
-
-.transaction-amount {
-  font-weight: 600;
-}
-
-.transaction-amount.credit {
-  color: #10b981;
-}
-
-.transaction-amount.debit {
-  color: #ef4444;
-}
-
-.cards-list {
-  margin-bottom: 1.5rem;
-}
-
-.card-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  border: 2px solid #e5e7eb;
-}
-
-.card-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.card-number {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.card-type {
-  color: #6b7280;
-  font-size: 0.85rem;
-}
-
-.card-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.add-card-btn {
+/* Common Styles */
+.save-btn {
   background: #3b82f6;
   color: white;
   border: none;
@@ -1170,518 +2243,24 @@ export default {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-}
-
-.add-card-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-/* Orders */
-.orders-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.orders-filter select {
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  background: white;
-}
-
-.orders-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.order-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  transition: all 0.3s ease;
-}
-
-.order-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.order-info h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
-}
-
-.order-date {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.order-status {
   display: flex;
   align-items: center;
-  gap: 1rem;
-}
-
-.status-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.status-badge.pending {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.status-badge.shipped {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.status-badge.delivered {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.status-badge.cancelled {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.order-total {
-  font-weight: 700;
-  color: #1f2937;
-  font-size: 1.1rem;
-}
-
-.order-items {
-  margin-bottom: 1rem;
-}
-
-.order-item {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 0.75rem;
-  border: 2px solid #e5e7eb;
-}
-
-.order-item:last-child {
-  margin-bottom: 0;
-}
-
-.item-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.item-details {
-  flex: 1;
-}
-
-.item-details h5 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
-}
-
-.item-details p {
-  color: #6b7280;
-  font-size: 0.85rem;
-  margin-bottom: 0.25rem;
-}
-
-.item-price {
-  font-weight: 600;
-  color: #1f2937;
-  align-self: center;
-}
-
-.order-actions {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.track-btn,
-.reorder-btn,
-.return-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.track-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-}
-
-.track-btn:hover {
-  background: #2563eb;
-}
-
-.reorder-btn {
-  background: #10b981;
-  color: white;
-  border: none;
-}
-
-.reorder-btn:hover {
-  background: #059669;
-}
-
-.return-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-}
-
-.return-btn:hover {
-  background: #dc2626;
-}
-
-/* Wishlist */
-.wishlist-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.wishlist-section h3,
-.recently-viewed-section h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.products-grid,
-.products-carousel {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.product-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1rem;
-  border: 2px solid #e5e7eb;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.product-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.product-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-.product-card h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.product-card .brand {
-  color: #6b7280;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-
-.product-card .price {
-  font-weight: 700;
-  color: #3b82f6;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-.card-actions {
-  display: flex;
   gap: 0.5rem;
   justify-content: center;
+  margin-top: 2rem;
 }
 
-.add-cart-btn,
-.remove-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-cart-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  flex: 1;
-}
-
-.add-cart-btn:hover {
-  background: #2563eb;
-}
-
-.remove-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-}
-
-.remove-btn:hover {
-  background: #dc2626;
-}
-
-/* Returns */
-.returns-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.returns-section h3,
-.reviews-section h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.return-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  margin-bottom: 1rem;
-}
-
-.return-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.return-info h4 {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.return-status {
-  background: #dbeafe;
-  color: #1d4ed8;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.return-progress {
-  background: #e5e7eb;
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.progress-bar {
-  background: #3b82f6;
-  height: 100%;
-  transition: width 0.3s ease;
-}
-
-.review-card {
-  display: flex;
-  gap: 1rem;
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  margin-bottom: 1rem;
-}
-
-.review-card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 12px;
-  flex-shrink: 0;
-}
-
-.review-details {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.review-details h4 {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.review-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.review-btn:hover {
+.save-btn:hover {
   background: #2563eb;
   transform: translateY(-2px);
 }
 
-/* Support */
-.support-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.save-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
-.support-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.support-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.support-card:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.support-card h3 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.support-card p {
-  color: #6b7280;
-  margin-bottom: 1.5rem;
-}
-
-.support-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.support-btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-.contact-info {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-}
-
-.contact-info h3 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.contact-details p {
-  margin-bottom: 0.5rem;
-  color: #374151;
-}
-
-/* Policies */
-.policies-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.policy-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.policy-link {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.policy-link:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-}
-
-.policy-link h4 {
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.policy-link p {
-  color: #6b7280;
-  margin: 0;
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 1024px) {
   .profile-content {
     grid-template-columns: 1fr;
@@ -1695,7 +2274,7 @@ export default {
   .profile-nav {
     flex-direction: row;
     overflow-x: auto;
-    gap: 1rem;
+    gap: 0.5rem;
   }
   
   .nav-item {
@@ -1705,6 +2284,49 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .profile-update-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .update-form-section {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 2rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .support-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .refund-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .addresses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .refund-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .refund-status-amount {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
   .container {
     padding: 0 1rem;
   }
@@ -1713,39 +2335,15 @@ export default {
     padding: 1rem 0;
   }
   
-  .profile-header h1 {
-    font-size: 2rem;
+  .profile-main {
+    padding: 1.5rem;
   }
   
-  .overview-card {
+  .address-actions {
     flex-direction: column;
-    text-align: center;
   }
   
-  .account-cards,
-  .payment-sections {
-    grid-template-columns: 1fr;
-  }
-  
-  .addresses-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .order-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .order-actions {
-    flex-wrap: wrap;
-  }
-  
-  .support-options {
-    grid-template-columns: 1fr;
-  }
-  
-  .policy-links {
+  .alternative-options {
     grid-template-columns: 1fr;
   }
 }
