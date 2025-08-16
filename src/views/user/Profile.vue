@@ -1082,47 +1082,6 @@
                 </div>
               </div>
 
-              <!-- Data Management -->
-              <div class="modern-data-management">
-                <h3 class="modern-section-title">Data Management</h3>
-                <div class="data-actions-grid">
-                  <div class="data-action-card export" @click="requestDataDownload">
-                    <div class="action-icon export">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM12 19l-4-4h3V9h2v6h3l-4 4z"/>
-                      </svg>
-                    </div>
-                    <div class="action-content">
-                      <h4>Export Your Data</h4>
-                      <p>Download a complete copy of your personal data in a portable format</p>
-                      <div class="action-details">
-                        <span>📄 Includes profile, orders, preferences</span>
-                        <span>⏱️ Ready within 24-48 hours</span>
-                        <span>📧 Delivered via secure email link</span>
-                      </div>
-                    </div>
-                    <div class="action-button">Request Export</div>
-                  </div>
-
-                  <div class="data-action-card view" @click="viewDataSummary">
-                    <div class="action-icon view">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                      </svg>
-                    </div>
-                    <div class="action-content">
-                      <h4>View Data Summary</h4>
-                      <p>See an overview of what personal data we have stored about you</p>
-                      <div class="action-details">
-                        <span>📊 Data categories breakdown</span>
-                        <span>📅 Collection and usage dates</span>
-                        <span>🔍 Sources and purposes</span>
-                      </div>
-                    </div>
-                    <div class="action-button">View Summary</div>
-                  </div>
-                </div>
-              </div>
 
               <!-- Save Actions -->
               <div class="modern-save-section">
@@ -1138,51 +1097,78 @@
 
           <!-- Account Deletion Section -->
           <div v-if="activeSection === 'account-deletion'" class="section">
-            <div class="account-deletion-card">
-              <div class="card-header">
-                <div class="header-icon danger">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/>
-                  </svg>
+            <div class="modern-account-deletion">
+              <!-- Header Section -->
+              <div class="deletion-header">
+                <div class="header-content">
+                  <div class="header-icon-large">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                  </div>
+                  <div class="header-text">
+                    <h1>Account Management</h1>
+                    <p>Choose how you want to manage your account. You can temporarily pause it or permanently delete it.</p>
+                  </div>
                 </div>
-                <h2>Account Management</h2>
               </div>
 
-              <div class="account-deletion-content">
-                <!-- Deactivation Option -->
-                <div class="deactivation-section">
-                  <div class="option-card temporary">
-                    <div class="option-icon">
+              <!-- Options Grid -->
+              <div class="deletion-options-grid">
+                <!-- Temporary Deactivation Card -->
+                <div class="modern-option-card safe-option">
+                  <div class="option-header">
+                    <div class="option-badge recommended">
                       <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                      Recommended
+                    </div>
+                    <div class="option-icon safe">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                       </svg>
                     </div>
-                    <div class="option-content">
-                      <h3>Temporary Deactivation</h3>
-                      <p>Take a break from your account. Your data will be preserved and you can reactivate anytime.</p>
+                  </div>
 
-                      <div class="deactivation-info">
-                        <h4>What happens when you deactivate:</h4>
-                        <ul>
-                          <li>Your profile becomes invisible to others</li>
-                          <li>Active orders and subscriptions continue normally</li>
-                          <li>You can reactivate by simply logging in</li>
-                          <li>All your data and preferences are preserved</li>
-                          <li>You won't receive marketing emails</li>
-                        </ul>
+                  <div class="option-content">
+                    <h3>Take a Break</h3>
+                    <p class="option-subtitle">Temporarily deactivate your account</p>
+
+                    <div class="benefit-list">
+                      <div class="benefit-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                        <span>All data preserved</span>
                       </div>
-
-                      <div class="deactivation-duration">
-                        <label for="deactivationPeriod">Deactivation Period</label>
-                        <select v-model="deactivationPeriod" id="deactivationPeriod">
-                          <option value="1-week">1 Week</option>
-                          <option value="1-month">1 Month</option>
-                          <option value="3-months">3 Months</option>
-                          <option value="indefinite">Indefinite (until I reactivate)</option>
-                        </select>
+                      <div class="benefit-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                        <span>Easy to reactivate</span>
+                      </div>
+                      <div class="benefit-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                        <span>Orders continue normally</span>
                       </div>
                     </div>
-                    <button @click="initiateDeactivation" class="deactivation-btn">
+
+                    <div class="form-section">
+                      <label for="deactivationPeriod" class="form-label">Deactivation Period</label>
+                      <select v-model="deactivationPeriod" id="deactivationPeriod" class="modern-select">
+                        <option value="1-week">1 Week</option>
+                        <option value="1-month">1 Month</option>
+                        <option value="3-months">3 Months</option>
+                        <option value="indefinite">Until I reactivate</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="option-actions">
+                    <button @click="initiateDeactivation" class="modern-btn safe">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9V5a3 3 0 00-6 0v4M10 9a3 3 0 11-6 0m6 0a3 3 0 006 0v4M10 9v10a1 1 0 001 1h8a1 1 0 001-1V9"/>
                       </svg>
@@ -1191,52 +1177,93 @@
                   </div>
                 </div>
 
-                <!-- Permanent Deletion -->
-                <div class="deletion-section">
-                  <div class="option-card permanent">
+                <!-- Permanent Deletion Card -->
+                <div class="modern-option-card danger-option">
+                  <div class="option-header">
+                    <div class="option-badge warning">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                      </svg>
+                      Permanent
+                    </div>
                     <div class="option-icon danger">
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                       </svg>
                     </div>
-                    <div class="option-content">
-                      <h3>Permanent Account Deletion</h3>
-                      <p class="danger-text">This action cannot be undone. Your account and all associated data will be permanently deleted.</p>
+                  </div>
 
-                      <div class="deletion-warning">
-                        <div class="warning-header">
-                          <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-                          </svg>
-                          <span>Important: What will be deleted</span>
-                        </div>
-                        <ul class="deletion-list">
-                          <li>Your profile and personal information</li>
-                          <li>Order history and purchase records</li>
-                          <li>Saved addresses and payment methods</li>
-                          <li>Wishlist and product preferences</li>
-                          <li>All account settings and customizations</li>
-                          <li>Loyalty points and rewards</li>
-                        </ul>
+                  <div class="option-content">
+                    <h3>Delete Forever</h3>
+                    <p class="option-subtitle danger-text">Permanently delete your account and all data</p>
+
+                    <div class="warning-box">
+                      <div class="warning-header">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                        </svg>
+                        <span>This cannot be undone</span>
                       </div>
-
-                      <div class="deletion-exceptions">
-                        <h4>What we keep (for legal compliance):</h4>
-                        <ul>
-                          <li>Transaction records (as required by law)</li>
-                          <li>Support ticket history</li>
-                          <li>Fraud prevention data</li>
-                        </ul>
-                        <p>This data is anonymized and cannot be linked back to you.</p>
+                      <div class="warning-content">
+                        <p>Once deleted, you'll lose access to:</p>
+                        <div class="deletion-items">
+                          <div class="deletion-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Profile & personal data</span>
+                          </div>
+                          <div class="deletion-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Order history</span>
+                          </div>
+                          <div class="deletion-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Saved addresses & payments</span>
+                          </div>
+                          <div class="deletion-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Loyalty points & rewards</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <button @click="initiateDeletion" class="deletion-btn danger">
+                    <div class="legal-notice">
+                      <h4>Legal Requirements</h4>
+                      <p>Some data may be retained for legal compliance but will be anonymized.</p>
+                    </div>
+                  </div>
+
+                  <div class="option-actions">
+                    <button @click="initiateDeletion" class="modern-btn danger">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                       </svg>
-                      Delete Account Permanently
+                      Delete Account Forever
                     </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Help Section -->
+              <div class="deletion-help">
+                <div class="help-card">
+                  <div class="help-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                    </svg>
+                  </div>
+                  <div class="help-content">
+                    <h3>Need Help Deciding?</h3>
+                    <p>If you're unsure, try deactivating first. You can always reactivate later or proceed with deletion if needed.</p>
+                    <button class="help-btn">Contact Support</button>
                   </div>
                 </div>
               </div>
@@ -1245,31 +1272,41 @@
 
           <!-- Refund History Section -->
           <div v-if="activeSection === 'refund-history'" class="section">
-            <div class="refund-history-card">
-              <div class="card-header">
-                <div class="header-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
-                  </svg>
-                </div>
-                <h2>Refund History</h2>
-                <div class="refund-summary">
-                  <div class="summary-item">
-                    <span class="summary-label">Total Refunds:</span>
-                    <span class="summary-value">{{ refunds.length }}</span>
+            <div class="modern-refund-history">
+              <!-- Header Section -->
+              <div class="refund-header">
+                <div class="header-content">
+                  <div class="header-icon-large">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
                   </div>
-                  <div class="summary-item">
-                    <span class="summary-label">Total Amount:</span>
-                    <span class="summary-value">{{ calculateTotalRefunds() }}</span>
+                  <div class="header-text">
+                    <h1>Refund History</h1>
+                    <p>Track all your refund requests and their current status</p>
+                  </div>
+                </div>
+                <div class="refund-stats">
+                  <div class="stat-card">
+                    <div class="stat-number">{{ refunds.length }}</div>
+                    <div class="stat-label">Total Refunds</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-number">{{ calculateTotalRefunds() }}</div>
+                    <div class="stat-label">Total Amount</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-number">{{ getCompletedRefunds() }}</div>
+                    <div class="stat-label">Completed</div>
                   </div>
                 </div>
               </div>
 
-              <div class="refund-history-content">
-                <!-- Refund Filters -->
-                <div class="refund-filters">
-                  <div class="filter-group">
-                    <label for="statusFilter">Filter by Status:</label>
+              <!-- Filters Section -->
+              <div class="modern-filters">
+                <div class="filters-container">
+                  <div class="filter-item">
+                    <label for="statusFilter">Status</label>
                     <select v-model="refundStatusFilter" @change="filterRefunds" id="statusFilter">
                       <option value="">All Statuses</option>
                       <option value="pending">Pending</option>
@@ -1278,9 +1315,8 @@
                       <option value="completed">Completed</option>
                     </select>
                   </div>
-
-                  <div class="filter-group">
-                    <label for="dateFilter">Date Range:</label>
+                  <div class="filter-item">
+                    <label for="dateFilter">Time Period</label>
                     <select v-model="refundDateFilter" @change="filterRefunds" id="dateFilter">
                       <option value="">All Time</option>
                       <option value="30-days">Last 30 days</option>
@@ -1288,99 +1324,115 @@
                       <option value="1-year">Last year</option>
                     </select>
                   </div>
+                  <button class="clear-filters-btn" @click="clearFilters" v-if="refundStatusFilter || refundDateFilter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                    Clear Filters
+                  </button>
+                </div>
+              </div>
+
+              <!-- Refund List -->
+              <div class="refunds-container">
+                <div v-if="filteredRefunds.length === 0" class="empty-state">
+                  <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                  </div>
+                  <h3>No Refunds Found</h3>
+                  <p>You haven't requested any refunds yet, or no refunds match your current filters.</p>
+                  <button class="request-refund-btn" @click="requestNewRefund">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Request New Refund
+                  </button>
                 </div>
 
-                <!-- Refund List -->
-                <div class="refunds-list">
-                  <div v-if="filteredRefunds.length === 0" class="no-refunds">
-                    <div class="no-refunds-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                      </svg>
+                <div v-else class="refunds-grid">
+                  <div v-for="refund in filteredRefunds" :key="refund.id" class="modern-refund-card">
+                    <!-- Card Header -->
+                    <div class="card-header">
+                      <div class="refund-id-section">
+                        <h3 class="refund-id">Refund #{{ refund.id }}</h3>
+                        <span class="request-date">{{ formatDate(refund.requestDate) }}</span>
+                      </div>
+                      <div class="status-badge" :class="refund.status">
+                        <div class="status-dot"></div>
+                        <span>{{ formatStatus(refund.status) }}</span>
+                      </div>
                     </div>
-                    <h3>No Refunds Found</h3>
-                    <p>You haven't requested any refunds yet, or no refunds match your current filters.</p>
-                  </div>
 
-                  <div v-else class="refund-items">
-                    <div v-for="refund in filteredRefunds" :key="refund.id" class="refund-item">
-                      <div class="refund-header">
-                        <div class="refund-basic-info">
-                          <h4 class="refund-id">Refund #{{ refund.id }}</h4>
-                          <span class="refund-date">{{ formatDate(refund.requestDate) }}</span>
-                        </div>
-                        <div class="refund-status" :class="refund.status">
-                          <span class="status-indicator"></span>
-                          <span class="status-text">{{ formatStatus(refund.status) }}</span>
+                    <!-- Product Info -->
+                    <div class="product-section">
+                      <div class="product-info">
+                        <h4 class="product-name">{{ refund.productName }}</h4>
+                        <p class="product-variant">{{ refund.variant }}</p>
+                        <div class="order-reference">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                          </svg>
+                          Order #{{ refund.orderId }}
                         </div>
                       </div>
+                      <div class="refund-amount">
+                        <div class="amount-value">{{ formatCurrency(refund.refundAmount) }}</div>
+                        <div class="amount-label">Refund Amount</div>
+                      </div>
+                    </div>
 
-                      <div class="refund-details">
-                        <div class="refund-order-info">
-                          <div class="order-details">
-                            <span class="order-label">Order:</span>
-                            <span class="order-id">#{{ refund.orderId }}</span>
-                            <span class="order-date">{{ formatDate(refund.orderDate) }}</span>
-                          </div>
-                          <div class="product-details">
-                            <span class="product-name">{{ refund.productName }}</span>
-                            <span class="product-variant">{{ refund.variant }}</span>
-                          </div>
-                        </div>
-
-                        <div class="refund-amount-info">
-                          <div class="amount-breakdown">
-                            <div class="amount-item">
-                              <span class="amount-label">Product Price:</span>
-                              <span class="amount-value">{{ formatCurrency(refund.productPrice) }}</span>
-                            </div>
-                            <div class="amount-item">
-                              <span class="amount-label">Shipping:</span>
-                              <span class="amount-value">{{ formatCurrency(refund.shippingCost) }}</span>
-                            </div>
-                            <div class="amount-item total">
-                              <span class="amount-label">Refund Amount:</span>
-                              <span class="amount-value">{{ formatCurrency(refund.refundAmount) }}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="refund-payment-info">
-                          <div class="payment-method">
-                            <span class="payment-label">Refunded to:</span>
-                            <div class="payment-details">
-                              <span class="payment-type">{{ refund.paymentMethod }}</span>
-                              <span class="payment-account">{{ refund.paymentAccount }}</span>
-                            </div>
-                          </div>
-                          <div v-if="refund.processedDate" class="processed-date">
-                            <span class="processed-label">Processed:</span>
-                            <span class="processed-value">{{ formatDate(refund.processedDate) }}</span>
-                          </div>
-                        </div>
-
-                        <div v-if="refund.reason" class="refund-reason">
-                          <span class="reason-label">Reason:</span>
-                          <span class="reason-text">{{ refund.reason }}</span>
-                        </div>
-
-                        <div v-if="refund.adminNotes" class="admin-notes">
-                          <span class="notes-label">Notes:</span>
-                          <span class="notes-text">{{ refund.adminNotes }}</span>
+                    <!-- Timeline Section -->
+                    <div class="timeline-section" v-if="refund.status !== 'pending'">
+                      <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                          <span class="timeline-title">Request Submitted</span>
+                          <span class="timeline-date">{{ formatDate(refund.requestDate) }}</span>
                         </div>
                       </div>
-
-                      <div class="refund-actions">
-                        <button v-if="refund.status === 'pending'" @click="cancelRefund(refund.id)" class="cancel-refund-btn">
-                          Cancel Request
-                        </button>
-                        <button @click="viewRefundDetails(refund.id)" class="view-details-btn">
-                          View Details
-                        </button>
-                        <button v-if="refund.status === 'rejected'" @click="resubmitRefund(refund.id)" class="resubmit-btn">
-                          Resubmit Request
-                        </button>
+                      <div class="timeline-item" :class="{ completed: refund.processedDate }">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                          <span class="timeline-title">{{ refund.status === 'completed' ? 'Refund Processed' : refund.status === 'approved' ? 'Approved' : 'Under Review' }}</span>
+                          <span class="timeline-date" v-if="refund.processedDate">{{ formatDate(refund.processedDate) }}</span>
+                        </div>
                       </div>
+                    </div>
+
+                    <!-- Payment Info -->
+                    <div class="payment-section" v-if="refund.status === 'completed'">
+                      <div class="payment-info">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                        </svg>
+                        <div class="payment-details">
+                          <span class="payment-method">{{ refund.paymentMethod }}</span>
+                          <span class="payment-account">{{ refund.paymentAccount }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Reason Section -->
+                    <div class="reason-section" v-if="refund.reason">
+                      <div class="reason-content">
+                        <span class="reason-label">Reason:</span>
+                        <span class="reason-text">{{ refund.reason }}</span>
+                      </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="card-actions">
+                      <button v-if="refund.status === 'pending'" @click="cancelRefund(refund.id)" class="action-btn secondary">
+                        Cancel Request
+                      </button>
+                      <button @click="viewRefundDetails(refund.id)" class="action-btn primary">
+                        View Details
+                      </button>
+                      <button v-if="refund.status === 'rejected'" @click="resubmitRefund(refund.id)" class="action-btn success">
+                        Resubmit
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1573,6 +1625,210 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div v-if="showPrivacyPolicyModal" class="modal-overlay" @click="closePrivacyPolicyModal">
+      <div class="modal-content privacy-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Privacy Policy</h3>
+          <button @click="closePrivacyPolicyModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="policy-content">
+            <h4>1. Information We Collect</h4>
+            <p>We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us for support.</p>
+
+            <h4>2. How We Use Your Information</h4>
+            <p>We use the information we collect to provide, maintain, and improve our services, process transactions, and communicate with you.</p>
+
+            <h4>3. Information Sharing and Disclosure</h4>
+            <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.</p>
+
+            <h4>4. Data Security</h4>
+            <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+
+            <h4>5. Your Rights</h4>
+            <p>You have the right to access, update, or delete your personal information. You may also opt out of certain communications from us.</p>
+
+            <h4>6. Changes to This Policy</h4>
+            <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+
+            <p class="last-updated">Last updated: March 15, 2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div v-if="showTermsModal" class="modal-overlay" @click="closeTermsModal">
+      <div class="modal-content terms-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Terms of Service</h3>
+          <button @click="closeTermsModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="terms-content">
+            <h4>1. Acceptance of Terms</h4>
+            <p>By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+            <h4>2. Use License</h4>
+            <p>Permission is granted to temporarily download one copy of the materials on our website for personal, non-commercial transitory viewing only.</p>
+
+            <h4>3. Disclaimer</h4>
+            <p>The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+
+            <h4>4. Limitations</h4>
+            <p>In no event shall our company or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our website.</p>
+
+            <h4>5. Account Terms</h4>
+            <p>You are responsible for safeguarding the password and for any activities that occur under your account. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+
+            <h4>6. Modifications</h4>
+            <p>We may revise these terms of service at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.</p>
+
+            <p class="last-updated">Last updated: March 10, 2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refund Details Modal -->
+    <div v-if="showRefundDetailsModal && selectedRefund" class="modal-overlay" @click="closeRefundDetailsModal">
+      <div class="modal-content refund-details-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Refund Details #{{ selectedRefund.id }}</h3>
+          <button @click="closeRefundDetailsModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="refund-details-content">
+            <!-- Status Section -->
+            <div class="detail-section">
+              <h4>Current Status</h4>
+              <div class="status-display" :class="selectedRefund.status">
+                <div class="status-dot"></div>
+                <span class="status-text">{{ formatStatus(selectedRefund.status) }}</span>
+              </div>
+            </div>
+
+            <!-- Product Information -->
+            <div class="detail-section">
+              <h4>Product Information</h4>
+              <div class="product-details-grid">
+                <div class="detail-item">
+                  <span class="detail-label">Product Name:</span>
+                  <span class="detail-value">{{ selectedRefund.productName }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Variant:</span>
+                  <span class="detail-value">{{ selectedRefund.variant }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Order ID:</span>
+                  <span class="detail-value">#{{ selectedRefund.orderId }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Order Date:</span>
+                  <span class="detail-value">{{ formatDate(selectedRefund.orderDate) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Amount Breakdown -->
+            <div class="detail-section">
+              <h4>Amount Breakdown</h4>
+              <div class="amount-breakdown-table">
+                <div class="amount-row">
+                  <span class="amount-label">Product Price:</span>
+                  <span class="amount-value">{{ formatCurrency(selectedRefund.productPrice) }}</span>
+                </div>
+                <div class="amount-row">
+                  <span class="amount-label">Shipping Cost:</span>
+                  <span class="amount-value">{{ formatCurrency(selectedRefund.shippingCost) }}</span>
+                </div>
+                <div class="amount-row total">
+                  <span class="amount-label">Total Refund Amount:</span>
+                  <span class="amount-value">{{ formatCurrency(selectedRefund.refundAmount) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="detail-section">
+              <h4>Refund Timeline</h4>
+              <div class="timeline-container">
+                <div class="timeline-step completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-title">Request Submitted</span>
+                    <span class="timeline-date">{{ formatDate(selectedRefund.requestDate) }}</span>
+                  </div>
+                </div>
+                <div class="timeline-step" :class="{ completed: selectedRefund.processedDate }">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-title">{{ getTimelineTitle(selectedRefund.status) }}</span>
+                    <span class="timeline-date" v-if="selectedRefund.processedDate">{{ formatDate(selectedRefund.processedDate) }}</span>
+                    <span class="timeline-date" v-else>In Progress</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reason & Notes -->
+            <div class="detail-section" v-if="selectedRefund.reason">
+              <h4>Refund Reason</h4>
+              <div class="reason-display">
+                {{ selectedRefund.reason }}
+              </div>
+            </div>
+
+            <div class="detail-section" v-if="selectedRefund.adminNotes">
+              <h4>Admin Notes</h4>
+              <div class="notes-display">
+                {{ selectedRefund.adminNotes }}
+              </div>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="detail-section" v-if="selectedRefund.status === 'completed'">
+              <h4>Payment Information</h4>
+              <div class="payment-display">
+                <div class="payment-method-info">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                  </svg>
+                  <div class="payment-info-text">
+                    <span class="payment-method">{{ selectedRefund.paymentMethod }}</span>
+                    <span class="payment-account">{{ selectedRefund.paymentAccount }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button @click="closeRefundDetailsModal" class="modal-btn secondary">Close</button>
+          <button v-if="selectedRefund.status === 'pending'" @click="cancelRefund(selectedRefund.id); closeRefundDetailsModal()" class="modal-btn danger">
+            Cancel Request
+          </button>
+          <button v-if="selectedRefund.status === 'rejected'" @click="resubmitRefund(selectedRefund.id); closeRefundDetailsModal()" class="modal-btn success">
+            Resubmit Request
+          </button>
         </div>
       </div>
     </div>
@@ -2100,7 +2356,12 @@ export default {
           name: 'Delivery Management',
           icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>'
         }
-      ]
+      ],
+      // Modal states
+      showPrivacyPolicyModal: false,
+      showTermsModal: false,
+      showRefundDetailsModal: false,
+      selectedRefund: null
     }
   },
   computed: {
@@ -2413,13 +2674,19 @@ export default {
 
     // Privacy methods
     viewPrivacyPolicy() {
-      this.$toast?.info('Opening Privacy Policy...')
-      // In a real app, this would open the privacy policy
+      this.showPrivacyPolicyModal = true
     },
 
     viewTerms() {
-      this.$toast?.info('Opening Terms & Conditions...')
-      // In a real app, this would open the terms
+      this.showTermsModal = true
+    },
+
+    closePrivacyPolicyModal() {
+      this.showPrivacyPolicyModal = false
+    },
+
+    closeTermsModal() {
+      this.showTermsModal = false
     },
 
     requestDataDownload() {
@@ -2461,6 +2728,20 @@ export default {
       return statusMap[status] || status
     },
 
+    getCompletedRefunds() {
+      return this.refunds.filter(refund => refund.status === 'completed').length
+    },
+
+    clearFilters() {
+      this.refundStatusFilter = ''
+      this.refundDateFilter = ''
+    },
+
+    requestNewRefund() {
+      this.$toast?.info('Redirecting to order history to request a refund...')
+      // In a real app, this would redirect to orders page
+    },
+
     calculateTotalRefunds() {
       const total = this.refunds
         .filter(r => r.status === 'completed')
@@ -2473,15 +2754,55 @@ export default {
     },
 
     cancelRefund(refundId) {
-      this.$toast?.info(`Cancelling refund request ${refundId}...`)
+      // Show confirmation dialog
+      if (confirm('Are you sure you want to cancel this refund request? This action cannot be undone.')) {
+        // Find and update the refund status
+        const refundIndex = this.refunds.findIndex(r => r.id === refundId)
+        if (refundIndex !== -1) {
+          // In a real app, this would make an API call
+          this.refunds[refundIndex].status = 'cancelled'
+          this.$toast?.success('Refund request cancelled successfully')
+        }
+      }
     },
 
     viewRefundDetails(refundId) {
-      this.$toast?.info(`Viewing details for refund ${refundId}...`)
+      // Find the refund and show details modal
+      const refund = this.refunds.find(r => r.id === refundId)
+      if (refund) {
+        this.selectedRefund = refund
+        this.showRefundDetailsModal = true
+      }
     },
 
     resubmitRefund(refundId) {
-      this.$toast?.info(`Resubmitting refund request ${refundId}...`)
+      // Show confirmation dialog
+      if (confirm('Resubmit this refund request with the same details?')) {
+        // Find and update the refund status
+        const refundIndex = this.refunds.findIndex(r => r.id === refundId)
+        if (refundIndex !== -1) {
+          // In a real app, this would make an API call
+          this.refunds[refundIndex].status = 'pending'
+          this.refunds[refundIndex].requestDate = new Date()
+          this.$toast?.success('Refund request resubmitted successfully')
+        }
+      }
+    },
+
+    closeRefundDetailsModal() {
+      this.showRefundDetailsModal = false
+      this.selectedRefund = null
+    },
+
+    getTimelineTitle(status) {
+      const titleMap = {
+        'pending': 'Under Review',
+        'approved': 'Approved',
+        'rejected': 'Rejected',
+        'completed': 'Refund Processed',
+        'cancelled': 'Cancelled'
+      }
+      return titleMap[status] || 'Processing'
     },
 
     // Delivery methods
@@ -2584,35 +2905,46 @@ export default {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   padding: 2rem 0;
+  box-sizing: border-box;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .profile-header {
   text-align: center;
   margin-bottom: 3rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .profile-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
 }
 
 .profile-header p {
   color: #6b7280;
   font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .profile-content {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 3rem;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Sidebar Navigation */
@@ -2625,6 +2957,8 @@ export default {
   position: sticky;
   top: 2rem;
   border: 1px solid #f1f3f4;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Sidebar Profile Section */
@@ -2761,6 +3095,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 500px;
 }
 
 /* Profile Information Card */
@@ -2777,6 +3114,8 @@ export default {
   gap: 1rem;
   margin-bottom: 2rem;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header-icon {
@@ -4568,16 +4907,20 @@ export default {
   justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(4px);
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .modal-content {
   background: white;
   border-radius: 16px;
-  width: 90%;
+  width: 100%;
   max-width: 600px;
-  max-height: 80vh;
+  max-height: 90vh;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  margin: auto;
+  box-sizing: border-box;
 }
 
 .modal-header {
@@ -5428,14 +5771,20 @@ export default {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+
   .profile-content {
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: 100%;
   }
 
   .profile-sidebar {
     position: static;
     border-radius: 8px;
+    width: 100%;
   }
 
   .sidebar-profile {
@@ -5702,22 +6051,47 @@ export default {
   .profile-page {
     padding: 1rem 0;
   }
-  
+
+  .profile-header {
+    padding: 0 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-header h1 {
+    font-size: 2rem;
+  }
+
   .profile-info-card,
   .feed-section,
   .avatar-management-card,
   .notifications-card,
   .simple-card {
     padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .notifications-list-section,
   .notification-settings-section {
     padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
-  
+
   .products-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
   }
 }
 
@@ -6009,6 +6383,1409 @@ export default {
 
   .faq-answer-page p {
     padding: 1rem;
+  }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: #718096;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: #e2e8f0;
+  color: #2d3748;
+}
+
+.modal-close-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(80vh - 100px);
+}
+
+.policy-content h4,
+.terms-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+.policy-content h4:first-child,
+.terms-content h4:first-child {
+  margin-top: 0;
+}
+
+.policy-content p,
+.terms-content p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.last-updated {
+  font-size: 0.875rem;
+  color: #718096;
+  font-style: italic;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+  }
+
+  .modal-header {
+    padding: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+    max-height: calc(90vh - 80px);
+  }
+}
+
+/* Modern Account Deletion Styles */
+.modern-account-deletion {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.deletion-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-icon-large {
+  width: 4rem;
+  height: 4rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.header-icon-large svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.header-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.header-text p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.deletion-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: stretch;
+}
+
+.modern-option-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.safe-option {
+  border-color: #10b981;
+}
+
+.danger-option {
+  border-color: #ef4444;
+}
+
+.modern-option-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.option-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.option-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.option-badge.recommended {
+  background: #10b981;
+  color: white;
+}
+
+.option-badge.warning {
+  background: #ef4444;
+  color: white;
+}
+
+.option-badge svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.option-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.option-icon.safe {
+  background: #10b981;
+}
+
+.option-icon.danger {
+  background: #ef4444;
+}
+
+.option-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.option-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.option-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0 0 1.5rem 0;
+}
+
+.option-subtitle.danger-text {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.benefit-list {
+  margin-bottom: 1.5rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #374151;
+}
+
+.benefit-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.warning-box {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.warning-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #dc2626;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.warning-header svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.warning-content p {
+  color: #7f1d1d;
+  margin: 0 0 0.75rem 0;
+}
+
+.deletion-items {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.deletion-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #991b1b;
+  font-size: 0.875rem;
+}
+
+.deletion-item svg {
+  width: 1rem;
+  height: 1rem;
+  color: #dc2626;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.modern-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.modern-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.legal-notice {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.legal-notice h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.5rem 0;
+}
+
+.legal-notice p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.option-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.option-actions {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.modern-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modern-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.modern-btn.safe {
+  background: #10b981;
+  color: white;
+}
+
+.modern-btn.safe:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.modern-btn.danger {
+  background: #ef4444;
+  color: white;
+}
+
+.modern-btn.danger:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.deletion-help {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.help-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.help-icon {
+  width: 3rem;
+  height: 3rem;
+  background: #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.help-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.help-content {
+  flex: 1;
+}
+
+.help-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.help-content p {
+  color: #6b7280;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.help-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.help-btn:hover {
+  background: #2563eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .deletion-header {
+    padding: 1.5rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .header-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .deletion-options-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .modern-option-card {
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .help-card {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* Modern Refund History Styles */
+.modern-refund-history {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.refund-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.refund-header .header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.refund-header .header-icon-large {
+  width: 4rem;
+  height: 4rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.refund-header .header-icon-large svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.refund-header .header-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.refund-header .header-text p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.refund-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modern-filters {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters-container {
+  display: flex;
+  align-items: end;
+  gap: 1.5rem;
+}
+
+.filter-item {
+  flex: 1;
+}
+
+.filter-item label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.filter-item select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.filter-item select:focus {
+  outline: none;
+  border-color: #10b981;
+}
+
+.clear-filters-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  color: #6b7280;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.clear-filters-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.clear-filters-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.refunds-container {
+  margin-bottom: 2rem;
+}
+
+.empty-state {
+  background: white;
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.empty-icon {
+  width: 5rem;
+  height: 5rem;
+  background: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: #9ca3af;
+}
+
+.empty-icon svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-state p {
+  color: #6b7280;
+  margin: 0 0 2rem 0;
+  line-height: 1.5;
+}
+
+.request-refund-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.request-refund-btn:hover {
+  background: #059669;
+}
+
+.request-refund-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.refunds-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.modern-refund-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f3f4f6;
+  transition: all 0.3s ease;
+}
+
+.modern-refund-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modern-refund-card .card-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.refund-id-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.request-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.approved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.product-section {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.product-info h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.product-variant {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0 0 0.75rem 0;
+}
+
+.order-reference {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.order-reference svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.refund-amount {
+  text-align: right;
+}
+
+.amount-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #10b981;
+  margin-bottom: 0.25rem;
+}
+
+.amount-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.timeline-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  background: white;
+  flex-shrink: 0;
+}
+
+.timeline-item.completed .timeline-dot {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.timeline-title {
+  font-weight: 500;
+  color: #374151;
+}
+
+.timeline-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.payment-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.payment-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.payment-info svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.payment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.payment-method {
+  font-weight: 500;
+  color: #374151;
+}
+
+.payment-account {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.reason-section {
+  margin-bottom: 1.5rem;
+}
+
+.reason-content {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.reason-label {
+  font-weight: 600;
+  color: #374151;
+  margin-right: 0.5rem;
+}
+
+.reason-text {
+  color: #6b7280;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.action-btn.primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.action-btn.primary:hover {
+  background: #2563eb;
+}
+
+.action-btn.secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.action-btn.secondary:hover {
+  background: #e5e7eb;
+}
+
+.action-btn.success {
+  background: #10b981;
+  color: white;
+}
+
+.action-btn.success:hover {
+  background: #059669;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .refund-header {
+    padding: 1.5rem;
+  }
+
+  .refund-header .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .refund-header .header-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .refund-stats {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .clear-filters-btn {
+    align-self: start;
+  }
+
+  .modern-refund-card {
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .modern-refund-card .card-header {
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .product-section {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .refund-amount {
+    text-align: left;
+    width: 100%;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-btn {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* Refund Details Modal Styles */
+.refund-details-modal {
+  max-width: 700px;
+  max-height: 90vh;
+}
+
+.refund-details-content {
+  padding: 0;
+}
+
+.detail-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-section h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.status-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-display.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-display.approved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-display.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-display.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-display.cancelled {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.product-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.amount-breakdown-table {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.amount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.amount-row:last-child {
+  border-bottom: none;
+}
+
+.amount-row.total {
+  background: #10b981;
+  color: white;
+  margin: 1rem -1.5rem -1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0 0 8px 8px;
+  font-weight: 700;
+}
+
+.amount-row .amount-label {
+  font-weight: 500;
+}
+
+.amount-row .amount-value {
+  font-weight: 600;
+}
+
+.timeline-container {
+  position: relative;
+}
+
+.timeline-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.timeline-step:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 2rem;
+  width: 2px;
+  height: 1.5rem;
+  background: #e5e7eb;
+}
+
+.timeline-step.completed:not(:last-child)::after {
+  background: #10b981;
+}
+
+.timeline-step .timeline-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  background: white;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.timeline-step.completed .timeline-dot {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.timeline-step .timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.timeline-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.timeline-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.reason-display,
+.notes-display {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.payment-display {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.payment-method-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.payment-method-info svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.payment-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.payment-method {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.payment-account {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.modal-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-btn.secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.modal-btn.secondary:hover {
+  background: #e5e7eb;
+}
+
+.modal-btn.danger {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-btn.danger:hover {
+  background: #dc2626;
+}
+
+.modal-btn.success {
+  background: #10b981;
+  color: white;
+}
+
+.modal-btn.success:hover {
+  background: #059669;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+  .refund-details-modal {
+    max-width: 95vw;
+    margin: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-details-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
+
+  .amount-breakdown-table {
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .amount-row.total {
+    margin: 1rem -1rem -1rem;
+    padding: 1rem;
+    width: calc(100% + 2rem);
+    box-sizing: border-box;
   }
 }
 </style>
