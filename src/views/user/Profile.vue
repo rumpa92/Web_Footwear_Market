@@ -1733,6 +1733,108 @@ export default {
           ]
         }
       ],
+      // Modal states
+      showHelpCenter: false,
+      showCommunityForum: false,
+      showVideoTutorials: false,
+      selectedVideoCategory: 1,
+      // Help Center data
+      helpCategories: [
+        {
+          id: 1,
+          title: 'Getting Started',
+          description: 'Learn the basics of using our platform',
+          articles: 12,
+          icon: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
+        },
+        {
+          id: 2,
+          title: 'Orders & Shipping',
+          description: 'Everything about orders, shipping, and delivery',
+          articles: 24,
+          icon: '<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M9 1L20 7l-8 4"/>'
+        },
+        {
+          id: 3,
+          title: 'Account Management',
+          description: 'Manage your profile, settings, and preferences',
+          articles: 18,
+          icon: '<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>'
+        },
+        {
+          id: 4,
+          title: 'Returns & Refunds',
+          description: 'Process returns and request refunds',
+          articles: 8,
+          icon: '<path d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>'
+        }
+      ],
+      // Community Forum data
+      forumTopics: [
+        {
+          id: 1,
+          title: 'Best running shoes for beginners?',
+          excerpt: 'Looking for recommendations for someone just starting their running journey...',
+          author: { name: 'Sarah M.', avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=40&h=40&fit=crop&crop=face' },
+          replies: 23,
+          lastActivity: new Date(Date.now() - 2 * 60 * 60 * 1000)
+        },
+        {
+          id: 2,
+          title: 'Nike vs Adidas sizing comparison',
+          excerpt: 'Has anyone noticed differences in sizing between these brands?',
+          author: { name: 'Mike L.', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face' },
+          replies: 15,
+          lastActivity: new Date(Date.now() - 4 * 60 * 60 * 1000)
+        },
+        {
+          id: 3,
+          title: 'Care tips for leather shoes',
+          excerpt: 'Share your best practices for maintaining leather footwear...',
+          author: { name: 'Emma R.', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face' },
+          replies: 31,
+          lastActivity: new Date(Date.now() - 6 * 60 * 60 * 1000)
+        }
+      ],
+      // Video Tutorial data
+      videoCategories: [
+        { id: 1, name: 'Getting Started' },
+        { id: 2, name: 'Shopping Tips' },
+        { id: 3, name: 'Care & Maintenance' },
+        { id: 4, name: 'Sizing Guide' }
+      ],
+      videos: [
+        {
+          id: 1,
+          title: 'How to Find Your Perfect Size',
+          description: 'Learn how to measure your feet and find the right size',
+          thumbnail: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=300&h=200&fit=crop',
+          duration: '3:45',
+          views: '12.3K',
+          publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+          categoryId: 4
+        },
+        {
+          id: 2,
+          title: 'Creating Your First Account',
+          description: 'Step-by-step guide to setting up your FootMarket account',
+          thumbnail: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=300&h=200&fit=crop',
+          duration: '2:30',
+          views: '8.7K',
+          publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+          categoryId: 1
+        },
+        {
+          id: 3,
+          title: 'Cleaning Your Sneakers',
+          description: 'Professional tips for keeping your sneakers looking fresh',
+          thumbnail: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=200&fit=crop',
+          duration: '5:20',
+          views: '25.1K',
+          publishedAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+          categoryId: 3
+        }
+      ],
       profileSections: [
         {
           id: 'profile',
