@@ -1442,20 +1442,71 @@
 
           <!-- Delivery Management Section -->
           <div v-if="activeSection === 'delivery-management'" class="section">
-            <div class="delivery-management-card">
-              <div class="card-header">
-                <div class="header-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M9 1L20 7l-8 4"/>
-                  </svg>
+            <div class="modern-delivery-container">
+              <!-- Hero Header -->
+              <div class="delivery-hero">
+                <div class="hero-content">
+                  <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                  </div>
+                  <div class="hero-text">
+                    <h1>Delivery Management</h1>
+                    <p>Manage your delivery addresses, preferences, and track your packages</p>
+                  </div>
                 </div>
-                <h2>Delivery Management</h2>
-                <button @click="addNewAddress" class="add-address-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                  </svg>
-                  Add New Address
-                </button>
+                <div class="hero-actions">
+                  <button @click="addNewAddress" class="modern-add-btn primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add New Address
+                  </button>
+                  <button @click="viewAllOrders" class="modern-add-btn secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    View All Orders
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Stats -->
+              <div class="delivery-stats">
+                <div class="stat-card active-orders">
+                  <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-number">{{ activeDeliveries.length }}</div>
+                    <div class="stat-label">Active Deliveries</div>
+                  </div>
+                </div>
+                <div class="stat-card addresses">
+                  <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-number">{{ savedAddresses.length }}</div>
+                    <div class="stat-label">Saved Addresses</div>
+                  </div>
+                </div>
+                <div class="stat-card delivered">
+                  <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-number">{{ deliveredThisMonth || 8 }}</div>
+                    <div class="stat-label">Delivered This Month</div>
+                  </div>
+                </div>
               </div>
 
               <div class="delivery-management-content">
