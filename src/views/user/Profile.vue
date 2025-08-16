@@ -6508,8 +6508,15 @@ export default {
   line-height: 1.4;
 }
 
+.option-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .option-actions {
-  margin-top: 2rem;
+  margin-top: auto;
+  padding-top: 2rem;
 }
 
 .modern-btn {
