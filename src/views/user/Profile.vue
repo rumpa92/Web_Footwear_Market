@@ -3095,6 +3095,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 500px;
 }
 
 /* Profile Information Card */
