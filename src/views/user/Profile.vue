@@ -2139,6 +2139,31 @@ export default {
   .nav-text {
     font-size: 0.8rem;
   }
+
+  /* Notifications responsive */
+  .notifications-content {
+    gap: 2rem;
+  }
+
+  .notification-item {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .notification-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .setting-item {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .setting-info {
+    gap: 0.75rem;
+  }
 }
 
 @media (max-width: 768px) {
