@@ -822,17 +822,48 @@ export default {
   margin-right: auto;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .hero-content {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
+  .hero-title {
+    font-size: 48px;
+  }
+
+  .hero-discount {
+    font-size: 24px;
+  }
+
+  .hero-main-text {
+    justify-content: center;
+  }
+
+  .hero-subtitle {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .triangle-1, .triangle-3 {
+    display: none;
+  }
+
+  .circle-1 {
+    width: 80px;
+    height: 80px;
+  }
+
+  .circle-2 {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (min-width: 768px) {
   .hero-text {
     text-align: left;
-  }
-
-  .hero-actions {
-    justify-content: flex-start;
   }
 
   .newsletter-content {
