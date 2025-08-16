@@ -1854,6 +1854,16 @@ export default {
       // In a real app, this would navigate to help center
     },
 
+    openCommunityForum() {
+      this.$toast?.info('Opening Community Forum...')
+      // In a real app, this would navigate to community forum
+    },
+
+    viewVideoTutorials() {
+      this.$toast?.info('Opening Video Tutorials...')
+      // In a real app, this would navigate to video tutorials
+    },
+
     // Language & Region methods
     selectLanguage(language) {
       this.selectedLanguage = language
