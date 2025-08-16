@@ -3217,6 +3217,174 @@ export default {
   height: 16px;
 }
 
+/* Language & Region Card */
+.language-region-card {
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.card-header-simple {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.header-icon-simple {
+  width: 20px;
+  height: 20px;
+  color: #374151;
+}
+
+.header-icon-simple svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-header-simple h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.language-region-content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Language Preference Section */
+.language-preference-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.preference-section-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin: 0;
+}
+
+.language-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.language-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.language-card:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.language-card.selected {
+  background: #fdf2f8;
+  border-color: #ec4899;
+  box-shadow: 0 0 0 1px #ec4899;
+}
+
+.language-flag-container {
+  width: 24px;
+  height: 18px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.language-flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.language-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.language-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  line-height: 1.2;
+}
+
+.language-native {
+  font-size: 0.75rem;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+/* Currency & Region Section */
+.currency-region-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.region-select {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #1f2937;
+  background: white;
+  transition: border-color 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.region-select:focus {
+  outline: none;
+  border-color: #ec4899;
+  box-shadow: 0 0 0 1px #ec4899;
+}
+
+.region-select:hover {
+  border-color: #9ca3af;
+}
+
 /* Simple Cards for other sections */
 .simple-card {
   background: white;
