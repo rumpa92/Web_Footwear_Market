@@ -3056,11 +3056,94 @@ export default {
     },
 
     trackPackage(deliveryId) {
-      this.$toast?.info(`Opening tracking for delivery ${deliveryId}...`)
+      // Find the delivery
+      const delivery = this.activeDeliveries.find(d => d.id === deliveryId)
+      if (!delivery) {
+        this.$toast?.error('Delivery not found')
+        return
+      }
+
+      // Simulate opening tracking in a new window
+      this.$toast?.success('Opening live tracking map...')
+
+      // In a real app, this would open a tracking page or modal
+      setTimeout(() => {
+        // Show detailed tracking info
+        const trackingInfo = {
+          courierName: delivery.courierName || 'John Doe',
+          courierPhone: delivery.courierPhone || '+1 (555) 123-4567',
+          vehicleType: delivery.vehicleType || 'Van',
+          estimatedArrival: delivery.estimatedDate,
+          currentLocation: 'Main Street & 5th Avenue',
+          lastUpdate: new Date().toLocaleTimeString()
+        }
+
+        alert(`📦 Live Tracking - Order #${delivery.orderId}
+
+🚚 Courier: ${trackingInfo.courierName}
+📱 Phone: ${trackingInfo.courierPhone}
+🚗 Vehicle: ${trackingInfo.vehicleType}
+📍 Current Location: ${trackingInfo.currentLocation}
+⏰ Last Update: ${trackingInfo.lastUpdate}
+🎯 ETA: ${this.formatDate(trackingInfo.estimatedArrival)}
+
+Your package is on the way!`)
+      }, 1000)
     },
 
     contactCourier(deliveryId) {
-      this.$toast?.info(`Contacting courier for delivery ${deliveryId}...`)
+      // Find the delivery
+      const delivery = this.activeDeliveries.find(d => d.id === deliveryId)
+      if (!delivery) {
+        this.$toast?.error('Delivery not found')
+        return
+      }
+
+      const courierInfo = {
+        name: delivery.courierName || 'John Doe',
+        phone: delivery.courierPhone || '+1 (555) 123-4567',
+        company: delivery.courierCompany || 'FastTrack Delivery'
+      }
+
+      // Show contact options
+      const contactChoice = confirm(`📞 Contact Courier - Order #${delivery.orderId}
+
+🚚 Courier: ${courierInfo.name}
+🏢 Company: ${courierInfo.company}
+📱 Phone: ${courierInfo.phone}
+
+Click OK to call courier, or Cancel to send a message.`)
+
+      if (contactChoice) {
+        // Simulate calling
+        this.$toast?.info('Connecting you to the courier...')
+        setTimeout(() => {
+          alert(`📞 Calling ${courierInfo.name} at ${courierInfo.phone}...
+
+(In a real app, this would initiate a phone call)`)
+        }, 1500)
+      } else {
+        // Show message options
+        const messageChoice = prompt(`💬 Send message to courier:
+
+Quick messages:
+1. "Please call before delivery"
+2. "I'll be home after 3 PM"
+3. "Leave package at front door"
+
+Or type your custom message:`, "Please call before delivery")
+
+        if (messageChoice) {
+          this.$toast?.success('Message sent to courier!')
+          setTimeout(() => {
+            alert(`✅ Message sent to ${courierInfo.name}:
+
+"${messageChoice}"
+
+They will receive it shortly.`)
+          }, 1000)
+        }
+      }
     },
 
     saveDeliverySettings() {
