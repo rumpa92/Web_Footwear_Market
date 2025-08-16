@@ -36,6 +36,11 @@ export default {
         '/order-confirmation': 'Back to Orders'
       }
 
+      // Handle 404 Not Found page
+      if (this.$route.name === 'NotFound') {
+        return 'Back to Home'
+      }
+
       // Handle dynamic routes (like /product/:id, /brands/:brand)
       if (this.$route.path.startsWith('/product/')) {
         return 'Back to Products'
