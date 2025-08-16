@@ -3,7 +3,7 @@ const defaultUser = {
   id: 1,
   name: 'Rumpa Samanta',
   email: 'rumpa.samanta@example.com',
-  avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop'
+  avatar: 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
 }
 
 // Set default user for testing if no user exists
