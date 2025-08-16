@@ -931,11 +931,148 @@
             </div>
           </div>
 
+          <!-- Refund History Section -->
           <div v-if="activeSection === 'refund-history'" class="section">
-            <div class="simple-card">
-              <h2>Refund History</h2>
-              <p>Track your refunds and reimbursements</p>
-              <!-- Refund history content -->
+            <div class="refund-history-card">
+              <div class="card-header">
+                <div class="header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                  </svg>
+                </div>
+                <h2>Refund History</h2>
+                <div class="refund-summary">
+                  <div class="summary-item">
+                    <span class="summary-label">Total Refunds:</span>
+                    <span class="summary-value">{{ refunds.length }}</span>
+                  </div>
+                  <div class="summary-item">
+                    <span class="summary-label">Total Amount:</span>
+                    <span class="summary-value">{{ calculateTotalRefunds() }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="refund-history-content">
+                <!-- Refund Filters -->
+                <div class="refund-filters">
+                  <div class="filter-group">
+                    <label for="statusFilter">Filter by Status:</label>
+                    <select v-model="refundStatusFilter" @change="filterRefunds" id="statusFilter">
+                      <option value="">All Statuses</option>
+                      <option value="pending">Pending</option>
+                      <option value="approved">Approved</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  </div>
+
+                  <div class="filter-group">
+                    <label for="dateFilter">Date Range:</label>
+                    <select v-model="refundDateFilter" @change="filterRefunds" id="dateFilter">
+                      <option value="">All Time</option>
+                      <option value="30-days">Last 30 days</option>
+                      <option value="90-days">Last 90 days</option>
+                      <option value="1-year">Last year</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Refund List -->
+                <div class="refunds-list">
+                  <div v-if="filteredRefunds.length === 0" class="no-refunds">
+                    <div class="no-refunds-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                      </svg>
+                    </div>
+                    <h3>No Refunds Found</h3>
+                    <p>You haven't requested any refunds yet, or no refunds match your current filters.</p>
+                  </div>
+
+                  <div v-else class="refund-items">
+                    <div v-for="refund in filteredRefunds" :key="refund.id" class="refund-item">
+                      <div class="refund-header">
+                        <div class="refund-basic-info">
+                          <h4 class="refund-id">Refund #{{ refund.id }}</h4>
+                          <span class="refund-date">{{ formatDate(refund.requestDate) }}</span>
+                        </div>
+                        <div class="refund-status" :class="refund.status">
+                          <span class="status-indicator"></span>
+                          <span class="status-text">{{ formatStatus(refund.status) }}</span>
+                        </div>
+                      </div>
+
+                      <div class="refund-details">
+                        <div class="refund-order-info">
+                          <div class="order-details">
+                            <span class="order-label">Order:</span>
+                            <span class="order-id">#{{ refund.orderId }}</span>
+                            <span class="order-date">{{ formatDate(refund.orderDate) }}</span>
+                          </div>
+                          <div class="product-details">
+                            <span class="product-name">{{ refund.productName }}</span>
+                            <span class="product-variant">{{ refund.variant }}</span>
+                          </div>
+                        </div>
+
+                        <div class="refund-amount-info">
+                          <div class="amount-breakdown">
+                            <div class="amount-item">
+                              <span class="amount-label">Product Price:</span>
+                              <span class="amount-value">{{ formatCurrency(refund.productPrice) }}</span>
+                            </div>
+                            <div class="amount-item">
+                              <span class="amount-label">Shipping:</span>
+                              <span class="amount-value">{{ formatCurrency(refund.shippingCost) }}</span>
+                            </div>
+                            <div class="amount-item total">
+                              <span class="amount-label">Refund Amount:</span>
+                              <span class="amount-value">{{ formatCurrency(refund.refundAmount) }}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="refund-payment-info">
+                          <div class="payment-method">
+                            <span class="payment-label">Refunded to:</span>
+                            <div class="payment-details">
+                              <span class="payment-type">{{ refund.paymentMethod }}</span>
+                              <span class="payment-account">{{ refund.paymentAccount }}</span>
+                            </div>
+                          </div>
+                          <div v-if="refund.processedDate" class="processed-date">
+                            <span class="processed-label">Processed:</span>
+                            <span class="processed-value">{{ formatDate(refund.processedDate) }}</span>
+                          </div>
+                        </div>
+
+                        <div v-if="refund.reason" class="refund-reason">
+                          <span class="reason-label">Reason:</span>
+                          <span class="reason-text">{{ refund.reason }}</span>
+                        </div>
+
+                        <div v-if="refund.adminNotes" class="admin-notes">
+                          <span class="notes-label">Notes:</span>
+                          <span class="notes-text">{{ refund.adminNotes }}</span>
+                        </div>
+                      </div>
+
+                      <div class="refund-actions">
+                        <button v-if="refund.status === 'pending'" @click="cancelRefund(refund.id)" class="cancel-refund-btn">
+                          Cancel Request
+                        </button>
+                        <button @click="viewRefundDetails(refund.id)" class="view-details-btn">
+                          View Details
+                        </button>
+                        <button v-if="refund.status === 'rejected'" @click="resubmitRefund(refund.id)" class="resubmit-btn">
+                          Resubmit Request
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
