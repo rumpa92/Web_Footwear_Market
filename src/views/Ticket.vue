@@ -190,9 +190,6 @@
             <div class="form-actions">
               <button type="submit" class="next-button" :disabled="!isStep1Valid">
                 <span>Continue to Attachments</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
               </button>
             </div>
           </form>
