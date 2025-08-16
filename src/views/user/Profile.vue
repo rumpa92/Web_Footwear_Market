@@ -452,6 +452,62 @@
               <div class="quick-actions-section">
                 <h3 class="section-heading">Get Instant Help</h3>
                 <div class="quick-actions-grid">
+                  <!-- FAQ & Help Center Card -->
+                  <div class="action-card featured" @click="openFaqHelpCenter">
+                    <div class="card-badge">Self-Service</div>
+                    <div class="card-icon faq">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                      </svg>
+                    </div>
+                    <div class="card-content">
+                      <h4>FAQ & Help Center</h4>
+                      <p>Find instant answers to common questions</p>
+                      <div class="faq-info">
+                        <span class="info-item">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                          200+ articles
+                        </span>
+                      </div>
+                    </div>
+                    <div class="card-action">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                      Browse FAQ
+                    </div>
+                  </div>
+
+                  <!-- Ticket Support Card -->
+                  <div class="action-card priority" @click="createTicket">
+                    <div class="card-badge">Priority</div>
+                    <div class="card-icon ticket">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22 10V6a2 2 0 00-2-2H4a2 2 0 00-2 2v4a2 2 0 102 0V8h16v2a2 2 0 102 0zM2 14a2 2 0 102 0v4h16v-4a2 2 0 102 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
+                      </svg>
+                    </div>
+                    <div class="card-content">
+                      <h4>Ticket</h4>
+                      <p>Submit detailed requests and track progress</p>
+                      <div class="ticket-info">
+                        <span class="info-item">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 15h2v2h-2v-2zm0-10h2v8h-2V7z"/>
+                          </svg>
+                          24-48h response
+                        </span>
+                      </div>
+                    </div>
+                    <div class="card-action">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                      </svg>
+                      Create Ticket
+                    </div>
+                  </div>
+
                   <!-- Live Chat Card -->
                   <div class="action-card premium" @click="startLiveChat">
                     <div class="card-badge">Most Popular</div>
@@ -473,33 +529,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                       </svg>
                       Start Chat
-                    </div>
-                  </div>
-
-                  <!-- Support Ticket Card -->
-                  <div class="action-card" @click="createTicket">
-                    <div class="card-icon ticket">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M22 10V6a2 2 0 00-2-2H4a2 2 0 00-2 2v4a2 2 0 102 0V8h16v2a2 2 0 102 0zM2 14a2 2 0 102 0v4h16v-4a2 2 0 102 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
-                      </svg>
-                    </div>
-                    <div class="card-content">
-                      <h4>Support Ticket</h4>
-                      <p>Submit detailed requests and track progress</p>
-                      <div class="ticket-info">
-                        <span class="info-item">
-                          <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                          </svg>
-                          Priority support
-                        </span>
-                      </div>
-                    </div>
-                    <div class="card-action">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                      </svg>
-                      Create Ticket
                     </div>
                   </div>
 
