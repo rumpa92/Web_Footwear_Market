@@ -832,38 +832,48 @@ export default {
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: var(--space-lg);
   }
 
   .hero-title {
-    font-size: 48px;
+    font-size: 42px;
   }
 
-  .hero-discount {
-    font-size: 24px;
+  .hero-sale {
+    font-size: 56px;
   }
 
-  .hero-main-text {
-    justify-content: center;
+  .hero-logo {
+    top: 20px;
+    left: 20px;
   }
 
-  .hero-subtitle {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  .logo-text {
+    font-size: 16px;
   }
 
-  .triangle-1, .triangle-3 {
-    display: none;
+  .hero-dots {
+    top: 20px;
+    right: 20px;
   }
 
-  .circle-1 {
+  .discount-badge {
     width: 80px;
     height: 80px;
+    top: 10px;
+    right: 10px;
   }
 
-  .circle-2 {
-    width: 60px;
-    height: 60px;
+  .discount-text {
+    font-size: 14px;
+  }
+
+  .hero-contact {
+    margin-top: var(--space-lg);
+  }
+
+  .contact-info {
+    justify-content: center;
   }
 }
 
