@@ -1,14 +1,21 @@
 // Check if user exists in localStorage, if not create a default user for testing
 const defaultUser = {
   id: 1,
-  name: 'Rumpa Samanta',
-  email: 'rumpa.samanta@example.com',
-  avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop'
+  name: 'Anushka Sen',
+  email: 'anushka.sen@example.com',
+  avatar: 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
 }
 
 // Set default user for testing if no user exists
 if (!localStorage.getItem('user')) {
   localStorage.setItem('user', JSON.stringify(defaultUser))
+} else {
+  // Update existing user with new name and avatar
+  const existingUser = JSON.parse(localStorage.getItem('user'))
+  existingUser.name = 'Anushka Sen'
+  existingUser.email = 'anushka.sen@example.com'
+  existingUser.avatar = 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
+  localStorage.setItem('user', JSON.stringify(existingUser))
 }
 
 const state = {
@@ -90,9 +97,9 @@ const actions = {
       setTimeout(() => {
         const user = {
           id: 1,
-          name: 'Rumpa Samanta',
+          name: 'Anushka Sen',
           email: credentials.email,
-          avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9c2002c?w=100&h=100&fit=crop'
+          avatar: 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
         }
         // Save to localStorage for persistence
         localStorage.setItem('user', JSON.stringify(user))
@@ -128,7 +135,7 @@ const actions = {
         const user = {
           id: Date.now(),
           ...userData,
-          avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9c2002c?w=100&h=100&fit=crop'
+          avatar: 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
         }
         // Save to localStorage for persistence
         localStorage.setItem('user', JSON.stringify(user))
