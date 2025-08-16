@@ -789,8 +789,24 @@ export default {
       // Save settings to localStorage or API
       localStorage.setItem('notificationSettings', JSON.stringify(this.notificationSettings))
       this.$toast?.success('Notification settings saved successfully!')
-    },
-    
+    }
+  },
+
+  created() {
+    // Load notification settings from localStorage
+    const savedSettings = localStorage.getItem('notificationSettings')
+    if (savedSettings) {
+      try {
+        this.notificationSettings = { ...this.notificationSettings, ...JSON.parse(savedSettings) }
+      } catch (error) {
+        console.error('Error loading notification settings:', error)
+      }
+    }
+
+    // Update notification badge on load
+    this.$nextTick(() => {
+      this.updateNotificationBadge()
+    })
   }
 }
 </script>
