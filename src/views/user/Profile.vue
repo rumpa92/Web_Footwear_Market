@@ -36,16 +36,20 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                   </svg>
                 </div>
-                <h2>Profile Information</h2>
-                <button class="edit-profile-btn" @click="toggleEditMode">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <h2>{{ editMode ? 'Edit Profile' : 'Profile Information' }}</h2>
+                <button class="edit-profile-btn" @click="toggleEditMode" :class="{ 'cancel-btn': editMode }">
+                  <svg v-if="!editMode" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                   </svg>
-                  Edit Profile
+                  <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                  {{ editMode ? 'Cancel' : 'Edit Profile' }}
                 </button>
               </div>
 
-              <div class="profile-details">
+              <!-- View Mode -->
+              <div v-if="!editMode" class="profile-details">
                 <div class="profile-avatar-section">
                   <img :src="currentUser.avatar" :alt="currentUser.name" class="profile-avatar" />
                 </div>
@@ -63,6 +67,166 @@
                     <span class="detail-value">{{ currentUser.phone || '9775637590' }}</span>
                   </div>
                 </div>
+              </div>
+
+              <!-- Edit Mode -->
+              <div v-else class="edit-profile-section">
+                <p class="edit-description">
+                  Update your personal details including name, profile picture, contact information, and preferences to keep your account up to date.
+                </p>
+
+                <form @submit.prevent="saveProfile" class="edit-profile-form">
+                  <!-- Profile Picture Section -->
+                  <div class="form-section">
+                    <h3 class="section-title">Profile Picture</h3>
+                    <div class="avatar-edit-section">
+                      <div class="current-avatar">
+                        <img :src="editForm.avatar" :alt="editForm.name" class="edit-avatar" />
+                      </div>
+                      <div class="avatar-actions">
+                        <button type="button" class="upload-photo-btn" @click="uploadPhoto">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                          </svg>
+                          Upload New Photo
+                        </button>
+                        <button type="button" class="remove-photo-btn" @click="removePhoto">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                          </svg>
+                          Remove Photo
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Personal Information -->
+                  <div class="form-section">
+                    <h3 class="section-title">Personal Information</h3>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input
+                          id="fullName"
+                          type="text"
+                          v-model="editForm.name"
+                          placeholder="Enter your full name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                          id="email"
+                          type="email"
+                          v-model="editForm.email"
+                          placeholder="Enter your email address"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Contact Information -->
+                  <div class="form-section">
+                    <h3 class="section-title">Contact Information</h3>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                          id="phone"
+                          type="tel"
+                          v-model="editForm.phone"
+                          placeholder="Enter your phone number"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input
+                          id="dateOfBirth"
+                          type="date"
+                          v-model="editForm.dateOfBirth"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Additional Information -->
+                  <div class="form-section">
+                    <h3 class="section-title">Additional Information</h3>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" v-model="editForm.gender">
+                          <option value="">Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                          <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="location">Location</label>
+                        <input
+                          id="location"
+                          type="text"
+                          v-model="editForm.location"
+                          placeholder="City, State/Province"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Preferences -->
+                  <div class="form-section">
+                    <h3 class="section-title">Preferences</h3>
+                    <div class="preferences-section">
+                      <div class="preference-item">
+                        <div class="preference-info">
+                          <h4>Email Notifications</h4>
+                          <p>Receive updates about orders, promotions, and new arrivals</p>
+                        </div>
+                        <div class="preference-toggle">
+                          <input type="checkbox" v-model="editForm.emailNotifications" id="emailNotifications">
+                          <label for="emailNotifications" class="toggle-label"></label>
+                        </div>
+                      </div>
+                      <div class="preference-item">
+                        <div class="preference-info">
+                          <h4>SMS Notifications</h4>
+                          <p>Get text messages for order updates and delivery notifications</p>
+                        </div>
+                        <div class="preference-toggle">
+                          <input type="checkbox" v-model="editForm.smsNotifications" id="smsNotifications">
+                          <label for="smsNotifications" class="toggle-label"></label>
+                        </div>
+                      </div>
+                      <div class="preference-item">
+                        <div class="preference-info">
+                          <h4>Marketing Communications</h4>
+                          <p>Receive promotional offers and product recommendations</p>
+                        </div>
+                        <div class="preference-toggle">
+                          <input type="checkbox" v-model="editForm.marketingCommunications" id="marketingCommunications">
+                          <label for="marketingCommunications" class="toggle-label"></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Form Actions -->
+                  <div class="form-actions">
+                    <button type="button" class="cancel-form-btn" @click="cancelEdit">
+                      Cancel
+                    </button>
+                    <button type="submit" class="save-form-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
 
@@ -140,6 +304,18 @@ export default {
     return {
       activeSection: 'profile',
       editMode: false,
+      editForm: {
+        name: '',
+        email: '',
+        phone: '',
+        dateOfBirth: '',
+        gender: '',
+        location: '',
+        avatar: '',
+        emailNotifications: true,
+        smsNotifications: false,
+        marketingCommunications: false
+      },
       recommendedProducts: [
         {
           id: 1,
@@ -248,7 +424,53 @@ export default {
     
     toggleEditMode() {
       this.editMode = !this.editMode
-      this.$toast?.info('Edit mode toggled')
+      if (this.editMode) {
+        // Initialize edit form with current user data
+        this.editForm = {
+          name: this.currentUser.name || '',
+          email: this.currentUser.email || '',
+          phone: this.currentUser.phone || '9775637590',
+          dateOfBirth: this.currentUser.dateOfBirth || '',
+          gender: this.currentUser.gender || '',
+          location: this.currentUser.location || '',
+          avatar: this.currentUser.avatar || '',
+          emailNotifications: this.currentUser.emailNotifications !== false,
+          smsNotifications: this.currentUser.smsNotifications || false,
+          marketingCommunications: this.currentUser.marketingCommunications || false
+        }
+      }
+    },
+
+    saveProfile() {
+      // Update user profile with form data
+      const updatedUser = {
+        ...this.currentUser,
+        ...this.editForm
+      }
+
+      // Update localStorage
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+
+      // Update Vuex store (you might need to dispatch an action)
+      this.$store.commit('user/SET_USER', updatedUser)
+
+      this.editMode = false
+      this.$toast?.success('Profile updated successfully!')
+    },
+
+    cancelEdit() {
+      this.editMode = false
+      this.editForm = {}
+    },
+
+    uploadPhoto() {
+      // Simulate photo upload
+      this.$toast?.info('Photo upload functionality coming soon!')
+    },
+
+    removePhoto() {
+      this.editForm.avatar = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'
+      this.$toast?.info('Profile photo removed')
     },
     
     quickView(product) {
@@ -837,6 +1059,279 @@ export default {
   height: 16px;
 }
 
+/* Edit Profile Section */
+.edit-profile-section {
+  padding-top: 1rem;
+}
+
+.edit-description {
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: #3b82f6;
+  border-radius: 2px;
+}
+
+/* Avatar Edit Section */
+.avatar-edit-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.current-avatar {
+  flex-shrink: 0;
+}
+
+.edit-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #e5e7eb;
+}
+
+.avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.upload-photo-btn,
+.remove-photo-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.upload-photo-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.upload-photo-btn:hover {
+  background: #2563eb;
+}
+
+.remove-photo-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.remove-photo-btn:hover {
+  background: #dc2626;
+}
+
+.upload-photo-btn svg,
+.remove-photo-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Preferences Section */
+.preferences-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.preference-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.preference-info h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.preference-info p {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.preference-toggle {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.preference-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-label {
+  width: 50px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: block;
+}
+
+.toggle-label::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.preference-toggle input[type="checkbox"]:checked + .toggle-label {
+  background: #3b82f6;
+}
+
+.preference-toggle input[type="checkbox"]:checked + .toggle-label::after {
+  transform: translateX(26px);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cancel-form-btn,
+.save-form-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cancel-form-btn {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.cancel-form-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.save-form-btn {
+  background: #10b981;
+  color: white;
+}
+
+.save-form-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.save-form-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Edit Profile Button States */
+.edit-profile-btn.cancel-btn {
+  background: #6b7280;
+}
+
+.edit-profile-btn.cancel-btn:hover {
+  background: #4b5563;
+}
+
 /* Simple Cards for other sections */
 .simple-card {
   background: white;
@@ -890,6 +1385,32 @@ export default {
   .profile-info-section {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-edit-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .preference-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-form-btn,
+  .save-form-btn {
+    width: 100%;
+    justify-content: center;
   }
   
   .card-header {
