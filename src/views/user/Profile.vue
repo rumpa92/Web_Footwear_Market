@@ -5883,28 +5883,6 @@ export default {
   border-bottom: 1px solid #e5e7eb;
 }
 
-.back-link {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  background: none;
-  border: none;
-  color: #3b82f6;
-  font-size: 0.875rem;
-  cursor: pointer;
-  margin-bottom: 0.5rem;
-  transition: color 0.2s ease;
-}
-
-.back-link:hover {
-  color: #2563eb;
-}
-
-.back-link svg {
-  width: 14px;
-  height: 14px;
-}
-
 .category-title {
   font-size: 1.5rem;
   font-weight: 600;
