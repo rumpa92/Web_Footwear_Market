@@ -1784,6 +1784,209 @@ export default {
       // Save settings to localStorage or API
       localStorage.setItem('notificationSettings', JSON.stringify(this.notificationSettings))
       this.$toast?.success('Notification settings saved successfully!')
+    },
+
+    // Support methods
+    startLiveChat() {
+      this.$toast?.info('Starting live chat...')
+      // In a real app, this would open a chat widget
+    },
+
+    createTicket() {
+      this.$toast?.info('Opening support ticket form...')
+      // In a real app, this would open a ticket creation modal
+    },
+
+    emailSupport() {
+      window.location.href = 'mailto:support@footmarket.com'
+    },
+
+    callSupport() {
+      this.$toast?.info('Calling +1 (555) 123-4567...')
+    },
+
+    toggleFaq(faqId) {
+      const faq = this.faqs.find(f => f.id === faqId)
+      if (faq) {
+        faq.expanded = !faq.expanded
+      }
+    },
+
+    visitHelpCenter() {
+      this.$toast?.info('Opening Help Center...')
+      // In a real app, this would navigate to help center
+    },
+
+    // Language & Region methods
+    selectLanguage(language) {
+      this.selectedLanguage = language
+      this.$toast?.success(`Language changed to ${language.name}`)
+    },
+
+    updateCurrency() {
+      this.$toast?.success(`Currency changed to ${this.selectedCurrency}`)
+    },
+
+    updateRegion() {
+      this.$toast?.success(`Region changed to ${this.selectedRegion}`)
+    },
+
+    formatCurrencyPreview(amount) {
+      const currency = this.availableCurrencies.find(c => c.code === this.selectedCurrency)
+      return currency ? `${currency.symbol}${amount.toFixed(2)}` : `$${amount.toFixed(2)}`
+    },
+
+    saveLanguageSettings() {
+      const settings = {
+        language: this.selectedLanguage.code,
+        currency: this.selectedCurrency,
+        region: this.selectedRegion
+      }
+      localStorage.setItem('languageSettings', JSON.stringify(settings))
+      this.$toast?.success('Language & region settings saved!')
+    },
+
+    // Privacy methods
+    viewPrivacyPolicy() {
+      this.$toast?.info('Opening Privacy Policy...')
+      // In a real app, this would open the privacy policy
+    },
+
+    viewTerms() {
+      this.$toast?.info('Opening Terms & Conditions...')
+      // In a real app, this would open the terms
+    },
+
+    requestDataDownload() {
+      this.$toast?.info('Data export request submitted. You will receive an email within 24-48 hours.')
+    },
+
+    savePrivacySettings() {
+      localStorage.setItem('privacySettings', JSON.stringify(this.privacySettings))
+      this.$toast?.success('Privacy settings saved!')
+    },
+
+    // Account deletion methods
+    initiateDeactivation() {
+      this.$toast?.info('Account deactivation process initiated. You will receive a confirmation email.')
+    },
+
+    initiateDeletion() {
+      // In a real app, this would open a confirmation modal
+      this.$toast?.info('Opening account deletion confirmation...')
+    },
+
+    // Refund methods
+    filterRefunds() {
+      // Filtering is handled by computed property
+    },
+
+    formatStatus(status) {
+      const statusMap = {
+        'pending': 'Pending Review',
+        'approved': 'Approved',
+        'rejected': 'Rejected',
+        'completed': 'Completed'
+      }
+      return statusMap[status] || status
+    },
+
+    calculateTotalRefunds() {
+      const total = this.refunds
+        .filter(r => r.status === 'completed')
+        .reduce((sum, refund) => sum + refund.refundAmount, 0)
+      return this.formatCurrency(total)
+    },
+
+    formatCurrency(amount) {
+      return `$${amount.toFixed(2)}`
+    },
+
+    cancelRefund(refundId) {
+      this.$toast?.info(`Cancelling refund request ${refundId}...`)
+    },
+
+    viewRefundDetails(refundId) {
+      this.$toast?.info(`Viewing details for refund ${refundId}...`)
+    },
+
+    resubmitRefund(refundId) {
+      this.$toast?.info(`Resubmitting refund request ${refundId}...`)
+    },
+
+    // Delivery methods
+    addNewAddress() {
+      this.$toast?.info('Opening address form...')
+      // In a real app, this would open an address form modal
+    },
+
+    setDefaultAddress(addressId) {
+      this.savedAddresses.forEach(addr => {
+        addr.isDefault = addr.id === addressId
+      })
+      this.$toast?.success('Default address updated!')
+    },
+
+    editAddress(addressId) {
+      this.$toast?.info(`Editing address ${addressId}...`)
+      // In a real app, this would open an edit form
+    },
+
+    deleteAddress(addressId) {
+      const index = this.savedAddresses.findIndex(addr => addr.id === addressId)
+      if (index !== -1) {
+        this.savedAddresses.splice(index, 1)
+        this.$toast?.success('Address deleted!')
+      }
+    },
+
+    formatAddressType(type) {
+      const typeMap = {
+        'home': 'Home',
+        'work': 'Work',
+        'other': 'Other'
+      }
+      return typeMap[type] || type
+    },
+
+    selectTimeSlot(slotId) {
+      this.selectedTimeSlot = slotId
+    },
+
+    formatDeliveryStatus(status) {
+      const statusMap = {
+        'processing': 'Processing',
+        'shipped': 'Shipped',
+        'out-for-delivery': 'Out for Delivery',
+        'delivered': 'Delivered'
+      }
+      return statusMap[status] || status
+    },
+
+    formatTime(time) {
+      if (!time) return ''
+      return time.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      })
+    },
+
+    trackPackage(deliveryId) {
+      this.$toast?.info(`Opening tracking for delivery ${deliveryId}...`)
+    },
+
+    contactCourier(deliveryId) {
+      this.$toast?.info(`Contacting courier for delivery ${deliveryId}...`)
+    },
+
+    saveDeliverySettings() {
+      const settings = {
+        selectedTimeSlot: this.selectedTimeSlot,
+        deliveryInstructions: this.deliveryInstructions
+      }
+      localStorage.setItem('deliverySettings', JSON.stringify(settings))
+      this.$toast?.success('Delivery preferences saved!')
     }
   },
 
