@@ -1,10 +1,18 @@
+// Check if user exists in localStorage, if not create a default user for testing
+const defaultUser = {
+  id: 1,
+  name: 'Rumpa Samanta',
+  email: 'rumpa.samanta@example.com',
+  avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop'
+}
+
+// Set default user for testing if no user exists
+if (!localStorage.getItem('user')) {
+  localStorage.setItem('user', JSON.stringify(defaultUser))
+}
+
 const state = {
-  currentUser: {
-    id: 1,
-    name: 'Sarah Johnson',
-    email: 'sarah.johnson@example.com',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612789c?w=100&h=100&fit=crop'
-  },
+  currentUser: defaultUser,
   isAuthenticated: true,
   wishlist: [],
   addresses: [],
