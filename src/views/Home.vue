@@ -143,7 +143,6 @@
         </div>
         
         <div class="section-footer">
-          <router-link to="/products?sort=rating" class="btn btn-outline">View Top Rated</router-link>
         </div>
       </div>
     </section>
@@ -355,7 +354,8 @@ export default {
 
 .sort-controls {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  margin-left: auto;
   align-items: center;
 }
 
@@ -654,10 +654,15 @@ export default {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
   color: var(--text-white);
+  margin-right: auto;
 }
 
 .newsletter-input .form-input::placeholder {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.newsletter-input .btn {
+  margin-right: auto;
 }
 
 @media (min-width: 768px) {

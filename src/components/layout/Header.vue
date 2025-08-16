@@ -18,10 +18,6 @@
 
         <!-- Desktop Navigation -->
         <nav class="nav-desktop">
-          <router-link to="/" class="nav-link">Home</router-link>
-          <router-link to="/products" class="nav-link">Products</router-link>
-          <router-link to="/brands" class="nav-link">Brands</router-link>
-          <router-link to="/sale" class="nav-link">Sale</router-link>
         </nav>
 
         <!-- Search Bar -->
@@ -279,6 +275,7 @@ export default {
   justify-content: space-between;
   padding: var(--space-md) 0;
   gap: var(--space-md);
+  color: rgba(0, 0, 0, 1);
 }
 
 .logo {
