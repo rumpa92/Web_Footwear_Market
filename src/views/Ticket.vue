@@ -949,7 +949,7 @@ export default {
     },
     formatIssueType(type) {
       const types = {
-        'order-issue': '🛍️ Order Issue',
+        'order-issue': '��️ Order Issue',
         'product-defect': '🔧 Product Defect',
         'shipping-problem': '📦 Shipping Problem',
         'payment-issue': '💳 Payment Issue',
@@ -1112,52 +1112,6 @@ export default {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
-}
-
-/* Enhanced Header */
-.ticket-header {
-  margin-bottom: 30px;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 24px;
-  background: white;
-  border-radius: 20px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.header-icon {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
-}
-
-.header-icon svg {
-  width: 30px;
-  height: 30px;
-}
-
-.header-text h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 4px 0;
-}
-
-.header-text p {
-  color: #64748b;
-  margin: 0;
-  font-size: 16px;
 }
 
 /* Ticket Navigation Bar */
