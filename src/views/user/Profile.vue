@@ -824,11 +824,110 @@
             </div>
           </div>
 
+          <!-- Account Deletion Section -->
           <div v-if="activeSection === 'account-deletion'" class="section">
-            <div class="simple-card">
-              <h2>Account Deletion</h2>
-              <p>Permanently delete your account</p>
-              <!-- Account deletion content -->
+            <div class="account-deletion-card">
+              <div class="card-header">
+                <div class="header-icon danger">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                  </svg>
+                </div>
+                <h2>Account Management</h2>
+              </div>
+
+              <div class="account-deletion-content">
+                <!-- Deactivation Option -->
+                <div class="deactivation-section">
+                  <div class="option-card temporary">
+                    <div class="option-icon">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      </svg>
+                    </div>
+                    <div class="option-content">
+                      <h3>Temporary Deactivation</h3>
+                      <p>Take a break from your account. Your data will be preserved and you can reactivate anytime.</p>
+
+                      <div class="deactivation-info">
+                        <h4>What happens when you deactivate:</h4>
+                        <ul>
+                          <li>Your profile becomes invisible to others</li>
+                          <li>Active orders and subscriptions continue normally</li>
+                          <li>You can reactivate by simply logging in</li>
+                          <li>All your data and preferences are preserved</li>
+                          <li>You won't receive marketing emails</li>
+                        </ul>
+                      </div>
+
+                      <div class="deactivation-duration">
+                        <label for="deactivationPeriod">Deactivation Period</label>
+                        <select v-model="deactivationPeriod" id="deactivationPeriod">
+                          <option value="1-week">1 Week</option>
+                          <option value="1-month">1 Month</option>
+                          <option value="3-months">3 Months</option>
+                          <option value="indefinite">Indefinite (until I reactivate)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button @click="initiateDeactivation" class="deactivation-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9V5a3 3 0 00-6 0v4M10 9a3 3 0 11-6 0m6 0a3 3 0 006 0v4M10 9v10a1 1 0 001 1h8a1 1 0 001-1V9"/>
+                      </svg>
+                      Deactivate Account
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Permanent Deletion -->
+                <div class="deletion-section">
+                  <div class="option-card permanent">
+                    <div class="option-icon danger">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                      </svg>
+                    </div>
+                    <div class="option-content">
+                      <h3>Permanent Account Deletion</h3>
+                      <p class="danger-text">This action cannot be undone. Your account and all associated data will be permanently deleted.</p>
+
+                      <div class="deletion-warning">
+                        <div class="warning-header">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                          </svg>
+                          <span>Important: What will be deleted</span>
+                        </div>
+                        <ul class="deletion-list">
+                          <li>Your profile and personal information</li>
+                          <li>Order history and purchase records</li>
+                          <li>Saved addresses and payment methods</li>
+                          <li>Wishlist and product preferences</li>
+                          <li>All account settings and customizations</li>
+                          <li>Loyalty points and rewards</li>
+                        </ul>
+                      </div>
+
+                      <div class="deletion-exceptions">
+                        <h4>What we keep (for legal compliance):</h4>
+                        <ul>
+                          <li>Transaction records (as required by law)</li>
+                          <li>Support ticket history</li>
+                          <li>Fraud prevention data</li>
+                        </ul>
+                        <p>This data is anonymized and cannot be linked back to you.</p>
+                      </div>
+                    </div>
+
+                    <button @click="initiateDeletion" class="deletion-btn danger">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                      </svg>
+                      Delete Account Permanently
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
