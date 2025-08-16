@@ -2803,7 +2803,6 @@ export default {
         'cancelled': 'Cancelled'
       }
       return titleMap[status] || 'Processing'
-    }
     },
 
     // Delivery methods
