@@ -736,6 +736,112 @@
             </div>
           </div>
 
+          <!-- Dedicated FAQ & Help Center Page -->
+          <div v-if="showFaqPage" class="section">
+            <div class="faq-page-container">
+              <!-- Header -->
+              <div class="faq-page-header">
+                <button @click="closeFaqPage" class="back-to-support-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7"/>
+                  </svg>
+                  Back to Support
+                </button>
+
+                <div class="faq-page-title">
+                  <div class="title-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                    </svg>
+                  </div>
+                  <div class="title-content">
+                    <h1>FAQ & Help Center</h1>
+                    <p>Find answers to your footwear and shopping questions</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Search Bar -->
+              <div class="faq-search-section">
+                <div class="search-input-container">
+                  <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/>
+                  </svg>
+                  <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Search for help articles..."
+                    class="search-input"
+                  />
+                </div>
+              </div>
+
+              <!-- FAQ Categories -->
+              <div class="faq-categories-section">
+                <div class="categories-nav">
+                  <button
+                    v-for="category in faqCategories"
+                    :key="category.id"
+                    @click="selectedFaqCategory = category.id"
+                    class="category-btn"
+                    :class="{ 'active': selectedFaqCategory === category.id }"
+                  >
+                    {{ category.name }}
+                    <span class="category-count">{{ category.count }}</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Current Category Display -->
+              <div class="current-category-section">
+                <button @click="goBackToCategories" class="back-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7-7l-7 7 7 7"/>
+                  </svg>
+                  Back
+                </button>
+
+                <h2 class="category-title">{{ getCurrentCategoryName() }}</h2>
+              </div>
+
+              <!-- FAQ List -->
+              <div class="faq-list-section">
+                <div class="faq-items">
+                  <div
+                    v-for="faq in filteredFaqsForPage"
+                    :key="faq.id"
+                    class="faq-item-page"
+                    :class="{ 'expanded': faq.expanded }"
+                    @click="toggleFaq(faq.id)"
+                  >
+                    <div class="faq-question-page">
+                      <h3>{{ faq.question }}</h3>
+                      <svg class="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </div>
+                    <div class="faq-answer-page">
+                      <p>{{ faq.answer }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- No Results -->
+                <div v-if="filteredFaqsForPage.length === 0" class="no-results">
+                  <div class="no-results-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="11" cy="11" r="8"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/>
+                    </svg>
+                  </div>
+                  <h3>No articles found</h3>
+                  <p>Try adjusting your search terms or browse different categories</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Language & Region Section -->
           <div v-if="activeSection === 'language-region'" class="section">
             <div class="language-region-card">
@@ -975,7 +1081,7 @@
                       <p>Share data with vetted partners to enhance functionality and provide better services</p>
                       <div class="control-benefits">
                         <span>• Enhanced payment security</span>
-                        <span>• Better shipping options</span>
+                        <span>�� Better shipping options</span>
                         <span>• Social media integration</span>
                       </div>
                     </div>
