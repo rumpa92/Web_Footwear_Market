@@ -643,11 +643,15 @@ export default {
   },
   computed: {
     ...mapGetters('user', ['currentUser', 'wishlist']),
-    
+
     isInWishlist() {
       return (productId) => {
         return this.wishlist.some(item => item.id === productId)
       }
+    },
+
+    unreadNotifications() {
+      return this.notifications.filter(notification => !notification.read)
     }
   },
   methods: {
