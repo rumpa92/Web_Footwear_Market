@@ -418,121 +418,230 @@
 
           <!-- Customer Support Section -->
           <div v-if="activeSection === 'customer-support'" class="section">
-            <div class="support-card">
-              <div class="card-header">
-                <div class="header-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/>
-                  </svg>
+            <div class="modern-support-container">
+              <!-- Hero Section -->
+              <div class="support-hero">
+                <div class="hero-content">
+                  <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                  </div>
+                  <div class="hero-text">
+                    <h2>How can we help you today?</h2>
+                    <p>Our support team is here to assist you with any questions or issues you might have.</p>
+                  </div>
                 </div>
-                <h2>Customer Support</h2>
+                <div class="hero-stats">
+                  <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">< 2min</div>
+                    <div class="stat-label">Avg Response Time</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Customer Satisfaction</div>
+                  </div>
+                </div>
               </div>
 
-              <div class="support-content">
-                <!-- Live Chat -->
-                <div class="support-option">
-                  <div class="support-option-icon chat">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                    </svg>
-                  </div>
-                  <div class="support-option-content">
-                    <h3>Live Chat</h3>
-                    <p>Get instant help from our support team. Available 24/7 for immediate assistance.</p>
-                    <div class="support-status online">
-                      <span class="status-dot"></span>
-                      <span>Online - Average response time: 2 minutes</span>
+              <!-- Quick Actions -->
+              <div class="quick-actions-section">
+                <h3 class="section-heading">Get Instant Help</h3>
+                <div class="quick-actions-grid">
+                  <!-- Live Chat Card -->
+                  <div class="action-card premium" @click="startLiveChat">
+                    <div class="card-badge">Most Popular</div>
+                    <div class="card-icon chat">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                      </svg>
                     </div>
-                  </div>
-                  <button @click="startLiveChat" class="support-action-btn primary">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                    </svg>
-                    Start Chat
-                  </button>
-                </div>
-
-                <!-- Support Ticket -->
-                <div class="support-option">
-                  <div class="support-option-icon ticket">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M22 10V6a2 2 0 00-2-2H4a2 2 0 00-2 2v4a2 2 0 102 0V8h16v2a2 2 0 102 0zM2 14a2 2 0 102 0v4h16v-4a2 2 0 102 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
-                    </svg>
-                  </div>
-                  <div class="support-option-content">
-                    <h3>Create Support Ticket</h3>
-                    <p>Submit a detailed support request and track its progress. Perfect for complex issues.</p>
-                    <div class="ticket-stats">
-                      <span>Current tickets: 0</span>
-                      <span>Average resolution: 24 hours</span>
-                    </div>
-                  </div>
-                  <button @click="createTicket" class="support-action-btn secondary">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    New Ticket
-                  </button>
-                </div>
-
-                <!-- Contact Methods -->
-                <div class="contact-methods">
-                  <h3 class="section-title">Contact Methods</h3>
-                  <div class="contact-grid">
-                    <div class="contact-method">
-                      <div class="contact-icon email">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
+                    <div class="card-content">
+                      <h4>Live Chat</h4>
+                      <p>Chat with our support agents in real-time</p>
+                      <div class="status-indicator online">
+                        <span class="status-dot"></span>
+                        <span>3 agents online</span>
                       </div>
-                      <div class="contact-info">
-                        <h4>Email Support</h4>
-                        <p>support@footmarket.com</p>
+                    </div>
+                    <div class="card-action">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                      </svg>
+                      Start Chat
+                    </div>
+                  </div>
+
+                  <!-- Support Ticket Card -->
+                  <div class="action-card" @click="createTicket">
+                    <div class="card-icon ticket">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22 10V6a2 2 0 00-2-2H4a2 2 0 00-2 2v4a2 2 0 102 0V8h16v2a2 2 0 102 0zM2 14a2 2 0 102 0v4h16v-4a2 2 0 102 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
+                      </svg>
+                    </div>
+                    <div class="card-content">
+                      <h4>Support Ticket</h4>
+                      <p>Submit detailed requests and track progress</p>
+                      <div class="ticket-info">
+                        <span class="info-item">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                          Priority support
+                        </span>
+                      </div>
+                    </div>
+                    <div class="card-action">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                      </svg>
+                      Create Ticket
+                    </div>
+                  </div>
+
+                  <!-- Phone Support Card -->
+                  <div class="action-card" @click="callSupport">
+                    <div class="card-icon phone">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                      </svg>
+                    </div>
+                    <div class="card-content">
+                      <h4>Phone Support</h4>
+                      <p>Speak directly with our support team</p>
+                      <div class="phone-info">
+                        <span class="phone-number">+1 (555) 123-4567</span>
+                        <span class="availability">9 AM - 8 PM EST</span>
+                      </div>
+                    </div>
+                    <div class="card-action">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                      </svg>
+                      Call Now
+                    </div>
+                  </div>
+
+                  <!-- Email Support Card -->
+                  <div class="action-card" @click="emailSupport">
+                    <div class="card-icon email">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                      </svg>
+                    </div>
+                    <div class="card-content">
+                      <h4>Email Support</h4>
+                      <p>Send us detailed questions via email</p>
+                      <div class="email-info">
+                        <span class="email-address">support@footmarket.com</span>
                         <span class="response-time">Response within 4 hours</span>
                       </div>
-                      <button @click="emailSupport" class="contact-btn">Email</button>
                     </div>
+                    <div class="card-action">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                      </svg>
+                      Send Email
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                    <div class="contact-method">
-                      <div class="contact-icon phone">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                        </svg>
+              <!-- Self-Service Section -->
+              <div class="self-service-section">
+                <div class="section-header">
+                  <h3 class="section-heading">Self-Service Options</h3>
+                  <p class="section-description">Find answers quickly with our self-help resources</p>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="modern-faq-container">
+                  <div class="faq-header">
+                    <div class="faq-icon">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                      </svg>
+                    </div>
+                    <div class="faq-title">
+                      <h4>Frequently Asked Questions</h4>
+                      <p>Quick answers to common questions</p>
+                    </div>
+                  </div>
+
+                  <div class="modern-faq-list">
+                    <div v-for="faq in faqs" :key="faq.id" class="modern-faq-item" :class="{ 'expanded': faq.expanded }">
+                      <button @click="toggleFaq(faq.id)" class="modern-faq-question">
+                        <span class="question-text">{{ faq.question }}</span>
+                        <div class="question-icon">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                          </svg>
+                        </div>
+                      </button>
+                      <div class="modern-faq-answer">
+                        <div class="answer-content">
+                          <p>{{ faq.answer }}</p>
+                        </div>
                       </div>
-                      <div class="contact-info">
-                        <h4>Phone Support</h4>
-                        <p>+1 (555) 123-4567</p>
-                        <span class="response-time">Available 9 AM - 8 PM EST</span>
-                      </div>
-                      <button @click="callSupport" class="contact-btn">Call</button>
                     </div>
                   </div>
                 </div>
 
-                <!-- FAQ & Help Center -->
-                <div class="faq-section">
-                  <h3 class="section-title">Frequently Asked Questions</h3>
-                  <div class="faq-list">
-                    <div v-for="faq in faqs" :key="faq.id" class="faq-item" :class="{ 'active': faq.expanded }">
-                      <button @click="toggleFaq(faq.id)" class="faq-question">
-                        <span>{{ faq.question }}</span>
-                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                      </button>
-                      <div class="faq-answer" v-show="faq.expanded">
-                        <p>{{ faq.answer }}</p>
-                      </div>
+                <!-- Additional Resources -->
+                <div class="additional-resources">
+                  <div class="resource-card" @click="visitHelpCenter">
+                    <div class="resource-icon">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    </div>
+                    <div class="resource-content">
+                      <h4>Help Center</h4>
+                      <p>Comprehensive guides and tutorials</p>
+                    </div>
+                    <div class="resource-arrow">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
                     </div>
                   </div>
 
-                  <div class="help-center-link">
-                    <button @click="visitHelpCenter" class="help-center-btn">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  <div class="resource-card" @click="openCommunityForum">
+                    <div class="resource-icon">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v4h2v-7.5c0-.83.67-1.5 1.5-1.5S12 9.67 12 10.5V11h2.5c.83 0 1.5.67 1.5 1.5V18h2v-6.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5V18h2v-7c0-2.21-1.79-4-4-4H13c-1.1 0-2 .9-2 2v1.5c-.83 0-1.5.67-1.5 1.5S9.67 12 10.5 12V18H4z"/>
                       </svg>
-                      Visit Help Center
-                    </button>
+                    </div>
+                    <div class="resource-content">
+                      <h4>Community Forum</h4>
+                      <p>Connect with other customers</p>
+                    </div>
+                    <div class="resource-arrow">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="resource-card" @click="viewVideoTutorials">
+                    <div class="resource-icon">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                    <div class="resource-content">
+                      <h4>Video Tutorials</h4>
+                      <p>Step-by-step video guides</p>
+                    </div>
+                    <div class="resource-arrow">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
