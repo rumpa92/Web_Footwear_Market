@@ -4905,16 +4905,20 @@ export default {
   justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(4px);
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .modal-content {
   background: white;
   border-radius: 16px;
-  width: 90%;
+  width: 100%;
   max-width: 600px;
-  max-height: 80vh;
+  max-height: 90vh;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  margin: auto;
+  box-sizing: border-box;
 }
 
 .modal-header {
