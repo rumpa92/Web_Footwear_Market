@@ -330,7 +330,7 @@
       </div>
 
       <!-- Step 3: Enhanced Review -->
-      <div v-if="currentStep === 3" class="step-content-wrapper">
+      <div v-if="currentStep === 3 && isCreateTicketView" class="step-content-wrapper">
         <div class="content-card">
           <div class="card-header">
             <div class="card-icon">
