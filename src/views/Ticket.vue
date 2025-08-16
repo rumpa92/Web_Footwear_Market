@@ -849,9 +849,9 @@ export default {
       return ((this.currentStep - 1) / 2) * 100
     },
     isStep1Valid() {
-      return this.ticket.issueType && 
-             this.ticket.subject.trim() && 
-             this.ticket.description.trim() && 
+      return this.ticket.issueType &&
+             this.ticket.subject.trim() &&
+             this.ticket.description.trim() &&
              this.ticket.priority
     },
     expectedResponseTime() {
@@ -861,6 +861,12 @@ export default {
         case 'low': return '48 hours'
         default: return '24 hours'
       }
+    },
+    isCreateTicketView() {
+      return !this.showTicketList && !this.showTicketDetails
+    },
+    isMyTicketsView() {
+      return this.showTicketList || this.showTicketDetails
     }
   },
   methods: {
