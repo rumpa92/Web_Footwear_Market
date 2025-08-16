@@ -2095,7 +2095,7 @@ export default {
         { code: 'CA', name: 'Canada', flag: '🇨🇦' },
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
         { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', name: 'France', flag: '🇫����' },
+        { code: 'FR', name: 'France', flag: '🇫🇷' },
         { code: 'IT', name: 'Italy', flag: '🇮🇹' },
         { code: 'ES', name: 'Spain', flag: '🇪🇸' },
         { code: 'AU', name: 'Australia', flag: '🇦🇺' },
@@ -6051,7 +6051,16 @@ export default {
   .profile-page {
     padding: 1rem 0;
   }
-  
+
+  .profile-header {
+    padding: 0 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-header h1 {
+    font-size: 2rem;
+  }
+
   .profile-info-card,
   .feed-section,
   .avatar-management-card,
