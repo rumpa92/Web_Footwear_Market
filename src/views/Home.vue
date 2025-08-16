@@ -5,19 +5,31 @@
       <div class="container">
         <div class="hero-content">
           <div class="hero-text">
-            <h1 class="hero-title">Step Into Style</h1>
+            <div class="hero-badge">NEW ARRIVAL</div>
+            <div class="hero-main-text">
+              <h1 class="hero-title">SALE</h1>
+              <div class="hero-discount">30% OFF</div>
+            </div>
             <p class="hero-subtitle">
-              Discover the latest in premium footwear from top brands.
-              Quality, comfort, and style in every step.
+              Suitable for any kind of activities<br>
+              Available in blue and white color
             </p>
             <div class="hero-actions">
-              <router-link to="/products" class="btn btn-primary btn-lg">Shop Now</router-link>
-              <router-link to="/sale" class="btn btn-outline btn-lg">View Sale</router-link>
+              <router-link to="/products" class="shop-now-btn">SHOP NOW</router-link>
             </div>
+            <div class="hero-website">FOOTMARKET.COM</div>
           </div>
           <div class="hero-image">
-            <img src="https://cdn.builder.io/api/v1/image/assets%2F23a04e702fb74360aba7a9f27b2d6e80%2F67dbc8bb23884ad1bd049d53668c3ea5?format=webp&width=800" alt="Featured Shoes" />
+            <img src="https://cdn.builder.io/api/v1/image/assets%2F23a04e702fb74360aba7a9f27b2d6e80%2F00f7b5569b1141bdb85655ce9e21ff84?format=webp&width=800" alt="Featured Shoes" />
           </div>
+        </div>
+        <div class="geometric-elements">
+          <div class="triangle triangle-1"></div>
+          <div class="triangle triangle-2"></div>
+          <div class="triangle triangle-3"></div>
+          <div class="triangle triangle-4"></div>
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
         </div>
       </div>
     </section>
