@@ -1702,6 +1702,136 @@
         </div>
       </div>
     </div>
+
+    <!-- Refund Details Modal -->
+    <div v-if="showRefundDetailsModal && selectedRefund" class="modal-overlay" @click="closeRefundDetailsModal">
+      <div class="modal-content refund-details-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Refund Details #{{ selectedRefund.id }}</h3>
+          <button @click="closeRefundDetailsModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="refund-details-content">
+            <!-- Status Section -->
+            <div class="detail-section">
+              <h4>Current Status</h4>
+              <div class="status-display" :class="selectedRefund.status">
+                <div class="status-dot"></div>
+                <span class="status-text">{{ formatStatus(selectedRefund.status) }}</span>
+              </div>
+            </div>
+
+            <!-- Product Information -->
+            <div class="detail-section">
+              <h4>Product Information</h4>
+              <div class="product-details-grid">
+                <div class="detail-item">
+                  <span class="detail-label">Product Name:</span>
+                  <span class="detail-value">{{ selectedRefund.productName }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Variant:</span>
+                  <span class="detail-value">{{ selectedRefund.variant }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Order ID:</span>
+                  <span class="detail-value">#{{ selectedRefund.orderId }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Order Date:</span>
+                  <span class="detail-value">{{ formatDate(selectedRefund.orderDate) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Amount Breakdown -->
+            <div class="detail-section">
+              <h4>Amount Breakdown</h4>
+              <div class="amount-breakdown-table">
+                <div class="amount-row">
+                  <span class="amount-label">Product Price:</span>
+                  <span class="amount-value">{{ formatCurrency(selectedRefund.productPrice) }}</span>
+                </div>
+                <div class="amount-row">
+                  <span class="amount-label">Shipping Cost:</span>
+                  <span class="amount-value">{{ formatCurrency(selectedRefund.shippingCost) }}</span>
+                </div>
+                <div class="amount-row total">
+                  <span class="amount-label">Total Refund Amount:</span>
+                  <span class="amount-value">{{ formatCurrency(selectedRefund.refundAmount) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="detail-section">
+              <h4>Refund Timeline</h4>
+              <div class="timeline-container">
+                <div class="timeline-step completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-title">Request Submitted</span>
+                    <span class="timeline-date">{{ formatDate(selectedRefund.requestDate) }}</span>
+                  </div>
+                </div>
+                <div class="timeline-step" :class="{ completed: selectedRefund.processedDate }">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-title">{{ getTimelineTitle(selectedRefund.status) }}</span>
+                    <span class="timeline-date" v-if="selectedRefund.processedDate">{{ formatDate(selectedRefund.processedDate) }}</span>
+                    <span class="timeline-date" v-else>In Progress</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reason & Notes -->
+            <div class="detail-section" v-if="selectedRefund.reason">
+              <h4>Refund Reason</h4>
+              <div class="reason-display">
+                {{ selectedRefund.reason }}
+              </div>
+            </div>
+
+            <div class="detail-section" v-if="selectedRefund.adminNotes">
+              <h4>Admin Notes</h4>
+              <div class="notes-display">
+                {{ selectedRefund.adminNotes }}
+              </div>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="detail-section" v-if="selectedRefund.status === 'completed'">
+              <h4>Payment Information</h4>
+              <div class="payment-display">
+                <div class="payment-method-info">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                  </svg>
+                  <div class="payment-info-text">
+                    <span class="payment-method">{{ selectedRefund.paymentMethod }}</span>
+                    <span class="payment-account">{{ selectedRefund.paymentAccount }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button @click="closeRefundDetailsModal" class="modal-btn secondary">Close</button>
+          <button v-if="selectedRefund.status === 'pending'" @click="cancelRefund(selectedRefund.id); closeRefundDetailsModal()" class="modal-btn danger">
+            Cancel Request
+          </button>
+          <button v-if="selectedRefund.status === 'rejected'" @click="resubmitRefund(selectedRefund.id); closeRefundDetailsModal()" class="modal-btn success">
+            Resubmit Request
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
