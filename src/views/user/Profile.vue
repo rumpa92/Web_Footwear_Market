@@ -2106,6 +2106,197 @@
         </div>
       </div>
     </div>
+
+    <!-- Order Details Modal -->
+    <div v-if="showOrderDetailsModal && selectedOrder" class="modal-overlay" @click="closeOrderDetailsModal">
+      <div class="modal-content order-details-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Order Details #{{ selectedOrder.orderNumber }}</h3>
+          <button @click="closeOrderDetailsModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="order-details-content">
+            <!-- Order Status -->
+            <div class="detail-section">
+              <h4>Order Status</h4>
+              <div class="status-display" :class="selectedOrder.status">
+                <div class="status-dot"></div>
+                <span class="status-text">{{ formatOrderStatus(selectedOrder.status) }}</span>
+              </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="detail-section">
+              <h4>Order Items</h4>
+              <div class="order-items-detail">
+                <div v-for="item in selectedOrder.items" :key="item.id" class="detail-item-card">
+                  <img :src="item.image" :alt="item.name" class="detail-item-image" />
+                  <div class="detail-item-info">
+                    <h5 class="detail-item-name">{{ item.name }}</h5>
+                    <p class="detail-item-variant">{{ item.variant }}</p>
+                    <div class="detail-item-pricing">
+                      <span class="detail-item-price">${{ item.price.toFixed(2) }}</span>
+                      <span class="detail-item-qty">Qty: {{ item.quantity }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Information -->
+            <div class="detail-section">
+              <h4>Shipping Information</h4>
+              <div class="shipping-details">
+                <div class="detail-row">
+                  <span class="detail-label">Method:</span>
+                  <span class="detail-value">{{ selectedOrder.shipping.method }}</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Address:</span>
+                  <span class="detail-value">{{ selectedOrder.shipping.address }}</span>
+                </div>
+                <div class="detail-row" v-if="selectedOrder.tracking && selectedOrder.tracking.trackingNumber !== 'N/A'">
+                  <span class="detail-label">Tracking:</span>
+                  <span class="detail-value">{{ selectedOrder.tracking.trackingNumber }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="detail-section">
+              <h4>Payment Information</h4>
+              <div class="payment-details">
+                <div class="detail-row">
+                  <span class="detail-label">Method:</span>
+                  <span class="detail-value">{{ selectedOrder.payment.method }}</span>
+                </div>
+                <div class="detail-row" v-if="selectedOrder.payment.last4 !== 'PayPal'">
+                  <span class="detail-label">Card ending in:</span>
+                  <span class="detail-value">****{{ selectedOrder.payment.last4 }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="detail-section">
+              <h4>Order Summary</h4>
+              <div class="order-summary">
+                <div class="summary-row">
+                  <span class="summary-label">Subtotal:</span>
+                  <span class="summary-value">${{ (selectedOrder.total - selectedOrder.shipping.cost).toFixed(2) }}</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Shipping:</span>
+                  <span class="summary-value">${{ selectedOrder.shipping.cost.toFixed(2) }}</span>
+                </div>
+                <div class="summary-row total">
+                  <span class="summary-label">Total:</span>
+                  <span class="summary-value">${{ selectedOrder.total.toFixed(2) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button @click="closeOrderDetailsModal" class="modal-btn secondary">Close</button>
+          <button v-if="selectedOrder.tracking && selectedOrder.tracking.trackingNumber !== 'N/A'" @click="trackOrder(selectedOrder)" class="modal-btn primary">
+            Track Order
+          </button>
+          <button v-if="selectedOrder.canRefund" @click="initiateRefund(selectedOrder); closeOrderDetailsModal()" class="modal-btn refund">
+            Request Refund
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refund Request Modal -->
+    <div v-if="showRefundModal && selectedOrder" class="modal-overlay" @click="closeRefundModal">
+      <div class="modal-content refund-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Request Refund - Order #{{ selectedOrder.orderNumber }}</h3>
+          <button @click="closeRefundModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="refund-form">
+            <!-- Refund Items -->
+            <div class="form-section">
+              <h4>Items to Refund</h4>
+              <div class="refund-items">
+                <div v-for="item in selectedOrder.items" :key="item.id" class="refund-item-card">
+                  <img :src="item.image" :alt="item.name" class="refund-item-image" />
+                  <div class="refund-item-info">
+                    <h5 class="refund-item-name">{{ item.name }}</h5>
+                    <p class="refund-item-variant">{{ item.variant }}</p>
+                    <div class="refund-item-price">${{ item.price.toFixed(2) }}</div>
+                  </div>
+                  <div class="refund-item-checkbox">
+                    <input type="checkbox" :id="'refund-item-' + item.id" checked />
+                    <label :for="'refund-item-' + item.id">Refund</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Refund Reason -->
+            <div class="form-section">
+              <h4>Reason for Refund</h4>
+              <select v-model="refundReason" class="form-select" required>
+                <option value="">Select a reason</option>
+                <option value="defective">Item is defective</option>
+                <option value="wrong-item">Wrong item received</option>
+                <option value="not-as-described">Item not as described</option>
+                <option value="size-issue">Size/fit issue</option>
+                <option value="changed-mind">Changed my mind</option>
+                <option value="damaged-shipping">Damaged during shipping</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Additional Comments -->
+            <div class="form-section">
+              <h4>Additional Comments (Optional)</h4>
+              <textarea
+                v-model="refundComments"
+                class="form-textarea"
+                rows="4"
+                placeholder="Please provide any additional details about your refund request..."
+              ></textarea>
+            </div>
+
+            <!-- Refund Policy Notice -->
+            <div class="refund-policy-notice">
+              <div class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div class="notice-text">
+                <h5>Refund Policy</h5>
+                <p>Refunds are processed within 5-7 business days. Items must be returned in original condition. Shipping costs are non-refundable unless the item was defective or damaged.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button @click="closeRefundModal" class="modal-btn secondary">Cancel</button>
+          <button @click="submitRefundRequest" class="modal-btn refund" :disabled="!refundReason">
+            Submit Refund Request
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
