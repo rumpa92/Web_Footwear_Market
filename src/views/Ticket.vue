@@ -461,6 +461,237 @@
               </svg>
               Create Another Ticket
             </button>
+            <button @click="showMyTickets" class="success-button primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8m4-12H9m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2M9 7v8a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H9z"/>
+              </svg>
+              View My Tickets
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Tickets List -->
+      <div v-if="showTicketList && !showTicketDetails" class="step-content-wrapper">
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8m4-12H9m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2M9 7v8a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H9z"/>
+              </svg>
+            </div>
+            <div class="card-title">
+              <h2>My Tickets</h2>
+              <p>Track and manage your support requests</p>
+            </div>
+            <button @click="backToTicketList" class="create-new-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              Create New Ticket
+            </button>
+          </div>
+
+          <div v-if="userTickets.length === 0" class="no-tickets">
+            <div class="no-tickets-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8m4-12H9m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2M9 7v8a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H9z"/>
+              </svg>
+            </div>
+            <h3>No tickets found</h3>
+            <p>You haven't created any support tickets yet.</p>
+            <button @click="backToTicketList" class="create-first-ticket-btn">
+              Create Your First Ticket
+            </button>
+          </div>
+
+          <div v-else class="tickets-list">
+            <div v-for="ticket in userTickets" :key="ticket.id" class="ticket-card" @click="viewTicketDetails(ticket)">
+              <div class="ticket-header">
+                <div class="ticket-id-subject">
+                  <h3 class="ticket-id">#{{ ticket.id }}</h3>
+                  <p class="ticket-subject">{{ ticket.subject }}</p>
+                </div>
+                <div class="ticket-status" :class="getStatusClass(ticket.status)">
+                  <span class="status-dot"></span>
+                  <span class="status-text">{{ ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1).replace('-', ' ') }}</span>
+                </div>
+              </div>
+
+              <div class="ticket-meta">
+                <div class="meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <span>{{ formatDate(ticket.dateRaised) }}</span>
+                </div>
+                <div class="meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 3v11a2 2 0 002 2h6a2 2 0 002-2V7M9 7h6M9 11h6M9 15h6"/>
+                  </svg>
+                  <span>{{ formatIssueType(ticket.issueType) }}</span>
+                </div>
+                <div class="meta-item priority" :class="ticket.priority">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+                  <span>{{ ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1) }}</span>
+                </div>
+              </div>
+
+              <div class="ticket-preview">
+                <p>{{ ticket.description.substring(0, 120) }}{{ ticket.description.length > 120 ? '...' : '' }}</p>
+              </div>
+
+              <div class="ticket-footer">
+                <div class="ticket-stats">
+                  <span class="stat-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    {{ ticket.replies.length }} replies
+                  </span>
+                  <span v-if="ticket.attachments > 0" class="stat-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                    </svg>
+                    {{ ticket.attachments }} files
+                  </span>
+                </div>
+                <div class="last-activity">
+                  Last activity: {{ formatDate(ticket.lastReply) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticket Details View -->
+      <div v-if="showTicketDetails && selectedTicket" class="step-content-wrapper">
+        <div class="content-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8m4-12H9m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2M9 7v8a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H9z"/>
+              </svg>
+            </div>
+            <div class="card-title">
+              <h2>Ticket #{{ selectedTicket.id }}</h2>
+              <p>{{ selectedTicket.subject }}</p>
+            </div>
+            <button @click="closeTicketDetails" class="back-to-list-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+              Back to Tickets
+            </button>
+          </div>
+
+          <div class="ticket-details-content">
+            <!-- Ticket Information -->
+            <div class="ticket-info-section">
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Status:</span>
+                  <span class="info-value status" :class="getStatusClass(selectedTicket.status)">
+                    {{ selectedTicket.status.charAt(0).toUpperCase() + selectedTicket.status.slice(1).replace('-', ' ') }}
+                  </span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Priority:</span>
+                  <span class="info-value priority" :class="selectedTicket.priority">
+                    {{ selectedTicket.priority.charAt(0).toUpperCase() + selectedTicket.priority.slice(1) }}
+                  </span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Issue Type:</span>
+                  <span class="info-value">{{ formatIssueType(selectedTicket.issueType) }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Date Raised:</span>
+                  <span class="info-value">{{ formatDate(selectedTicket.dateRaised) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Original Description -->
+            <div class="original-message">
+              <h4>Original Message</h4>
+              <div class="message-content">
+                <p>{{ selectedTicket.description }}</p>
+              </div>
+            </div>
+
+            <!-- Conversation -->
+            <div class="conversation-section">
+              <h4>Conversation with Support</h4>
+              <div v-if="selectedTicket.replies.length === 0" class="no-replies">
+                <p>No replies yet. Our support team will respond soon.</p>
+              </div>
+              <div v-else class="replies-list">
+                <div v-for="reply in selectedTicket.replies" :key="reply.id" class="reply-item" :class="reply.sender">
+                  <div class="reply-avatar">
+                    <svg v-if="reply.sender === 'support'" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <svg v-else viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                  </div>
+                  <div class="reply-content">
+                    <div class="reply-header">
+                      <span class="reply-sender">{{ reply.sender === 'support' ? 'Support Team' : 'You' }}</span>
+                      <span class="reply-time">{{ formatDate(reply.timestamp) }}</span>
+                    </div>
+                    <div class="reply-text">{{ reply.text }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add Reply Section -->
+            <div v-if="selectedTicket.status !== 'closed'" class="add-reply-section">
+              <h4>Add Reply</h4>
+              <div class="reply-form">
+                <textarea
+                  v-model="newReplyText"
+                  placeholder="Type your message here..."
+                  rows="4"
+                  class="reply-textarea"
+                ></textarea>
+                <div class="reply-actions">
+                  <button @click="addReply(selectedTicket.id)" class="add-reply-btn" :disabled="!newReplyText.trim()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                    Send Reply
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ticket Actions -->
+            <div class="ticket-actions-section">
+              <div class="actions-grid">
+                <button
+                  v-if="selectedTicket.status !== 'closed'"
+                  @click="closeTicket(selectedTicket.id)"
+                  class="action-btn close-ticket"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Close Ticket
+                </button>
+                <button class="action-btn add-attachment">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                  </svg>
+                  Add Attachment
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
