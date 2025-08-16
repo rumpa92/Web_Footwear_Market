@@ -734,6 +734,62 @@ export default {
     loadMoreRecommendations() {
       this.$toast?.info('Loading more recommendations...')
     },
+
+    // Notification methods
+    formatNotificationTime(time) {
+      const now = new Date()
+      const diff = now - time
+      const hours = Math.floor(diff / (1000 * 60 * 60))
+      const days = Math.floor(hours / 24)
+
+      if (days > 0) {
+        return `${days} day${days > 1 ? 's' : ''} ago`
+      } else if (hours > 0) {
+        return `${hours} hour${hours > 1 ? 's' : ''} ago`
+      } else {
+        const minutes = Math.floor(diff / (1000 * 60))
+        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`
+      }
+    },
+
+    markAsRead(notificationId) {
+      const notification = this.notifications.find(n => n.id === notificationId)
+      if (notification) {
+        notification.read = true
+        this.updateNotificationBadge()
+        this.$toast?.success('Notification marked as read')
+      }
+    },
+
+    markAllAsRead() {
+      this.notifications.forEach(notification => {
+        notification.read = true
+      })
+      this.updateNotificationBadge()
+      this.$toast?.success('All notifications marked as read')
+    },
+
+    handleNotificationAction(notification) {
+      if (notification.action) {
+        this.$toast?.info(`Navigating to ${notification.action.text}`)
+        // In a real app, you would navigate to the URL
+        // this.$router.push(notification.action.url)
+      }
+    },
+
+    updateNotificationBadge() {
+      const notificationSection = this.profileSections.find(s => s.id === 'notifications')
+      if (notificationSection) {
+        const unreadCount = this.unreadNotifications.length
+        notificationSection.badge = unreadCount > 0 ? unreadCount.toString() : undefined
+      }
+    },
+
+    saveNotificationSettings() {
+      // Save settings to localStorage or API
+      localStorage.setItem('notificationSettings', JSON.stringify(this.notificationSettings))
+      this.$toast?.success('Notification settings saved successfully!')
+    },
     
   }
 }
