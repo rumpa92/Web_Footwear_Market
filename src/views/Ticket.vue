@@ -16,8 +16,37 @@
         </div>
       </div>
 
+      <!-- Ticket Navigation Bar -->
+      <div class="ticket-nav-bar" v-if="!showSuccess">
+        <div class="nav-section">
+          <button
+            @click="switchToCreateTicket"
+            class="nav-option create-ticket"
+            :class="{ active: isCreateTicketView }"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            <span>Create Ticket</span>
+          </button>
+        </div>
+        <div class="nav-section">
+          <button
+            @click="switchToMyTickets"
+            class="nav-option my-tickets"
+            :class="{ active: isMyTicketsView }"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8m4-12H9m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2M9 7v8a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H9z"/>
+            </svg>
+            <span>My Tickets</span>
+            <div v-if="userTickets.length > 0" class="ticket-count">{{ userTickets.length }}</div>
+          </button>
+        </div>
+      </div>
+
       <!-- Enhanced Progress Steps -->
-      <div class="progress-container">
+      <div class="progress-container" v-if="isCreateTicketView">
         <div class="progress-steps">
           <div 
             v-for="(step, index) in steps" 
