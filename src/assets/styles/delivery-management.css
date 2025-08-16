@@ -442,30 +442,43 @@
 .address-type-badge {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-sm);
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
   border-radius: var(--border-radius-full);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   border: 1px solid;
+  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.address-type-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .address-type-badge.home {
-  background: rgba(52, 152, 219, 0.1);
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.1));
+  color: #2980b9;
+  border-color: rgba(52, 152, 219, 0.3);
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.2);
 }
 
 .address-type-badge.work {
-  background: rgba(243, 156, 18, 0.1);
-  color: var(--warning-color);
-  border-color: var(--warning-color);
+  background: linear-gradient(135deg, rgba(243, 156, 18, 0.2), rgba(243, 156, 18, 0.1));
+  color: #d68910;
+  border-color: rgba(243, 156, 18, 0.3);
+  box-shadow: 0 4px 16px rgba(243, 156, 18, 0.2);
 }
 
 .address-type-badge.other {
-  background: rgba(155, 89, 182, 0.1);
-  color: #9b59b6;
-  border-color: #9b59b6;
+  background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(155, 89, 182, 0.1));
+  color: #8e44ad;
+  border-color: rgba(155, 89, 182, 0.3);
+  box-shadow: 0 4px 16px rgba(155, 89, 182, 0.2);
 }
 
 .address-type-badge svg {
