@@ -844,148 +844,236 @@
 
           <!-- Privacy & Terms Section -->
           <div v-if="activeSection === 'privacy-terms'" class="section">
-            <div class="privacy-terms-card">
-              <div class="card-header">
-                <div class="header-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                  </svg>
+            <div class="modern-privacy-container">
+              <!-- Privacy Hero -->
+              <div class="privacy-hero">
+                <div class="privacy-hero-content">
+                  <div class="hero-shield">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.58L18 9l-8 8z"/>
+                    </svg>
+                  </div>
+                  <div class="hero-text">
+                    <h2>Privacy & Data Protection</h2>
+                    <p>We take your privacy seriously and are committed to protecting your personal information</p>
+                  </div>
                 </div>
-                <h2>Privacy & Terms</h2>
+                <div class="privacy-badge">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                  <span>GDPR Compliant</span>
+                </div>
               </div>
 
-              <div class="privacy-terms-content">
-                <!-- Policy Documents -->
-                <div class="policy-section">
-                  <h3 class="section-title">Legal Documents</h3>
-                  <div class="policy-documents">
-                    <div class="policy-document">
-                      <div class="document-icon privacy">
+              <!-- Legal Documents -->
+              <div class="modern-documents-section">
+                <h3 class="modern-section-title">Legal Documents</h3>
+                <div class="modern-documents-grid">
+                  <div class="modern-document-card" @click="viewPrivacyPolicy">
+                    <div class="document-header">
+                      <div class="document-icon-modern privacy">
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.58L18 9l-8 8z"/>
+                          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
                         </svg>
                       </div>
-                      <div class="document-info">
-                        <h4>Privacy Policy</h4>
-                        <p>Learn how we collect, use, and protect your personal information</p>
-                        <span class="last-updated">Last updated: March 15, 2024</span>
-                      </div>
-                      <button @click="viewPrivacyPolicy" class="document-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                      <div class="document-status updated">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
                         </svg>
-                        View Policy
-                      </button>
+                        Recently Updated
+                      </div>
                     </div>
+                    <div class="document-content">
+                      <h4>Privacy Policy</h4>
+                      <p>Comprehensive guide on how we collect, use, and protect your personal data</p>
+                      <div class="document-meta">
+                        <span class="update-date">Updated March 15, 2024</span>
+                        <span class="read-time">8 min read</span>
+                      </div>
+                    </div>
+                    <div class="document-action">
+                      <span>Read Policy</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </div>
+                  </div>
 
-                    <div class="policy-document">
-                      <div class="document-icon terms">
+                  <div class="modern-document-card" @click="viewTerms">
+                    <div class="document-header">
+                      <div class="document-icon-modern terms">
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/>
                         </svg>
                       </div>
-                      <div class="document-info">
-                        <h4>Terms & Conditions</h4>
-                        <p>Review the terms that govern your use of our services</p>
-                        <span class="last-updated">Last updated: March 10, 2024</span>
+                    </div>
+                    <div class="document-content">
+                      <h4>Terms of Service</h4>
+                      <p>Legal terms and conditions that govern your use of our platform and services</p>
+                      <div class="document-meta">
+                        <span class="update-date">Updated March 10, 2024</span>
+                        <span class="read-time">12 min read</span>
                       </div>
-                      <button @click="viewTerms" class="document-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                        View Terms
-                      </button>
+                    </div>
+                    <div class="document-action">
+                      <span>Read Terms</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- Data Protection & Consent -->
-                <div class="consent-section">
-                  <h3 class="section-title">Data Protection & Consent</h3>
-                  <div class="consent-options">
-                    <div class="consent-item">
-                      <div class="consent-info">
-                        <h4>Data Processing Consent</h4>
-                        <p>Allow us to process your data for account management and service improvement</p>
+              <!-- Privacy Controls -->
+              <div class="modern-privacy-controls">
+                <h3 class="modern-section-title">Privacy Controls</h3>
+                <p class="section-subtitle">Manage how your data is used and what communications you receive</p>
+
+                <div class="privacy-control-cards">
+                  <div class="privacy-control-card essential">
+                    <div class="control-header">
+                      <div class="control-icon essential">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                        </svg>
                       </div>
-                      <div class="consent-toggle">
-                        <input type="checkbox" v-model="privacySettings.dataProcessing" id="dataProcessing" disabled>
-                        <label for="dataProcessing" class="toggle-label required"></label>
-                        <span class="required-label">Required</span>
+                      <div class="essential-badge">Essential</div>
+                    </div>
+                    <div class="control-content">
+                      <h4>Essential Data Processing</h4>
+                      <p>Required for core functionality like account management, order processing, and security</p>
+                      <div class="essential-notice">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Always Active
                       </div>
                     </div>
+                  </div>
 
-                    <div class="consent-item">
-                      <div class="consent-info">
-                        <h4>Marketing Communications</h4>
-                        <p>Receive personalized offers and promotional content via email and SMS</p>
+                  <div class="privacy-control-card">
+                    <div class="control-header">
+                      <div class="control-icon marketing">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/>
+                        </svg>
                       </div>
-                      <div class="consent-toggle">
-                        <input type="checkbox" v-model="privacySettings.marketing" id="marketing">
-                        <label for="marketing" class="toggle-label"></label>
+                      <div class="control-toggle">
+                        <input type="checkbox" v-model="privacySettings.marketing" id="marketingControl">
+                        <label for="marketingControl" class="modern-toggle-label"></label>
                       </div>
                     </div>
-
-                    <div class="consent-item">
-                      <div class="consent-info">
-                        <h4>Analytics & Performance</h4>
-                        <p>Help us improve our services by sharing anonymous usage analytics</p>
-                      </div>
-                      <div class="consent-toggle">
-                        <input type="checkbox" v-model="privacySettings.analytics" id="analytics">
-                        <label for="analytics" class="toggle-label"></label>
+                    <div class="control-content">
+                      <h4>Marketing Communications</h4>
+                      <p>Receive personalized offers, product recommendations, and promotional content</p>
+                      <div class="control-benefits">
+                        <span>• Exclusive deals and discounts</span>
+                        <span>• New product announcements</span>
+                        <span>• Personalized recommendations</span>
                       </div>
                     </div>
+                  </div>
 
-                    <div class="consent-item">
-                      <div class="consent-info">
-                        <h4>Third-party Integrations</h4>
-                        <p>Allow data sharing with trusted partners for enhanced functionality</p>
+                  <div class="privacy-control-card">
+                    <div class="control-header">
+                      <div class="control-icon analytics">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
                       </div>
-                      <div class="consent-toggle">
-                        <input type="checkbox" v-model="privacySettings.thirdParty" id="thirdParty">
-                        <label for="thirdParty" class="toggle-label"></label>
+                      <div class="control-toggle">
+                        <input type="checkbox" v-model="privacySettings.analytics" id="analyticsControl">
+                        <label for="analyticsControl" class="modern-toggle-label"></label>
+                      </div>
+                    </div>
+                    <div class="control-content">
+                      <h4>Analytics & Performance</h4>
+                      <p>Help us improve our services with anonymous usage data and performance metrics</p>
+                      <div class="control-benefits">
+                        <span>• Better user experience</span>
+                        <span>• Improved site performance</span>
+                        <span>• Enhanced features</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="privacy-control-card">
+                    <div class="control-header">
+                      <div class="control-icon partners">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v4h2v-7.5c0-.83.67-1.5 1.5-1.5S12 9.67 12 10.5V11h2.5c.83 0 1.5.67 1.5 1.5V18h2v-6.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5V18h2v-7c0-2.21-1.79-4-4-4H13c-1.1 0-2 .9-2 2v1.5c-.83 0-1.5.67-1.5 1.5S9.67 12 10.5 12V18H4z"/>
+                        </svg>
+                      </div>
+                      <div class="control-toggle">
+                        <input type="checkbox" v-model="privacySettings.thirdParty" id="partnersControl">
+                        <label for="partnersControl" class="modern-toggle-label"></label>
+                      </div>
+                    </div>
+                    <div class="control-content">
+                      <h4>Trusted Partners</h4>
+                      <p>Share data with vetted partners to enhance functionality and provide better services</p>
+                      <div class="control-benefits">
+                        <span>• Enhanced payment security</span>
+                        <span>• Better shipping options</span>
+                        <span>• Social media integration</span>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- Data Download -->
-                <div class="data-download-section">
-                  <h3 class="section-title">Your Data</h3>
-                  <div class="data-download-card">
-                    <div class="download-icon">
+              <!-- Data Management -->
+              <div class="modern-data-management">
+                <h3 class="modern-section-title">Data Management</h3>
+                <div class="data-actions-grid">
+                  <div class="data-action-card export" @click="requestDataDownload">
+                    <div class="action-icon export">
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM12 19l-4-4h3V9h2v6h3l-4 4z"/>
                       </svg>
                     </div>
-                    <div class="download-info">
-                      <h4>Download Your Data</h4>
-                      <p>Get a copy of all your personal data we have on file, including your profile, orders, and preferences.</p>
-                      <div class="download-details">
-                        <span>Format: JSON/CSV</span>
-                        <span>Processing time: 24-48 hours</span>
-                        <span>Delivery: Email link</span>
+                    <div class="action-content">
+                      <h4>Export Your Data</h4>
+                      <p>Download a complete copy of your personal data in a portable format</p>
+                      <div class="action-details">
+                        <span>📄 Includes profile, orders, preferences</span>
+                        <span>⏱️ Ready within 24-48 hours</span>
+                        <span>📧 Delivered via secure email link</span>
                       </div>
                     </div>
-                    <button @click="requestDataDownload" class="download-btn">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <div class="action-button">Request Export</div>
+                  </div>
+
+                  <div class="data-action-card view" @click="viewDataSummary">
+                    <div class="action-icon view">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
                       </svg>
-                      Request Data Export
-                    </button>
+                    </div>
+                    <div class="action-content">
+                      <h4>View Data Summary</h4>
+                      <p>See an overview of what personal data we have stored about you</p>
+                      <div class="action-details">
+                        <span>📊 Data categories breakdown</span>
+                        <span>📅 Collection and usage dates</span>
+                        <span>🔍 Sources and purposes</span>
+                      </div>
+                    </div>
+                    <div class="action-button">View Summary</div>
                   </div>
                 </div>
+              </div>
 
-                <!-- Save Settings -->
-                <div class="settings-actions">
-                  <button @click="savePrivacySettings" class="save-settings-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    Save Privacy Settings
-                  </button>
-                </div>
+              <!-- Save Actions -->
+              <div class="modern-save-section">
+                <button @click="savePrivacySettings" class="modern-save-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  Save Privacy Preferences
+                </button>
               </div>
             </div>
           </div>
