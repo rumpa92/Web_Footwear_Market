@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop" alt="Featured Shoes" />
+            <img src="https://cdn.builder.io/api/v1/image/assets%2F23a04e702fb74360aba7a9f27b2d6e80%2F67dbc8bb23884ad1bd049d53668c3ea5?format=webp&width=800" alt="Featured Shoes" />
           </div>
         </div>
       </div>
