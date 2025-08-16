@@ -650,7 +650,7 @@ export default {
     },
     formatIssueType(type) {
       const types = {
-        'order-issue': '🛍️ Order Issue',
+        'order-issue': '��️ Order Issue',
         'product-defect': '🔧 Product Defect',
         'shipping-problem': '📦 Shipping Problem',
         'payment-issue': '💳 Payment Issue',
@@ -719,8 +719,6 @@ export default {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
-  position: relative;
-  z-index: 1;
 }
 
 /* Enhanced Header */
@@ -728,56 +726,27 @@ export default {
   margin-bottom: 30px;
 }
 
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-.back-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.back-button svg {
-  width: 20px;
-  height: 20px;
-}
-
 .header-content {
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
+  background: white;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .header-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
 }
 
 .header-icon svg {
@@ -788,13 +757,12 @@ export default {
 .header-text h1 {
   font-size: 28px;
   font-weight: 700;
-  color: white;
+  color: #1e293b;
   margin: 0 0 4px 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-text p {
-  color: rgba(255, 255, 255, 0.9);
+  color: #64748b;
   margin: 0;
   font-size: 16px;
 }
