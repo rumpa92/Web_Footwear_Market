@@ -3276,14 +3276,49 @@ Need help? Contact customer service at support@footmarket.com`
     },
 
     resetPreferences() {
-      this.selectedTimeSlot = 4
-      this.deliveryInstructions = ''
-      this.deliveryNotifications = {
-        sms: true,
-        email: true,
-        photo: false
+      // Confirm before resetting
+      const confirmReset = confirm(`🔄 Reset Delivery Preferences
+
+This will restore all delivery preferences to their default values:
+
+⏰ Preferred Time: Anytime (No preference)
+📝 Special Instructions: (Cleared)
+📱 SMS Updates: Enabled
+📧 Email Updates: Enabled
+📸 Photo Confirmation: Disabled
+
+Are you sure you want to continue?`)
+
+      if (!confirmReset) {
+        return
       }
-      this.$toast?.success('Preferences reset to default!')
+
+      // Show loading state
+      this.$toast?.info('Resetting preferences...')
+
+      setTimeout(() => {
+        this.selectedTimeSlot = 4 // "Anytime" option
+        this.deliveryInstructions = ''
+        this.deliveryNotifications = {
+          sms: true,
+          email: true,
+          photo: false
+        }
+
+        // Clear from localStorage too
+        try {
+          localStorage.removeItem('deliverySettings')
+        } catch (error) {
+          console.error('Error clearing delivery settings:', error)
+        }
+
+        this.$toast?.success('✅ Preferences reset to default values!')
+
+        // Optional detailed confirmation
+        setTimeout(() => {
+          this.$toast?.info('All delivery preferences have been restored to their original settings')
+        }, 1500)
+      }, 600)
     }
   },
 
