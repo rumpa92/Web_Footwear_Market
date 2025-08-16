@@ -252,12 +252,167 @@
           </div>
 
 
-          <!-- Other sections remain the same but simplified -->
+          <!-- Notifications Section -->
           <div v-if="activeSection === 'notifications'" class="section">
-            <div class="simple-card">
-              <h2>Notifications</h2>
-              <p>Manage your notification preferences</p>
-              <!-- Notification settings content -->
+            <div class="notifications-card">
+              <div class="card-header">
+                <div class="header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                  </svg>
+                </div>
+                <h2>Notifications</h2>
+                <button
+                  v-if="unreadNotifications.length > 0"
+                  @click="markAllAsRead"
+                  class="mark-all-read-btn"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  Mark All as Read
+                </button>
+              </div>
+
+              <!-- Recent Notifications -->
+              <div class="notifications-content">
+                <div class="notifications-list-section">
+                  <h3 class="section-title">Recent Alerts</h3>
+                  <div class="notifications-list">
+                    <div
+                      v-for="notification in notifications"
+                      :key="notification.id"
+                      class="notification-item"
+                      :class="{ 'unread': !notification.read }"
+                    >
+                      <div class="notification-icon" :class="notification.type">
+                        <svg v-if="notification.type === 'order'" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19 7h-3V5a2 2 0 00-2-2H10a2 2 0 00-2 2v2H5a1 1 0 000 2h1v11a3 3 0 003 3h6a3 3 0 003-3V9h1a1 1 0 000-2zM10 5h4v2h-4V5zm6 15a1 1 0 01-1 1H9a1 1 0 01-1-1V9h8v11z"/>
+                        </svg>
+                        <svg v-else-if="notification.type === 'promotion'" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12.79 21L3 11.21v2c0 .53.21 1.04.59 1.41l7.79 7.79c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.79 21z"/>
+                          <path d="M11.38 17.41c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.63.58C12.25.21 11.74 0 11.21 0H5C3.9 0 3 .9 3 2v6.21c0 .53.21 1.04.59 1.41l7.79 7.79z"/>
+                        </svg>
+                        <svg v-else-if="notification.type === 'delivery'" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                        <svg v-else viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                      </div>
+                      <div class="notification-content">
+                        <div class="notification-header">
+                          <h4 class="notification-title">{{ notification.title }}</h4>
+                          <span class="notification-time">{{ formatNotificationTime(notification.time) }}</span>
+                        </div>
+                        <p class="notification-message">{{ notification.message }}</p>
+                        <div v-if="notification.action" class="notification-action">
+                          <button @click="handleNotificationAction(notification)" class="notification-action-btn">
+                            {{ notification.action.text }}
+                          </button>
+                        </div>
+                      </div>
+                      <button
+                        v-if="!notification.read"
+                        @click="markAsRead(notification.id)"
+                        class="mark-read-btn"
+                        title="Mark as read"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="notification-settings-section">
+                  <h3 class="section-title">Notification Settings</h3>
+                  <div class="settings-list">
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <div class="setting-icon order">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 7h-3V5a2 2 0 00-2-2H10a2 2 0 00-2 2v2H5a1 1 0 000 2h1v11a3 3 0 003 3h6a3 3 0 003-3V9h1a1 1 0 000-2z"/>
+                          </svg>
+                        </div>
+                        <div class="setting-content">
+                          <h4>Order Updates</h4>
+                          <p>Get notified about order confirmations, shipping updates, and delivery status</p>
+                        </div>
+                      </div>
+                      <div class="setting-toggle">
+                        <input type="checkbox" v-model="notificationSettings.orderUpdates" id="orderUpdates">
+                        <label for="orderUpdates" class="toggle-label"></label>
+                      </div>
+                    </div>
+
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <div class="setting-icon promotion">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.79 21L3 11.21v2c0 .53.21 1.04.59 1.41l7.79 7.79c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.79 21z"/>
+                          </svg>
+                        </div>
+                        <div class="setting-content">
+                          <h4>Promotions & Offers</h4>
+                          <p>Receive exclusive deals, discounts, and promotional campaigns</p>
+                        </div>
+                      </div>
+                      <div class="setting-toggle">
+                        <input type="checkbox" v-model="notificationSettings.promotions" id="promotions">
+                        <label for="promotions" class="toggle-label"></label>
+                      </div>
+                    </div>
+
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <div class="setting-icon delivery">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/>
+                          </svg>
+                        </div>
+                        <div class="setting-content">
+                          <h4>Delivery Reminders</h4>
+                          <p>Get alerts about upcoming deliveries and pickup reminders</p>
+                        </div>
+                      </div>
+                      <div class="setting-toggle">
+                        <input type="checkbox" v-model="notificationSettings.deliveryReminders" id="deliveryReminders">
+                        <label for="deliveryReminders" class="toggle-label"></label>
+                      </div>
+                    </div>
+
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <div class="setting-icon general">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                          </svg>
+                        </div>
+                        <div class="setting-content">
+                          <h4>General Alerts</h4>
+                          <p>Account security, policy updates, and important announcements</p>
+                        </div>
+                      </div>
+                      <div class="setting-toggle">
+                        <input type="checkbox" v-model="notificationSettings.generalAlerts" id="generalAlerts">
+                        <label for="generalAlerts" class="toggle-label"></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-actions">
+                    <button @click="saveNotificationSettings" class="save-settings-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      Save Settings
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
