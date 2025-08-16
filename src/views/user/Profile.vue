@@ -3140,6 +3140,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../../assets/styles/delivery-management.css';
 .profile-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
