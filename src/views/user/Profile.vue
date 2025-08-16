@@ -2792,6 +2792,17 @@ export default {
     closeRefundDetailsModal() {
       this.showRefundDetailsModal = false
       this.selectedRefund = null
+    },
+
+    getTimelineTitle(status) {
+      const titleMap = {
+        'pending': 'Under Review',
+        'approved': 'Approved',
+        'rejected': 'Rejected',
+        'completed': 'Refund Processed',
+        'cancelled': 'Cancelled'
+      }
+      return titleMap[status] || 'Processing'
     }
     },
 
