@@ -86,13 +86,32 @@ const actions = {
           email: credentials.email,
           avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9c2002c?w=100&h=100&fit=crop'
         }
+        // Save to localStorage for persistence
+        localStorage.setItem('user', JSON.stringify(user))
         commit('SET_USER', user)
         resolve(user)
       }, 1000)
     })
   },
   logout({ commit }) {
+    // Clear localStorage
+    localStorage.removeItem('user')
+    sessionStorage.removeItem('user')
     commit('LOGOUT_USER')
+  },
+  // Initialize user from localStorage on app start
+  initializeAuth({ commit }) {
+    const user = localStorage.getItem('user') || sessionStorage.getItem('user')
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user)
+        commit('SET_USER', parsedUser)
+      } catch (error) {
+        console.error('Error parsing user data:', error)
+        localStorage.removeItem('user')
+        sessionStorage.removeItem('user')
+      }
+    }
   },
   register({ commit }, userData) {
     // Simulate registration - in real app, this would call an API
@@ -103,6 +122,8 @@ const actions = {
           ...userData,
           avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9c2002c?w=100&h=100&fit=crop'
         }
+        // Save to localStorage for persistence
+        localStorage.setItem('user', JSON.stringify(user))
         commit('SET_USER', user)
         resolve(user)
       }, 1000)
