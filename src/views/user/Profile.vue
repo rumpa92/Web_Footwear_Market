@@ -1076,11 +1076,189 @@
             </div>
           </div>
 
+          <!-- Delivery Management Section -->
           <div v-if="activeSection === 'delivery-management'" class="section">
-            <div class="simple-card">
-              <h2>Delivery Management</h2>
-              <p>Manage your delivery preferences</p>
-              <!-- Delivery management content -->
+            <div class="delivery-management-card">
+              <div class="card-header">
+                <div class="header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M9 1L20 7l-8 4"/>
+                  </svg>
+                </div>
+                <h2>Delivery Management</h2>
+                <button @click="addNewAddress" class="add-address-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                  Add New Address
+                </button>
+              </div>
+
+              <div class="delivery-management-content">
+                <!-- Saved Addresses -->
+                <div class="addresses-section">
+                  <h3 class="section-title">Saved Addresses</h3>
+                  <div class="addresses-list">
+                    <div v-for="address in savedAddresses" :key="address.id" class="address-item" :class="{ 'default': address.isDefault }">
+                      <div class="address-content">
+                        <div class="address-header">
+                          <div class="address-type">
+                            <span class="type-icon" :class="address.type">
+                              <svg v-if="address.type === 'home'" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                              </svg>
+                              <svg v-else-if="address.type === 'work'" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 6h-2.5l1.5-1.5L17.5 3L15 5.5 12.5 3 11 4.5 13.5 7H4v14h16V6z"/>
+                              </svg>
+                              <svg v-else viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                              </svg>
+                            </span>
+                            <span class="type-text">{{ formatAddressType(address.type) }}</span>
+                          </div>
+                          <div v-if="address.isDefault" class="default-badge">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            Default
+                          </div>
+                        </div>
+
+                        <div class="address-details">
+                          <div class="address-name">{{ address.name }}</div>
+                          <div class="address-line">{{ address.street }}</div>
+                          <div class="address-line">{{ address.city }}, {{ address.state }} {{ address.zipCode }}</div>
+                          <div class="address-phone">{{ address.phone }}</div>
+                        </div>
+
+                        <div class="address-actions">
+                          <button v-if="!address.isDefault" @click="setDefaultAddress(address.id)" class="set-default-btn">
+                            Set as Default
+                          </button>
+                          <button @click="editAddress(address.id)" class="edit-address-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            Edit
+                          </button>
+                          <button @click="deleteAddress(address.id)" class="delete-address-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Delivery Preferences -->
+                <div class="delivery-preferences-section">
+                  <h3 class="section-title">Delivery Preferences</h3>
+                  <div class="preferences-grid">
+                    <div class="preference-card">
+                      <h4>Preferred Delivery Time</h4>
+                      <div class="time-slots">
+                        <div
+                          v-for="slot in deliveryTimeSlots"
+                          :key="slot.id"
+                          @click="selectTimeSlot(slot.id)"
+                          class="time-slot"
+                          :class="{ 'selected': selectedTimeSlot === slot.id }"
+                        >
+                          <div class="slot-time">{{ slot.time }}</div>
+                          <div class="slot-description">{{ slot.description }}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="preference-card">
+                      <h4>Delivery Instructions</h4>
+                      <textarea
+                        v-model="deliveryInstructions"
+                        placeholder="Add special delivery instructions (e.g., leave at door, ring bell, etc.)"
+                        rows="4"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Active Deliveries -->
+                <div class="active-deliveries-section">
+                  <h3 class="section-title">Active Deliveries</h3>
+                  <div v-if="activeDeliveries.length === 0" class="no-deliveries">
+                    <div class="no-deliveries-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M9 1L20 7l-8 4"/>
+                      </svg>
+                    </div>
+                    <h4>No Active Deliveries</h4>
+                    <p>You don't have any packages on the way right now.</p>
+                  </div>
+
+                  <div v-else class="delivery-items">
+                    <div v-for="delivery in activeDeliveries" :key="delivery.id" class="delivery-item">
+                      <div class="delivery-header">
+                        <div class="delivery-info">
+                          <h4>Order #{{ delivery.orderId }}</h4>
+                          <span class="delivery-status" :class="delivery.status">{{ formatDeliveryStatus(delivery.status) }}</span>
+                        </div>
+                        <div class="estimated-delivery">
+                          <span class="delivery-label">Estimated Delivery:</span>
+                          <span class="delivery-date">{{ formatDate(delivery.estimatedDate) }}</span>
+                        </div>
+                      </div>
+
+                      <div class="delivery-progress">
+                        <div class="progress-bar">
+                          <div class="progress-fill" :style="{ width: delivery.progress + '%' }"></div>
+                        </div>
+                        <div class="progress-steps">
+                          <div v-for="step in delivery.steps" :key="step.id" class="progress-step" :class="{ 'completed': step.completed, 'current': step.current }">
+                            <div class="step-icon">
+                              <svg v-if="step.completed" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                              </svg>
+                              <div v-else class="step-dot"></div>
+                            </div>
+                            <div class="step-details">
+                              <span class="step-title">{{ step.title }}</span>
+                              <span v-if="step.time" class="step-time">{{ formatTime(step.time) }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="delivery-actions">
+                        <button @click="trackPackage(delivery.id)" class="track-btn">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                          </svg>
+                          Track Package
+                        </button>
+                        <button @click="contactCourier(delivery.id)" class="contact-courier-btn">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                          </svg>
+                          Contact Courier
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Save Settings -->
+                <div class="settings-actions">
+                  <button @click="saveDeliverySettings" class="save-settings-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Save Delivery Preferences
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
