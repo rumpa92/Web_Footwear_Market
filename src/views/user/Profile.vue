@@ -1394,6 +1394,179 @@ export default {
         deliveryReminders: true,
         generalAlerts: true
       },
+      // Support data
+      faqs: [
+        {
+          id: 1,
+          question: "How do I track my order?",
+          answer: "You can track your order by going to the 'Orders' section in your profile or using the tracking link in your confirmation email.",
+          expanded: false
+        },
+        {
+          id: 2,
+          question: "What is your return policy?",
+          answer: "We offer a 30-day return policy for unused items in original packaging. Simply initiate a return request through your order history.",
+          expanded: false
+        },
+        {
+          id: 3,
+          question: "How long does shipping take?",
+          answer: "Standard shipping takes 3-5 business days, while express shipping takes 1-2 business days. Delivery times may vary based on location.",
+          expanded: false
+        },
+        {
+          id: 4,
+          question: "Can I change my order after placing it?",
+          answer: "Orders can be modified within 1 hour of placement. After that, you'll need to contact our support team for assistance.",
+          expanded: false
+        }
+      ],
+      // Language & Region data
+      selectedLanguage: {
+        code: 'en',
+        name: 'English',
+        nativeName: 'English',
+        flag: 'https://flagcdn.com/us.svg'
+      },
+      availableLanguages: [
+        { code: 'en', name: 'English', nativeName: 'English', flag: 'https://flagcdn.com/us.svg' },
+        { code: 'es', name: 'Spanish', nativeName: 'Español', flag: 'https://flagcdn.com/es.svg' },
+        { code: 'fr', name: 'French', nativeName: 'Français', flag: 'https://flagcdn.com/fr.svg' },
+        { code: 'de', name: 'German', nativeName: 'Deutsch', flag: 'https://flagcdn.com/de.svg' },
+        { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: 'https://flagcdn.com/it.svg' },
+        { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: 'https://flagcdn.com/pt.svg' }
+      ],
+      selectedCurrency: 'USD',
+      availableCurrencies: [
+        { code: 'USD', name: 'US Dollar', symbol: '$' },
+        { code: 'EUR', name: 'Euro', symbol: '€' },
+        { code: 'GBP', name: 'British Pound', symbol: '£' },
+        { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$' },
+        { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+        { code: 'JPY', name: 'Japanese Yen', symbol: '¥' }
+      ],
+      selectedRegion: 'US',
+      availableRegions: [
+        { code: 'US', name: 'United States', flag: '🇺🇸' },
+        { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
+        { code: 'DE', name: 'Germany', flag: '🇩🇪' },
+        { code: 'FR', name: 'France', flag: '🇫🇷' },
+        { code: 'IT', name: 'Italy', flag: '🇮🇹' },
+        { code: 'ES', name: 'Spain', flag: '🇪🇸' },
+        { code: 'AU', name: 'Australia', flag: '🇦🇺' },
+        { code: 'JP', name: 'Japan', flag: '🇯🇵' }
+      ],
+      // Privacy settings
+      privacySettings: {
+        dataProcessing: true,
+        marketing: false,
+        analytics: true,
+        thirdParty: false
+      },
+      // Account deletion
+      deactivationPeriod: 'indefinite',
+      // Refund data
+      refundStatusFilter: '',
+      refundDateFilter: '',
+      refunds: [
+        {
+          id: 'REF001',
+          orderId: '12345',
+          orderDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+          requestDate: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000),
+          processedDate: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
+          status: 'completed',
+          productName: 'Premium Running Shoes',
+          variant: 'Size 10, Black',
+          productPrice: 129.99,
+          shippingCost: 9.99,
+          refundAmount: 139.98,
+          paymentMethod: 'Credit Card',
+          paymentAccount: '**** 1234',
+          reason: 'Product defect - sole separation'
+        },
+        {
+          id: 'REF002',
+          orderId: '12346',
+          orderDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+          requestDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
+          status: 'pending',
+          productName: 'Classic White Sneakers',
+          variant: 'Size 9, White',
+          productPrice: 89.99,
+          shippingCost: 5.99,
+          refundAmount: 95.98,
+          paymentMethod: 'PayPal',
+          paymentAccount: 'anushka.sen@email.com',
+          reason: 'Wrong size ordered'
+        },
+        {
+          id: 'REF003',
+          orderId: '12344',
+          orderDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000),
+          requestDate: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000),
+          status: 'rejected',
+          productName: 'Luxury Boots',
+          variant: 'Size 8, Brown',
+          productPrice: 199.99,
+          shippingCost: 0,
+          refundAmount: 199.99,
+          paymentMethod: 'Credit Card',
+          paymentAccount: '**** 5678',
+          reason: 'Changed mind',
+          adminNotes: 'Item returned after 30-day return window expired'
+        }
+      ],
+      // Delivery data
+      savedAddresses: [
+        {
+          id: 1,
+          type: 'home',
+          name: 'Anushka Sen',
+          street: '123 Main Street, Apt 4B',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10001',
+          phone: '+1 (555) 123-4567',
+          isDefault: true
+        },
+        {
+          id: 2,
+          type: 'work',
+          name: 'Anushka Sen',
+          street: '456 Business Ave, Floor 10',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10002',
+          phone: '+1 (555) 123-4567',
+          isDefault: false
+        }
+      ],
+      deliveryTimeSlots: [
+        { id: 1, time: '9:00 AM - 12:00 PM', description: 'Morning delivery' },
+        { id: 2, time: '12:00 PM - 5:00 PM', description: 'Afternoon delivery' },
+        { id: 3, time: '5:00 PM - 8:00 PM', description: 'Evening delivery' },
+        { id: 4, time: 'Any time', description: 'No preference' }
+      ],
+      selectedTimeSlot: 4,
+      deliveryInstructions: '',
+      activeDeliveries: [
+        {
+          id: 1,
+          orderId: '12347',
+          status: 'out-for-delivery',
+          estimatedDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
+          progress: 75,
+          steps: [
+            { id: 1, title: 'Order Confirmed', completed: true, time: new Date(Date.now() - 72 * 60 * 60 * 1000) },
+            { id: 2, title: 'Processing', completed: true, time: new Date(Date.now() - 48 * 60 * 60 * 1000) },
+            { id: 3, title: 'Shipped', completed: true, time: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+            { id: 4, title: 'Out for Delivery', completed: false, current: true, time: null },
+            { id: 5, title: 'Delivered', completed: false, time: null }
+          ]
+        }
+      ],
       profileSections: [
         {
           id: 'profile',
