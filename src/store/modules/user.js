@@ -92,7 +92,7 @@ const actions = {
           id: 1,
           name: 'Rumpa Samanta',
           email: credentials.email,
-          avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9c2002c?w=100&h=100&fit=crop'
+          avatar: 'https://cdn.builder.io/api/v1/image/assets%2Ff38a76fc1a294379bcaebc0d09797bbf%2F38eb38427e56410a909961865907d050?format=webp&width=800'
         }
         // Save to localStorage for persistence
         localStorage.setItem('user', JSON.stringify(user))
