@@ -581,6 +581,8 @@ export default {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #f1f3f4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
 }
 
 .sidebar-user-info {
@@ -779,6 +781,8 @@ export default {
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
 }
 
 .profile-info-section {
@@ -1227,6 +1231,8 @@ export default {
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
 }
 
 .avatar-actions {
