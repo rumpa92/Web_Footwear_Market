@@ -2229,7 +2229,9 @@ export default {
       ],
       // Modal states
       showPrivacyPolicyModal: false,
-      showTermsModal: false
+      showTermsModal: false,
+      showRefundDetailsModal: false,
+      selectedRefund: null
     }
   },
   computed: {
