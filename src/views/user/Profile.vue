@@ -2149,6 +2149,26 @@ export default {
 
     filteredVideos() {
       return this.videos.filter(video => video.categoryId === this.selectedVideoCategory)
+    },
+
+    filteredFaqsForPage() {
+      let filtered = this.faqs
+
+      // Filter by category
+      if (this.selectedFaqCategory && this.selectedFaqCategory !== 'all') {
+        filtered = filtered.filter(faq => faq.category === this.selectedFaqCategory)
+      }
+
+      // Filter by search query
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase()
+        filtered = filtered.filter(faq =>
+          faq.question.toLowerCase().includes(query) ||
+          faq.answer.toLowerCase().includes(query)
+        )
+      }
+
+      return filtered
     }
   },
   methods: {
