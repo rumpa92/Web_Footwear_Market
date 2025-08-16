@@ -2957,6 +2957,8 @@ export default {
   position: sticky;
   top: 2rem;
   border: 1px solid #f1f3f4;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Sidebar Profile Section */
