@@ -44,138 +44,30 @@
                   Edit Profile
                 </button>
               </div>
-              
+
               <div class="profile-details">
-                <div class="detail-row">
-                  <span class="detail-label">NAME:</span>
-                  <span class="detail-value">{{ currentUser.name }}</span>
+                <div class="profile-avatar-section">
+                  <img :src="currentUser.avatar" :alt="currentUser.name" class="profile-avatar" />
                 </div>
-                <div class="detail-row">
-                  <span class="detail-label">EMAIL:</span>
-                  <span class="detail-value">{{ currentUser.email }}</span>
-                </div>
-                <div class="detail-row">
-                  <span class="detail-label">PHONE NUMBER:</span>
-                  <span class="detail-value">{{ currentUser.phone || '9775637590' }}</span>
+                <div class="profile-info-section">
+                  <div class="detail-row">
+                    <span class="detail-label">NAME:</span>
+                    <span class="detail-value">{{ currentUser.name }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">EMAIL:</span>
+                    <span class="detail-value">{{ currentUser.email }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">PHONE NUMBER:</span>
+                    <span class="detail-value">{{ currentUser.phone || '9775637590' }}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Personalized Feed Section -->
-            <div class="feed-section">
-              <div class="feed-header">
-                <div class="feed-title">
-                  <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                  <h3>Your Personalized Feed</h3>
-                </div>
-                <p class="feed-description">Curated products based on your preferences, skin profile, and purchase history</p>
-              </div>
-
-              <!-- AI Recommendations -->
-              <div class="recommendations-section">
-                <div class="recommendations-header">
-                  <div class="ai-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                    AI-Powered Recommendations
-                  </div>
-                </div>
-
-                <div class="products-grid">
-                  <div v-for="product in recommendedProducts" :key="product.id" class="product-card">
-                    <div class="product-image-container">
-                      <img :src="product.image" :alt="product.name" class="product-image" />
-                      <div class="product-overlay">
-                        <button class="quick-view-btn" @click="quickView(product)">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                          </svg>
-                          Quick View
-                        </button>
-                        <button class="wishlist-btn" @click="toggleWishlist(product)" :class="{ active: isInWishlist(product.id) }">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                          </svg>
-                        </button>
-                      </div>
-                      <div v-if="product.discount" class="discount-badge">
-                        SALE
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <h4 class="product-name">{{ product.name }}</h4>
-                      <p class="product-brand">{{ product.brand }}</p>
-                      <div class="product-pricing">
-                        <span class="current-price">${{ product.price }}</span>
-                        <span v-if="product.originalPrice" class="original-price">${{ product.originalPrice }}</span>
-                      </div>
-                      <div class="product-rating">
-                        <div class="stars">
-                          <span v-for="n in 5" :key="n" class="star" :class="{ filled: n <= product.rating }">★</span>
-                        </div>
-                        <span class="rating-text">({{ product.reviews }})</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- View More Button -->
-              <div class="view-more-section">
-                <button class="view-more-btn" @click="loadMoreRecommendations">
-                  <span>View More Recommendations</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
           </div>
 
-          <!-- Section 2: Avatar Management -->
-          <div v-if="activeSection === 'avatar'" class="section">
-            <div class="avatar-management-card">
-              <div class="card-header">
-                <div class="header-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-                  </svg>
-                </div>
-                <h2>Avatar Management</h2>
-              </div>
-              
-              <div class="avatar-content">
-                <div class="current-avatar">
-                  <img :src="currentUser.avatar" :alt="currentUser.name" class="avatar-preview" />
-                  <div class="avatar-info">
-                    <h3>{{ currentUser.name }}</h3>
-                    <p>{{ currentUser.email }}</p>
-                    <span class="member-since">Member since {{ formatDate(new Date()) }}</span>
-                  </div>
-                </div>
-                
-                <div class="avatar-options">
-                  <button class="upload-btn" @click="uploadAvatar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                    </svg>
-                    Upload New Photo
-                  </button>
-                  <button class="remove-btn" @click="removeAvatar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                    </svg>
-                    Remove Photo
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Other sections remain the same but simplified -->
           <div v-if="activeSection === 'notifications'" class="section">
@@ -297,11 +189,6 @@ export default {
           icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
         },
         {
-          id: 'avatar',
-          name: 'Avatar',
-          icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>'
-        },
-        {
           id: 'notifications',
           name: 'Notifications',
           icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>'
@@ -383,13 +270,6 @@ export default {
       this.$toast?.info('Loading more recommendations...')
     },
     
-    uploadAvatar() {
-      this.$toast?.info('Avatar upload coming soon!')
-    },
-    
-    removeAvatar() {
-      this.$toast?.warning('Avatar removed')
-    }
   }
 }
 </script>
@@ -558,6 +438,25 @@ export default {
 }
 
 .profile-details {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.profile-avatar-section {
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+}
+
+.profile-info-section {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
@@ -982,12 +881,13 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .products-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-  
   .profile-details {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .profile-info-section {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
