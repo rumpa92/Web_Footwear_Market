@@ -1399,64 +1399,261 @@
   height: 20px;
 }
 
+/* Micro-interactions */
+.modern-delivery-container * {
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.section-title:hover {
+  transform: translateX(4px);
+  color: var(--accent-color);
+}
+
+.quick-add-btn:active {
+  transform: scale(0.95);
+}
+
+.modern-add-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.stat-card:active {
+  transform: translateY(-6px) scale(0.99);
+}
+
+.modern-address-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.action-btn:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+/* Enhanced focus states for accessibility */
+.modern-add-btn:focus,
+.action-btn:focus,
+.quick-add-btn:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Smooth scroll behavior */
+.modern-delivery-container {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced loading states */
+.delivery-cards:empty::before {
+  content: 'Loading deliveries...';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--text-secondary);
+  font-style: italic;
+  animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .delivery-content-grid {
+    grid-template-columns: 1fr 350px;
+    gap: var(--space-lg);
+  }
+}
+
 @media (max-width: 1024px) {
   .delivery-content-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: var(--space-xl);
   }
-  
+
   .right-column {
     order: -1;
+  }
+
+  .delivery-stats {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 
 @media (max-width: 768px) {
   .modern-delivery-container {
-    padding: var(--space-md);
+    padding: var(--space-lg);
   }
-  
+
   .delivery-hero {
     flex-direction: column;
     text-align: center;
-    padding: var(--space-xl);
+    padding: var(--space-2xl);
+    gap: var(--space-xl);
   }
-  
+
+  .hero-text h1 {
+    font-size: var(--font-size-3xl);
+  }
+
   .delivery-stats {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
-  
+
+  .stat-card {
+    padding: var(--space-lg);
+  }
+
   .time-slots-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .hero-actions {
     justify-content: center;
+    width: 100%;
   }
-  
+
+  .modern-add-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
   .delivery-actions-modern {
     flex-direction: column;
+    gap: var(--space-sm);
   }
-  
+
   .save-actions {
     flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .modern-save-btn,
+  .modern-reset-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .modern-delivery-container {
+    padding: var(--space-md);
+  }
+
+  .delivery-hero {
+    padding: var(--space-xl);
+  }
+
+  .hero-text h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .modern-addresses-section,
+  .modern-preferences-section,
+  .modern-deliveries-section {
+    padding: var(--space-lg);
+  }
+
+  .modern-address-card {
+    padding: var(--space-lg);
+  }
+
+  .notification-toggles .toggle-item {
+    padding: var(--space-md);
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  .modern-toggle {
+    align-self: flex-end;
+  }
+
+  .address-card-header {
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  .address-actions-menu {
+    align-self: flex-end;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-text h1 {
-    font-size: var(--font-size-2xl);
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
   }
-  
-  .modern-addresses-grid {
-    gap: var(--space-md);
+
+  .modern-add-btn {
+    padding: var(--space-md) var(--space-lg);
   }
-  
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+  }
+
   .modern-address-card {
     padding: var(--space-md);
   }
-  
-  .notification-toggles .toggle-item {
-    padding: var(--space-sm);
+
+  .modern-delivery-card {
+    padding: var(--space-lg);
+  }
+
+  .delivery-card-header {
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  .estimated-time {
+    align-self: flex-start;
+  }
+
+  .time-info {
+    align-items: flex-start;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modern-address-card,
+  .modern-delivery-card,
+  .stat-card {
+    border-width: 2px;
+    border-color: var(--text-primary);
+  }
+
+  .delivery-hero {
+    background: var(--text-primary);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .delivery-hero::before,
+  .progress-fill-modern,
+  .step-dot.current {
+    animation: none;
   }
 }
