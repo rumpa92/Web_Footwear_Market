@@ -2931,10 +2931,57 @@ export default {
     saveDeliverySettings() {
       const settings = {
         selectedTimeSlot: this.selectedTimeSlot,
-        deliveryInstructions: this.deliveryInstructions
+        deliveryInstructions: this.deliveryInstructions,
+        deliveryNotifications: this.deliveryNotifications
       }
       localStorage.setItem('deliverySettings', JSON.stringify(settings))
       this.$toast?.success('Delivery preferences saved!')
+    },
+
+    // New delivery management methods
+    toggleAddressMenu(addressId) {
+      this.activeAddressMenu = this.activeAddressMenu === addressId ? null : addressId
+    },
+
+    viewAllOrders() {
+      this.$router.push('/orders')
+    },
+
+    getProgressETA(delivery) {
+      if (delivery.progress >= 75) return 'Arriving today'
+      if (delivery.progress >= 50) return '1-2 days'
+      if (delivery.progress >= 25) return '2-3 days'
+      return '3-5 days'
+    },
+
+    isLastStep(steps, stepId) {
+      return steps[steps.length - 1].id === stepId
+    },
+
+    getStepDescription(step) {
+      const descriptions = {
+        'Order Confirmed': 'Your order has been received and confirmed',
+        'Processing': 'We are preparing your order for shipment',
+        'Shipped': 'Your order is on its way to the delivery facility',
+        'Out for Delivery': 'Your package is out for delivery and will arrive soon',
+        'Delivered': 'Your package has been successfully delivered'
+      }
+      return descriptions[step.title] || 'Processing your order'
+    },
+
+    viewDeliveryDetails(deliveryId) {
+      this.$toast?.info(`Viewing details for delivery ${deliveryId}`)
+    },
+
+    resetPreferences() {
+      this.selectedTimeSlot = 4
+      this.deliveryInstructions = ''
+      this.deliveryNotifications = {
+        sms: true,
+        email: true,
+        photo: false
+      }
+      this.$toast?.success('Preferences reset to default!')
     }
   },
 
