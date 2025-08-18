@@ -1,5 +1,6 @@
 <template>
   <div class="brand-products">
+    <BackButton />
     <div class="container">
       <h1>{{ brand }} Products</h1>
     </div>
@@ -7,8 +8,13 @@
 </template>
 
 <script>
+import BackButton from '../components/layout/BackButton.vue'
+
 export default {
   name: 'BrandProducts',
+  components: {
+    BackButton
+  },
   props: ['brand']
 }
 </script>
