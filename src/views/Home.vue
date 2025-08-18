@@ -757,6 +757,9 @@ export default {
   color: inherit;
   transition: var(--transition-normal);
   padding: var(--space-md);
+  width: 100%;
+  max-width: 160px;
+  margin: 0 auto;
 }
 
 .category-card:hover {
