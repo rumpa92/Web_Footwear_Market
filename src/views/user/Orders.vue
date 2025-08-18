@@ -451,6 +451,11 @@
         </div>
       </div>
     </div>
+
+    <!-- Toast Messages -->
+    <div v-if="showToast" class="toast" :class="toast.type">
+      {{ toast.message }}
+    </div>
   </div>
 </template>
 
@@ -472,6 +477,8 @@ export default {
       selectedReturnOrder: null,
       returnReason: '',
       returnItems: [],
+      showToast: false,
+      toast: { message: '', type: '' },
       orders: [
         {
           id: 'ORD-12347',
@@ -735,7 +742,7 @@ export default {
       // Simulate live tracking updates
       this.startLiveTracking(order)
 
-      this.$toast?.success(`Live tracking opened for order #${order.orderNumber}`)
+      this.showToastMessage(`Live tracking opened for order #${order.orderNumber}`, 'success')
     },
 
     reorderItems(order) {
@@ -763,21 +770,21 @@ export default {
         })
       })
 
-      this.$toast?.success(`${order.items.length} items added to cart for reorder!`)
+      this.showToastMessage(`${order.items.length} items added to cart for reorder!`, 'success')
       this.$router.push('/cart')
     },
 
     downloadInvoice(order) {
       // Generate and download invoice PDF
       this.generateInvoicePDF(order)
-      this.$toast?.success(`Invoice downloaded for order #${order.orderNumber}`)
+      this.showToastMessage(`Invoice downloaded for order #${order.orderNumber}`, 'success')
     },
 
     initiateReturn(order) {
       // Open return request modal
       this.selectedReturnOrder = order
       this.showReturnModal = true
-      this.$toast?.info(`Return request opened for order #${order.orderNumber}`)
+      this.showToastMessage(`Return request opened for order #${order.orderNumber}`, 'info')
     },
 
     cancelOrder(order) {
@@ -787,7 +794,7 @@ export default {
         if (orderIndex !== -1) {
           this.orders[orderIndex].status = 'cancelled'
           this.orders[orderIndex].canCancel = false
-          this.$toast?.success(`Order #${order.orderNumber} has been cancelled`)
+          this.showToastMessage(`Order #${order.orderNumber} has been cancelled`, 'success')
         }
       }
     },
@@ -1042,20 +1049,28 @@ export default {
       const selectedItems = this.returnItems.filter(item => item.selected)
 
       if (selectedItems.length === 0) {
-        this.$toast?.error('Please select at least one item to return')
+        this.showToastMessage('Please select at least one item to return', 'error')
         return
       }
 
       if (!this.returnReason.trim()) {
-        this.$toast?.error('Please provide a reason for the return')
+        this.showToastMessage('Please provide a reason for the return', 'error')
         return
       }
 
       // In a real app, this would make an API call
       const returnId = 'RET' + Math.floor(Math.random() * 100000)
 
-      this.$toast?.success(`Return request #${returnId} submitted successfully! We'll contact you within 24 hours.`)
+      this.showToastMessage(`Return request #${returnId} submitted successfully! We'll contact you within 24 hours.`, 'success')
       this.closeReturnModal()
+    },
+
+    showToastMessage(message, type = 'info') {
+      this.toast = { message, type }
+      this.showToast = true
+      setTimeout(() => {
+        this.showToast = false
+      }, 3000)
     }
   }
 }
