@@ -151,11 +151,11 @@
             </div>
 
             <!-- Order Actions -->
-            <div class="order-actions">
+            <div class="order-actions" :id="'order-' + order.id">
               <div class="primary-actions">
-                <button 
+                <button
                   v-if="order.tracking && order.tracking.trackingNumber !== 'N/A'"
-                  @click="trackOrder(order)" 
+                  @click="trackOrder(order)"
                   class="action-btn primary"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -286,6 +286,186 @@
         </div>
       </div>
     </div>
+
+    <!-- Live Tracking Modal -->
+    <div v-if="showTrackingModal && selectedTrackingOrder" class="modal-overlay" @click="closeTrackingModal">
+      <div class="modal-content tracking-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Live Tracking - Order #{{ selectedTrackingOrder.orderNumber }}</h3>
+          <button @click="closeTrackingModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="tracking-content">
+            <!-- Current Status -->
+            <div class="current-status">
+              <div class="status-card">
+                <div class="status-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div class="status-info">
+                  <h4>{{ formatOrderStatus(selectedTrackingOrder.status) }}</h4>
+                  <p v-if="selectedTrackingOrder.tracking.estimatedDelivery" class="eta">
+                    Expected Delivery: {{ formatDate(selectedTrackingOrder.tracking.estimatedDelivery) }}
+                  </p>
+                  <p class="tracking-number">Tracking: {{ selectedTrackingOrder.tracking.trackingNumber }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="tracking-progress-detailed">
+              <div class="progress-bar">
+                <div class="progress-fill" :style="{ width: getProgressPercentage(selectedTrackingOrder.status) + '%' }"></div>
+              </div>
+              <div class="progress-steps">
+                <div class="progress-step" :class="{ active: ['processing', 'shipped', 'out-for-delivery', 'delivered'].includes(selectedTrackingOrder.status) }">
+                  <div class="step-dot"></div>
+                  <span>Processing</span>
+                </div>
+                <div class="progress-step" :class="{ active: ['shipped', 'out-for-delivery', 'delivered'].includes(selectedTrackingOrder.status) }">
+                  <div class="step-dot"></div>
+                  <span>Shipped</span>
+                </div>
+                <div class="progress-step" :class="{ active: ['out-for-delivery', 'delivered'].includes(selectedTrackingOrder.status) }">
+                  <div class="step-dot"></div>
+                  <span>Out for Delivery</span>
+                </div>
+                <div class="progress-step" :class="{ active: selectedTrackingOrder.status === 'delivered' }">
+                  <div class="step-dot"></div>
+                  <span>Delivered</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Updates -->
+            <div class="tracking-updates">
+              <h4>Tracking Updates</h4>
+              <div class="updates-list">
+                <div v-for="(update, index) in trackingUpdates" :key="index" class="update-item" :class="{ latest: index === 0 }">
+                  <div class="update-timeline">
+                    <div class="timeline-dot" :class="{ completed: update.completed }"></div>
+                    <div v-if="index < trackingUpdates.length - 1" class="timeline-line"></div>
+                  </div>
+                  <div class="update-content">
+                    <div class="update-header">
+                      <h5>{{ update.status }}</h5>
+                      <span class="update-time">{{ formatDateTime(update.timestamp) }}</span>
+                    </div>
+                    <p class="update-description">{{ update.description }}</p>
+                    <span class="update-location">{{ update.location }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Return Request Modal -->
+    <div v-if="showReturnModal && selectedReturnOrder" class="modal-overlay" @click="closeReturnModal">
+      <div class="modal-content return-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Return Request - Order #{{ selectedReturnOrder.orderNumber }}</h3>
+          <button @click="closeReturnModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="return-content">
+            <!-- Return Policy Info -->
+            <div class="return-policy">
+              <div class="policy-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div class="policy-text">
+                <h4>Return Policy</h4>
+                <p>Items can be returned within 30 days of delivery. Items must be in original condition with tags attached.</p>
+              </div>
+            </div>
+
+            <!-- Select Items to Return -->
+            <div class="return-items-section">
+              <h4>Select Items to Return</h4>
+              <div class="return-items-list">
+                <div v-for="item in returnItems" :key="item.id" class="return-item">
+                  <div class="item-select">
+                    <input type="checkbox" v-model="item.selected" :id="`return-item-${item.id}`">
+                    <label :for="`return-item-${item.id}`" class="checkbox-label"></label>
+                  </div>
+                  <img :src="item.image" :alt="item.name" class="return-item-image">
+                  <div class="return-item-details">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.variant }}</p>
+                    <div class="return-item-controls">
+                      <span class="original-quantity">Original Qty: {{ item.quantity }}</span>
+                      <div v-if="item.selected" class="quantity-selector">
+                        <label>Return Qty:</label>
+                        <select v-model="item.returnQuantity" class="return-quantity-select">
+                          <option v-for="n in item.quantity" :key="n" :value="n">{{ n }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="return-item-price">
+                    ${{ item.price.toFixed(2) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Return Reason -->
+            <div class="return-reason-section">
+              <h4>Reason for Return</h4>
+              <select v-model="returnReason" class="return-reason-select">
+                <option value="">Select a reason</option>
+                <option value="defective">Defective/Damaged Item</option>
+                <option value="wrong-size">Wrong Size</option>
+                <option value="wrong-item">Wrong Item Received</option>
+                <option value="not-as-described">Not as Described</option>
+                <option value="changed-mind">Changed Mind</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Return Actions -->
+            <div class="return-actions">
+              <button @click="closeReturnModal" class="action-btn ghost" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+                Cancel
+              </button>
+              <button @click="submitReturnRequest" class="action-btn primary" type="button" :disabled="isSubmittingReturn">
+                <svg v-if="!isSubmittingReturn" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <svg v-else class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                {{ isSubmittingReturn ? 'Submitting...' : 'Submit Return Request' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Messages -->
+    <div v-if="showToast" class="toast" :class="toast.type">
+      {{ toast.message }}
+    </div>
   </div>
 </template>
 
@@ -299,6 +479,17 @@ export default {
       timeFilter: '',
       showOrderDetailsModal: false,
       selectedOrder: null,
+      showTrackingModal: false,
+      selectedTrackingOrder: null,
+      trackingUpdates: [],
+      trackingUpdateInterval: null,
+      showReturnModal: false,
+      selectedReturnOrder: null,
+      returnReason: '',
+      returnItems: [],
+      showToast: false,
+      toast: { message: '', type: '' },
+      isSubmittingReturn: false,
       orders: [
         {
           id: 'ORD-12347',
@@ -498,6 +689,25 @@ export default {
         .reduce((sum, order) => sum + order.total, 0)
     }
   },
+  watch: {
+    selectedReturnOrder: {
+      handler(newOrder) {
+        if (newOrder) {
+          this.initializeReturnItems(newOrder)
+        }
+      },
+      immediate: true
+    }
+  },
+  mounted() {
+    // Check if we came from return confirmation page
+    this.handleReturnTracking()
+  },
+  beforeDestroy() {
+    if (this.trackingUpdateInterval) {
+      clearInterval(this.trackingUpdateInterval)
+    }
+  },
   methods: {
     formatDate(date) {
       return new Date(date).toLocaleDateString('en-US', {
@@ -518,6 +728,17 @@ export default {
       return statusMap[status] || status
     },
 
+    formatDateTime(date) {
+      return new Date(date).toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      })
+    },
+
     getProgressPercentage(status) {
       const progressMap = {
         'processing': 25,
@@ -529,27 +750,56 @@ export default {
     },
 
     trackOrder(order) {
-      this.$toast?.success(`Opening live tracking for order #${order.orderNumber}`)
-      // In a real app, this would open a tracking page or modal
+      // Open tracking modal with live tracking info
+      this.selectedTrackingOrder = order
+      this.showTrackingModal = true
+
+      // Simulate live tracking updates
+      this.startLiveTracking(order)
+
+      this.showToastMessage(`Live tracking opened for order #${order.orderNumber}`, 'success')
     },
 
     reorderItems(order) {
-      // Add all items to cart
+      // Add all items from the order to cart
       order.items.forEach(item => {
-        // In a real app, this would add items to the cart store
+        // Map order item to product format for cart
+        const product = {
+          id: item.id,
+          name: item.name,
+          brand: item.brand || 'Generic',
+          price: item.price,
+          image: item.image
+        }
+
+        // Extract size and color from variant (e.g., "Black/White - Size 9")
+        const variantParts = item.variant.split(' - ')
+        const color = variantParts[0] || 'Default'
+        const size = variantParts[1] ? variantParts[1].replace('Size ', '') : 'M'
+
+        this.$store.dispatch('cart/addToCart', {
+          product,
+          size,
+          color,
+          quantity: item.quantity
+        })
       })
-      this.$toast?.success(`${order.items.length} items added to cart`)
+
+      this.showToastMessage(`${order.items.length} items added to cart for reorder!`, 'success')
       this.$router.push('/cart')
     },
 
     downloadInvoice(order) {
-      this.$toast?.success(`Downloading invoice for order #${order.orderNumber}`)
-      // In a real app, this would trigger a PDF download
+      // Generate and download invoice PDF
+      this.generateInvoicePDF(order)
+      this.showToastMessage(`Invoice downloaded for order #${order.orderNumber}`, 'success')
     },
 
     initiateReturn(order) {
-      this.$toast?.info(`Opening return request for order #${order.orderNumber}`)
-      // In a real app, this would open a return form
+      // Open return request modal
+      this.selectedReturnOrder = order
+      this.showReturnModal = true
+      this.showToastMessage(`Return request opened for order #${order.orderNumber}`, 'info')
     },
 
     cancelOrder(order) {
@@ -559,7 +809,7 @@ export default {
         if (orderIndex !== -1) {
           this.orders[orderIndex].status = 'cancelled'
           this.orders[orderIndex].canCancel = false
-          this.$toast?.success(`Order #${order.orderNumber} has been cancelled`)
+          this.showToastMessage(`Order #${order.orderNumber} has been cancelled`, 'success')
         }
       }
     },
@@ -572,6 +822,345 @@ export default {
     closeOrderDetailsModal() {
       this.showOrderDetailsModal = false
       this.selectedOrder = null
+    },
+
+    startLiveTracking(order) {
+      // Clear any existing interval
+      if (this.trackingUpdateInterval) {
+        clearInterval(this.trackingUpdateInterval)
+      }
+
+      // Initialize tracking updates with current status
+      this.trackingUpdates = this.generateTrackingHistory(order)
+
+      // Simulate live updates every 30 seconds
+      this.trackingUpdateInterval = setInterval(() => {
+        if (order.status !== 'delivered' && order.status !== 'cancelled') {
+          this.simulateTrackingUpdate(order)
+        }
+      }, 30000)
+    },
+
+    generateTrackingHistory(order) {
+      const now = new Date()
+      const orderDate = new Date(order.date)
+
+      const updates = [
+        {
+          status: 'Order Placed',
+          description: `Order #${order.orderNumber} has been placed successfully`,
+          timestamp: orderDate,
+          location: 'Online',
+          completed: true
+        }
+      ]
+
+      if (['shipped', 'out-for-delivery', 'delivered'].includes(order.status)) {
+        updates.push({
+          status: 'Processing',
+          description: 'Your order is being prepared for shipment',
+          timestamp: new Date(orderDate.getTime() + 1 * 60 * 60 * 1000), // +1 hour
+          location: 'Warehouse',
+          completed: true
+        })
+      }
+
+      if (['shipped', 'out-for-delivery', 'delivered'].includes(order.status)) {
+        updates.push({
+          status: 'Shipped',
+          description: `Package shipped via ${order.tracking.carrier}`,
+          timestamp: new Date(orderDate.getTime() + 24 * 60 * 60 * 1000), // +1 day
+          location: 'Distribution Center',
+          completed: true
+        })
+      }
+
+      if (['out-for-delivery', 'delivered'].includes(order.status)) {
+        updates.push({
+          status: 'Out for Delivery',
+          description: 'Package is out for delivery',
+          timestamp: new Date(orderDate.getTime() + 48 * 60 * 60 * 1000), // +2 days
+          location: 'Local Facility',
+          completed: true
+        })
+      }
+
+      if (order.status === 'delivered') {
+        updates.push({
+          status: 'Delivered',
+          description: 'Package delivered successfully',
+          timestamp: order.tracking.deliveredDate || new Date(orderDate.getTime() + 72 * 60 * 60 * 1000),
+          location: 'Customer Address',
+          completed: true
+        })
+      }
+
+      return updates.reverse() // Most recent first
+    },
+
+    simulateTrackingUpdate(order) {
+      const randomUpdates = [
+        'Package is in transit',
+        'Package arrived at sorting facility',
+        'Package is being processed',
+        'Package loaded for delivery'
+      ]
+
+      const randomUpdate = randomUpdates[Math.floor(Math.random() * randomUpdates.length)]
+
+      this.trackingUpdates.unshift({
+        status: 'In Transit',
+        description: randomUpdate,
+        timestamp: new Date(),
+        location: 'Transit Hub',
+        completed: false
+      })
+    },
+
+    closeTrackingModal() {
+      this.showTrackingModal = false
+      this.selectedTrackingOrder = null
+      this.trackingUpdates = []
+
+      if (this.trackingUpdateInterval) {
+        clearInterval(this.trackingUpdateInterval)
+        this.trackingUpdateInterval = null
+      }
+    },
+
+    generateInvoicePDF(order) {
+      // Create invoice content
+      const invoiceContent = this.createInvoiceHTML(order)
+
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank')
+      printWindow.document.write(invoiceContent)
+      printWindow.document.close()
+
+      // Wait for content to load then print
+      printWindow.onload = () => {
+        printWindow.print()
+        printWindow.close()
+      }
+    },
+
+    createInvoiceHTML(order) {
+      const currentDate = new Date().toLocaleDateString()
+      const orderDate = this.formatDate(order.date)
+
+      return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Invoice - Order #${order.orderNumber}</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+            .invoice-header { border-bottom: 2px solid #3b82f6; padding-bottom: 20px; margin-bottom: 30px; }
+            .invoice-title { color: #3b82f6; font-size: 2rem; margin: 0; }
+            .invoice-info { display: flex; justify-content: space-between; margin: 20px 0; }
+            .invoice-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .invoice-table th, .invoice-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+            .invoice-table th { background-color: #f8f9fa; font-weight: bold; }
+            .total-row { background-color: #f8f9fa; font-weight: bold; }
+            .company-info { margin-bottom: 30px; }
+            .customer-info { margin: 20px 0; }
+            @media print { body { margin: 0; } }
+          </style>
+        </head>
+        <body>
+          <div class="invoice-header">
+            <h1 class="invoice-title">INVOICE</h1>
+            <div class="company-info">
+              <h3>Footwear Market</h3>
+              <p>123 Commerce Street<br>City, State 12345<br>Phone: (555) 123-4567</p>
+            </div>
+          </div>
+
+          <div class="invoice-info">
+            <div>
+              <h4>Bill To:</h4>
+              <div class="customer-info">
+                <p><strong>Customer Address:</strong><br>${order.shipping.address}</p>
+              </div>
+            </div>
+            <div>
+              <p><strong>Invoice Date:</strong> ${currentDate}</p>
+              <p><strong>Order Number:</strong> #${order.orderNumber}</p>
+              <p><strong>Order Date:</strong> ${orderDate}</p>
+              <p><strong>Status:</strong> ${this.formatOrderStatus(order.status)}</p>
+            </div>
+          </div>
+
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Variant</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${order.items.map(item => `
+                <tr>
+                  <td>${item.name}</td>
+                  <td>${item.variant}</td>
+                  <td>${item.quantity}</td>
+                  <td>$${item.price.toFixed(2)}</td>
+                  <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+              <tr class="total-row">
+                <td colspan="4"><strong>Shipping (${order.shipping.method})</strong></td>
+                <td><strong>$${order.shipping.cost.toFixed(2)}</strong></td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="4"><strong>Total Amount</strong></td>
+                <td><strong>$${order.total.toFixed(2)}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 40px;">
+            <h4>Payment Information:</h4>
+            <p><strong>Payment Method:</strong> ${order.payment.method}</p>
+            ${order.payment.last4 ? `<p><strong>Card:</strong> **** **** **** ${order.payment.last4}</p>` : ''}
+          </div>
+
+          ${order.tracking ? `
+            <div style="margin-top: 30px;">
+              <h4>Shipping Information:</h4>
+              <p><strong>Carrier:</strong> ${order.tracking.carrier}</p>
+              <p><strong>Tracking Number:</strong> ${order.tracking.trackingNumber}</p>
+            </div>
+          ` : ''}
+
+          <div style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9rem;">
+            <p>Thank you for your business!</p>
+            <p>For questions about this invoice, contact us at support@footwearmarket.com</p>
+          </div>
+        </body>
+        </html>
+      `
+    },
+
+    closeReturnModal() {
+      if (this.isSubmittingReturn) {
+        this.showToastMessage('Please wait for the return request to complete.', 'info')
+        return
+      }
+
+      this.showReturnModal = false
+      this.selectedReturnOrder = null
+      this.returnReason = ''
+      this.returnItems = []
+      this.isSubmittingReturn = false
+    },
+
+    initializeReturnItems(order) {
+      this.returnItems = order.items.map(item => ({
+        ...item,
+        selected: false,
+        returnQuantity: 1,
+        maxReturnQuantity: item.quantity
+      }))
+    },
+
+    async submitReturnRequest() {
+      const selectedItems = this.returnItems.filter(item => item.selected)
+
+      if (selectedItems.length === 0) {
+        this.showToastMessage('Please select at least one item to return', 'error')
+        return
+      }
+
+      if (!this.returnReason.trim()) {
+        this.showToastMessage('Please provide a reason for the return', 'error')
+        return
+      }
+
+      this.isSubmittingReturn = true
+
+      try {
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 2000))
+
+        // In a real app, this would make an API call
+        const returnId = 'RET' + Math.floor(Math.random() * 100000)
+
+        // Calculate return total
+        const returnTotal = selectedItems.reduce((total, item) => {
+          return total + (item.price * item.returnQuantity)
+        }, 0)
+
+        // Prepare return confirmation data
+        const returnConfirmationData = {
+          returnId: returnId,
+          orderNumber: this.selectedReturnOrder.orderNumber,
+          returnDate: new Date(),
+          returnValue: returnTotal,
+          returnReason: this.returnReason,
+          returnItems: selectedItems,
+          pickupAddress: this.selectedReturnOrder.shipping.address,
+          refundMethod: this.selectedReturnOrder.payment.method === 'Credit Card'
+            ? `Credit Card ending in ${this.selectedReturnOrder.payment.last4}`
+            : this.selectedReturnOrder.payment.method,
+          refundTimeline: this.selectedReturnOrder.payment.method === 'Credit Card'
+            ? '5-7 business days'
+            : '3-5 business days'
+        }
+
+        this.closeReturnModal()
+
+        // Navigate to confirmation page
+        this.$router.push({
+          name: 'ReturnConfirmation',
+          params: returnConfirmationData
+        })
+      } catch (error) {
+        this.showToastMessage('Failed to submit return request. Please try again.', 'error')
+      } finally {
+        this.isSubmittingReturn = false
+      }
+    },
+
+    showToastMessage(message, type = 'info') {
+      this.toast = { message, type }
+      this.showToast = true
+      setTimeout(() => {
+        this.showToast = false
+      }, 3000)
+    },
+
+    handleReturnTracking() {
+      const trackReturnId = this.$route.query.trackReturn
+      const highlightId = this.$route.query.highlight
+
+      if (trackReturnId) {
+        // Show success message about return tracking
+        this.showToastMessage(`Now tracking return request #${trackReturnId}. You can check the status anytime here.`, 'success')
+
+        // Find and highlight the related order if available
+        if (highlightId) {
+          setTimeout(() => {
+            const element = document.getElementById(highlightId)
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              element.classList.add('highlight-order')
+
+              setTimeout(() => {
+                element.classList.remove('highlight-order')
+              }, 3000)
+            }
+          }, 1000)
+        }
+
+        // Clear the query parameters without causing navigation
+        if (this.$router) {
+          this.$router.replace({ path: '/orders' })
+        }
+      }
     }
   }
 }
@@ -803,6 +1392,24 @@ export default {
   border-color: #3b82f6;
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+}
+
+.order-card.highlight-order {
+  border-color: #10b981 !important;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  animation: highlightPulse 2s ease-in-out;
+}
+
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 .order-header {
@@ -1338,6 +1945,455 @@ export default {
   line-height: 1.5;
 }
 
+/* Tracking Modal Styles */
+.tracking-modal {
+  max-width: 700px;
+}
+
+.current-status {
+  margin-bottom: var(--space-xl);
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  padding: var(--space-lg);
+  border-radius: 12px;
+  margin-bottom: var(--space-lg);
+}
+
+.status-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.status-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.status-info h4 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+.status-info .eta {
+  margin-bottom: var(--space-xs);
+  opacity: 0.9;
+}
+
+.status-info .tracking-number {
+  opacity: 0.8;
+  font-size: var(--font-size-sm);
+}
+
+.tracking-progress-detailed {
+  margin-bottom: var(--space-xl);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-md);
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+  position: relative;
+}
+
+.step-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: 3px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-dot {
+  background: #10b981;
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.progress-step span {
+  font-size: var(--font-size-xs);
+  color: #6b7280;
+  text-align: center;
+  font-weight: 500;
+}
+
+.progress-step.active span {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.tracking-updates h4 {
+  margin-bottom: var(--space-lg);
+  color: #1f2937;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.updates-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.update-item {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.update-item.latest {
+  background: #f0f9ff;
+  margin: -12px;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.update-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: 2px solid #e5e7eb;
+}
+
+.timeline-dot.completed {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+.timeline-line {
+  width: 2px;
+  height: 30px;
+  background: #e5e7eb;
+  margin-top: 4px;
+}
+
+.update-content {
+  flex: 1;
+}
+
+.update-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-xs);
+}
+
+.update-header h5 {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.update-time {
+  font-size: var(--font-size-xs);
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.update-description {
+  color: #374151;
+  margin-bottom: var(--space-xs);
+  line-height: 1.4;
+}
+
+.update-location {
+  font-size: var(--font-size-xs);
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Return Modal Styles */
+.return-modal {
+  max-width: 800px;
+}
+
+.return-policy {
+  display: flex;
+  gap: var(--space-md);
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  padding: var(--space-lg);
+  border-radius: 8px;
+  margin-bottom: var(--space-xl);
+}
+
+.policy-icon {
+  width: 40px;
+  height: 40px;
+  background: #f59e0b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.policy-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.policy-text h4 {
+  color: #92400e;
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-base);
+}
+
+.policy-text p {
+  color: #92400e;
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+.return-items-section {
+  margin-bottom: var(--space-xl);
+}
+
+.return-items-section h4 {
+  margin-bottom: var(--space-lg);
+  color: #1f2937;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.return-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.return-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.return-item:hover {
+  border-color: #d1d5db;
+}
+
+.return-item.selected {
+  border-color: #3b82f6;
+  background: #f0f9ff;
+}
+
+.item-select {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.item-select input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.checkbox-label {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.item-select input[type="checkbox"]:checked + .checkbox-label {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.item-select input[type="checkbox"]:checked + .checkbox-label::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.return-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.return-item-details {
+  flex: 1;
+}
+
+.return-item-details h5 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: var(--space-xs);
+}
+
+.return-item-details p {
+  font-size: var(--font-size-sm);
+  color: #6b7280;
+  margin-bottom: var(--space-sm);
+}
+
+.return-item-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.original-quantity {
+  font-size: var(--font-size-xs);
+  color: #6b7280;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.quantity-selector label {
+  font-size: var(--font-size-xs);
+  color: #374151;
+  font-weight: 500;
+}
+
+.quantity-selector select,
+.return-quantity-select {
+  padding: 4px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: var(--font-size-xs);
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.quantity-selector select:focus,
+.return-quantity-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.return-item-price {
+  font-weight: 600;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.return-reason-section {
+  margin-bottom: var(--space-xl);
+}
+
+.return-reason-section h4 {
+  margin-bottom: var(--space-md);
+  color: #1f2937;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.return-reason-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: var(--font-size-sm);
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.return-reason-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.return-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+  border-top: 1px solid #e5e7eb;
+  padding-top: var(--space-lg);
+}
+
+.return-actions .action-btn {
+  padding: 12px 24px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.return-actions .action-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.return-actions .action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.return-actions .action-btn svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
@@ -1416,8 +2472,99 @@ export default {
     grid-template-columns: 1fr;
   }
 
+  .tracking-modal,
+  .return-modal {
+    max-width: none;
+  }
+
   .modal-content {
     margin: var(--space-sm);
+    max-width: none;
+  }
+
+  .status-card {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-md);
+  }
+
+  .progress-steps {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .progress-step {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .update-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .return-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .return-item-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .return-actions {
+    flex-direction: column;
+  }
+}
+
+/* Toast Styles */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  z-index: 10000;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.toast.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.toast.info {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .toast {
+    right: 10px;
+    left: 10px;
     max-width: none;
   }
 }
