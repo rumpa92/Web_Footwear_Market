@@ -411,7 +411,7 @@
                       <span class="original-quantity">Original Qty: {{ item.quantity }}</span>
                       <div v-if="item.selected" class="quantity-selector">
                         <label>Return Qty:</label>
-                        <select v-model="item.returnQuantity">
+                        <select v-model="item.returnQuantity" class="return-quantity-select">
                           <option v-for="n in item.quantity" :key="n" :value="n">{{ n }}</option>
                         </select>
                       </div>
@@ -1058,7 +1058,8 @@ export default {
       this.returnItems = order.items.map(item => ({
         ...item,
         selected: false,
-        returnQuantity: 1
+        returnQuantity: 1,
+        maxReturnQuantity: item.quantity
       }))
     },
 
@@ -2275,6 +2276,38 @@ export default {
 
 .return-actions .action-btn {
   padding: 12px 24px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.return-actions .action-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.return-actions .action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.return-actions .action-btn svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes pulse {
