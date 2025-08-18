@@ -236,9 +236,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'UpiPayment',
+  components: {
+    BackButton
+  },
   data() {
     return {
       selectedApp: '',
