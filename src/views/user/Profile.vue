@@ -2633,10 +2633,10 @@ export default {
           id: 1,
           type: 'home',
           name: 'Anushka Sen',
-          street: '123 Main Street, Apt 4B',
+          street: '123 Park Avenue, Apt 4B',
           city: 'New York',
           state: 'NY',
-          zipCode: '10001',
+          zipCode: '10012',
           phone: '+1 (555) 123-4567',
           isDefault: true
         },
@@ -2644,10 +2644,21 @@ export default {
           id: 2,
           type: 'work',
           name: 'Anushka Sen',
-          street: '456 Business Ave, Floor 10',
+          street: '456 Business Street, Floor 12',
           city: 'New York',
           state: 'NY',
-          zipCode: '10002',
+          zipCode: '10013',
+          phone: '+1 (555) 123-4567',
+          isDefault: false
+        },
+        {
+          id: 3,
+          type: 'office',
+          name: 'Anushka Sen',
+          street: '789 Shopping Mall, Level 2',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10014',
           phone: '+1 (555) 123-4567',
           isDefault: false
         }
