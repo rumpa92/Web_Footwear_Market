@@ -104,27 +104,39 @@
 }
 
 .modern-add-btn.primary {
-  background: #3b82f6;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
 .modern-add-btn.primary:hover {
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
 }
 
 .modern-add-btn.secondary {
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #d1d5db;
+  background: rgba(255, 255, 255, 0.8);
+  color: #475569;
+  border: 2px solid #e2e8f0;
+  backdrop-filter: blur(8px);
 }
 
 .modern-add-btn.secondary:hover {
-  background: #e5e7eb;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .modern-add-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.modern-add-btn:hover svg {
+  transform: scale(1.1);
 }
 
 /* Stats Section - Simplified */
