@@ -62,7 +62,7 @@
     <!-- Filters Section -->
     <section class="filters-section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header browse-products-header">
           <h2 class="section-title">Browse Products</h2>
           <p class="section-subtitle">Use filters to find exactly what you're looking for</p>
         </div>
