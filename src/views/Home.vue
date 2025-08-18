@@ -679,6 +679,36 @@ export default {
   margin: 0;
 }
 
+.new-arrivals-header,
+.shop-category-header,
+.suggested-header,
+.trending-header {
+  text-align: left;
+  margin-bottom: var(--space-2xl);
+}
+
+.new-arrivals-title,
+.shop-category-title,
+.suggested-title,
+.trending-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 45px;
+}
+
+.new-arrivals-subtitle,
+.shop-category-subtitle,
+.suggested-subtitle,
+.trending-subtitle {
+  color: rgb(127, 140, 141);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+}
+
 .section-title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
