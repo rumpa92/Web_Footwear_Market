@@ -1,5 +1,6 @@
 <template>
   <div class="products-page">
+    <BackButton />
     <div class="container">
       <div class="page-header">
         <h1 class="page-title">{{ pageTitle }}</h1>
@@ -83,12 +84,14 @@
 import { mapGetters, mapActions } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
 import ProductFilters from '../components/products/ProductFilters.vue'
+import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'Products',
   components: {
     ProductCard,
-    ProductFilters
+    ProductFilters,
+    BackButton
   },
   data() {
     return {
