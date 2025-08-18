@@ -1,6 +1,5 @@
 <template>
   <div class="product-detail-page">
-    <BackButton />
     <div v-if="product" class="product-container">
       <!-- Product Image Carousel Section -->
       <div class="product-images-section">
@@ -387,13 +386,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'ProductDetail',
-  components: {
-    BackButton
-  },
   data() {
     return {
       selectedImage: '',
