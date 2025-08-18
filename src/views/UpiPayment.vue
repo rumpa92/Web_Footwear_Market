@@ -347,10 +347,6 @@ export default {
   },
 
   methods: {
-    goBack() {
-      this.$router.go(-1)
-    },
-
     selectApp(appId) {
       this.selectedApp = appId
     },
