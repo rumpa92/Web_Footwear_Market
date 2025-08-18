@@ -660,6 +660,23 @@ export default {
 
 .browse-products-header {
   text-align: left;
+  margin-bottom: var(--space-2xl);
+}
+
+.browse-products-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 45px;
+}
+
+.browse-products-subtitle {
+  color: rgb(127, 140, 141);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
 }
 
 .section-title {
