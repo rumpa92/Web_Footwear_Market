@@ -1,5 +1,6 @@
 <template>
   <div class="not-found">
+    <BackButton />
     <div class="container">
       <h1>404 - Page Not Found</h1>
       <p>The page you're looking for doesn't exist.</p>
@@ -9,8 +10,13 @@
 </template>
 
 <script>
+import BackButton from '../components/layout/BackButton.vue'
+
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  components: {
+    BackButton
+  }
 }
 </script>
 
