@@ -1,6 +1,5 @@
 <template>
   <div class="wallet-payment-page">
-    <BackButton />
     <div class="payment-container">
       <!-- Header -->
       <div class="payment-header">
@@ -286,13 +285,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'WalletPayment',
-  components: {
-    BackButton
-  },
   data() {
     return {
       selectedWallet: '',

@@ -1,6 +1,5 @@
 <template>
   <div class="netbanking-payment-page">
-    <BackButton />
     <div class="netbanking-container">
       <!-- Header Section -->
       <div class="payment-header">
@@ -276,13 +275,8 @@
 </template>
 
 <script>
-import BackButton from '../components/layout/BackButton.vue'
-
 export default {
   name: 'NetBankingPayment',
-  components: {
-    BackButton
-  },
   data() {
     return {
       searchQuery: '',
