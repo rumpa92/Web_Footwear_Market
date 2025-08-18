@@ -62,9 +62,9 @@
     <!-- Filters Section -->
     <section class="filters-section">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Browse Products</h2>
-          <p class="section-subtitle">Use filters to find exactly what you're looking for</p>
+        <div class="browse-products-header">
+          <h2 class="browse-products-title">Browse Products</h2>
+          <p class="browse-products-subtitle">Use filters to find exactly what you're looking for</p>
         </div>
 
         <div class="filters-content">
@@ -99,9 +99,9 @@
     <!-- New Arrivals -->
     <section class="new-arrivals">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">New Arrivals</h2>
-          <p class="section-subtitle">Latest additions to our collection</p>
+        <div class="new-arrivals-header">
+          <h2 class="new-arrivals-title">New Arrivals</h2>
+          <p class="new-arrivals-subtitle">Latest additions to our collection</p>
         </div>
 
         <div class="products-grid">
@@ -121,9 +121,9 @@
     <!-- Categories -->
     <section class="categories">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Shop by Category</h2>
-          <p class="section-subtitle">Find the perfect shoes for every occasion</p>
+        <div class="shop-category-header">
+          <h2 class="shop-category-title">Shop by Category</h2>
+          <p class="shop-category-subtitle">Find the perfect shoes for every occasion</p>
         </div>
         
         <div class="categories-grid">
@@ -148,9 +148,9 @@
     <!-- Suggested for You -->
     <section class="suggested-products">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Suggested for You</h2>
-          <p class="section-subtitle">Highly rated products you might love</p>
+        <div class="suggested-header">
+          <h2 class="suggested-title">Suggested for You</h2>
+          <p class="suggested-subtitle">Highly rated products you might love</p>
         </div>
         
         <div class="products-grid">
@@ -185,9 +185,9 @@
     <!-- What's Trending Products -->
     <section class="trending-products">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Trending Now</h2>
-          <p class="section-subtitle">Popular picks flying off our shelves</p>
+        <div class="trending-header">
+          <h2 class="trending-title">Trending Now</h2>
+          <p class="trending-subtitle">Popular picks flying off our shelves</p>
         </div>
         
         <div class="products-grid">
@@ -530,6 +530,7 @@ export default {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
+  margin-left: auto;
 }
 
 .sort-label {
@@ -562,7 +563,7 @@ export default {
 
 .filters-section {
   padding: var(--space-3xl) 0;
-  background-color: var(--bg-light);
+  background-color: #f8fafc;
 }
 
 .filters-content {
@@ -600,15 +601,17 @@ export default {
 
 .new-arrivals {
   padding: var(--space-3xl) 0;
+  background-color: #f0f9ff;
 }
 
 .suggested-products {
   padding: var(--space-3xl) 0;
-  background-color: var(--bg-light);
+  background-color: #f0fdf4;
 }
 
 .trending-products {
   padding: var(--space-3xl) 0;
+  background-color: #fefce8;
 }
 
 .trending-banner {
@@ -657,6 +660,57 @@ export default {
   margin-bottom: var(--space-2xl);
 }
 
+.browse-products-header {
+  text-align: left;
+  margin-bottom: var(--space-2xl);
+}
+
+.browse-products-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 45px;
+}
+
+.browse-products-subtitle {
+  color: rgb(127, 140, 141);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+}
+
+.new-arrivals-header,
+.shop-category-header,
+.suggested-header,
+.trending-header {
+  text-align: left;
+  margin-bottom: var(--space-2xl);
+}
+
+.new-arrivals-title,
+.shop-category-title,
+.suggested-title,
+.trending-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 45px;
+}
+
+.new-arrivals-subtitle,
+.shop-category-subtitle,
+.suggested-subtitle,
+.trending-subtitle {
+  color: rgb(127, 140, 141);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+}
+
 .section-title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
@@ -681,15 +735,19 @@ export default {
 }
 
 .categories {
-  background-color: var(--bg-light);
+  background-color: #fdf2f8;
   padding: var(--space-3xl) 0;
 }
 
 .categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: var(--space-xl);
-  justify-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .category-card {
@@ -700,6 +758,9 @@ export default {
   color: inherit;
   transition: var(--transition-normal);
   padding: var(--space-md);
+  flex: 1;
+  min-width: 140px;
+  max-width: 180px;
 }
 
 .category-card:hover {
@@ -906,11 +967,9 @@ export default {
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1200px) {
   .categories-grid {
-    grid-template-columns: repeat(6, 1fr);
-    max-width: 900px;
-    margin: 0 auto;
+    gap: var(--space-sm);
   }
 }
 
@@ -930,8 +989,14 @@ export default {
   }
 
   .categories-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--space-lg);
+    gap: var(--space-xs);
+    padding: 0 var(--space-sm);
+  }
+
+  .category-card {
+    min-width: 100px;
+    max-width: 120px;
+    padding: var(--space-sm);
   }
 
   .category-circle {
