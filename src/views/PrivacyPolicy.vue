@@ -1,5 +1,6 @@
 <template>
   <div class="privacy-policy-page">
+    <BackButton />
     <div class="container">
       <!-- Privacy Header -->
       <div class="privacy-header">
