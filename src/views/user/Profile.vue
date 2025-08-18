@@ -1601,98 +1601,99 @@
               <div class="delivery-content-grid">
                 <!-- Left Column: Addresses & Preferences -->
                 <div class="left-column">
-                  <!-- Saved Addresses -->
-                  <div class="modern-addresses-section">
-                    <div class="section-header">
-                      <h3 class="section-title">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  <!-- Home Address Section -->
+                  <div class="address-section-container">
+                    <div class="address-section-header">
+                      <div class="address-header-content">
+                        <svg class="address-header-icon" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
                         </svg>
-                        Delivery Addresses
-                      </h3>
-                      <button @click="addNewAddress" class="quick-add-btn">
+                        <h3 class="address-section-title">Home Address</h3>
+                      </div>
+                      <button @click="editAddress(1)" class="edit-address-btn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
                       </button>
                     </div>
-
-                    <div class="modern-addresses-grid">
-                      <div v-for="address in savedAddresses" :key="address.id" class="modern-address-card" :class="{ 'default-address': address.isDefault }">
-                        <div class="address-card-header">
-                          <div class="address-type-badge" :class="address.type">
-                            <svg v-if="address.type === 'home'" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                            </svg>
-                            <svg v-else-if="address.type === 'work'" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M20 6h-2.5l1.5-1.5L17.5 3L15 5.5 12.5 3 11 4.5 13.5 7H4v14h16V6z"/>
-                            </svg>
-                            <svg v-else viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                            <span>{{ formatAddressType(address.type) }}</span>
-                          </div>
-                          <div class="address-actions-menu">
-                            <button class="menu-toggle" @click="toggleAddressMenu(address.id)">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
-                              </svg>
-                            </button>
-                            <div v-if="activeAddressMenu === address.id" class="address-dropdown">
-                              <button v-if="!address.isDefault" @click="setDefaultAddress(address.id)" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                Set as Default
-                              </button>
-                              <button @click="editAddress(address.id)" class="dropdown-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                </svg>
-                                Edit
-                              </button>
-                              <button @click="deleteAddress(address.id)" class="dropdown-item delete">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                </svg>
-                                Delete
-                              </button>
-                            </div>
-                          </div>
+                    <div class="new-address-card">
+                      <div class="address-badge home-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                        HOME
+                      </div>
+                      <div class="address-details-new">
+                        <h4 class="recipient-name-new">Anushka Sen</h4>
+                        <p class="address-line-new">123 Park Avenue, Apt 4B</p>
+                        <p class="address-line-new">New York, NY 10012</p>
+                        <div class="phone-info">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                          </svg>
+                          +1 (555) 123-4567
                         </div>
+                      </div>
+                      <div class="default-address-badge">
+                        DEFAULT ADDRESS
+                      </div>
+                    </div>
+                  </div>
 
-                        <div class="address-content">
-                          <div class="recipient-name">{{ address.name }}</div>
-                          <div class="address-details">
-                            <div class="address-line">{{ address.street }}</div>
-                            <div class="address-line">{{ address.city }}, {{ address.state }} {{ address.zipCode }}</div>
-                            <div class="address-phone">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                              </svg>
-                              {{ address.phone }}
-                            </div>
-                          </div>
-                          <div v-if="address.isDefault" class="default-indicator">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                            Default Address
-                          </div>
+                  <!-- Work Address Section -->
+                  <div class="address-section-container">
+                    <div class="address-section-header">
+                      <div class="address-header-content">
+                        <svg class="address-header-icon" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20 6h-2.5l1.5-1.5L17.5 3L15 5.5 12.5 3 11 4.5 13.5 7H4v14h16V6z"/>
+                        </svg>
+                        <h3 class="address-section-title">Work Address</h3>
+                      </div>
+                      <button @click="editAddress(2)" class="edit-address-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="new-address-card">
+                      <div class="address-badge work-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20 6h-2.5l1.5-1.5L17.5 3L15 5.5 12.5 3 11 4.5 13.5 7H4v14h16V6z"/>
+                        </svg>
+                        WORK
+                      </div>
+                      <div class="address-details-new">
+                        <h4 class="recipient-name-new">Anushka Sen</h4>
+                        <p class="address-line-new">456 Business Street, Floor 12</p>
+                        <p class="address-line-new">New York, NY 10013</p>
+                        <div class="phone-info">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                          </svg>
+                          +1 (555) 123-4567
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <!-- Delivery Preferences -->
-                  <div class="modern-preferences-section">
-                    <div class="section-header">
-                      <h3 class="section-title">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                        Delivery Preferences
-                      </h3>
+                  <div class="enhanced-preferences-section">
+                    <div class="enhanced-section-header">
+                      <div class="enhanced-header-content">
+                        <div class="enhanced-header-icon preferences-icon">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                          </svg>
+                        </div>
+                        <div class="enhanced-header-text">
+                          <h3 class="enhanced-section-title">Delivery Preferences</h3>
+                          <p class="enhanced-section-subtitle">Customize your delivery experience</p>
+                        </div>
+                      </div>
+                      <div class="preferences-status-indicator">
+                        <div class="status-dot configured"></div>
+                        <span>Configured</span>
+                      </div>
                     </div>
 
                     <div class="preferences-container">
@@ -1780,14 +1781,23 @@
                 <!-- Right Column: Active Deliveries -->
                 <div class="right-column">
                   <!-- Active Deliveries -->
-                  <div class="modern-deliveries-section">
-                    <div class="section-header">
-                      <h3 class="section-title">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/>
-                        </svg>
-                        Active Deliveries
-                      </h3>
+                  <div class="enhanced-deliveries-section">
+                    <div class="enhanced-section-header">
+                      <div class="enhanced-header-content">
+                        <div class="enhanced-header-icon">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/>
+                          </svg>
+                        </div>
+                        <div class="enhanced-header-text">
+                          <h3 class="enhanced-section-title">Active Deliveries</h3>
+                          <p class="enhanced-section-subtitle">Track your packages in real-time</p>
+                        </div>
+                      </div>
+                      <div class="delivery-status-indicator">
+                        <div class="status-dot active"></div>
+                        <span>{{ activeDeliveries.length }} Active</span>
+                      </div>
                     </div>
 
                     <div v-if="activeDeliveries.length === 0" class="empty-deliveries">
@@ -2633,10 +2643,10 @@ export default {
           id: 1,
           type: 'home',
           name: 'Anushka Sen',
-          street: '123 Main Street, Apt 4B',
+          street: '123 Park Avenue, Apt 4B',
           city: 'New York',
           state: 'NY',
-          zipCode: '10001',
+          zipCode: '10012',
           phone: '+1 (555) 123-4567',
           isDefault: true
         },
@@ -2644,10 +2654,21 @@ export default {
           id: 2,
           type: 'work',
           name: 'Anushka Sen',
-          street: '456 Business Ave, Floor 10',
+          street: '456 Business Street, Floor 12',
           city: 'New York',
           state: 'NY',
-          zipCode: '10002',
+          zipCode: '10013',
+          phone: '+1 (555) 123-4567',
+          isDefault: false
+        },
+        {
+          id: 3,
+          type: 'office',
+          name: 'Anushka Sen',
+          street: '789 Shopping Mall, Level 2',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10014',
           phone: '+1 (555) 123-4567',
           isDefault: false
         }
