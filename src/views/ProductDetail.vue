@@ -1,5 +1,6 @@
 <template>
   <div class="product-detail-page">
+    <BackButton />
     <div v-if="product" class="product-container">
       <!-- Product Image Carousel Section -->
       <div class="product-images-section">
