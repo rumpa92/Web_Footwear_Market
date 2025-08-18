@@ -286,6 +286,171 @@
         </div>
       </div>
     </div>
+
+    <!-- Live Tracking Modal -->
+    <div v-if="showTrackingModal && selectedTrackingOrder" class="modal-overlay" @click="closeTrackingModal">
+      <div class="modal-content tracking-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Live Tracking - Order #{{ selectedTrackingOrder.orderNumber }}</h3>
+          <button @click="closeTrackingModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="tracking-content">
+            <!-- Current Status -->
+            <div class="current-status">
+              <div class="status-card">
+                <div class="status-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div class="status-info">
+                  <h4>{{ formatOrderStatus(selectedTrackingOrder.status) }}</h4>
+                  <p v-if="selectedTrackingOrder.tracking.estimatedDelivery" class="eta">
+                    Expected Delivery: {{ formatDate(selectedTrackingOrder.tracking.estimatedDelivery) }}
+                  </p>
+                  <p class="tracking-number">Tracking: {{ selectedTrackingOrder.tracking.trackingNumber }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="tracking-progress-detailed">
+              <div class="progress-bar">
+                <div class="progress-fill" :style="{ width: getProgressPercentage(selectedTrackingOrder.status) + '%' }"></div>
+              </div>
+              <div class="progress-steps">
+                <div class="progress-step" :class="{ active: ['processing', 'shipped', 'out-for-delivery', 'delivered'].includes(selectedTrackingOrder.status) }">
+                  <div class="step-dot"></div>
+                  <span>Processing</span>
+                </div>
+                <div class="progress-step" :class="{ active: ['shipped', 'out-for-delivery', 'delivered'].includes(selectedTrackingOrder.status) }">
+                  <div class="step-dot"></div>
+                  <span>Shipped</span>
+                </div>
+                <div class="progress-step" :class="{ active: ['out-for-delivery', 'delivered'].includes(selectedTrackingOrder.status) }">
+                  <div class="step-dot"></div>
+                  <span>Out for Delivery</span>
+                </div>
+                <div class="progress-step" :class="{ active: selectedTrackingOrder.status === 'delivered' }">
+                  <div class="step-dot"></div>
+                  <span>Delivered</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Updates -->
+            <div class="tracking-updates">
+              <h4>Tracking Updates</h4>
+              <div class="updates-list">
+                <div v-for="(update, index) in trackingUpdates" :key="index" class="update-item" :class="{ latest: index === 0 }">
+                  <div class="update-timeline">
+                    <div class="timeline-dot" :class="{ completed: update.completed }"></div>
+                    <div v-if="index < trackingUpdates.length - 1" class="timeline-line"></div>
+                  </div>
+                  <div class="update-content">
+                    <div class="update-header">
+                      <h5>{{ update.status }}</h5>
+                      <span class="update-time">{{ formatDateTime(update.timestamp) }}</span>
+                    </div>
+                    <p class="update-description">{{ update.description }}</p>
+                    <span class="update-location">{{ update.location }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Return Request Modal -->
+    <div v-if="showReturnModal && selectedReturnOrder" class="modal-overlay" @click="closeReturnModal">
+      <div class="modal-content return-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Return Request - Order #{{ selectedReturnOrder.orderNumber }}</h3>
+          <button @click="closeReturnModal" class="modal-close-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="return-content">
+            <!-- Return Policy Info -->
+            <div class="return-policy">
+              <div class="policy-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div class="policy-text">
+                <h4>Return Policy</h4>
+                <p>Items can be returned within 30 days of delivery. Items must be in original condition with tags attached.</p>
+              </div>
+            </div>
+
+            <!-- Select Items to Return -->
+            <div class="return-items-section">
+              <h4>Select Items to Return</h4>
+              <div class="return-items-list">
+                <div v-for="item in returnItems" :key="item.id" class="return-item">
+                  <div class="item-select">
+                    <input type="checkbox" v-model="item.selected" :id="`return-item-${item.id}`">
+                    <label :for="`return-item-${item.id}`" class="checkbox-label"></label>
+                  </div>
+                  <img :src="item.image" :alt="item.name" class="return-item-image">
+                  <div class="return-item-details">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.variant }}</p>
+                    <div class="return-item-controls">
+                      <span class="original-quantity">Original Qty: {{ item.quantity }}</span>
+                      <div v-if="item.selected" class="quantity-selector">
+                        <label>Return Qty:</label>
+                        <select v-model="item.returnQuantity">
+                          <option v-for="n in item.quantity" :key="n" :value="n">{{ n }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="return-item-price">
+                    ${{ item.price.toFixed(2) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Return Reason -->
+            <div class="return-reason-section">
+              <h4>Reason for Return</h4>
+              <select v-model="returnReason" class="return-reason-select">
+                <option value="">Select a reason</option>
+                <option value="defective">Defective/Damaged Item</option>
+                <option value="wrong-size">Wrong Size</option>
+                <option value="wrong-item">Wrong Item Received</option>
+                <option value="not-as-described">Not as Described</option>
+                <option value="changed-mind">Changed Mind</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Return Actions -->
+            <div class="return-actions">
+              <button @click="closeReturnModal" class="action-btn ghost">
+                Cancel
+              </button>
+              <button @click="submitReturnRequest" class="action-btn primary">
+                Submit Return Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -506,6 +671,21 @@ export default {
         .reduce((sum, order) => sum + order.total, 0)
     }
   },
+  watch: {
+    selectedReturnOrder: {
+      handler(newOrder) {
+        if (newOrder) {
+          this.initializeReturnItems(newOrder)
+        }
+      },
+      immediate: true
+    }
+  },
+  beforeDestroy() {
+    if (this.trackingUpdateInterval) {
+      clearInterval(this.trackingUpdateInterval)
+    }
+  },
   methods: {
     formatDate(date) {
       return new Date(date).toLocaleDateString('en-US', {
@@ -524,6 +704,17 @@ export default {
         'cancelled': 'Cancelled'
       }
       return statusMap[status] || status
+    },
+
+    formatDateTime(date) {
+      return new Date(date).toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      })
     },
 
     getProgressPercentage(status) {
