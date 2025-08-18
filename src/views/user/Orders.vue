@@ -1394,6 +1394,24 @@ export default {
   box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
 }
 
+.order-card.highlight-order {
+  border-color: #10b981 !important;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  animation: highlightPulse 2s ease-in-out;
+}
+
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
 .order-header {
   margin-bottom: var(--space-lg);
 }
