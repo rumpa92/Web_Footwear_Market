@@ -192,21 +192,34 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-          <button @click="trackReturnStatus" class="action-btn primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <button @click="trackReturnStatus" class="action-btn primary" :disabled="isNavigating">
+            <svg v-if="!isNavigating" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-            Track Return Status
+            <svg v-else class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            {{ isNavigating ? 'Opening...' : 'Track Return Status' }}
           </button>
-          <button @click="goToOrders" class="action-btn secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <button @click="goToOrders" class="action-btn secondary" :disabled="isNavigating">
+            <svg v-if="!isNavigating" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z"/>
             </svg>
-            Go to My Orders
+            <svg v-else class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            {{ isNavigating ? 'Redirecting...' : 'Go to My Orders' }}
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- Toast Messages -->
+    <div v-if="showToast" class="toast" :class="toast.type">
+      {{ toast.message }}
     </div>
   </div>
 </template>
@@ -226,7 +239,10 @@ export default {
         pickupAddress: '',
         refundMethod: 'Original Payment Method',
         refundTimeline: '5-7 business days'
-      }
+      },
+      showToast: false,
+      toast: { message: '', type: '' },
+      isNavigating: false
     }
   },
   created() {
@@ -267,15 +283,40 @@ export default {
     },
 
     trackReturnStatus() {
-      // Navigate to orders page with return tracking
-      this.$router.push({
-        path: '/orders',
-        query: { trackReturn: this.returnData.returnId }
-      })
+      if (this.isNavigating) return
+
+      this.isNavigating = true
+      this.showToastMessage('Opening return tracking...', 'info')
+
+      setTimeout(() => {
+        // Navigate to orders page with return tracking query
+        this.$router.push({
+          path: '/orders',
+          query: {
+            trackReturn: this.returnData.returnId,
+            highlight: 'return-' + this.returnData.returnId
+          }
+        })
+      }, 1000)
     },
 
     goToOrders() {
-      this.$router.push('/orders')
+      if (this.isNavigating) return
+
+      this.isNavigating = true
+      this.showToastMessage('Redirecting to My Orders...', 'info')
+
+      setTimeout(() => {
+        this.$router.push('/orders')
+      }, 800)
+    },
+
+    showToastMessage(message, type = 'info') {
+      this.toast = { message, type }
+      this.showToast = true
+      setTimeout(() => {
+        this.showToast = false
+      }, 3000)
     }
   }
 }
