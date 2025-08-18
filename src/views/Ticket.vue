@@ -1,6 +1,5 @@
 <template>
   <div class="ticket-page">
-    <BackButton />
     <div class="container">
       <!-- Ticket Navigation Bar -->
       <div class="ticket-nav-bar" v-if="!showSuccess">
@@ -715,13 +714,8 @@
 </template>
 
 <script>
-import BackButton from '../components/layout/BackButton.vue'
-
 export default {
   name: 'Ticket',
-  components: {
-    BackButton
-  },
   data() {
     return {
       currentStep: 1,

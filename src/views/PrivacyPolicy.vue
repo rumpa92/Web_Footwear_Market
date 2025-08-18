@@ -1,6 +1,5 @@
 <template>
   <div class="privacy-policy-page">
-    <BackButton />
     <div class="container">
       <!-- Privacy Header -->
       <div class="privacy-header">
@@ -133,13 +132,8 @@
 </template>
 
 <script>
-import BackButton from '../components/layout/BackButton.vue'
-
 export default {
   name: 'PrivacyPolicy',
-  components: {
-    BackButton
-  },
   data() {
     return {
       settings: {
