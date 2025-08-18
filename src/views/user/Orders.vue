@@ -151,11 +151,11 @@
             </div>
 
             <!-- Order Actions -->
-            <div class="order-actions">
+            <div class="order-actions" :id="'order-' + order.id">
               <div class="primary-actions">
-                <button 
+                <button
                   v-if="order.tracking && order.tracking.trackingNumber !== 'N/A'"
-                  @click="trackOrder(order)" 
+                  @click="trackOrder(order)"
                   class="action-btn primary"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -699,6 +699,10 @@ export default {
       immediate: true
     }
   },
+  mounted() {
+    // Check if we came from return confirmation page
+    this.handleReturnTracking()
+  },
   beforeDestroy() {
     if (this.trackingUpdateInterval) {
       clearInterval(this.trackingUpdateInterval)
@@ -1127,6 +1131,36 @@ export default {
       setTimeout(() => {
         this.showToast = false
       }, 3000)
+    },
+
+    handleReturnTracking() {
+      const trackReturnId = this.$route.query.trackReturn
+      const highlightId = this.$route.query.highlight
+
+      if (trackReturnId) {
+        // Show success message about return tracking
+        this.showToastMessage(`Now tracking return request #${trackReturnId}. You can check the status anytime here.`, 'success')
+
+        // Find and highlight the related order if available
+        if (highlightId) {
+          setTimeout(() => {
+            const element = document.getElementById(highlightId)
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              element.classList.add('highlight-order')
+
+              setTimeout(() => {
+                element.classList.remove('highlight-order')
+              }, 3000)
+            }
+          }, 1000)
+        }
+
+        // Clear the query parameters without causing navigation
+        if (this.$router) {
+          this.$router.replace({ path: '/orders' })
+        }
+      }
     }
   }
 }
