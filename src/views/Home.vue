@@ -735,7 +735,7 @@ export default {
 }
 
 .categories {
-  background-color: var(--bg-light);
+  background-color: #fdf2f8;
   padding: var(--space-3xl) 0;
 }
 
