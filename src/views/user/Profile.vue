@@ -1,5 +1,6 @@
 <template>
   <div class="profile-page">
+    <BackButton />
     <div class="container">
       <!-- Profile Header -->
       <div class="profile-header">
