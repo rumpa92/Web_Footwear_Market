@@ -989,9 +989,14 @@ export default {
   }
 
   .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
-    max-width: 400px;
+    gap: var(--space-xs);
+    padding: 0 var(--space-sm);
+  }
+
+  .category-card {
+    min-width: 100px;
+    max-width: 120px;
+    padding: var(--space-sm);
   }
 
   .category-circle {
