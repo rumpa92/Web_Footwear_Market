@@ -101,6 +101,12 @@ const routes = [
     component: () => import('../views/OrderConfirmation.vue')
   },
   {
+    path: '/return-confirmation',
+    name: 'ReturnConfirmation',
+    component: () => import('../views/ReturnConfirmation.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
     component: () => import('../views/PrivacyPolicy.vue')
