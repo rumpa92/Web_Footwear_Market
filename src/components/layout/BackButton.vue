@@ -14,43 +14,50 @@ export default {
   name: 'BackButton',
   computed: {
     shouldShowBackButton() {
-      // Hide back button on home page, sign in, and sign up pages
-      const excludedRoutes = ['/', '/login', '/register']
+      // Hide back button on home, success, sign in, sign up, and forgot password pages
+      const excludedRoutes = [
+        '/',
+        '/login',
+        '/register',
+        '/forgot-password',
+        '/order-confirmation',
+        '/return-confirmation'
+      ]
       return !excludedRoutes.includes(this.$route.path)
     },
     backButtonText() {
       // Map route paths to readable page names
       const pageNames = {
-        '/products': 'Back to Products',
-        '/brands': 'Back to Brands',
-        '/sale': 'Back to Sale',
-        '/cart': 'Back to Cart',
-        '/wishlist': 'Back to Wishlist',
-        '/profile': 'Back to Profile',
-        '/orders': 'Back to Orders',
-        '/checkout': 'Back to Checkout',
-        '/ticket': 'Back to Support',
-        '/upi-payment': 'Back to Payment',
-        '/wallet-payment': 'Back to Payment',
-        '/netbanking-payment': 'Back to Payment',
-        '/order-confirmation': 'Back to Orders'
+        '/products': 'Products',
+        '/brands': 'Brands',
+        '/sale': 'Sale',
+        '/cart': 'Cart',
+        '/wishlist': 'Wishlist',
+        '/profile': 'Profile',
+        '/orders': 'Orders',
+        '/checkout': 'Checkout',
+        '/ticket': 'Support',
+        '/upi-payment': 'UPI Payment',
+        '/wallet-payment': 'Wallet Payment',
+        '/netbanking-payment': 'Net Banking',
+        '/privacy-policy': 'Privacy Policy'
       }
 
       // Handle 404 Not Found page
       if (this.$route.name === 'NotFound') {
-        return 'Back to Home'
+        return 'Page Not Found'
       }
 
       // Handle dynamic routes (like /product/:id, /brands/:brand)
       if (this.$route.path.startsWith('/product/')) {
-        return 'Back to Products'
+        return 'Product Details'
       }
       if (this.$route.path.startsWith('/brands/')) {
-        return 'Back to Brands'
+        return 'Brand Products'
       }
 
-      // Return mapped page name or default "Back"
-      return pageNames[this.$route.path] || 'Back'
+      // Return mapped page name or route name
+      return pageNames[this.$route.path] || this.$route.name || 'Back'
     }
   },
   methods: {
