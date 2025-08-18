@@ -1,6 +1,5 @@
 <template>
   <div class="wishlist">
-    <BackButton />
     <div class="container">
       <h1>Wishlist</h1>
       <p>Your saved items</p>
@@ -9,13 +8,8 @@
 </template>
 
 <script>
-import BackButton from '../components/layout/BackButton.vue'
-
 export default {
-  name: 'Wishlist',
-  components: {
-    BackButton
-  }
+  name: 'Wishlist'
 }
 </script>
 
