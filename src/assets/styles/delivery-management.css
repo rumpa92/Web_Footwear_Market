@@ -1189,14 +1189,26 @@
   height: 14px;
 }
 
-/* Save Section - Clean Design */
+/* Enhanced Save Section */
 .modern-save-section {
-  background: white;
-  border-radius: 12px;
-  padding: var(--space-xl);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  padding: var(--space-2xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e1e5e9;
   margin-top: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-save-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
 }
 
 .save-actions {
