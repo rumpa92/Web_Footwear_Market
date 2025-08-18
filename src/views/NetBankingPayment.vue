@@ -374,10 +374,6 @@ export default {
       }
     },
 
-    goBack() {
-      this.$router.go(-1)
-    },
-
     selectBank(bank) {
       if (bank.status !== 'available') {
         this.showToastMessage('This bank is currently under maintenance. Please select another bank.', 'error')
