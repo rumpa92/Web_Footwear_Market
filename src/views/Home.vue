@@ -99,9 +99,9 @@
     <!-- New Arrivals -->
     <section class="new-arrivals">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">New Arrivals</h2>
-          <p class="section-subtitle">Latest additions to our collection</p>
+        <div class="new-arrivals-header">
+          <h2 class="new-arrivals-title">New Arrivals</h2>
+          <p class="new-arrivals-subtitle">Latest additions to our collection</p>
         </div>
 
         <div class="products-grid">
@@ -121,9 +121,9 @@
     <!-- Categories -->
     <section class="categories">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Shop by Category</h2>
-          <p class="section-subtitle">Find the perfect shoes for every occasion</p>
+        <div class="shop-category-header">
+          <h2 class="shop-category-title">Shop by Category</h2>
+          <p class="shop-category-subtitle">Find the perfect shoes for every occasion</p>
         </div>
         
         <div class="categories-grid">
@@ -148,9 +148,9 @@
     <!-- Suggested for You -->
     <section class="suggested-products">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Suggested for You</h2>
-          <p class="section-subtitle">Highly rated products you might love</p>
+        <div class="suggested-header">
+          <h2 class="suggested-title">Suggested for You</h2>
+          <p class="suggested-subtitle">Highly rated products you might love</p>
         </div>
         
         <div class="products-grid">
@@ -185,9 +185,9 @@
     <!-- What's Trending Products -->
     <section class="trending-products">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Trending Now</h2>
-          <p class="section-subtitle">Popular picks flying off our shelves</p>
+        <div class="trending-header">
+          <h2 class="trending-title">Trending Now</h2>
+          <p class="trending-subtitle">Popular picks flying off our shelves</p>
         </div>
         
         <div class="products-grid">
