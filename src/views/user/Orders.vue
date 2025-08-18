@@ -2226,11 +2226,21 @@ export default {
   font-weight: 500;
 }
 
-.quantity-selector select {
+.quantity-selector select,
+.return-quantity-select {
   padding: 4px 8px;
   border: 1px solid #d1d5db;
   border-radius: 4px;
   font-size: var(--font-size-xs);
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.quantity-selector select:focus,
+.return-quantity-select:focus {
+  outline: none;
+  border-color: #3b82f6;
 }
 
 .return-item-price {
