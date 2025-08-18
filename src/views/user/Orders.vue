@@ -11,7 +11,7 @@
           </div>
           <div class="hero-text">
             <h1>My Orders</h1>
-            <p>Track and manage all your beauty purchases in one place. View current orders with live tracking, check past purchases, reorder favorites, download invoices, or request returns and refunds.</p>
+            <p>Track and manage all your footwear purchases in one place. View current orders with live tracking, check past purchases, reorder favorites, download invoices, or request returns and refunds.</p>
           </div>
         </div>
         <div class="orders-stats">
