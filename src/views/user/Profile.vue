@@ -1,6 +1,5 @@
 <template>
   <div class="profile-page">
-    <BackButton />
     <div class="container">
       <!-- Profile Header -->
       <div class="profile-header">
@@ -2313,13 +2312,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BackButton from '../../components/layout/BackButton.vue'
 
 export default {
   name: 'Profile',
-  components: {
-    BackButton
-  },
   data() {
     return {
       activeSection: 'profile',
@@ -3142,7 +3137,7 @@ export default {
             const uploadDetails = `📸 Photo Upload Complete
 
 📁 File: ${file.name}
-��� Size: ${(file.size / 1024).toFixed(1)} KB
+📏 Size: ${(file.size / 1024).toFixed(1)} KB
 📅 Uploaded: ${new Date().toLocaleString()}
 
 Your new profile photo is now active!`

@@ -1,6 +1,5 @@
 <template>
   <div class="orders-page">
-    <BackButton />
     <!-- Hero Header -->
     <div class="orders-hero">
       <div class="container">
@@ -471,13 +470,8 @@
 </template>
 
 <script>
-import BackButton from '../../components/layout/BackButton.vue'
-
 export default {
   name: 'Orders',
-  components: {
-    BackButton
-  },
   data() {
     return {
       searchQuery: '',
