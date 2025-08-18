@@ -387,9 +387,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'ProductDetail',
+  components: {
+    BackButton
+  },
   data() {
     return {
       selectedImage: '',
