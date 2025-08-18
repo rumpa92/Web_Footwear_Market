@@ -309,19 +309,19 @@ export default {
           items: [
             {
               id: 1,
-              name: 'Luxury Skincare Set',
-              variant: 'Anti-Aging Collection',
+              name: 'Nike Air Max 270',
+              variant: 'Black/White - Size 9',
               price: 89.99,
               quantity: 1,
-              image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=100&h=100&fit=crop'
+              image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop'
             },
             {
               id: 2,
-              name: 'Premium Foundation',
-              variant: 'Shade 22 - Medium',
+              name: 'Adidas UltraBoost 22',
+              variant: 'Core Black - Size 9',
               price: 49.99,
               quantity: 2,
-              image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=100&h=100&fit=crop'
+              image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=100&h=100&fit=crop'
             }
           ],
           shipping: {
@@ -334,8 +334,8 @@ export default {
             last4: '4242'
           },
           tracking: {
-            carrier: 'BeautyExpress',
-            trackingNumber: 'BE12347890',
+            carrier: 'FootTrack Express',
+            trackingNumber: 'FT12347890',
             deliveredDate: new Date('2024-01-18')
           },
           canReturn: true,
@@ -351,19 +351,19 @@ export default {
           items: [
             {
               id: 3,
-              name: 'Vitamin C Serum',
-              variant: '30ml Bottle',
+              name: 'Converse Chuck Taylor All Star',
+              variant: 'White High Top - Size 9',
               price: 65.99,
               quantity: 1,
-              image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop'
+              image: 'https://images.unsplash.com/photo-1611537227264-3b99df41e8c2?w=100&h=100&fit=crop'
             },
             {
               id: 4,
-              name: 'Hydrating Moisturizer',
-              variant: 'For Dry Skin - 50ml',
+              name: 'Vans Old Skool',
+              variant: 'Black/White - Size 9',
               price: 58.99,
               quantity: 1,
-              image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=100&h=100&fit=crop'
+              image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=100&h=100&fit=crop'
             }
           ],
           shipping: {
@@ -376,8 +376,8 @@ export default {
             last4: 'PayPal'
           },
           tracking: {
-            carrier: 'FastTrack Express',
-            trackingNumber: 'FT12346789',
+            carrier: 'SneakerShip Express',
+            trackingNumber: 'SS12346789',
             estimatedDelivery: new Date('2024-01-16')
           },
           canReturn: false,
@@ -392,11 +392,11 @@ export default {
           items: [
             {
               id: 5,
-              name: 'Makeup Brush Set',
-              variant: 'Professional 12-piece',
+              name: 'Puma RS-X3',
+              variant: 'White/Blue - Size 9',
               price: 75.50,
               quantity: 1,
-              image: 'https://images.unsplash.com/photo-1583241475880-76b1c02a01a8?w=100&h=100&fit=crop'
+              image: 'https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=100&h=100&fit=crop'
             }
           ],
           shipping: {
@@ -409,8 +409,8 @@ export default {
             last4: '1234'
           },
           tracking: {
-            carrier: 'BeautyExpress',
-            trackingNumber: 'BE12345678',
+            carrier: 'FootTrack Express',
+            trackingNumber: 'FT12345678',
             estimatedDelivery: new Date('2024-01-12')
           },
           canReturn: false,
@@ -425,11 +425,11 @@ export default {
           items: [
             {
               id: 6,
-              name: 'Lip Gloss Set',
-              variant: '3-pack Nude Collection',
+              name: 'New Balance 990v5',
+              variant: 'Grey - Size 10',
               price: 45.99,
               quantity: 1,
-              image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=100&h=100&fit=crop'
+              image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=100&h=100&fit=crop'
             }
           ],
           shipping: {
