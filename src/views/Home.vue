@@ -963,11 +963,10 @@ export default {
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1200px) {
   .categories-grid {
-    grid-template-columns: repeat(6, 1fr);
-    max-width: 900px;
-    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 600px;
   }
 }
 
