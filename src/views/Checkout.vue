@@ -1,6 +1,5 @@
 <template>
   <div class="checkout-page">
-    <BackButton />
     <div class="checkout-container">
       <!-- Main Content Grid -->
       <div class="checkout-grid">
@@ -498,13 +497,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'Checkout',
-  components: {
-    BackButton
-  },
   data() {
     return {
       // Payment
