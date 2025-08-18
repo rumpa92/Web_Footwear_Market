@@ -530,6 +530,7 @@ export default {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
+  margin-left: auto;
 }
 
 .sort-label {
