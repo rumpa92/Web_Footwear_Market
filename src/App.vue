@@ -43,6 +43,12 @@ export default {
       showSplash: true
     }
   },
+  computed: {
+    isAuthPage() {
+      const authPages = ['/login', '/register', '/forgot-password']
+      return authPages.includes(this.$route.path)
+    }
+  },
   methods: {
     handleSplashComplete() {
       this.showSplash = false
