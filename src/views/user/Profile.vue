@@ -1772,14 +1772,23 @@
                 <!-- Right Column: Active Deliveries -->
                 <div class="right-column">
                   <!-- Active Deliveries -->
-                  <div class="modern-deliveries-section">
-                    <div class="section-header">
-                      <h3 class="section-title">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/>
-                        </svg>
-                        Active Deliveries
-                      </h3>
+                  <div class="enhanced-deliveries-section">
+                    <div class="enhanced-section-header">
+                      <div class="enhanced-header-content">
+                        <div class="enhanced-header-icon">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/>
+                          </svg>
+                        </div>
+                        <div class="enhanced-header-text">
+                          <h3 class="enhanced-section-title">Active Deliveries</h3>
+                          <p class="enhanced-section-subtitle">Track your packages in real-time</p>
+                        </div>
+                      </div>
+                      <div class="delivery-status-indicator">
+                        <div class="status-dot active"></div>
+                        <span>{{ activeDeliveries.length }} Active</span>
+                      </div>
                     </div>
 
                     <div v-if="activeDeliveries.length === 0" class="empty-deliveries">
