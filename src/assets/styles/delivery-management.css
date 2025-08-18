@@ -1170,7 +1170,7 @@
   height: 16px;
 }
 
-/* Delivery Cards - Clean Design */
+/* Enhanced Delivery Cards */
 .delivery-cards {
   display: flex;
   flex-direction: column;
@@ -1178,16 +1178,30 @@
 }
 
 .modern-delivery-card {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
   padding: var(--space-xl);
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-delivery-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #f59e0b 0%, #ea580c 100%);
 }
 
 .modern-delivery-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border-color: #f59e0b;
 }
 
 .delivery-card-header {
