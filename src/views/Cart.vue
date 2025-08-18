@@ -1,5 +1,6 @@
 <template>
   <div class="cart-page">
+    <BackButton />
     <div class="cart-container">
       <div class="cart-header">
         <h1>Shopping Cart</h1>
@@ -186,9 +187,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import BackButton from '../components/layout/BackButton.vue'
 
 export default {
   name: 'Cart',
+  components: {
+    BackButton
+  },
   data() {
     return {
       couponCode: '',
