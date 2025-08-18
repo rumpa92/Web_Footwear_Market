@@ -658,6 +658,10 @@ export default {
   margin-bottom: var(--space-2xl);
 }
 
+.browse-products-header {
+  text-align: left;
+}
+
 .section-title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
