@@ -8,14 +8,14 @@
 
     <!-- Main App Content -->
     <div v-else class="app-content">
-      <Header />
+      <Header v-if="!isAuthPage" />
       <BackButton />
       <main class="main-content">
         <router-view />
       </main>
-      <Footer />
-      <ShoppingCart />
-      <AddedToCartModal />
+      <Footer v-if="!isAuthPage" />
+      <ShoppingCart v-if="!isAuthPage" />
+      <AddedToCartModal v-if="!isAuthPage" />
     </div>
   </div>
 </template>
