@@ -1090,8 +1090,30 @@ export default {
           return total + (item.price * item.returnQuantity)
         }, 0)
 
-        this.showToastMessage(`Return request #${returnId} submitted successfully! Return value: $${returnTotal.toFixed(2)}. We'll contact you within 24 hours.`, 'success')
+        // Prepare return confirmation data
+        const returnConfirmationData = {
+          returnId: returnId,
+          orderNumber: this.selectedReturnOrder.orderNumber,
+          returnDate: new Date(),
+          returnValue: returnTotal,
+          returnReason: this.returnReason,
+          returnItems: selectedItems,
+          pickupAddress: this.selectedReturnOrder.shipping.address,
+          refundMethod: this.selectedReturnOrder.payment.method === 'Credit Card'
+            ? `Credit Card ending in ${this.selectedReturnOrder.payment.last4}`
+            : this.selectedReturnOrder.payment.method,
+          refundTimeline: this.selectedReturnOrder.payment.method === 'Credit Card'
+            ? '5-7 business days'
+            : '3-5 business days'
+        }
+
         this.closeReturnModal()
+
+        // Navigate to confirmation page
+        this.$router.push({
+          name: 'ReturnConfirmation',
+          params: returnConfirmationData
+        })
       } catch (error) {
         this.showToastMessage('Failed to submit return request. Please try again.', 'error')
       } finally {
