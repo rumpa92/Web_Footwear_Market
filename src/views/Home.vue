@@ -563,7 +563,7 @@ export default {
 
 .filters-section {
   padding: var(--space-3xl) 0;
-  background-color: var(--bg-light);
+  background-color: #f8fafc;
 }
 
 .filters-content {
@@ -601,15 +601,17 @@ export default {
 
 .new-arrivals {
   padding: var(--space-3xl) 0;
+  background-color: #f0f9ff;
 }
 
 .suggested-products {
   padding: var(--space-3xl) 0;
-  background-color: var(--bg-light);
+  background-color: #f0fdf4;
 }
 
 .trending-products {
   padding: var(--space-3xl) 0;
+  background-color: #fefce8;
 }
 
 .trending-banner {
