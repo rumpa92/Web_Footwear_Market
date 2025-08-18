@@ -299,6 +299,14 @@ export default {
       timeFilter: '',
       showOrderDetailsModal: false,
       selectedOrder: null,
+      showTrackingModal: false,
+      selectedTrackingOrder: null,
+      trackingUpdates: [],
+      trackingUpdateInterval: null,
+      showReturnModal: false,
+      selectedReturnOrder: null,
+      returnReason: '',
+      returnItems: [],
       orders: [
         {
           id: 'ORD-12347',
@@ -529,27 +537,56 @@ export default {
     },
 
     trackOrder(order) {
-      this.$toast?.success(`Opening live tracking for order #${order.orderNumber}`)
-      // In a real app, this would open a tracking page or modal
+      // Open tracking modal with live tracking info
+      this.selectedTrackingOrder = order
+      this.showTrackingModal = true
+
+      // Simulate live tracking updates
+      this.startLiveTracking(order)
+
+      this.$toast?.success(`Live tracking opened for order #${order.orderNumber}`)
     },
 
     reorderItems(order) {
-      // Add all items to cart
+      // Add all items from the order to cart
       order.items.forEach(item => {
-        // In a real app, this would add items to the cart store
+        // Map order item to product format for cart
+        const product = {
+          id: item.id,
+          name: item.name,
+          brand: item.brand || 'Generic',
+          price: item.price,
+          image: item.image
+        }
+
+        // Extract size and color from variant (e.g., "Black/White - Size 9")
+        const variantParts = item.variant.split(' - ')
+        const color = variantParts[0] || 'Default'
+        const size = variantParts[1] ? variantParts[1].replace('Size ', '') : 'M'
+
+        this.$store.dispatch('cart/addToCart', {
+          product,
+          size,
+          color,
+          quantity: item.quantity
+        })
       })
-      this.$toast?.success(`${order.items.length} items added to cart`)
+
+      this.$toast?.success(`${order.items.length} items added to cart for reorder!`)
       this.$router.push('/cart')
     },
 
     downloadInvoice(order) {
-      this.$toast?.success(`Downloading invoice for order #${order.orderNumber}`)
-      // In a real app, this would trigger a PDF download
+      // Generate and download invoice PDF
+      this.generateInvoicePDF(order)
+      this.$toast?.success(`Invoice downloaded for order #${order.orderNumber}`)
     },
 
     initiateReturn(order) {
-      this.$toast?.info(`Opening return request for order #${order.orderNumber}`)
-      // In a real app, this would open a return form
+      // Open return request modal
+      this.selectedReturnOrder = order
+      this.showReturnModal = true
+      this.$toast?.info(`Return request opened for order #${order.orderNumber}`)
     },
 
     cancelOrder(order) {
@@ -572,6 +609,262 @@ export default {
     closeOrderDetailsModal() {
       this.showOrderDetailsModal = false
       this.selectedOrder = null
+    },
+
+    startLiveTracking(order) {
+      // Clear any existing interval
+      if (this.trackingUpdateInterval) {
+        clearInterval(this.trackingUpdateInterval)
+      }
+
+      // Initialize tracking updates with current status
+      this.trackingUpdates = this.generateTrackingHistory(order)
+
+      // Simulate live updates every 30 seconds
+      this.trackingUpdateInterval = setInterval(() => {
+        if (order.status !== 'delivered' && order.status !== 'cancelled') {
+          this.simulateTrackingUpdate(order)
+        }
+      }, 30000)
+    },
+
+    generateTrackingHistory(order) {
+      const now = new Date()
+      const orderDate = new Date(order.date)
+
+      const updates = [
+        {
+          status: 'Order Placed',
+          description: `Order #${order.orderNumber} has been placed successfully`,
+          timestamp: orderDate,
+          location: 'Online',
+          completed: true
+        }
+      ]
+
+      if (['shipped', 'out-for-delivery', 'delivered'].includes(order.status)) {
+        updates.push({
+          status: 'Processing',
+          description: 'Your order is being prepared for shipment',
+          timestamp: new Date(orderDate.getTime() + 1 * 60 * 60 * 1000), // +1 hour
+          location: 'Warehouse',
+          completed: true
+        })
+      }
+
+      if (['shipped', 'out-for-delivery', 'delivered'].includes(order.status)) {
+        updates.push({
+          status: 'Shipped',
+          description: `Package shipped via ${order.tracking.carrier}`,
+          timestamp: new Date(orderDate.getTime() + 24 * 60 * 60 * 1000), // +1 day
+          location: 'Distribution Center',
+          completed: true
+        })
+      }
+
+      if (['out-for-delivery', 'delivered'].includes(order.status)) {
+        updates.push({
+          status: 'Out for Delivery',
+          description: 'Package is out for delivery',
+          timestamp: new Date(orderDate.getTime() + 48 * 60 * 60 * 1000), // +2 days
+          location: 'Local Facility',
+          completed: true
+        })
+      }
+
+      if (order.status === 'delivered') {
+        updates.push({
+          status: 'Delivered',
+          description: 'Package delivered successfully',
+          timestamp: order.tracking.deliveredDate || new Date(orderDate.getTime() + 72 * 60 * 60 * 1000),
+          location: 'Customer Address',
+          completed: true
+        })
+      }
+
+      return updates.reverse() // Most recent first
+    },
+
+    simulateTrackingUpdate(order) {
+      const randomUpdates = [
+        'Package is in transit',
+        'Package arrived at sorting facility',
+        'Package is being processed',
+        'Package loaded for delivery'
+      ]
+
+      const randomUpdate = randomUpdates[Math.floor(Math.random() * randomUpdates.length)]
+
+      this.trackingUpdates.unshift({
+        status: 'In Transit',
+        description: randomUpdate,
+        timestamp: new Date(),
+        location: 'Transit Hub',
+        completed: false
+      })
+    },
+
+    closeTrackingModal() {
+      this.showTrackingModal = false
+      this.selectedTrackingOrder = null
+      this.trackingUpdates = []
+
+      if (this.trackingUpdateInterval) {
+        clearInterval(this.trackingUpdateInterval)
+        this.trackingUpdateInterval = null
+      }
+    },
+
+    generateInvoicePDF(order) {
+      // Create invoice content
+      const invoiceContent = this.createInvoiceHTML(order)
+
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank')
+      printWindow.document.write(invoiceContent)
+      printWindow.document.close()
+
+      // Wait for content to load then print
+      printWindow.onload = () => {
+        printWindow.print()
+        printWindow.close()
+      }
+    },
+
+    createInvoiceHTML(order) {
+      const currentDate = new Date().toLocaleDateString()
+      const orderDate = this.formatDate(order.date)
+
+      return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Invoice - Order #${order.orderNumber}</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+            .invoice-header { border-bottom: 2px solid #3b82f6; padding-bottom: 20px; margin-bottom: 30px; }
+            .invoice-title { color: #3b82f6; font-size: 2rem; margin: 0; }
+            .invoice-info { display: flex; justify-content: space-between; margin: 20px 0; }
+            .invoice-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .invoice-table th, .invoice-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+            .invoice-table th { background-color: #f8f9fa; font-weight: bold; }
+            .total-row { background-color: #f8f9fa; font-weight: bold; }
+            .company-info { margin-bottom: 30px; }
+            .customer-info { margin: 20px 0; }
+            @media print { body { margin: 0; } }
+          </style>
+        </head>
+        <body>
+          <div class="invoice-header">
+            <h1 class="invoice-title">INVOICE</h1>
+            <div class="company-info">
+              <h3>Footwear Market</h3>
+              <p>123 Commerce Street<br>City, State 12345<br>Phone: (555) 123-4567</p>
+            </div>
+          </div>
+
+          <div class="invoice-info">
+            <div>
+              <h4>Bill To:</h4>
+              <div class="customer-info">
+                <p><strong>Customer Address:</strong><br>${order.shipping.address}</p>
+              </div>
+            </div>
+            <div>
+              <p><strong>Invoice Date:</strong> ${currentDate}</p>
+              <p><strong>Order Number:</strong> #${order.orderNumber}</p>
+              <p><strong>Order Date:</strong> ${orderDate}</p>
+              <p><strong>Status:</strong> ${this.formatOrderStatus(order.status)}</p>
+            </div>
+          </div>
+
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Variant</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${order.items.map(item => `
+                <tr>
+                  <td>${item.name}</td>
+                  <td>${item.variant}</td>
+                  <td>${item.quantity}</td>
+                  <td>$${item.price.toFixed(2)}</td>
+                  <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+              <tr class="total-row">
+                <td colspan="4"><strong>Shipping (${order.shipping.method})</strong></td>
+                <td><strong>$${order.shipping.cost.toFixed(2)}</strong></td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="4"><strong>Total Amount</strong></td>
+                <td><strong>$${order.total.toFixed(2)}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 40px;">
+            <h4>Payment Information:</h4>
+            <p><strong>Payment Method:</strong> ${order.payment.method}</p>
+            ${order.payment.last4 ? `<p><strong>Card:</strong> **** **** **** ${order.payment.last4}</p>` : ''}
+          </div>
+
+          ${order.tracking ? `
+            <div style="margin-top: 30px;">
+              <h4>Shipping Information:</h4>
+              <p><strong>Carrier:</strong> ${order.tracking.carrier}</p>
+              <p><strong>Tracking Number:</strong> ${order.tracking.trackingNumber}</p>
+            </div>
+          ` : ''}
+
+          <div style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9rem;">
+            <p>Thank you for your business!</p>
+            <p>For questions about this invoice, contact us at support@footwearmarket.com</p>
+          </div>
+        </body>
+        </html>
+      `
+    },
+
+    closeReturnModal() {
+      this.showReturnModal = false
+      this.selectedReturnOrder = null
+      this.returnReason = ''
+      this.returnItems = []
+    },
+
+    initializeReturnItems(order) {
+      this.returnItems = order.items.map(item => ({
+        ...item,
+        selected: false,
+        returnQuantity: 1
+      }))
+    },
+
+    submitReturnRequest() {
+      const selectedItems = this.returnItems.filter(item => item.selected)
+
+      if (selectedItems.length === 0) {
+        this.$toast?.error('Please select at least one item to return')
+        return
+      }
+
+      if (!this.returnReason.trim()) {
+        this.$toast?.error('Please provide a reason for the return')
+        return
+      }
+
+      // In a real app, this would make an API call
+      const returnId = 'RET' + Math.floor(Math.random() * 100000)
+
+      this.$toast?.success(`Return request #${returnId} submitted successfully! We'll contact you within 24 hours.`)
+      this.closeReturnModal()
     }
   }
 }
