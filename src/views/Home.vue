@@ -758,9 +758,9 @@ export default {
   color: inherit;
   transition: var(--transition-normal);
   padding: var(--space-md);
-  width: 100%;
-  max-width: 160px;
-  margin: 0 auto;
+  flex: 1;
+  min-width: 140px;
+  max-width: 180px;
 }
 
 .category-card:hover {
