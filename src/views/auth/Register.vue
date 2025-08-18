@@ -1,183 +1,340 @@
 <template>
-  <div class="register-page">
-    <div class="register-container">
-      <div class="register-card">
-        <div class="register-header">
-          <h1 class="welcome-title">Welcome Back</h1>
-          <p class="welcome-subtitle">Create your account</p>
-        </div>
-
-        <form @submit.prevent="handleRegister" class="register-form">
-          <div class="form-group">
-            <label for="name" class="form-label">Name</label>
-            <div class="input-container">
-              <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-              </svg>
-              <input
-                id="name"
-                v-model="formData.name"
-                type="text"
-                class="form-input input-with-icon"
-                placeholder="Enter your name"
-                required
-                :class="{ 'input-error': errors.name }"
-              />
-            </div>
-            <span v-if="errors.name" class="error-message">{{ errors.name }}</span>
+  <div class="auth-page">
+    <div class="auth-container">
+      <!-- Left Side - Form -->
+      <div class="auth-form-section">
+        <div class="form-container">
+          <!-- Header -->
+          <div class="form-header">
+            <h1 class="form-title">Join FootMarket</h1>
+            <p class="form-subtitle">Create your account and discover amazing footwear</p>
           </div>
 
-          <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <div class="input-container">
-              <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-              <input
-                id="email"
-                v-model="formData.email"
-                type="email"
-                class="form-input input-with-icon"
-                placeholder="Email"
-                required
-                :class="{ 'input-error': errors.email }"
-              />
+          <!-- Register Form -->
+          <form @submit.prevent="handleRegister" class="auth-form" novalidate>
+            <!-- Name Field -->
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name</label>
+              <div class="input-wrapper" :class="{ 'input-focused': focusedField === 'name', 'input-error': errors.name }">
+                <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+                <input
+                  id="name"
+                  v-model="formData.name"
+                  type="text"
+                  class="form-input"
+                  placeholder="Enter your full name"
+                  autocomplete="name"
+                  @focus="focusedField = 'name'"
+                  @blur="focusedField = null"
+                  @input="clearError('name')"
+                  :aria-invalid="errors.name ? 'true' : 'false'"
+                  :aria-describedby="errors.name ? 'name-error' : null"
+                />
+              </div>
+              <div v-if="errors.name" id="name-error" class="error-message" role="alert">
+                <svg class="error-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ errors.name }}
+              </div>
             </div>
-            <span v-if="errors.email" class="error-message">{{ errors.email }}</span>
-          </div>
 
-          <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <div class="input-container">
-              <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-              <input
-                id="password"
-                v-model="formData.password"
-                :type="showPassword ? 'text' : 'password'"
-                class="form-input input-with-icon password-input"
-                placeholder="Enter your password"
-                required
-                :class="{ 'input-error': errors.password }"
-              />
-              <button
-                type="button"
-                @click="togglePassword"
-                class="password-toggle-btn"
-                aria-label="Toggle password visibility"
-              >
-                <svg v-if="showPassword" class="password-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L15.121 15.121M15.121 15.121L21 21"></path>
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <div class="input-wrapper" :class="{ 'input-focused': focusedField === 'email', 'input-error': errors.email }">
+                <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
-                <svg v-else class="password-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                <input
+                  id="email"
+                  v-model="formData.email"
+                  type="email"
+                  class="form-input"
+                  placeholder="Enter your email"
+                  autocomplete="email"
+                  @focus="focusedField = 'email'"
+                  @blur="focusedField = null"
+                  @input="clearError('email')"
+                  :aria-invalid="errors.email ? 'true' : 'false'"
+                  :aria-describedby="errors.email ? 'email-error' : null"
+                />
+              </div>
+              <div v-if="errors.email" id="email-error" class="error-message" role="alert">
+                <svg class="error-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
-              </button>
+                {{ errors.email }}
+              </div>
             </div>
-            <span v-if="errors.password" class="error-message">{{ errors.password }}</span>
-          </div>
 
-          <div class="form-group">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <div class="input-container">
-              <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-              <input
-                id="confirmPassword"
-                v-model="formData.confirmPassword"
-                :type="showConfirmPassword ? 'text' : 'password'"
-                class="form-input input-with-icon password-input"
-                placeholder="Enter your confirm password"
-                required
-                :class="{ 'input-error': errors.confirmPassword }"
-              />
-              <button
-                type="button"
-                @click="toggleConfirmPassword"
-                class="password-toggle-btn"
-                aria-label="Toggle confirm password visibility"
-              >
-                <svg v-if="showConfirmPassword" class="password-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L15.121 15.121M15.121 15.121L21 21"></path>
+            <!-- Password Field -->
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-wrapper" :class="{ 'input-focused': focusedField === 'password', 'input-error': errors.password }">
+                <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                 </svg>
-                <svg v-else class="password-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                <input
+                  id="password"
+                  v-model="formData.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  class="form-input"
+                  placeholder="Create a password"
+                  autocomplete="new-password"
+                  @focus="focusedField = 'password'"
+                  @blur="focusedField = null"
+                  @input="clearError('password'); updatePasswordStrength()"
+                  :aria-invalid="errors.password ? 'true' : 'false'"
+                  :aria-describedby="errors.password ? 'password-error' : 'password-strength'"
+                />
+                <button
+                  type="button"
+                  @click="togglePassword"
+                  class="password-toggle"
+                  :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                >
+                  <svg v-if="showPassword" class="toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L15.121 15.121M15.121 15.121L21 21"/>
+                  </svg>
+                  <svg v-else class="toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <!-- Password Strength Indicator -->
+              <div v-if="formData.password" id="password-strength" class="password-strength">
+                <div class="strength-bar">
+                  <div 
+                    class="strength-fill"
+                    :class="[`strength-${passwordStrength.level}`]"
+                    :style="{ width: `${(passwordStrength.score / 4) * 100}%` }"
+                  ></div>
+                </div>
+                <div class="strength-text" :class="[`strength-${passwordStrength.level}`]">
+                  {{ passwordStrength.label }}
+                </div>
+              </div>
+
+              <div v-if="errors.password" id="password-error" class="error-message" role="alert">
+                <svg class="error-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
-              </button>
+                {{ errors.password }}
+              </div>
             </div>
-            <span v-if="errors.confirmPassword" class="error-message">{{ errors.confirmPassword }}</span>
-          </div>
 
-          <div class="terms-agreement">
-            <label class="checkbox-container">
-              <input
-                v-model="formData.agreeToTerms"
-                type="checkbox"
-                class="form-checkbox"
-                required
-              />
-              <span class="checkbox-label">
-                I agree to the 
-                <a href="/terms" class="terms-link">Terms of Service</a> 
-                and 
-                <a href="/privacy" class="terms-link">Privacy Policy</a>
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <div class="input-wrapper" :class="{ 'input-focused': focusedField === 'confirmPassword', 'input-error': errors.confirmPassword }">
+                <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <input
+                  id="confirmPassword"
+                  v-model="formData.confirmPassword"
+                  :type="showConfirmPassword ? 'text' : 'password'"
+                  class="form-input"
+                  placeholder="Confirm your password"
+                  autocomplete="new-password"
+                  @focus="focusedField = 'confirmPassword'"
+                  @blur="focusedField = null"
+                  @input="clearError('confirmPassword')"
+                  :aria-invalid="errors.confirmPassword ? 'true' : 'false'"
+                  :aria-describedby="errors.confirmPassword ? 'confirm-password-error' : null"
+                />
+                <button
+                  type="button"
+                  @click="toggleConfirmPassword"
+                  class="password-toggle"
+                  :aria-label="showConfirmPassword ? 'Hide password' : 'Show password'"
+                >
+                  <svg v-if="showConfirmPassword" class="toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L15.121 15.121M15.121 15.121L21 21"/>
+                  </svg>
+                  <svg v-else class="toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                </button>
+              </div>
+              <div v-if="errors.confirmPassword" id="confirm-password-error" class="error-message" role="alert">
+                <svg class="error-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ errors.confirmPassword }}
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="form-group">
+              <label class="checkbox-wrapper">
+                <input
+                  v-model="formData.acceptTerms"
+                  type="checkbox"
+                  class="checkbox-input"
+                  @change="clearError('acceptTerms')"
+                  :aria-invalid="errors.acceptTerms ? 'true' : 'false'"
+                  :aria-describedby="errors.acceptTerms ? 'terms-error' : null"
+                />
+                <span class="checkbox-custom">
+                  <svg class="checkbox-icon" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                  </svg>
+                </span>
+                <span class="checkbox-label">
+                  I agree to the
+                  <router-link to="/privacy-policy" class="terms-link">Terms of Service</router-link>
+                  and
+                  <router-link to="/privacy-policy" class="terms-link">Privacy Policy</router-link>
+                </span>
+              </label>
+              <div v-if="errors.acceptTerms" id="terms-error" class="error-message" role="alert">
+                <svg class="error-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ errors.acceptTerms }}
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="submit-btn"
+              :disabled="isLoading"
+              :class="{ 'btn-loading': isLoading }"
+            >
+              <span v-if="!isLoading" class="btn-content">
+                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+                Create Account
               </span>
-            </label>
-            <span v-if="errors.agreeToTerms" class="error-message">{{ errors.agreeToTerms }}</span>
+              <div v-else class="loading-spinner">
+                <div class="spinner"></div>
+                <span>Creating account...</span>
+              </div>
+            </button>
+
+            <!-- General Error Message -->
+            <div v-if="errors.general" class="general-error" role="alert">
+              <svg class="error-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ errors.general }}
+              </div>
+          </form>
+
+          <!-- Divider -->
+          <div class="divider">
+            <span class="divider-text">Or sign up with</span>
           </div>
 
-          <button
-            type="submit"
-            class="btn btn-primary btn-full sign-up-btn"
-            :disabled="isLoading"
-          >
-            <span v-if="isLoading" class="loading-spinner"></span>
-            <span v-else>Sign Up</span>
-          </button>
+          <!-- Social Login -->
+          <div class="social-login">
+            <button
+              @click="handleGoogleSignup"
+              class="social-btn google-btn"
+              :disabled="isLoading"
+            >
+              <svg class="social-icon google-icon" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Continue with Google
+            </button>
 
-          <div v-if="errors.general" class="general-error">
-            {{ errors.general }}
+            <button
+              @click="handleAppleSignup"
+              class="social-btn apple-btn"
+              :disabled="isLoading"
+            >
+              <svg class="social-icon apple-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              Continue with Apple
+            </button>
           </div>
-        </form>
 
-        <div class="divider">
-          <span class="divider-text">or</span>
+          <!-- Sign in Link -->
+          <div class="auth-switch">
+            <span class="switch-text">Already have an account?</span>
+            <router-link to="/login" class="switch-link">
+              Sign In
+            </router-link>
+          </div>
         </div>
+      </div>
 
-        <div class="social-signup-options">
-          <button
-            @click="handleGoogleSignup"
-            class="social-btn google-btn"
-            :disabled="isLoading"
-          >
-            <svg class="social-icon" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      <!-- Right Side - Branding -->
+      <div class="auth-branding">
+        <div class="brand-content">
+          <div class="brand-logo">
+            <svg viewBox="0 0 64 64" class="logo-icon">
+              <path d="M32 8L8 16v16c0 16 8 24 24 24s24-8 24-24V16L32 8z" fill="currentColor"/>
+              <path d="M32 16L16 20v12c0 8 4 12 16 12s16-4 16-12V20L32 16z" fill="white" opacity="0.8"/>
             </svg>
-            Continue with Google
-          </button>
+            <h1 class="brand-name">FootMarket</h1>
+          </div>
+          <h2 class="brand-tagline">Your Journey Starts Here</h2>
+          <p class="brand-description">
+            Join thousands of footwear enthusiasts who trust FootMarket for their perfect pair. 
+            Experience premium quality, exclusive collections, and personalized recommendations.
+          </p>
+          
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z"/>
+                </svg>
+              </div>
+              <h3>Verified Quality</h3>
+              <p>Every product verified for authenticity and quality</p>
+            </div>
+            
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                </svg>
+              </div>
+              <h3>Personal Stylist</h3>
+              <p>AI-powered recommendations based on your style</p>
+            </div>
+            
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M2,7H22L20,17H4L2,7M6,9V15H10V9H6M12,9V15H16V9H12M18,9V15H20V9H18Z"/>
+                </svg>
+              </div>
+              <h3>Exclusive Access</h3>
+              <p>Early access to limited collections and sales</p>
+            </div>
+          </div>
 
-          <button
-            @click="handleAppleSignup"
-            class="social-btn apple-btn"
-            :disabled="isLoading"
-          >
-            <svg class="social-icon" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-            </svg>
-            Continue with Apple
-          </button>
-        </div>
-
-        <div class="signin-prompt">
-          <span class="signin-text">You already have account?</span>
-          <router-link to="/login" class="signin-link">Sign in</router-link>
+          <div class="trust-indicators">
+            <div class="trust-item">
+              <span class="trust-number">50K+</span>
+              <span class="trust-label">Happy Customers</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-number">4.9★</span>
+              <span class="trust-label">Average Rating</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-number">1000+</span>
+              <span class="trust-label">Premium Brands</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -194,12 +351,18 @@ export default {
         email: '',
         password: '',
         confirmPassword: '',
-        agreeToTerms: false
+        acceptTerms: false
       },
       errors: {},
       isLoading: false,
       showPassword: false,
-      showConfirmPassword: false
+      showConfirmPassword: false,
+      focusedField: null,
+      passwordStrength: {
+        score: 0,
+        level: 'weak',
+        label: 'Very Weak'
+      }
     }
   },
   methods: {
@@ -210,16 +373,30 @@ export default {
       this.errors = {}
 
       try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        // Simulate API call with realistic delay
+        await new Promise(resolve => setTimeout(resolve, 2000))
         
-        // Mock successful registration
-        console.log('Registration successful', this.formData)
+        // Mock registration logic
+        const userData = {
+          name: this.formData.name,
+          email: this.formData.email,
+          registered: new Date().toISOString()
+        }
         
-        // Redirect to login or dashboard
-        this.$router.push('/login')
+        // Store user data
+        sessionStorage.setItem('user', JSON.stringify(userData))
+
+        // Success feedback
+        this.showSuccessMessage()
+        
+        // Redirect after short delay
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 1500)
+
       } catch (error) {
-        this.errors.general = 'Registration failed. Please try again.'
+        this.errors.general = 'Failed to create account. Please try again.'
+        console.error('Registration error:', error)
       } finally {
         this.isLoading = false
       }
@@ -228,12 +405,14 @@ export default {
     async handleGoogleSignup() {
       this.isLoading = true
       try {
-        // Simulate Google OAuth flow
         await new Promise(resolve => setTimeout(resolve, 1000))
         console.log('Google signup initiated')
-        // In a real app, you would integrate with Google OAuth
-        this.$router.push('/')
+        this.showSuccessMessage()
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 1000)
       } catch (error) {
+        this.errors.general = 'Social signup failed. Please try again.'
         console.error('Google signup failed:', error)
       } finally {
         this.isLoading = false
@@ -243,12 +422,14 @@ export default {
     async handleAppleSignup() {
       this.isLoading = true
       try {
-        // Simulate Apple OAuth flow
         await new Promise(resolve => setTimeout(resolve, 1000))
         console.log('Apple signup initiated')
-        // In a real app, you would integrate with Apple Sign In
-        this.$router.push('/')
+        this.showSuccessMessage()
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 1000)
       } catch (error) {
+        this.errors.general = 'Social signup failed. Please try again.'
         console.error('Apple signup failed:', error)
       } finally {
         this.isLoading = false
@@ -258,9 +439,57 @@ export default {
     togglePassword() {
       this.showPassword = !this.showPassword
     },
-    
+
     toggleConfirmPassword() {
       this.showConfirmPassword = !this.showConfirmPassword
+    },
+    
+    clearError(field) {
+      if (this.errors[field]) {
+        delete this.errors[field]
+      }
+      if (this.errors.general) {
+        delete this.errors.general
+      }
+    },
+
+    updatePasswordStrength() {
+      const password = this.formData.password
+      let score = 0
+      let level = 'weak'
+      let label = 'Very Weak'
+
+      if (!password) {
+        this.passwordStrength = { score: 0, level: 'weak', label: 'Very Weak' }
+        return
+      }
+
+      // Length check
+      if (password.length >= 8) score++
+      if (password.length >= 12) score++
+
+      // Character diversity checks
+      if (/[a-z]/.test(password)) score++
+      if (/[A-Z]/.test(password)) score++
+      if (/[0-9]/.test(password)) score++
+      if (/[^A-Za-z0-9]/.test(password)) score++
+
+      // Determine level and label
+      if (score <= 2) {
+        level = 'weak'
+        label = password.length < 6 ? 'Too Short' : 'Weak'
+      } else if (score <= 3) {
+        level = 'fair'
+        label = 'Fair'
+      } else if (score <= 4) {
+        level = 'good'
+        label = 'Good'
+      } else {
+        level = 'strong'
+        label = 'Strong'
+      }
+
+      this.passwordStrength = { score, level, label }
     },
     
     validateForm() {
@@ -269,7 +498,7 @@ export default {
 
       // Name validation
       if (!this.formData.name.trim()) {
-        this.errors.name = 'Name is required'
+        this.errors.name = 'Full name is required'
         isValid = false
       } else if (this.formData.name.trim().length < 2) {
         this.errors.name = 'Name must be at least 2 characters'
@@ -281,7 +510,7 @@ export default {
         this.errors.email = 'Email is required'
         isValid = false
       } else if (!this.isValidEmail(this.formData.email)) {
-        this.errors.email = 'Please enter a valid email'
+        this.errors.email = 'Please enter a valid email address'
         isValid = false
       }
 
@@ -292,8 +521,8 @@ export default {
       } else if (this.formData.password.length < 8) {
         this.errors.password = 'Password must be at least 8 characters'
         isValid = false
-      } else if (!this.isStrongPassword(this.formData.password)) {
-        this.errors.password = 'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+      } else if (this.passwordStrength.score < 3) {
+        this.errors.password = 'Password is too weak. Try adding numbers and special characters'
         isValid = false
       }
 
@@ -306,9 +535,9 @@ export default {
         isValid = false
       }
 
-      // Terms agreement validation
-      if (!this.formData.agreeToTerms) {
-        this.errors.agreeToTerms = 'You must agree to the Terms of Service and Privacy Policy'
+      // Terms validation
+      if (!this.formData.acceptTerms) {
+        this.errors.acceptTerms = 'Please accept the terms and conditions'
         isValid = false
       }
 
@@ -319,376 +548,214 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return emailRegex.test(email)
     },
-    
-    isStrongPassword(password) {
-      const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/
-      return strongRegex.test(password)
+
+    showSuccessMessage() {
+      // You can implement toast notification here
+      console.log('Registration successful!')
     }
+  },
+
+  mounted() {
+    // Auto-focus first input
+    this.$nextTick(() => {
+      const nameInput = document.getElementById('name')
+      if (nameInput) nameInput.focus()
+    })
   }
 }
 </script>
 
 <style scoped>
-.register-page {
-  min-height: 100vh;
+/* Import all styles from Login.vue and add specific Register styles */
+@import url('./Login.vue');
+
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 0.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: var(--space-md);
+  gap: 0.75rem;
 }
 
-.register-container {
-  width: 100%;
-  max-width: 450px;
+.strength-bar {
+  flex: 1;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
-.register-card {
-  background-color: var(--bg-primary);
-  border-radius: var(--border-radius-2xl);
-  box-shadow: var(--shadow-xl);
-  padding: var(--space-2xl);
-  border: 1px solid var(--border-light);
+.strength-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-.register-header {
-  text-align: center;
-  margin-bottom: var(--space-2xl);
+.strength-fill.strength-weak {
+  background: #e53e3e;
 }
 
-.welcome-title {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin: 0 0 var(--space-sm) 0;
-  line-height: var(--line-height-tight);
+.strength-fill.strength-fair {
+  background: #dd6b20;
 }
 
-.welcome-subtitle {
-  font-size: var(--font-size-base);
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: var(--line-height-normal);
+.strength-fill.strength-good {
+  background: #38a169;
 }
 
-.register-form {
-  margin-bottom: var(--space-xl);
+.strength-fill.strength-strong {
+  background: #00a86b;
 }
 
-.form-group {
-  margin-bottom: var(--space-lg);
+.strength-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
-.form-label {
-  display: block;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
-  margin-bottom: var(--space-sm);
+.strength-text.strength-weak {
+  color: #e53e3e;
 }
 
-.input-container {
-  position: relative;
+.strength-text.strength-fair {
+  color: #dd6b20;
 }
 
-.input-icon {
-  position: absolute;
-  left: var(--space-md);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--text-secondary);
-  z-index: 1;
+.strength-text.strength-good {
+  color: #38a169;
 }
 
-.form-input {
-  width: 100%;
-  padding: var(--space-md);
-  font-size: var(--font-size-base);
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  transition: var(--transition-fast);
-  box-sizing: border-box;
+.strength-text.strength-strong {
+  color: #00a86b;
 }
 
-.input-with-icon {
-  padding-left: 3rem;
-}
-
-.password-input {
-  padding-right: 3rem;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #667eea;
-  background-color: var(--bg-primary);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-input.input-error {
-  border-color: var(--error-color);
-  background-color: rgba(231, 76, 60, 0.05);
-}
-
-.password-toggle-btn {
-  position: absolute;
-  right: var(--space-md);
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.password-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.error-message {
-  display: block;
-  font-size: var(--font-size-sm);
-  color: var(--error-color);
-  margin-top: var(--space-xs);
-  line-height: var(--line-height-normal);
-}
-
-.terms-agreement {
-  margin-bottom: var(--space-xl);
-}
-
-.checkbox-container {
-  display: flex;
-  align-items: flex-start;
-  cursor: pointer;
-  gap: var(--space-sm);
-}
-
-.form-checkbox {
-  margin-top: 2px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.checkbox-label {
-  font-size: var(--font-size-sm);
-  color: var(--text-primary);
-  cursor: pointer;
-  user-select: none;
-  line-height: var(--line-height-normal);
-}
-
+/* Terms and Conditions Styling */
 .terms-link {
   color: #667eea;
   text-decoration: none;
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .terms-link:hover {
-  text-decoration: underline;
-}
-
-.sign-up-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  color: var(--text-white);
-  font-weight: var(--font-weight-semibold);
-  padding: var(--space-md) var(--space-lg);
-  font-size: var(--font-size-base);
-  margin-bottom: var(--space-md);
-  transition: var(--transition-normal);
-  box-shadow: 0 4px 14px 0 rgba(102, 126, 234, 0.3);
-}
-
-.sign-up-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px 0 rgba(102, 126, 234, 0.4);
-}
-
-.sign-up-btn:disabled {
-  opacity: 0.7;
-  transform: none;
-  cursor: not-allowed;
-}
-
-.general-error {
-  background-color: rgba(231, 76, 60, 0.1);
-  color: var(--error-color);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-sm);
-  text-align: center;
-  margin-top: var(--space-sm);
-}
-
-.divider {
-  position: relative;
-  text-align: center;
-  margin: var(--space-xl) 0;
-}
-
-.divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--border-color);
-}
-
-.divider-text {
-  background-color: var(--bg-primary);
-  padding: 0 var(--space-md);
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  position: relative;
-}
-
-.social-signup-options {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
-}
-
-.social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  width: 100%;
-  padding: var(--space-md) var(--space-lg);
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: var(--transition-fast);
-  text-decoration: none;
-}
-
-.social-btn:hover:not(:disabled) {
-  border-color: var(--border-dark);
-  background-color: var(--bg-secondary);
-  transform: translateY(-1px);
-}
-
-.social-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.social-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  flex-shrink: 0;
-}
-
-.google-btn:hover:not(:disabled) {
-  border-color: #4285F4;
-  background-color: rgba(66, 133, 244, 0.05);
-}
-
-.apple-btn:hover:not(:disabled) {
-  border-color: #000;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.signin-prompt {
-  text-align: center;
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--border-light);
-}
-
-.signin-text {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  margin-right: var(--space-xs);
-}
-
-.signin-link {
-  font-size: var(--font-size-sm);
-  color: #667eea;
-  text-decoration: none;
-  font-weight: var(--font-weight-semibold);
-  transition: var(--transition-fast);
-}
-
-.signin-link:hover {
   color: #5a67d8;
   text-decoration: underline;
 }
 
-/* Mobile responsiveness */
+/* Register-specific branding styles */
+.benefits-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.benefit-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-2px);
+}
+
+.benefit-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.benefit-icon svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.benefit-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: white;
+}
+
+.benefit-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.trust-indicators {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.trust-item {
+  text-align: center;
+}
+
+.trust-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.trust-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive adjustments for Register */
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column-reverse;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .benefit-card {
+    padding: 1rem;
+  }
+  
+  .trust-indicators {
+    gap: 1rem;
+  }
+  
+  .trust-number {
+    font-size: 1.25rem;
+  }
+}
+
 @media (max-width: 480px) {
-  .register-page {
-    padding: var(--space-sm);
+  .benefit-card h3 {
+    font-size: 1rem;
   }
   
-  .register-card {
-    padding: var(--space-xl);
+  .benefit-card p {
+    font-size: 0.85rem;
   }
   
-  .welcome-title {
-    font-size: var(--font-size-2xl);
-  }
-  
-  .social-signup-options {
-    gap: var(--space-sm);
-  }
-  
-  .social-btn {
-    padding: var(--space-sm) var(--space-md);
-    font-size: var(--font-size-sm);
-  }
-  
-  .checkbox-label {
-    font-size: var(--font-size-xs);
+  .trust-indicators {
+    flex-direction: column;
+    gap: 1rem;
   }
 }
-
-/* Loading state */
-.loading-spinner {
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Form field animations */
-.form-input:focus + .input-icon,
-.form-input:not(:placeholder-shown) + .input-icon {
-  color: #667eea;
-}
-
-/* Password strength indicator */
-.password-strength {
-  margin-top: var(--space-xs);
-  font-size: var(--font-size-xs);
-}
-
-.strength-weak { color: var(--error-color); }
-.strength-medium { color: var(--warning-color); }
-.strength-strong { color: var(--success-color); }
 </style>
