@@ -741,9 +741,12 @@ export default {
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: var(--space-xl);
   justify-items: center;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .category-card {
