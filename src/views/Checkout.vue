@@ -1,5 +1,6 @@
 <template>
   <div class="checkout-page">
+    <BackButton />
     <div class="checkout-container">
       <!-- Main Content Grid -->
       <div class="checkout-grid">
