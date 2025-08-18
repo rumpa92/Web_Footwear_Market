@@ -1,5 +1,6 @@
 <template>
   <div class="orders-page">
+    <BackButton />
     <!-- Hero Header -->
     <div class="orders-hero">
       <div class="container">
