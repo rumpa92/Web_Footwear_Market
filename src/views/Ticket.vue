@@ -1,5 +1,6 @@
 <template>
   <div class="ticket-page">
+    <BackButton />
     <div class="container">
       <!-- Ticket Navigation Bar -->
       <div class="ticket-nav-bar" v-if="!showSuccess">
