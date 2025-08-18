@@ -276,8 +276,13 @@
 </template>
 
 <script>
+import BackButton from '../components/layout/BackButton.vue'
+
 export default {
   name: 'NetBankingPayment',
+  components: {
+    BackButton
+  },
   data() {
     return {
       searchQuery: '',
