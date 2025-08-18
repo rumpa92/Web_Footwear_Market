@@ -440,11 +440,21 @@
 
             <!-- Return Actions -->
             <div class="return-actions">
-              <button @click="closeReturnModal" class="action-btn ghost">
+              <button @click="closeReturnModal" class="action-btn ghost" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
                 Cancel
               </button>
-              <button @click="submitReturnRequest" class="action-btn primary">
-                Submit Return Request
+              <button @click="submitReturnRequest" class="action-btn primary" type="button" :disabled="isSubmittingReturn">
+                <svg v-if="!isSubmittingReturn" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <svg v-else class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                {{ isSubmittingReturn ? 'Submitting...' : 'Submit Return Request' }}
               </button>
             </div>
           </div>
@@ -479,6 +489,7 @@ export default {
       returnItems: [],
       showToast: false,
       toast: { message: '', type: '' },
+      isSubmittingReturn: false,
       orders: [
         {
           id: 'ORD-12347',
@@ -1031,10 +1042,16 @@ export default {
     },
 
     closeReturnModal() {
+      if (this.isSubmittingReturn) {
+        this.showToastMessage('Please wait for the return request to complete.', 'info')
+        return
+      }
+
       this.showReturnModal = false
       this.selectedReturnOrder = null
       this.returnReason = ''
       this.returnItems = []
+      this.isSubmittingReturn = false
     },
 
     initializeReturnItems(order) {
@@ -1045,7 +1062,7 @@ export default {
       }))
     },
 
-    submitReturnRequest() {
+    async submitReturnRequest() {
       const selectedItems = this.returnItems.filter(item => item.selected)
 
       if (selectedItems.length === 0) {
@@ -1058,11 +1075,27 @@ export default {
         return
       }
 
-      // In a real app, this would make an API call
-      const returnId = 'RET' + Math.floor(Math.random() * 100000)
+      this.isSubmittingReturn = true
 
-      this.showToastMessage(`Return request #${returnId} submitted successfully! We'll contact you within 24 hours.`, 'success')
-      this.closeReturnModal()
+      try {
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 2000))
+
+        // In a real app, this would make an API call
+        const returnId = 'RET' + Math.floor(Math.random() * 100000)
+
+        // Calculate return total
+        const returnTotal = selectedItems.reduce((total, item) => {
+          return total + (item.price * item.returnQuantity)
+        }, 0)
+
+        this.showToastMessage(`Return request #${returnId} submitted successfully! Return value: $${returnTotal.toFixed(2)}. We'll contact you within 24 hours.`, 'success')
+        this.closeReturnModal()
+      } catch (error) {
+        this.showToastMessage('Failed to submit return request. Please try again.', 'error')
+      } finally {
+        this.isSubmittingReturn = false
+      }
     },
 
     showToastMessage(message, type = 'info') {
