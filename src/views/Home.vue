@@ -740,13 +740,14 @@ export default {
 }
 
 .categories-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: var(--space-xl);
-  justify-items: center;
-  align-items: start;
-  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  max-width: 1200px;
   margin: 0 auto;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .category-card {
