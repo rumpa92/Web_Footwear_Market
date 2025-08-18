@@ -969,8 +969,7 @@ export default {
 
 @media (max-width: 1200px) {
   .categories-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 600px;
+    gap: var(--space-sm);
   }
 }
 
