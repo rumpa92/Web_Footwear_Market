@@ -715,8 +715,13 @@
 </template>
 
 <script>
+import BackButton from '../components/layout/BackButton.vue'
+
 export default {
   name: 'Ticket',
+  components: {
+    BackButton
+  },
   data() {
     return {
       currentStep: 1,
