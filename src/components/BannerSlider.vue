@@ -163,31 +163,32 @@ export default {
       currentIndex: 0,
       products: [
         {
-          name: 'Air Max Premium',
-          price: 149.99,
-          originalPrice: 179.99,
-          reviews: 2847,
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop&q=80'
-        },
-        {
-          name: 'Sport Elite Pro',
-          price: 129.99,
-          originalPrice: 159.99,
-          reviews: 1923,
-          image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&h=800&fit=crop&q=80'
-        },
-        {
           name: 'Urban Runner',
           price: 89.99,
+          originalPrice: 119.99,
           reviews: 3104,
-          image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=800&fit=crop&q=80'
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F6fd2df8bb40048d9ab174abfc501efb5?format=webp&width=800'
         },
         {
           name: 'Classic Leather',
           price: 199.99,
           originalPrice: 249.99,
           reviews: 856,
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&q=80'
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F0af7a1c7254d4db7bbca56748c65097d?format=webp&width=800'
+        },
+        {
+          name: 'Premium Air Max',
+          price: 149.99,
+          originalPrice: 179.99,
+          reviews: 2847,
+          image: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=800&h=800&fit=crop&q=90'
+        },
+        {
+          name: 'Sport Elite Pro',
+          price: 129.99,
+          originalPrice: 159.99,
+          reviews: 1923,
+          image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&h=800&fit=crop&q=90'
         }
       ]
     }
