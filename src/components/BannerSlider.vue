@@ -679,6 +679,24 @@ export default {
     font-size: 0.8rem;
   }
 
+  .slide-features {
+    margin-bottom: 1.5rem;
+  }
+
+  .slide-stats {
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+
+  .stat-number {
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
   .slide-image img {
     max-width: 350px;
   }
