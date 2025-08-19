@@ -63,7 +63,7 @@ const state = {
       brand: "Adidas",
       price: 129.99,
       originalPrice: 159.99,
-      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2b3c4d5e6f789012abcdef0123456789?format=webp&width=600",
+      image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&h=600&fit=crop&q=90",
       category: "running",
       gender: "women",
       sizes: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
