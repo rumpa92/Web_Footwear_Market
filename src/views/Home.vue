@@ -204,7 +204,8 @@ export default {
   name: 'Home',
   components: {
     ProductCard,
-    ProductFilters
+    ProductFilters,
+    BannerSlider
   },
   data() {
     return {
