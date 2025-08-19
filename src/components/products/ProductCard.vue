@@ -350,21 +350,27 @@ export default {
 }
 
 .product-colors {
-  margin-top: var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
 
 .color-options {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 6px;
 }
 
 .color-option {
-  width: 1rem;
-  height: 1rem;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: var(--border-radius-full);
-  border: 2px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.color-option:hover {
+  transform: scale(1.2);
+  border-color: var(--text-primary);
 }
 
 .color-option.white {
@@ -396,7 +402,7 @@ export default {
 }
 
 .color-more {
-  font-size: var(--font-size-xs);
+  font-size: 0.65rem;
   color: var(--text-secondary);
   font-weight: var(--font-weight-medium);
 }
