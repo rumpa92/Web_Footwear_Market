@@ -181,21 +181,27 @@ export default {
       try {
         // Using a mock geocoding service - in production, use Google Maps API or similar
         const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`)
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch location data')
+        }
+
         const data = await response.json()
-        
+
         return {
           city: data.city || data.locality || 'Unknown City',
           state: data.principalSubdivision || '',
           country: data.countryName || '',
-          formatted: `${data.city || data.locality}, ${data.principalSubdivision}`
+          formatted: `${data.city || data.locality}, ${data.principalSubdivision || data.countryCode || ''}`
         }
       } catch (error) {
         console.error('Geocoding error:', error)
+        // Return a fallback location based on coordinates
         return {
-          city: 'Unknown City',
+          city: 'Current Location',
           state: '',
           country: '',
-          formatted: 'Unknown Location'
+          formatted: `Location (${lat.toFixed(2)}, ${lng.toFixed(2)})`
         }
       }
     },
