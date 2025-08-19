@@ -107,6 +107,11 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/track-return-status',
+    name: 'TrackReturnStatus',
+    component: () => import('../views/TrackReturnStatus.vue')
+  },
+  {
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
     component: () => import('../views/PrivacyPolicy.vue')

@@ -289,12 +289,11 @@ export default {
       this.showToastMessage('Opening return tracking...', 'info')
 
       setTimeout(() => {
-        // Navigate to orders page with return tracking query
+        // Navigate to track return status page with return ID
         this.$router.push({
-          path: '/orders',
+          path: '/track-return-status',
           query: {
-            trackReturn: this.returnData.returnId,
-            highlight: 'return-' + this.returnData.returnId
+            returnId: this.returnData.returnId
           }
         })
       }, 1000)
