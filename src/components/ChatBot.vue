@@ -253,35 +253,35 @@ export default {
 }
 
 .chatbot-icon {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: var(--border-radius-xl);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--border-radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition-normal);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-  box-shadow: 0 6px 24px rgba(0, 188, 212, 0.3);
-  border: 2px solid rgba(0, 188, 212, 0.2);
+  background: var(--bg-primary);
+  box-shadow: 0 4px 20px rgba(52, 152, 219, 0.25);
+  border: 1px solid rgba(52, 152, 219, 0.1);
 }
 
 .chatbot-icon:hover {
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 12px 36px rgba(0, 188, 212, 0.4);
-  border-color: rgba(0, 188, 212, 0.4);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 8px 30px rgba(52, 152, 219, 0.4);
+  border-color: rgba(52, 152, 219, 0.3);
 }
 
-.chatbot-icon:hover .robot-glow {
-  animation: robotGlow 2s ease-in-out infinite;
+.chatbot-icon:active {
+  transform: scale(1.05) translateY(-1px);
 }
 
-.chatbot-icon:hover .robot-icon {
-  animation: robotBob 1s ease-in-out infinite;
+.chatbot-icon:hover .chat-ripple {
+  animation: ripple 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-.robot-container {
+.chat-container {
   position: relative;
   display: flex;
   align-items: center;
@@ -290,39 +290,35 @@ export default {
   height: 100%;
 }
 
-.robot-icon {
-  width: 3rem;
-  height: 3rem;
+.chat-icon {
+  width: 1.75rem;
+  height: 1.75rem;
   z-index: 2;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
-.robot-glow {
+.chat-ripple {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: var(--border-radius-xl);
-  background: radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%);
+  border: 2px solid rgba(52, 152, 219, 0.3);
+  border-radius: var(--border-radius-full);
   z-index: 1;
+  opacity: 0;
 }
 
-@keyframes robotGlow {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
   }
   50% {
-    opacity: 0.6;
     transform: scale(1.1);
+    opacity: 0.5;
   }
-}
-
-@keyframes robotBob {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
   }
 }
 
