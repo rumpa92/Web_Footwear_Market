@@ -16,6 +16,7 @@
       <Footer v-if="!isAuthPage" />
       <ShoppingCart v-if="!isAuthPage" />
       <AddedToCartModal v-if="!isAuthPage" />
+      <ChatBot v-if="!isAuthPage" />
     </div>
   </div>
 </template>
