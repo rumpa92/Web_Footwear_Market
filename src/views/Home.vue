@@ -658,54 +658,7 @@ export default {
   margin-right: auto;
 }
 
-@media (max-width: 767px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: var(--space-lg);
-  }
-
-  .hero-title {
-    font-size: 42px;
-  }
-
-  .hero-sale {
-    font-size: 56px;
-  }
-
-  .hero-logo {
-    top: 20px;
-    left: 20px;
-  }
-
-  .logo-text {
-    font-size: 16px;
-  }
-
-  .hero-dots {
-    top: 20px;
-    right: 20px;
-  }
-
-  .discount-badge {
-    width: 80px;
-    height: 80px;
-    top: 10px;
-    right: 10px;
-  }
-
-  .discount-text {
-    font-size: 14px;
-  }
-
-  .hero-contact {
-    margin-top: var(--space-lg);
-  }
-
-  .contact-info {
-    justify-content: center;
-  }
-}
+/* Mobile hero styles removed - handled by BannerSlider component */
 
 @media (min-width: 768px) {
   .hero-text {
