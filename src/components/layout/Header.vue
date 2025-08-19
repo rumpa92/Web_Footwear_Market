@@ -284,13 +284,6 @@ export default {
 
     // Load location data from localStorage
     this.loadLocationData()
-
-    // Show location modal if needed
-    if (this.shouldShowLocationModal) {
-      setTimeout(() => {
-        this.showLocationModal = true
-      }, 2000) // Show after 2 seconds to not be intrusive
-    }
   }
 }
 </script>
