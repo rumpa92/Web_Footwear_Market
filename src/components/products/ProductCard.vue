@@ -161,37 +161,37 @@ export default {
 
 .sale-badge {
   position: absolute;
-  top: var(--space-sm);
-  left: var(--space-sm);
+  top: var(--space-xs);
+  left: var(--space-xs);
   background-color: var(--secondary-color);
   color: var(--text-white);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-xs);
+  padding: 2px var(--space-xs);
+  border-radius: var(--border-radius-md);
+  font-size: 0.65rem;
   font-weight: var(--font-weight-bold);
   z-index: 1;
 }
 
 .stock-badge {
   position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
+  top: var(--space-xs);
+  right: var(--space-xs);
   background-color: var(--error-color);
   color: var(--text-white);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-xs);
+  padding: 2px var(--space-xs);
+  border-radius: var(--border-radius-md);
+  font-size: 0.65rem;
   font-weight: var(--font-weight-bold);
   z-index: 1;
 }
 
 .wishlist-btn {
   position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  top: var(--space-xs);
+  right: var(--space-xs);
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(255, 255, 255, 0.95);
   border: none;
   border-radius: var(--border-radius-full);
   display: flex;
@@ -200,8 +200,9 @@ export default {
   cursor: pointer;
   transition: var(--transition-fast);
   color: var(--text-secondary);
-  opacity: 1;
+  opacity: 0.8;
   z-index: 2;
+  backdrop-filter: blur(10px);
 }
 
 .product-card:hover .wishlist-btn {
