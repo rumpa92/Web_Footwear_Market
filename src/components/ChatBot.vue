@@ -6,11 +6,25 @@
       @click="toggleChat"
       class="chatbot-icon"
     >
-      <img
-        src="https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F371f622abfe1483c9d1eb05d5017e473?format=webp&width=800"
-        alt="Chat Assistant"
-        class="chat-icon-image"
-      />
+      <div class="icon-container">
+        <svg viewBox="0 0 32 32" fill="none" class="chat-icon">
+          <defs>
+            <linearGradient id="chatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <!-- Chat bubble background -->
+          <path d="M16 4C9.373 4 4 8.925 4 15c0 2.836 1.106 5.432 2.907 7.479L5 28l5.799-1.822C12.432 27.37 14.16 28 16 28c6.627 0 12-4.925 12-11S22.627 4 16 4z" fill="url(#chatGradient)"/>
+          <!-- Message dots -->
+          <circle cx="12" cy="15" r="1.5" fill="white" opacity="0.9"/>
+          <circle cx="16" cy="15" r="1.5" fill="white" opacity="0.9"/>
+          <circle cx="20" cy="15" r="1.5" fill="white" opacity="0.9"/>
+          <!-- Sparkle accent -->
+          <path d="M24 8l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" fill="white" opacity="0.7"/>
+        </svg>
+        <div class="pulse-ring"></div>
+      </div>
       <div class="notification-badge" v-if="hasNewMessage">!</div>
     </div>
 
