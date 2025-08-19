@@ -206,31 +206,31 @@ export default {
 }
 
 .product-card:hover .wishlist-btn {
-  background-color: var(--bg-primary);
-  transform: scale(1.05);
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .wishlist-btn:hover {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .wishlist-btn.active {
   color: #ef4444;
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 2px solid rgba(239, 68, 68, 0.2);
+  background-color: rgba(239, 68, 68, 0.15);
+  opacity: 1;
 }
 
 .wishlist-btn.active:hover {
   background-color: rgba(239, 68, 68, 0.2);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .wishlist-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 .product-actions {
