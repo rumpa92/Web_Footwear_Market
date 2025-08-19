@@ -38,7 +38,8 @@ export default {
     BackButton,
     ShoppingCart,
     SplashScreen,
-    AddedToCartModal
+    AddedToCartModal,
+    ChatBot
   },
   data() {
     return {
