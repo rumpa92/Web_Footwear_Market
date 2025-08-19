@@ -158,7 +158,7 @@ const state = {
       brand: "Under Armour",
       price: 149.99,
       originalPrice: 179.99,
-      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&q=90",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F5e6f78901234567def0123456789abcd?format=webp&width=600",
       category: "running",
       gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
