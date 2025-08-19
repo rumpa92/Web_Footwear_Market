@@ -162,10 +162,13 @@ export default {
 <style scoped>
 .banner-slider {
   position: relative;
+  width: 100%;
   height: 80vh;
   min-height: 600px;
   overflow: hidden;
   background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+  z-index: 1;
+  display: block;
 }
 
 .slider-container {
