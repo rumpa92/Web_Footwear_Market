@@ -138,6 +138,13 @@
         <router-link v-if="!isAuthenticated" to="/login" class="nav-link-mobile">Sign In</router-link>
       </nav>
     </div>
+
+    <!-- Location Modal -->
+    <LocationModal
+      :showModal="showLocationModal"
+      @close="closeLocationModal"
+      @location-set="handleLocationSet"
+    />
   </header>
 </template>
 
