@@ -6,54 +6,25 @@
       @click="toggleChat"
       class="chatbot-icon"
     >
-      <div class="robot-container">
-        <svg viewBox="0 0 48 48" fill="none" class="robot-icon">
+      <div class="chat-container">
+        <svg viewBox="0 0 24 24" fill="none" class="chat-icon">
           <defs>
-            <linearGradient id="robotBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#00bcd4;stop-opacity:1" />
-              <stop offset="100%" style="stop-color:#0097a7;stop-opacity:1" />
-            </linearGradient>
-            <linearGradient id="robotHeadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#26c6da;stop-opacity:1" />
-              <stop offset="100%" style="stop-color:#00acc1;stop-opacity:1" />
+            <linearGradient id="chatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
             </linearGradient>
           </defs>
 
-          <!-- Robot Body -->
-          <rect x="12" y="20" width="24" height="20" rx="4" fill="url(#robotBodyGradient)" stroke="#006064" stroke-width="1"/>
+          <!-- Main chat bubble -->
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
+                fill="url(#chatGradient)" stroke="none"/>
 
-          <!-- Robot Head -->
-          <rect x="14" y="8" width="20" height="16" rx="6" fill="url(#robotHeadGradient)" stroke="#006064" stroke-width="1"/>
-
-          <!-- Antenna -->
-          <circle cx="24" cy="6" r="1.5" fill="#ff5722"/>
-          <line x1="24" y1="8" x2="24" y2="6" stroke="#455a64" stroke-width="1.5"/>
-
-          <!-- Eyes -->
-          <rect x="18" y="12" width="4" height="6" rx="2" fill="#1a1a1a"/>
-          <rect x="26" y="12" width="4" height="6" rx="2" fill="#1a1a1a"/>
-
-          <!-- Eye glow -->
-          <circle cx="20" cy="15" r="1" fill="#00e676"/>
-          <circle cx="28" cy="15" r="1" fill="#00e676"/>
-
-          <!-- Mouth -->
-          <rect x="21" y="19" width="6" height="2" rx="1" fill="#1a1a1a"/>
-
-          <!-- Body details -->
-          <circle cx="18" cy="26" r="1.5" fill="#b3e5fc"/>
-          <circle cx="24" cy="28" r="1.5" fill="#b3e5fc"/>
-          <circle cx="30" cy="26" r="1.5" fill="#b3e5fc"/>
-
-          <!-- Arms -->
-          <rect x="8" y="22" width="4" height="8" rx="2" fill="url(#robotBodyGradient)" stroke="#006064" stroke-width="1"/>
-          <rect x="36" y="22" width="4" height="8" rx="2" fill="url(#robotBodyGradient)" stroke="#006064" stroke-width="1"/>
-
-          <!-- Speech bubble hint -->
-          <path d="M38 10 c2 0 4 2 4 4 v4 c0 2 -2 4 -4 4 h-2 l-2 2 v-2 h-2 c-2 0 -4 -2 -4 -4 v-4 c0 -2 2 -4 4 -4 z" fill="white" stroke="#00bcd4" stroke-width="1" opacity="0.9"/>
-          <text x="36" y="16" font-size="6" fill="#00bcd4" text-anchor="middle">Hi!</text>
+          <!-- Message dots -->
+          <circle cx="8" cy="10" r="1.2" fill="white" opacity="0.9"/>
+          <circle cx="12" cy="10" r="1.2" fill="white" opacity="0.9"/>
+          <circle cx="16" cy="10" r="1.2" fill="white" opacity="0.9"/>
         </svg>
-        <div class="robot-glow"></div>
+        <div class="chat-ripple"></div>
       </div>
       <div class="notification-badge" v-if="hasNewMessage">!</div>
     </div>
