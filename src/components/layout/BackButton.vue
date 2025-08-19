@@ -21,7 +21,8 @@ export default {
         '/register',
         '/forgot-password',
         '/order-confirmation',
-        '/return-confirmation'
+        '/return-confirmation',
+        '/track-return-status'
       ]
       return !excludedRoutes.includes(this.$route.path)
     },
