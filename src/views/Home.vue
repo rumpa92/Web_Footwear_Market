@@ -143,7 +143,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
-import ProductFilters from '../components/products/ProductFilters.vue'
 import BannerSlider from '../components/BannerSlider.vue'
 
 export default {
