@@ -1,45 +1,7 @@
 <template>
   <div class="home">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <div class="hero-badge">New Collection</div>
-            <div class="hero-main-text">
-              <h1 class="hero-title">FASHION<br><span class="hero-sale">SALE</span></h1>
-            </div>
-            <div class="hero-actions">
-              <router-link to="/products" class="offer-now-btn">OFFER NOW</router-link>
-            </div>
-            <div class="hero-contact">
-              <div class="contact-info">
-                <span class="contact-icon">📞</span>
-                <span class="contact-text">+001 123 456 790</span>
-              </div>
-              <div class="contact-info">
-                <span class="contact-icon">🌐</span>
-                <span class="contact-text">WWW.FOOTMARKET.COM</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero-image">
-            <img src="https://cdn.builder.io/api/v1/image/assets%2F23a04e702fb74360aba7a9f27b2d6e80%2Fc2ee6c976bc5475e86114ec944b0f859?format=webp&width=800" alt="Featured Shoes" />
-            <div class="discount-badge">
-              <span class="discount-text">75%<br>OFF</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-logo">
-          <span class="logo-text">LOGO</span>
-        </div>
-        <div class="hero-dots">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-      </div>
-    </section>
+    <!-- Banner Slider -->
+    <BannerSlider />
 
     <!-- Sort By Section -->
     <section class="sort-section">
