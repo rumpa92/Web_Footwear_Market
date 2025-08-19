@@ -282,29 +282,35 @@ export default {
 }
 
 .chatbot-icon {
-  width: 4rem;
-  height: 4rem;
-  border-radius: var(--border-radius-full);
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--border-radius-xl);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: var(--transition-normal);
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  box-shadow: 0 6px 24px rgba(0, 188, 212, 0.3);
+  border: 2px solid rgba(0, 188, 212, 0.2);
 }
 
 .chatbot-icon:hover {
-  transform: scale(1.08);
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 188, 212, 0.4);
+  border-color: rgba(0, 188, 212, 0.4);
 }
 
-.chatbot-icon:hover .pulse-ring {
-  animation: pulse 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+.chatbot-icon:hover .robot-glow {
+  animation: robotGlow 2s ease-in-out infinite;
 }
 
-.icon-container {
+.chatbot-icon:hover .robot-icon {
+  animation: robotBob 1s ease-in-out infinite;
+}
+
+.robot-container {
   position: relative;
   display: flex;
   align-items: center;
@@ -313,33 +319,39 @@ export default {
   height: 100%;
 }
 
-.chat-icon {
-  width: 2rem;
-  height: 2rem;
+.robot-icon {
+  width: 3rem;
+  height: 3rem;
   z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.pulse-ring {
+.robot-glow {
   position: absolute;
   width: 100%;
   height: 100%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--border-radius-full);
+  border-radius: var(--border-radius-xl);
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%);
   z-index: 1;
 }
 
-@keyframes pulse {
-  0% {
+@keyframes robotGlow {
+  0%, 100% {
+    opacity: 0.3;
     transform: scale(1);
-    opacity: 1;
   }
   50% {
-    transform: scale(1.15);
-    opacity: 0.7;
+    opacity: 0.6;
+    transform: scale(1.1);
   }
-  100% {
-    transform: scale(1.3);
-    opacity: 0;
+}
+
+@keyframes robotBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
   }
 }
 
