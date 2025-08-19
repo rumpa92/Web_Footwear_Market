@@ -254,7 +254,8 @@ export default {
 
 .chatbot-icon:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(52, 152, 219, 0.5);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent-color);
 }
 
 .chat-icon-image {
