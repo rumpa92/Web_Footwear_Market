@@ -158,44 +158,44 @@ export default {
         {
           name: 'Men',
           description: 'Footwear for men',
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop&q=80',
+          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop&q=90',
           icon: '👨',
           link: '/products?category=men'
         },
         {
           name: 'Women',
           description: 'Footwear for women',
-          image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&h=400&fit=crop&q=80',
+          image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500&h=500&fit=crop&q=90',
           icon: '👩',
           link: '/products?category=women'
         },
         {
           name: 'Kids',
           description: 'Footwear for children',
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop&q=80',
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop&q=90',
           icon: '👶',
           link: '/products?category=kids'
         },
         {
-          name: 'Sports',
-          description: 'Athletic and sports shoes',
-          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=400&h=400&fit=crop&q=80',
-          icon: '⚽',
-          link: '/products?category=sports'
+          name: 'Running',
+          description: 'High-performance running shoes',
+          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=500&h=500&fit=crop&q=90',
+          icon: '🏃',
+          link: '/products?category=running'
         },
         {
-          name: 'Casuals',
-          description: 'Comfortable everyday shoes',
-          image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=400&fit=crop&q=80',
+          name: 'Lifestyle',
+          description: 'Comfortable everyday sneakers',
+          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&h=500&fit=crop&q=90',
           icon: '👟',
-          link: '/products?category=casuals'
+          link: '/products?category=lifestyle'
         },
         {
-          name: 'Formal',
-          description: 'Professional and dress shoes',
-          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop&q=80',
-          icon: '👞',
-          link: '/products?category=formal'
+          name: 'Premium',
+          description: 'Luxury and designer shoes',
+          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=500&fit=crop&q=90',
+          icon: '💎',
+          link: '/products?category=premium'
         }
       ],
     }
