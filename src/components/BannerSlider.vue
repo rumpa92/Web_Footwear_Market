@@ -187,12 +187,15 @@ export default {
 
 .slide {
   min-width: 100%;
+  width: 100%;
   height: 100%;
   position: relative;
   background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .slide-background {
