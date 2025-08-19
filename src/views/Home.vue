@@ -216,6 +216,17 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Ensure banner is visible */
+.home > * {
+  position: relative;
+}
+
 /* Hero styles removed - replaced by BannerSlider component */
 
 .sort-section {
