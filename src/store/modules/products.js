@@ -177,7 +177,7 @@ const state = {
       brand: "Asics",
       price: 159.99,
       originalPrice: 179.99,
-      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F6f789012345678ef0123456789abcdef?format=webp&width=600",
+      image: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=600&h=600&fit=crop&q=90",
       category: "running",
       gender: "women",
       sizes: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
