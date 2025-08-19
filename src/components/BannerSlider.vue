@@ -233,18 +233,38 @@ export default {
 
 .slide:nth-child(1) {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
 }
 
 .slide:nth-child(2) {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  position: relative;
 }
 
 .slide:nth-child(3) {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  position: relative;
 }
 
 .slide:nth-child(4) {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+  position: relative;
+}
+
+.slide:nth-child(5) {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  position: relative;
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .slide-content {
