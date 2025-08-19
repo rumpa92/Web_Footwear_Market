@@ -1,14 +1,16 @@
 <template>
   <div class="chatbot-container">
     <!-- Chatbot Icon -->
-    <div 
-      v-if="!isOpen" 
-      @click="toggleChat" 
+    <div
+      v-if="!isOpen"
+      @click="toggleChat"
       class="chatbot-icon"
     >
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="chat-icon">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-      </svg>
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F371f622abfe1483c9d1eb05d5017e473?format=webp&width=800"
+        alt="Chat Assistant"
+        class="chat-icon-image"
+      />
       <div class="notification-badge" v-if="hasNewMessage">!</div>
     </div>
 
