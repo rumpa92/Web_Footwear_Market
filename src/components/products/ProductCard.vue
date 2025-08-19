@@ -121,22 +121,25 @@ export default {
 <style scoped>
 .product-card {
   background-color: var(--bg-primary);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: var(--transition-normal);
   position: relative;
+  border: 1px solid var(--border-light);
 }
 
 .product-card:hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+  transform: translateY(-2px);
+  border-color: var(--border-color);
 }
 
 .product-image-container {
   position: relative;
   overflow: hidden;
-  height: 240px;
+  height: 200px;
+  background: var(--bg-light);
 }
 
 .product-image-link {
