@@ -8,12 +8,15 @@
         </router-link>
 
         <!-- Location -->
-        <div class="location-display">
+        <div class="location-display" @click="openLocationModal">
           <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
-          <span class="location-text">New York, NY</span>
+          <span class="location-text">{{ formattedLocation }}</span>
+          <svg class="location-dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
+          </svg>
         </div>
 
         <!-- Desktop Navigation -->
@@ -151,7 +154,8 @@ export default {
       showSuggestions: false,
       suggestions: [],
       highlightedIndex: -1,
-      searchTimeout: null
+      searchTimeout: null,
+      showLocationModal: false
     }
   },
   directives: {
@@ -170,7 +174,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist']),
+    ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist', 'formattedLocation', 'shouldShowLocationModal']),
     ...mapGetters('cart', ['cartItemCount']),
     ...mapGetters('products', ['searchSuggestions']),
     wishlistCount() {
@@ -179,7 +183,7 @@ export default {
   },
   methods: {
     ...mapActions('cart', ['toggleCart']),
-    ...mapActions('user', ['logout']),
+    ...mapActions('user', ['logout', 'loadLocationData']),
     ...mapActions('products', ['generateSearchSuggestions', 'setFilter']),
     handleSearch() {
       clearTimeout(this.searchTimeout)
@@ -247,6 +251,17 @@ export default {
     },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
+    },
+    openLocationModal() {
+      this.showLocationModal = true
+    },
+    closeLocationModal() {
+      this.showLocationModal = false
+    },
+    handleLocationSet(locationData) {
+      this.showLocationModal = false
+      // Show a brief toast or notification
+      console.log('Location updated to:', locationData.formatted || locationData.city)
     }
   },
   mounted() {
@@ -254,6 +269,16 @@ export default {
     if (this.$route.query.search) {
       this.searchQuery = this.$route.query.search
       this.setFilter({ type: 'search', value: this.searchQuery })
+    }
+
+    // Load location data from localStorage
+    this.loadLocationData()
+
+    // Show location modal if needed
+    if (this.shouldShowLocationModal) {
+      setTimeout(() => {
+        this.showLocationModal = true
+      }, 2000) // Show after 2 seconds to not be intrusive
     }
   }
 }
