@@ -358,6 +358,18 @@ export default {
   white-space: nowrap;
 }
 
+.location-dropdown-arrow {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: var(--transition-fast);
+}
+
+.location-display:hover .location-dropdown-arrow {
+  color: var(--accent-color);
+}
+
 .nav-desktop {
   display: none;
   align-items: center;
