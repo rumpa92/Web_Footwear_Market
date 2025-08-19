@@ -341,13 +341,13 @@ export default {
 }
 
 .current-price {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
   color: var(--text-primary);
 }
 
 .original-price {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--text-secondary);
   text-decoration: line-through;
 }
