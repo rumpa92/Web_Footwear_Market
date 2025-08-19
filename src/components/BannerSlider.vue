@@ -395,6 +395,45 @@ export default {
   transform: translateY(-3px);
 }
 
+.btn-arrow {
+  width: 16px;
+  height: 16px;
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.slide-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+.slide-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .slide-contact {
   display: flex;
   flex-direction: column;
