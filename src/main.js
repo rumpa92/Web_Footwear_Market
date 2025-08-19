@@ -21,8 +21,9 @@ Vue.prototype.$toast = {
   }
 }
 
-// Initialize authentication state
+// Initialize authentication state and location data
 store.dispatch('user/initializeAuth')
+store.dispatch('user/loadLocationData')
 
 new Vue({
   router,
