@@ -333,6 +333,15 @@ export default {
   background-color: var(--bg-light);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.location-display:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .location-icon {
