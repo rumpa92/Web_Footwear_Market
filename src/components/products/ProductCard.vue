@@ -307,18 +307,18 @@ export default {
 .product-rating {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
 }
 
 .rating-stars {
   display: flex;
-  gap: 2px;
+  gap: 1px;
 }
 
 .rating-star {
   color: var(--border-color);
-  font-size: var(--font-size-sm);
+  font-size: 0.7rem;
 }
 
 .rating-star.filled {
@@ -326,14 +326,14 @@ export default {
 }
 
 .rating-text {
-  font-size: var(--font-size-xs);
+  font-size: 0.65rem;
   color: var(--text-secondary);
 }
 
 .product-price {
   display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+  align-items: baseline;
+  gap: var(--space-xs);
   margin-bottom: var(--space-sm);
 }
 
