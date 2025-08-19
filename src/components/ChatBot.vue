@@ -240,16 +240,16 @@ export default {
 .chatbot-icon {
   width: 3.5rem;
   height: 3.5rem;
-  background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+  background: var(--bg-primary);
   border-radius: var(--border-radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: var(--transition-normal);
   position: relative;
-  color: var(--text-white);
+  border: 2px solid var(--border-light);
 }
 
 .chatbot-icon:hover {
