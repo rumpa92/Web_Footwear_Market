@@ -89,7 +89,7 @@ export default {
           description: 'Discover our latest collection of premium footwear designed for comfort, style, and durability.',
           buttonText: 'EXPLORE NOW',
           buttonLink: '/products?category=premium',
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F98ec80592d7444cbb4f2e6ed9630a8fe?format=webp&width=800',
           discount: 75,
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
         },
