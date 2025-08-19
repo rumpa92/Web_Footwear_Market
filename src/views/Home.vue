@@ -154,7 +154,6 @@ export default {
   data() {
     return {
       email: '',
-      selectedSort: 'featured',
       categories: [
         {
           name: 'Men',
