@@ -14,22 +14,39 @@
               <h1 class="slide-title">{{ slide.title }}</h1>
               <h2 class="slide-subtitle">{{ slide.subtitle }}</h2>
               <p class="slide-description">{{ slide.description }}</p>
+
+              <!-- Features List -->
+              <div class="slide-features" v-if="slide.features">
+                <div class="feature-item" v-for="feature in slide.features" :key="feature">
+                  <span class="feature-check">✓</span>
+                  <span class="feature-text">{{ feature }}</span>
+                </div>
+              </div>
+
               <div class="slide-actions">
                 <router-link :to="slide.buttonLink" class="slide-btn primary">
-                  {{ slide.buttonText }}
+                  <span>{{ slide.buttonText }}</span>
+                  <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
                 </router-link>
                 <router-link to="/products" class="slide-btn secondary">
-                  Shop Now
+                  <span>View All</span>
                 </router-link>
               </div>
-              <div class="slide-contact">
-                <div class="contact-item">
-                  <span class="contact-icon">📞</span>
-                  <span>+001 123 456 790</span>
+
+              <div class="slide-stats">
+                <div class="stat-item">
+                  <span class="stat-number">50K+</span>
+                  <span class="stat-label">Happy Customers</span>
                 </div>
-                <div class="contact-item">
-                  <span class="contact-icon">🌐</span>
-                  <span>WWW.FOOTMARKET.COM</span>
+                <div class="stat-item">
+                  <span class="stat-number">4.9★</span>
+                  <span class="stat-label">Rating</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">24/7</span>
+                  <span class="stat-label">Support</span>
                 </div>
               </div>
             </div>
