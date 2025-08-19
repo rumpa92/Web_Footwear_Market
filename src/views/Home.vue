@@ -3,60 +3,6 @@
     <!-- Banner Slider -->
     <BannerSlider />
 
-    <!-- Sort By Section -->
-    <section class="sort-section">
-      <div class="container">
-        <div class="sort-controls">
-          <div class="sort-dropdown">
-            <label class="sort-label">Sort by:</label>
-            <select v-model="selectedSort" @change="updateSort" class="sort-select">
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
-              <option value="newest">Newest</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Filters Section -->
-    <section class="filters-section">
-      <div class="container">
-        <div class="browse-products-header">
-          <h2 class="browse-products-title">Browse Products</h2>
-          <p class="browse-products-subtitle">Use filters to find exactly what you're looking for</p>
-        </div>
-
-        <div class="filters-content">
-          <!-- Filters Sidebar -->
-          <ProductFilters />
-
-          <!-- Filtered Products -->
-          <div class="filtered-products">
-            <div v-if="filteredProducts.length === 0" class="no-products">
-              <div class="no-products-content">
-                <h3>No products found</h3>
-                <p>Try adjusting your filters to see more products</p>
-              </div>
-            </div>
-
-            <div v-else class="products-grid">
-              <ProductCard
-                v-for="product in filteredProducts.slice(0, 8)"
-                :key="product.id"
-                :product="product"
-              />
-            </div>
-
-            <div v-if="filteredProducts.length > 8" class="section-footer">
-              <router-link to="/products" class="btn btn-outline">View All Products</router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- New Arrivals -->
     <section class="new-arrivals">
