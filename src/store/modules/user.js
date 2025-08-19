@@ -23,7 +23,18 @@ const state = {
   isAuthenticated: true,
   wishlist: [],
   addresses: [],
-  orders: []
+  orders: [],
+  location: {
+    city: 'New York',
+    state: 'NY',
+    country: 'USA',
+    latitude: null,
+    longitude: null,
+    formatted: 'New York, NY',
+    manual: false,
+    timestamp: null
+  },
+  locationPermission: 'pending' // 'pending', 'granted', 'denied', 'skipped', 'dismissed'
 }
 
 const getters = {
@@ -32,6 +43,14 @@ const getters = {
   wishlist: state => state.wishlist,
   addresses: state => state.addresses,
   orders: state => state.orders,
+  location: state => state.location,
+  locationPermission: state => state.locationPermission,
+  formattedLocation: state => {
+    return state.location.formatted || `${state.location.city}, ${state.location.state}`
+  },
+  shouldShowLocationModal: state => {
+    return state.locationPermission === 'pending'
+  },
   isInWishlist: state => productId => {
     return state.wishlist.some(item => item.id === productId)
   }
@@ -87,6 +106,35 @@ const mutations = {
       status: 'confirmed',
       ...order
     })
+  },
+  SET_USER_LOCATION(state, locationData) {
+    state.location = {
+      ...state.location,
+      ...locationData,
+      timestamp: Date.now()
+    }
+    // Save location to localStorage
+    localStorage.setItem('userLocation', JSON.stringify(state.location))
+  },
+  SET_LOCATION_PERMISSION(state, permission) {
+    state.locationPermission = permission
+    localStorage.setItem('locationPermission', permission)
+  },
+  LOAD_LOCATION_DATA(state) {
+    const savedLocation = localStorage.getItem('userLocation')
+    const savedPermission = localStorage.getItem('locationPermission')
+
+    if (savedLocation) {
+      try {
+        state.location = JSON.parse(savedLocation)
+      } catch (error) {
+        console.error('Error parsing saved location:', error)
+      }
+    }
+
+    if (savedPermission) {
+      state.locationPermission = savedPermission
+    }
   }
 }
 
@@ -178,8 +226,21 @@ const actions = {
     
     commit('ADD_ORDER', order)
     commit('cart/CLEAR_CART', null, { root: true })
-    
+
     return Promise.resolve(order)
+  },
+  setUserLocation({ commit }, locationData) {
+    commit('SET_USER_LOCATION', locationData)
+  },
+  setLocationPermission({ commit }, permission) {
+    commit('SET_LOCATION_PERMISSION', permission)
+  },
+  loadLocationData({ commit }) {
+    commit('LOAD_LOCATION_DATA')
+  },
+  resetLocationPermission({ commit }) {
+    commit('SET_LOCATION_PERMISSION', 'pending')
+    localStorage.removeItem('locationPermission')
   }
 }
 
