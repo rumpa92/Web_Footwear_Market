@@ -252,31 +252,65 @@ export default {
 }
 
 .chatbot-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  background: var(--bg-primary);
+  width: 4rem;
+  height: 4rem;
   border-radius: var(--border-radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: var(--transition-normal);
   position: relative;
-  border: 2px solid var(--border-light);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
 }
 
 .chatbot-icon:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-  border-color: var(--accent-color);
+  transform: scale(1.08);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
 }
 
-.chat-icon-image {
+.chatbot-icon:hover .pulse-ring {
+  animation: pulse 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.chat-icon {
   width: 2rem;
   height: 2rem;
-  object-fit: cover;
+  z-index: 2;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--border-radius-full);
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
 }
 
 .notification-badge {
