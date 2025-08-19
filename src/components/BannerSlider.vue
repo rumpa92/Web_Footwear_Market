@@ -1,0 +1,619 @@
+<template>
+  <div class="banner-slider">
+    <div class="slider-container">
+      <div class="slides-wrapper" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+        <div 
+          v-for="(slide, index) in slides" 
+          :key="index" 
+          class="slide"
+          :class="{ active: index === currentSlide }"
+        >
+          <div class="slide-content">
+            <div class="slide-text">
+              <div class="slide-badge">{{ slide.badge }}</div>
+              <h1 class="slide-title">{{ slide.title }}</h1>
+              <h2 class="slide-subtitle">{{ slide.subtitle }}</h2>
+              <p class="slide-description">{{ slide.description }}</p>
+              <div class="slide-actions">
+                <router-link :to="slide.buttonLink" class="slide-btn primary">
+                  {{ slide.buttonText }}
+                </router-link>
+                <router-link to="/products" class="slide-btn secondary">
+                  Shop Now
+                </router-link>
+              </div>
+              <div class="slide-contact">
+                <div class="contact-item">
+                  <span class="contact-icon">📞</span>
+                  <span>+001 123 456 790</span>
+                </div>
+                <div class="contact-item">
+                  <span class="contact-icon">🌐</span>
+                  <span>WWW.FOOTMARKET.COM</span>
+                </div>
+              </div>
+            </div>
+            <div class="slide-image">
+              <img :src="slide.image" :alt="slide.title" />
+              <div class="discount-badge" v-if="slide.discount">
+                <span class="discount-text">{{ slide.discount }}%<br>OFF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="nav-arrow prev" @click="prevSlide" :disabled="currentSlide === 0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button class="nav-arrow next" @click="nextSlide" :disabled="currentSlide === slides.length - 1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <!-- Slide Indicators -->
+      <div class="slide-indicators">
+        <button 
+          v-for="(slide, index) in slides" 
+          :key="index"
+          class="indicator"
+          :class="{ active: index === currentSlide }"
+          @click="goToSlide(index)"
+        ></button>
+      </div>
+
+      <!-- Logo -->
+      <div class="banner-logo">
+        <span>FOOTMARKET</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'BannerSlider',
+  data() {
+    return {
+      currentSlide: 0,
+      autoSlideInterval: null,
+      slides: [
+        {
+          badge: 'New Collection',
+          title: 'PREMIUM',
+          subtitle: 'FOOTWEAR',
+          description: 'Discover our latest collection of premium footwear designed for comfort, style, and durability.',
+          buttonText: 'EXPLORE NOW',
+          buttonLink: '/products?category=premium',
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop',
+          discount: 75,
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        },
+        {
+          badge: 'Trending Now',
+          title: 'ATHLETIC',
+          subtitle: 'PERFORMANCE',
+          description: 'Step up your game with our high-performance athletic shoes built for champions.',
+          buttonText: 'SHOP SPORTS',
+          buttonLink: '/products?category=sports',
+          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop',
+          discount: 60,
+          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+        },
+        {
+          badge: 'Limited Edition',
+          title: 'LUXURY',
+          subtitle: 'COLLECTION',
+          description: 'Exclusive handcrafted footwear that combines traditional craftsmanship with modern design.',
+          buttonText: 'VIEW LUXURY',
+          buttonLink: '/products?category=luxury',
+          image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600&h=600&fit=crop',
+          discount: 40,
+          background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+        },
+        {
+          badge: 'Best Sellers',
+          title: 'CASUAL',
+          subtitle: 'COMFORT',
+          description: 'Comfortable everyday shoes perfect for any occasion, from work to weekend adventures.',
+          buttonText: 'SHOP CASUAL',
+          buttonLink: '/products?category=casual',
+          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&fit=crop',
+          discount: 50,
+          background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+        }
+      ]
+    }
+  },
+  mounted() {
+    this.startAutoSlide()
+  },
+  beforeDestroy() {
+    this.stopAutoSlide()
+  },
+  methods: {
+    nextSlide() {
+      if (this.currentSlide < this.slides.length - 1) {
+        this.currentSlide++
+      } else {
+        this.currentSlide = 0
+      }
+    },
+    prevSlide() {
+      if (this.currentSlide > 0) {
+        this.currentSlide--
+      } else {
+        this.currentSlide = this.slides.length - 1
+      }
+    },
+    goToSlide(index) {
+      this.currentSlide = index
+    },
+    startAutoSlide() {
+      this.autoSlideInterval = setInterval(() => {
+        this.nextSlide()
+      }, 5000)
+    },
+    stopAutoSlide() {
+      if (this.autoSlideInterval) {
+        clearInterval(this.autoSlideInterval)
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+.banner-slider {
+  position: relative;
+  height: 80vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: #000;
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slides-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+}
+
+.slide:nth-child(1) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.slide:nth-child(2) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.slide:nth-child(3) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.slide:nth-child(4) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.slide-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.slide-text {
+  color: white;
+  animation: slideInLeft 1s ease-out;
+}
+
+.slide.active .slide-text {
+  animation: slideInLeft 1s ease-out;
+}
+
+.slide-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 1px;
+}
+
+.slide-title {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #fff, #ffd700);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.slide-subtitle {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.slide-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  max-width: 500px;
+}
+
+.slide-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.slide-btn {
+  padding: 1rem 2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slide-btn.primary {
+  background: white;
+  color: #333;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.slide-btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  background: #f8f9fa;
+}
+
+.slide-btn.secondary {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+
+.slide-btn.secondary:hover {
+  background: white;
+  color: #333;
+  transform: translateY(-3px);
+}
+
+.slide-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.contact-icon {
+  font-size: 1rem;
+}
+
+.slide-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideInRight 1s ease-out;
+}
+
+.slide.active .slide-image {
+  animation: slideInRight 1s ease-out;
+}
+
+.slide-image img {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.slide-image img:hover {
+  transform: scale(1.05) rotate(-5deg);
+}
+
+.discount-badge {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(238, 90, 36, 0.4);
+  animation: pulse 2s infinite;
+}
+
+.discount-text {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.nav-arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-arrow.prev {
+  left: 2rem;
+}
+
+.nav-arrow.next {
+  right: 2rem;
+}
+
+.nav-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+.slide-indicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.banner-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+}
+
+.banner-logo span {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(238, 90, 36, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(238, 90, 36, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(238, 90, 36, 0.4);
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-slider {
+    height: 70vh;
+    min-height: 500px;
+  }
+
+  .slide-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .slide-title {
+    font-size: 2.5rem;
+  }
+
+  .slide-subtitle {
+    font-size: 2rem;
+  }
+
+  .slide-description {
+    font-size: 1rem;
+    margin: 0 auto 2rem;
+  }
+
+  .slide-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .slide-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .slide-image img {
+    max-width: 350px;
+  }
+
+  .discount-badge {
+    width: 100px;
+    height: 100px;
+    top: -15px;
+    right: -15px;
+  }
+
+  .discount-text {
+    font-size: 1rem;
+  }
+
+  .nav-arrow {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-arrow.prev {
+    left: 1rem;
+  }
+
+  .nav-arrow.next {
+    right: 1rem;
+  }
+
+  .banner-logo {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .banner-logo span {
+    font-size: 1.2rem;
+  }
+
+  .slide-indicators {
+    bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-title {
+    font-size: 2rem;
+  }
+
+  .slide-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .slide-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slide-btn {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+</style>
