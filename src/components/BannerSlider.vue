@@ -135,7 +135,7 @@
       <!-- Bottom Stats Bar -->
       <div class="stats-bar">
         <div class="stat-item">
-          <div class="stat-icon">��</div>
+          <div class="stat-icon">🚚</div>
           <span>Free Delivery</span>
         </div>
         <div class="stat-item">
@@ -167,27 +167,27 @@ export default {
           price: 149.99,
           originalPrice: 179.99,
           reviews: 2847,
-          image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F98ec80592d7444cbb4f2e6ed9630a8fe?format=webp&width=800'
+          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop&q=80'
         },
         {
           name: 'Sport Elite Pro',
           price: 129.99,
           originalPrice: 159.99,
           reviews: 1923,
-          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=600&h=600&fit=crop'
+          image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&h=800&fit=crop&q=80'
         },
         {
           name: 'Urban Runner',
           price: 89.99,
           reviews: 3104,
-          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&fit=crop'
+          image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=800&fit=crop&q=80'
         },
         {
           name: 'Classic Leather',
           price: 199.99,
           originalPrice: 249.99,
           reviews: 856,
-          image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600&h=600&fit=crop'
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&q=80'
         }
       ]
     }
