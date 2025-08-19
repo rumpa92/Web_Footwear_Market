@@ -202,7 +202,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts', 'filteredProducts'])
+    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts'])
   },
   methods: {
     subscribeNewsletter() {
