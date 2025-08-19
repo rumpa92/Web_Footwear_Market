@@ -212,9 +212,6 @@ export default {
         // Show success message
       }
     },
-    updateSort() {
-      this.$store.dispatch('products/setSortBy', this.selectedSort)
-    }
   }
 }
 </script>
