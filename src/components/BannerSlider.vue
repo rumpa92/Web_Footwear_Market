@@ -1,70 +1,131 @@
 <template>
-  <div class="banner-slider">
-    <div class="slider-container">
-      <div class="slides-wrapper" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-        <div 
-          v-for="(slide, index) in slides" 
-          :key="index" 
-          class="slide"
-          :class="{ active: index === currentSlide }"
-        >
-          <!-- Background Geometric Patterns -->
-          <div class="slide-background">
-            <div class="geometric-shape shape-1"></div>
-            <div class="geometric-shape shape-2"></div>
-            <div class="geometric-shape shape-3"></div>
-            <div class="dots-pattern"></div>
+  <div class="hero-banner">
+    <div class="hero-container">
+      <!-- Background Elements -->
+      <div class="hero-background">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-grid"></div>
+      </div>
+
+      <!-- Main Hero Content -->
+      <div class="hero-content">
+        <div class="hero-text-section">
+          <div class="hero-badge">
+            <span class="badge-icon">🔥</span>
+            <span>Featured Collection</span>
+          </div>
+          
+          <h1 class="hero-title">
+            Step Into
+            <span class="title-highlight">Style</span>
+          </h1>
+          
+          <p class="hero-description">
+            Discover premium footwear that combines comfort, style, and innovation. 
+            From casual sneakers to professional dress shoes - find your perfect pair.
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Premium Brands</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">50K+</span>
+              <span class="stat-label">Happy Customers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4.9★</span>
+              <span class="stat-label">Customer Rating</span>
+            </div>
           </div>
 
-          <div class="slide-content">
-            <div class="slide-text">
-              <div class="slide-badge">{{ slide.badge }}</div>
-              <h1 class="slide-title">{{ slide.title }}</h1>
-              <h2 class="slide-subtitle">{{ slide.subtitle }}</h2>
-              <p class="slide-description">{{ slide.description }}</p>
-              
-              <div class="slide-actions">
-                <router-link :to="slide.buttonLink" class="slide-btn primary">
-                  {{ slide.buttonText }}
-                </router-link>
-              </div>
+          <div class="hero-actions">
+            <router-link to="/products" class="hero-btn primary">
+              <span>Shop Collection</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </router-link>
+            <button class="hero-btn secondary" @click="scrollToCategories">
+              <span>Browse Categories</span>
+            </button>
+          </div>
+        </div>
 
-              <div class="slide-contact">
-                <span class="contact-website">www.footmarket.com</span>
+        <!-- Product Showcase -->
+        <div class="hero-showcase">
+          <div class="showcase-container">
+            <!-- Featured Product -->
+            <div class="featured-product">
+              <div class="product-badge">Best Seller</div>
+              <img 
+                :src="featuredProduct.image" 
+                :alt="featuredProduct.name"
+                class="product-image"
+              />
+              <div class="product-info">
+                <h3 class="product-name">{{ featuredProduct.name }}</h3>
+                <div class="product-price">
+                  <span class="current-price">${{ featuredProduct.price }}</span>
+                  <span class="original-price" v-if="featuredProduct.originalPrice">
+                    ${{ featuredProduct.originalPrice }}
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div class="slide-image">
-              <div class="discount-circle">
-                <span class="discount-text">{{ slide.discount }}%<br>OFF</span>
+            <!-- Product Grid -->
+            <div class="product-grid">
+              <div 
+                v-for="(product, index) in showcaseProducts" 
+                :key="index"
+                class="grid-product"
+                :class="`product-${index + 1}`"
+              >
+                <img :src="product.image" :alt="product.name" />
+                <div class="product-overlay">
+                  <span class="product-category">{{ product.category }}</span>
+                  <span class="product-price">${{ product.price }}</span>
+                </div>
               </div>
-              <img :src="slide.image" :alt="slide.title" />
+            </div>
+          </div>
+
+          <!-- Floating Elements -->
+          <div class="floating-elements">
+            <div class="floating-badge badge-1">
+              <span class="badge-text">Free Shipping</span>
+            </div>
+            <div class="floating-badge badge-2">
+              <span class="badge-text">30-Day Returns</span>
+            </div>
+            <div class="floating-badge badge-3">
+              <span class="badge-text">Premium Quality</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Navigation Arrows -->
-      <button class="nav-arrow prev" @click="prevSlide">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-      </button>
-      <button class="nav-arrow next" @click="nextSlide">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </button>
-
-      <!-- Slide Indicators -->
-      <div class="slide-indicators">
-        <button 
-          v-for="(slide, index) in slides" 
-          :key="index"
-          class="indicator"
-          :class="{ active: index === currentSlide }"
-          @click="goToSlide(index)"
-        ></button>
+      <!-- Trust Indicators -->
+      <div class="trust-section">
+        <div class="trust-item">
+          <div class="trust-icon">🚚</div>
+          <span>Free Delivery</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔄</div>
+          <span>Easy Returns</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⭐</div>
+          <span>Premium Quality</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🛡️</div>
+          <span>Secure Payment</span>
+        </div>
       </div>
     </div>
   </div>
@@ -75,84 +136,45 @@ export default {
   name: 'BannerSlider',
   data() {
     return {
-      currentSlide: 0,
-      autoSlideInterval: null,
-      slides: [
+      featuredProduct: {
+        name: 'Premium Air Runner',
+        price: 129.99,
+        originalPrice: 159.99,
+        image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F98ec80592d7444cbb4f2e6ed9630a8fe?format=webp&width=800'
+      },
+      showcaseProducts: [
         {
-          badge: 'NEW COLLECTION',
-          title: 'RUNNING',
-          subtitle: 'SHOES',
-          description: 'Clean & Comfortable',
-          buttonText: 'ORDER NOW',
-          buttonLink: '/products?category=running',
-          image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F98ec80592d7444cbb4f2e6ed9630a8fe?format=webp&width=800',
-          discount: 30
+          name: 'Sports Elite',
+          category: 'Athletic',
+          price: 89.99,
+          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=300&h=300&fit=crop'
         },
         {
-          badge: 'ATHLETIC PERFORMANCE',
-          title: 'SPORTS',
-          subtitle: 'FOOTWEAR',
-          description: 'Professional & Durable',
-          buttonText: 'SHOP NOW',
-          buttonLink: '/products?category=sports',
-          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=600&h=600&fit=crop',
-          discount: 25
+          name: 'Casual Comfort',
+          category: 'Lifestyle',
+          price: 79.99,
+          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=300&fit=crop'
         },
         {
-          badge: 'PREMIUM QUALITY',
-          title: 'CASUAL',
-          subtitle: 'LIFESTYLE',
-          description: 'Style & Comfort Combined',
-          buttonText: 'EXPLORE',
-          buttonLink: '/products?category=casual',
-          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&fit=crop',
-          discount: 35
+          name: 'Business Class',
+          category: 'Formal',
+          price: 149.99,
+          image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=300&h=300&fit=crop'
         },
         {
-          badge: 'LUXURY EDITION',
-          title: 'FORMAL',
-          subtitle: 'COLLECTION',
-          description: 'Elegant & Sophisticated',
-          buttonText: 'VIEW COLLECTION',
-          buttonLink: '/products?category=formal',
-          image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600&h=600&fit=crop',
-          discount: 20
+          name: 'Urban Street',
+          category: 'Trendy',
+          price: 99.99,
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop'
         }
       ]
     }
   },
-  mounted() {
-    this.startAutoSlide()
-  },
-  beforeDestroy() {
-    this.stopAutoSlide()
-  },
   methods: {
-    nextSlide() {
-      if (this.currentSlide < this.slides.length - 1) {
-        this.currentSlide++
-      } else {
-        this.currentSlide = 0
-      }
-    },
-    prevSlide() {
-      if (this.currentSlide > 0) {
-        this.currentSlide--
-      } else {
-        this.currentSlide = this.slides.length - 1
-      }
-    },
-    goToSlide(index) {
-      this.currentSlide = index
-    },
-    startAutoSlide() {
-      this.autoSlideInterval = setInterval(() => {
-        this.nextSlide()
-      }, 4000)
-    },
-    stopAutoSlide() {
-      if (this.autoSlideInterval) {
-        clearInterval(this.autoSlideInterval)
+    scrollToCategories() {
+      const categoriesSection = document.querySelector('.categories')
+      if (categoriesSection) {
+        categoriesSection.scrollIntoView({ behavior: 'smooth' })
       }
     }
   }
@@ -160,408 +182,478 @@ export default {
 </script>
 
 <style scoped>
-.banner-slider {
+.hero-banner {
   position: relative;
-  width: 100%;
-  height: 80vh;
-  min-height: 600px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   overflow: hidden;
-  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
-  z-index: 1;
-  display: block;
-}
-
-.slider-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.slides-wrapper {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  position: relative;
-}
-
-.slide {
-  min-width: 100%;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
 }
 
-.slide-background {
+.hero-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-background {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: hidden;
-  z-index: 1;
 }
 
-.geometric-shape {
+.bg-circle {
   position: absolute;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
 }
 
-.shape-1 {
+.circle-1 {
+  width: 400px;
+  height: 400px;
+  top: -200px;
+  right: -200px;
+}
+
+.circle-2 {
   width: 300px;
-  height: 200px;
-  top: 10%;
-  right: 15%;
-  transform: rotate(15deg);
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  height: 300px;
+  bottom: -150px;
+  left: -150px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
 }
 
-.shape-2 {
-  width: 150px;
-  height: 150px;
-  bottom: 20%;
-  left: 20%;
-  transform: rotate(-25deg);
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-}
-
-.shape-3 {
-  width: 100px;
-  height: 250px;
-  top: 30%;
-  right: 5%;
-  transform: rotate(45deg);
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-}
-
-.dots-pattern {
+.bg-grid {
   position: absolute;
-  top: 15%;
-  right: 25%;
-  width: 120px;
-  height: 80px;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 2px, transparent 2px);
-  background-size: 15px 15px;
-  opacity: 0.6;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
 }
 
-.slide-content {
+.hero-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 10;
+  min-height: 80vh;
 }
 
-.slide-text {
+.hero-text-section {
+  z-index: 20;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: white;
-  z-index: 10;
-}
-
-.slide-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 1.2rem;
+  padding: 0.5rem 1rem;
   border-radius: 25px;
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.slide-title {
-  font-size: 5rem;
-  font-weight: 900;
-  line-height: 0.8;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-  margin-bottom: 0.5rem;
-}
-
-.slide-subtitle {
-  font-size: 5rem;
-  font-weight: 900;
-  line-height: 0.8;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-  margin-bottom: 1.5rem;
-}
-
-.slide-description {
-  font-size: 1.3rem;
-  line-height: 1.4;
-  margin-bottom: 3rem;
-  opacity: 0.95;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
-.slide-actions {
-  margin-bottom: 2rem;
-}
-
-.slide-btn {
-  padding: 1rem 2.5rem;
+.badge-icon {
   font-size: 1rem;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #1e293b;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.title-highlight {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #64748b;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.hero-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: white;
-  color: #1e40af;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
-.slide-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-  background: #f8f9fa;
-}
-
-.slide-contact {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  font-weight: 500;
-}
-
-.contact-website {
+.hero-btn.primary {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: white;
-  letter-spacing: 0.5px;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
-.slide-image {
+.hero-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
+}
+
+.hero-btn.secondary {
+  background: white;
+  color: #3b82f6;
+  border: 2px solid #e2e8f0;
+}
+
+.hero-btn.secondary:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.hero-btn:hover .btn-icon {
+  transform: translateX(3px);
+}
+
+.hero-showcase {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.showcase-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.featured-product {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
   z-index: 10;
 }
 
-.slide-image img {
-  max-width: 450px;
+.product-badge {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.product-image {
   width: 100%;
+  max-width: 300px;
   height: auto;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.product-info {
+  text-align: center;
+}
+
+.product-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.current-price {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #3b82f6;
+}
+
+.original-price {
+  font-size: 1rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.product-grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.grid-product {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
-.slide-image img:hover {
-  transform: scale(1.05) rotate(-5deg);
+.grid-product img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.discount-circle {
+.product-overlay {
   position: absolute;
-  top: -30px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.7rem;
+}
+
+.product-category {
+  display: block;
+  font-weight: 600;
+}
+
+.product-1 {
+  top: 10%;
+  left: -40px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.product-2 {
+  top: 60%;
+  left: -30px;
+  animation: float 3s ease-in-out infinite 0.5s;
+}
+
+.product-3 {
+  top: 15%;
+  right: -40px;
+  animation: float 3s ease-in-out infinite 1s;
+}
+
+.product-4 {
+  bottom: 20%;
   right: -30px;
-  width: 120px;
-  height: 120px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
-  z-index: 20;
+  animation: float 3s ease-in-out infinite 1.5s;
 }
 
-.discount-text {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 900;
-  text-align: center;
-  line-height: 1.2;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.nav-arrow {
+.floating-elements {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 20;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.nav-arrow:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.nav-arrow.prev {
-  left: 2rem;
-}
-
-.nav-arrow.next {
-  right: 2rem;
-}
-
-.nav-arrow svg {
-  width: 20px;
-  height: 20px;
-}
-
-.slide-indicators {
+.floating-badge {
   position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
-  z-index: 20;
-}
-
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicator.active {
   background: white;
-  transform: scale(1.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3b82f6;
 }
 
-.indicator:hover {
-  background: rgba(255, 255, 255, 0.7);
+.badge-1 {
+  top: 20%;
+  right: 50%;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.badge-2 {
+  bottom: 30%;
+  left: 20%;
+  animation: bounce 2s ease-in-out infinite 0.7s;
+}
+
+.badge-3 {
+  top: 70%;
+  right: 20%;
+  animation: bounce 2s ease-in-out infinite 1.4s;
+}
+
+.trust-section {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.trust-icon {
+  font-size: 1.5rem;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .trust-section {
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .banner-slider {
-    height: 70vh;
-    min-height: 500px;
+  .hero-banner {
+    min-height: 90vh;
   }
 
-  .slide-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 2rem;
-    padding: 0 1.5rem;
+  .hero-container {
+    padding: 1rem;
   }
 
-  .slide-title {
-    font-size: 3rem;
+  .hero-title {
+    font-size: 2.5rem;
   }
 
-  .slide-subtitle {
-    font-size: 3rem;
-  }
-
-  .slide-description {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-
-  .slide-image img {
-    max-width: 300px;
-  }
-
-  .discount-circle {
-    width: 100px;
-    height: 100px;
-    top: -20px;
-    right: -20px;
-  }
-
-  .discount-text {
+  .hero-description {
     font-size: 1rem;
   }
 
-  .nav-arrow {
-    width: 40px;
-    height: 40px;
+  .hero-stats {
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
-  .nav-arrow.prev {
-    left: 1rem;
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
   }
 
-  .nav-arrow.next {
-    right: 1rem;
+  .hero-btn {
+    width: 100%;
+    justify-content: center;
   }
 
-  .slide-indicators {
-    bottom: 1rem;
+  .trust-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
-  .shape-1 {
-    width: 200px;
-    height: 150px;
-  }
-
-  .shape-2 {
-    width: 100px;
-    height: 100px;
-  }
-
-  .shape-3 {
-    width: 80px;
-    height: 180px;
-  }
-
-  .dots-pattern {
-    width: 80px;
+  .grid-product {
+    width: 60px;
     height: 60px;
-    background-size: 12px 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .slide-title {
-    font-size: 2.5rem;
   }
 
-  .slide-subtitle {
-    font-size: 2.5rem;
-  }
-
-  .slide-description {
-    font-size: 1rem;
-  }
-
-  .slide-btn {
-    padding: 0.8rem 2rem;
-    font-size: 0.9rem;
+  .floating-badge {
+    display: none;
   }
 }
 </style>
