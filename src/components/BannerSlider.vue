@@ -312,9 +312,42 @@ export default {
 .slide-description {
   font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   opacity: 0.95;
   max-width: 500px;
+}
+
+.slide-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.feature-check {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #4ade80;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.feature-text {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .slide-actions {
