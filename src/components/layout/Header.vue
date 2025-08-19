@@ -150,9 +150,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import LocationModal from '@/components/LocationModal.vue'
 
 export default {
   name: 'Header',
+  components: {
+    LocationModal
+  },
   data() {
     return {
       searchQuery: '',
