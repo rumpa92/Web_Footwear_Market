@@ -257,9 +257,11 @@ export default {
   box-shadow: 0 6px 25px rgba(52, 152, 219, 0.5);
 }
 
-.chat-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+.chat-icon-image {
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  border-radius: var(--border-radius-full);
 }
 
 .notification-badge {
