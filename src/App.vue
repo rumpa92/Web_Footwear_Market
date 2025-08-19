@@ -28,6 +28,7 @@ import BackButton from './components/layout/BackButton.vue'
 import ShoppingCart from './components/cart/ShoppingCart.vue'
 import SplashScreen from './components/SplashScreen.vue'
 import AddedToCartModal from './components/AddedToCartModal.vue'
+import ChatBot from './components/ChatBot.vue'
 
 export default {
   name: 'App',
