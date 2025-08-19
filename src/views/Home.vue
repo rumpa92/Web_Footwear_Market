@@ -1,100 +1,8 @@
 <template>
   <div class="home">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <div class="hero-badge">New Collection</div>
-            <div class="hero-main-text">
-              <h1 class="hero-title">FASHION<br><span class="hero-sale">SALE</span></h1>
-            </div>
-            <div class="hero-actions">
-              <router-link to="/products" class="offer-now-btn">OFFER NOW</router-link>
-            </div>
-            <div class="hero-contact">
-              <div class="contact-info">
-                <span class="contact-icon">📞</span>
-                <span class="contact-text">+001 123 456 790</span>
-              </div>
-              <div class="contact-info">
-                <span class="contact-icon">🌐</span>
-                <span class="contact-text">WWW.FOOTMARKET.COM</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero-image">
-            <img src="https://cdn.builder.io/api/v1/image/assets%2F23a04e702fb74360aba7a9f27b2d6e80%2Fc2ee6c976bc5475e86114ec944b0f859?format=webp&width=800" alt="Featured Shoes" />
-            <div class="discount-badge">
-              <span class="discount-text">75%<br>OFF</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-logo">
-          <span class="logo-text">LOGO</span>
-        </div>
-        <div class="hero-dots">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-      </div>
-    </section>
+    <!-- Banner Slider -->
+    <BannerSlider />
 
-    <!-- Sort By Section -->
-    <section class="sort-section">
-      <div class="container">
-        <div class="sort-controls">
-          <div class="sort-dropdown">
-            <label class="sort-label">Sort by:</label>
-            <select v-model="selectedSort" @change="updateSort" class="sort-select">
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
-              <option value="newest">Newest</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Filters Section -->
-    <section class="filters-section">
-      <div class="container">
-        <div class="browse-products-header">
-          <h2 class="browse-products-title">Browse Products</h2>
-          <p class="browse-products-subtitle">Use filters to find exactly what you're looking for</p>
-        </div>
-
-        <div class="filters-content">
-          <!-- Filters Sidebar -->
-          <ProductFilters />
-
-          <!-- Filtered Products -->
-          <div class="filtered-products">
-            <div v-if="filteredProducts.length === 0" class="no-products">
-              <div class="no-products-content">
-                <h3>No products found</h3>
-                <p>Try adjusting your filters to see more products</p>
-              </div>
-            </div>
-
-            <div v-else class="products-grid">
-              <ProductCard
-                v-for="product in filteredProducts.slice(0, 8)"
-                :key="product.id"
-                :product="product"
-              />
-            </div>
-
-            <div v-if="filteredProducts.length > 8" class="section-footer">
-              <router-link to="/products" class="btn btn-outline">View All Products</router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- New Arrivals -->
     <section class="new-arrivals">
@@ -235,66 +143,65 @@
 <script>
 import { mapGetters } from 'vuex'
 import ProductCard from '../components/products/ProductCard.vue'
-import ProductFilters from '../components/products/ProductFilters.vue'
+import BannerSlider from '../components/BannerSlider.vue'
 
 export default {
   name: 'Home',
   components: {
     ProductCard,
-    ProductFilters
+    BannerSlider
   },
   data() {
     return {
       email: '',
-      selectedSort: 'featured',
       categories: [
         {
           name: 'Men',
           description: 'Footwear for men',
-          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop&q=90',
           icon: '👨',
           link: '/products?category=men'
         },
         {
           name: 'Women',
           description: 'Footwear for women',
-          image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500&h=500&fit=crop&q=90',
           icon: '👩',
           link: '/products?category=women'
         },
         {
           name: 'Kids',
           description: 'Footwear for children',
-          image: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=300&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop&q=90',
           icon: '👶',
           link: '/products?category=kids'
         },
         {
-          name: 'Sports',
-          description: 'Athletic and sports shoes',
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop',
-          icon: '⚽',
-          link: '/products?category=sports'
+          name: 'Running',
+          description: 'High-performance running shoes',
+          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=500&h=500&fit=crop&q=90',
+          icon: '🏃',
+          link: '/products?category=running'
         },
         {
-          name: 'Casuals',
-          description: 'Comfortable everyday shoes',
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop',
+          name: 'Lifestyle',
+          description: 'Comfortable everyday sneakers',
+          image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&h=500&fit=crop&q=90',
           icon: '👟',
-          link: '/products?category=casuals'
+          link: '/products?category=lifestyle'
         },
         {
-          name: 'Formal',
-          description: 'Professional and dress shoes',
-          image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=300&h=300&fit=crop',
-          icon: '👞',
-          link: '/products?category=formal'
+          name: 'Premium',
+          description: 'Luxury and designer shoes',
+          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=500&fit=crop&q=90',
+          icon: '💎',
+          link: '/products?category=premium'
         }
       ],
     }
   },
   computed: {
-    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts', 'filteredProducts'])
+    ...mapGetters('products', ['featuredProducts', 'newArrivals', 'suggestedProducts', 'trendingProducts'])
   },
   methods: {
     subscribeNewsletter() {
@@ -304,210 +211,23 @@ export default {
         // Show success message
       }
     },
-    updateSort() {
-      this.$store.dispatch('products/setSortBy', this.selectedSort)
-    }
   }
 }
 </script>
 
 <style scoped>
-.hero {
-  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
-  padding: var(--space-3xl) 0;
-  position: relative;
-  overflow: hidden;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-}
-
-.hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2xl);
-  align-items: center;
-  position: relative;
-  z-index: 10;
+.home {
   width: 100%;
-}
-
-.hero-text {
-  color: white;
-  z-index: 10;
+  min-height: 100vh;
   position: relative;
 }
 
-.hero-badge {
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  margin-bottom: var(--space-lg);
-  opacity: 0.9;
-  font-style: italic;
-}
-
-.hero-main-text {
-  margin-bottom: var(--space-2xl);
-}
-
-.hero-title {
-  font-size: 64px;
-  font-weight: 700;
-  color: #ffd700;
-  line-height: 0.9;
-  letter-spacing: 4px;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-.hero-sale {
-  font-size: 80px;
-  font-weight: 900;
-  color: white;
-  display: block;
-  margin-top: -10px;
-}
-
-.hero-actions {
-  margin-bottom: var(--space-2xl);
-}
-
-.offer-now-btn {
-  background-color: white;
-  color: #1a237e;
-  padding: 14px 28px;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 25px;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  display: inline-block;
-  text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.offer-now-btn:hover {
-  background-color: #f5f5f5;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.hero-contact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.contact-info {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 12px;
-  color: white;
-  opacity: 0.8;
-}
-
-.contact-icon {
-  font-size: 14px;
-}
-
-.contact-text {
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-.hero-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Ensure banner is visible */
+.home > * {
   position: relative;
-  z-index: 10;
 }
 
-.hero-image img {
-  max-width: 450px;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
-  transition: transform 0.3s ease;
-}
-
-.hero-image img:hover {
-  transform: scale(1.03) rotate(-3deg);
-}
-
-.discount-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
-  animation: pulse 2s infinite;
-}
-
-.discount-text {
-  color: white;
-  font-size: 18px;
-  font-weight: 900;
-  text-align: center;
-  line-height: 1.2;
-  letter-spacing: 1px;
-}
-
-.hero-logo {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  z-index: 20;
-}
-
-.logo-text {
-  color: white;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  opacity: 0.9;
-}
-
-.hero-dots {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  display: flex;
-  gap: 8px;
-  z-index: 20;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: white;
-  border-radius: 50%;
-  opacity: 0.7;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 152, 0, 0.6);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
-  }
-}
+/* Hero styles removed - replaced by BannerSlider component */
 
 .sort-section {
   padding: var(--space-lg) 0;
@@ -889,54 +609,7 @@ export default {
   margin-right: auto;
 }
 
-@media (max-width: 767px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: var(--space-lg);
-  }
-
-  .hero-title {
-    font-size: 42px;
-  }
-
-  .hero-sale {
-    font-size: 56px;
-  }
-
-  .hero-logo {
-    top: 20px;
-    left: 20px;
-  }
-
-  .logo-text {
-    font-size: 16px;
-  }
-
-  .hero-dots {
-    top: 20px;
-    right: 20px;
-  }
-
-  .discount-badge {
-    width: 80px;
-    height: 80px;
-    top: 10px;
-    right: 10px;
-  }
-
-  .discount-text {
-    font-size: 14px;
-  }
-
-  .hero-contact {
-    margin-top: var(--space-lg);
-  }
-
-  .contact-info {
-    justify-content: center;
-  }
-}
+/* Mobile hero styles removed - handled by BannerSlider component */
 
 @media (min-width: 768px) {
   .hero-text {
