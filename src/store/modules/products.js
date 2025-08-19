@@ -196,7 +196,7 @@ const state = {
       brand: "Skechers",
       price: 79.99,
       originalPrice: 99.99,
-      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F789012345678901f0123456789abcdef?format=webp&width=600",
+      image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&h=600&fit=crop&q=90",
       category: "casual",
       gender: "kids",
       sizes: [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6],
