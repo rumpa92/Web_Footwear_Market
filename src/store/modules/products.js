@@ -44,7 +44,7 @@ const state = {
       brand: "Nike",
       price: 159.99,
       originalPrice: 189.99,
-      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F0c1f2e3d4b5a6789efabcdef01234567?format=webp&width=600",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&q=90",
       category: "running",
       gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
