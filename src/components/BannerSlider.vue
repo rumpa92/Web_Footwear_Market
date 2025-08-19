@@ -83,48 +83,64 @@ export default {
       autoSlideInterval: null,
       slides: [
         {
-          badge: 'New Collection',
+          badge: '🔥 New Collection 2024',
           title: 'PREMIUM',
-          subtitle: 'FOOTWEAR',
-          description: 'Discover our latest collection of premium footwear designed for comfort, style, and durability.',
-          buttonText: 'EXPLORE NOW',
+          subtitle: 'SNEAKERS',
+          description: 'Experience the perfect blend of style and comfort with our exclusive premium collection. Engineered for the modern lifestyle.',
+          buttonText: 'SHOP PREMIUM',
           buttonLink: '/products?category=premium',
           image: 'https://cdn.builder.io/api/v1/image/assets%2F320fdd3319e444dc921d47bac71874f5%2F98ec80592d7444cbb4f2e6ed9630a8fe?format=webp&width=800',
           discount: 75,
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          features: ['Premium Materials', 'All-Day Comfort', 'Limited Stock']
         },
         {
-          badge: 'Trending Now',
+          badge: '⚡ Performance Ready',
           title: 'ATHLETIC',
-          subtitle: 'PERFORMANCE',
-          description: 'Step up your game with our high-performance athletic shoes built for champions.',
-          buttonText: 'SHOP SPORTS',
+          subtitle: 'EXCELLENCE',
+          description: 'Dominate every workout with cutting-edge athletic footwear. Built for champions, designed for victory.',
+          buttonText: 'GEAR UP NOW',
           buttonLink: '/products?category=sports',
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop',
+          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=600&h=600&fit=crop',
           discount: 60,
-          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+          background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
+          features: ['Pro Performance', 'Impact Protection', 'Breathable Design']
         },
         {
-          badge: 'Limited Edition',
+          badge: '✨ Exclusive Edition',
           title: 'LUXURY',
-          subtitle: 'COLLECTION',
-          description: 'Exclusive handcrafted footwear that combines traditional craftsmanship with modern design.',
-          buttonText: 'VIEW LUXURY',
+          subtitle: 'CRAFTED',
+          description: 'Handcrafted masterpieces that redefine elegance. Where traditional artistry meets contemporary innovation.',
+          buttonText: 'EXPLORE LUXURY',
           buttonLink: '/products?category=luxury',
           image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600&h=600&fit=crop',
           discount: 40,
-          background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+          background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
+          features: ['Handcrafted', 'Italian Leather', 'Lifetime Quality']
         },
         {
-          badge: 'Best Sellers',
-          title: 'CASUAL',
+          badge: '🌟 Customer Favorite',
+          title: 'EVERYDAY',
           subtitle: 'COMFORT',
-          description: 'Comfortable everyday shoes perfect for any occasion, from work to weekend adventures.',
-          buttonText: 'SHOP CASUAL',
+          description: 'Your perfect daily companion. Versatile designs that seamlessly transition from office to weekend adventures.',
+          buttonText: 'SHOP COMFORT',
           buttonLink: '/products?category=casual',
           image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&fit=crop',
           discount: 50,
-          background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+          background: 'linear-gradient(135deg, #00b894 0%, #00cec9 100%)',
+          features: ['All-Day Wear', 'Versatile Style', 'Memory Foam']
+        },
+        {
+          badge: '👑 Trending Now',
+          title: 'STREET',
+          subtitle: 'CULTURE',
+          description: 'Make a statement with our boldest designs. Where street culture meets high fashion in perfect harmony.',
+          buttonText: 'JOIN THE TREND',
+          buttonLink: '/products?category=streetwear',
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop',
+          discount: 65,
+          background: 'linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%)',
+          features: ['Bold Designs', 'Street Style', 'Urban Culture']
         }
       ]
     }
