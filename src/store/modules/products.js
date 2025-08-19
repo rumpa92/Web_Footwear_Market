@@ -82,7 +82,7 @@ const state = {
       brand: "New Balance",
       price: 94.99,
       originalPrice: 119.99,
-      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&fit=crop&q=90",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F1a2b3c4d5e6f7890abcdef0123456789?format=webp&width=600",
       category: "lifestyle",
       gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
