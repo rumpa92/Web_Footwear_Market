@@ -149,7 +149,6 @@ export default {
   name: 'Home',
   components: {
     ProductCard,
-    ProductFilters,
     BannerSlider
   },
   data() {
