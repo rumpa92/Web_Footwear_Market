@@ -101,7 +101,7 @@ const state = {
       brand: "Jordan",
       price: 179.99,
       originalPrice: 199.99,
-      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F3c4d5e6f78901234bcdef0123456789a?format=webp&width=600",
+      image: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=600&h=600&fit=crop&q=90",
       category: "basketball",
       gender: "kids",
       sizes: [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7],
