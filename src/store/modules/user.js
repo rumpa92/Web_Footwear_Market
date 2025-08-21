@@ -23,7 +23,9 @@ const state = {
   isAuthenticated: true,
   wishlist: [],
   addresses: [],
-  orders: []
+  orders: [],
+  userLocation: null,
+  locationPermission: 'pending' // 'pending', 'granted', 'denied', 'skipped', 'dismissed'
 }
 
 const getters = {
