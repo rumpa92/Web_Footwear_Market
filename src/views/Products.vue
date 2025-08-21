@@ -13,6 +13,20 @@
     </div>
 
     <div class="container">
+      <!-- Breadcrumb Navigation -->
+      <div class="breadcrumb-nav">
+        <router-link to="/" class="breadcrumb-link">
+          <svg class="breadcrumb-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Home
+        </router-link>
+        <span v-if="currentCategory" class="breadcrumb-separator">></span>
+        <span v-if="currentCategory" class="breadcrumb-current">{{ categoryTitle }}</span>
+        <span v-if="showSubcategory" class="breadcrumb-separator">></span>
+        <span v-if="showSubcategory" class="breadcrumb-current">{{ showSubcategory }}</span>
+      </div>
+
       <!-- Default Page Header (shown when no category) -->
       <div v-if="!currentCategory" class="page-header">
         <h1 class="page-title">{{ pageTitle }}</h1>
@@ -20,14 +34,14 @@
       </div>
 
       <!-- Subcategories Section -->
-      <div v-if="currentCategory && subcategories.length > 0" class="subcategories-section">
+      <div v-if="currentCategory && subcategories.length > 0 && !showSubcategory" class="subcategories-section">
         <h2 class="subcategories-title">Shop by Type</h2>
-        <div class="subcategories-grid">
+        <div class="subcategories-slider">
           <router-link
             v-for="subcategory in subcategories"
             :key="subcategory.name"
             :to="subcategory.link"
-            class="subcategory-card"
+            class="subcategory-item"
           >
             <div class="subcategory-image">
               <img :src="subcategory.image" :alt="subcategory.name" />
@@ -40,9 +54,9 @@
         </div>
       </div>
 
-      <div class="products-content">
+      <div class="products-content" :class="{ 'no-filters': !showFilters }">
         <!-- Filters Sidebar -->
-        <ProductFilters />
+        <ProductFilters v-if="showFilters" />
 
         <!-- Main Content -->
         <main class="products-main">
@@ -177,8 +191,8 @@ export default {
     },
     categoryBanner() {
       const bannerMap = {
-        'men': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&h=400&fit=crop&q=90',
-        'women': 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=1200&h=400&fit=crop&q=90',
+        'men': 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2726d4df49e449ab977fa2433a80964b?format=webp&width=800',
+        'women': 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2ec367f2b9a44441864b7c65b7c02b28?format=webp&width=800',
         'kids': 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop&q=90',
         'running': 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=1200&h=400&fit=crop&q=90',
         'lifestyle': 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1200&h=400&fit=crop&q=90',
@@ -188,6 +202,12 @@ export default {
         'training': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1200&h=400&fit=crop&q=90'
       }
       return bannerMap[this.currentCategory] || ''
+    },
+    showSubcategory() {
+      return this.$route.query.type
+    },
+    showFilters() {
+      return !this.showSubcategory
     },
     subcategories() {
       const subcategoryMap = {
