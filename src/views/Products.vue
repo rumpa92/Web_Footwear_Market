@@ -358,15 +358,35 @@ export default {
   padding: 0;
 }
 
-/* Category Banner */
-.category-banner {
+/* Category Banner Slider */
+.category-banner-slider {
   height: 400px;
+  position: relative;
+  margin-bottom: var(--space-2xl);
+  overflow: hidden;
+}
+
+.banner-slides {
+  position: relative;
+  height: 100%;
+}
+
+.banner-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: var(--space-2xl);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.banner-slide.active {
+  opacity: 1;
 }
 
 .banner-overlay {
