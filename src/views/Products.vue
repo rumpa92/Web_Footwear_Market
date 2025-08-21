@@ -207,19 +207,47 @@ export default {
       }
       return descriptionMap[this.currentCategory] || 'Explore our collection'
     },
-    categoryBanner() {
-      const bannerMap = {
-        'men': 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2726d4df49e449ab977fa2433a80964b?format=webp&width=800',
-        'women': 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2ec367f2b9a44441864b7c65b7c02b28?format=webp&width=800',
-        'kids': 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop&q=90',
-        'running': 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=1200&h=400&fit=crop&q=90',
-        'lifestyle': 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1200&h=400&fit=crop&q=90',
-        'premium': 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1200&h=400&fit=crop&q=90',
-        'casual': 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=1200&h=400&fit=crop&q=90',
-        'basketball': 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=1200&h=400&fit=crop&q=90',
-        'training': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1200&h=400&fit=crop&q=90'
+    bannerSlides() {
+      const slidesMap = {
+        'men': [
+          {
+            image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2726d4df49e449ab977fa2433a80964b?format=webp&width=1200',
+            title: "Men's Premium Collection",
+            subtitle: 'Discover sophisticated footwear for the modern gentleman'
+          },
+          {
+            image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1200&h=400&fit=crop&q=90',
+            title: 'Professional Excellence',
+            subtitle: 'Formal shoes that make a lasting impression'
+          },
+          {
+            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&h=400&fit=crop&q=90',
+            title: 'Active Lifestyle',
+            subtitle: 'Sports shoes for peak performance'
+          }
+        ],
+        'women': [
+          {
+            image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2ec367f2b9a44441864b7c65b7c02b28?format=webp&width=1200',
+            title: "Women's Fashion",
+            subtitle: 'Elegant styles for every occasion'
+          }
+        ],
+        'kids': [
+          {
+            image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop&q=90',
+            title: "Kids' Collection",
+            subtitle: 'Fun and comfortable shoes for active kids'
+          }
+        ]
       }
-      return bannerMap[this.currentCategory] || ''
+      return slidesMap[this.currentCategory] || [
+        {
+          image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=1200&h=400&fit=crop&q=90',
+          title: this.categoryTitle,
+          subtitle: this.categoryDescription
+        }
+      ]
     },
     showSubcategory() {
       return this.$route.query.type
