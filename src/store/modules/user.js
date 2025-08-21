@@ -34,6 +34,8 @@ const getters = {
   wishlist: state => state.wishlist,
   addresses: state => state.addresses,
   orders: state => state.orders,
+  userLocation: state => state.userLocation,
+  locationPermission: state => state.locationPermission,
   isInWishlist: state => productId => {
     return state.wishlist.some(item => item.id === productId)
   }
