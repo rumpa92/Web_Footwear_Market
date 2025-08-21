@@ -320,11 +320,14 @@ export default {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  margin-left: var(--space-md);
   padding: var(--space-xs) var(--space-sm);
   background-color: var(--bg-light);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  min-width: 120px;
+  flex-shrink: 0;
 }
 
 .location-icon {
