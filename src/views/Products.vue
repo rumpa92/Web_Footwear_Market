@@ -1,14 +1,35 @@
 <template>
   <div class="products-page">
-    <!-- Category Banner -->
-    <div v-if="currentCategory" class="category-banner" :style="{ backgroundImage: `url(${categoryBanner})` }">
-      <div class="banner-overlay">
-        <div class="container">
-          <div class="banner-content">
-            <h1 class="banner-title">{{ categoryTitle }}</h1>
-            <p class="banner-subtitle">{{ categoryDescription }}</p>
+    <!-- Category Banner Slider -->
+    <div v-if="currentCategory" class="category-banner-slider">
+      <div class="banner-slides">
+        <div
+          v-for="(slide, index) in bannerSlides"
+          :key="index"
+          class="banner-slide"
+          :class="{ active: currentSlide === index }"
+          :style="{ backgroundImage: `url(${slide.image})` }"
+        >
+          <div class="banner-overlay">
+            <div class="container">
+              <div class="banner-content">
+                <h1 class="banner-title">{{ slide.title || categoryTitle }}</h1>
+                <p class="banner-subtitle">{{ slide.subtitle || categoryDescription }}</p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Slider Navigation -->
+      <div class="slider-navigation">
+        <button
+          v-for="(slide, index) in bannerSlides"
+          :key="index"
+          @click="goToSlide(index)"
+          class="slider-dot"
+          :class="{ active: currentSlide === index }"
+        ></button>
       </div>
     </div>
 
@@ -52,7 +73,7 @@
         </div>
       </div>
 
-      <div v-if="!currentCategory || showSubcategory" class="products-content no-filters">
+      <div v-if="!currentCategory || showSubcategory || currentCategory" class="products-content no-filters">
         <!-- Main Content -->
         <main class="products-main">
           <!-- Toolbar -->
@@ -136,7 +157,9 @@ export default {
   data() {
     return {
       sortBy: 'featured',
-      viewMode: 'grid'
+      viewMode: 'grid',
+      currentSlide: 0,
+      slideInterval: null
     }
   },
   computed: {
@@ -184,19 +207,47 @@ export default {
       }
       return descriptionMap[this.currentCategory] || 'Explore our collection'
     },
-    categoryBanner() {
-      const bannerMap = {
-        'men': 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2726d4df49e449ab977fa2433a80964b?format=webp&width=800',
-        'women': 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2ec367f2b9a44441864b7c65b7c02b28?format=webp&width=800',
-        'kids': 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop&q=90',
-        'running': 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=1200&h=400&fit=crop&q=90',
-        'lifestyle': 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1200&h=400&fit=crop&q=90',
-        'premium': 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1200&h=400&fit=crop&q=90',
-        'casual': 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=1200&h=400&fit=crop&q=90',
-        'basketball': 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=1200&h=400&fit=crop&q=90',
-        'training': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1200&h=400&fit=crop&q=90'
+    bannerSlides() {
+      const slidesMap = {
+        'men': [
+          {
+            image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2726d4df49e449ab977fa2433a80964b?format=webp&width=1200',
+            title: "Men's Premium Collection",
+            subtitle: 'Discover sophisticated footwear for the modern gentleman'
+          },
+          {
+            image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=1200&h=400&fit=crop&q=90',
+            title: 'Professional Excellence',
+            subtitle: 'Formal shoes that make a lasting impression'
+          },
+          {
+            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&h=400&fit=crop&q=90',
+            title: 'Active Lifestyle',
+            subtitle: 'Sports shoes for peak performance'
+          }
+        ],
+        'women': [
+          {
+            image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2ec367f2b9a44441864b7c65b7c02b28?format=webp&width=1200',
+            title: "Women's Fashion",
+            subtitle: 'Elegant styles for every occasion'
+          }
+        ],
+        'kids': [
+          {
+            image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop&q=90',
+            title: "Kids' Collection",
+            subtitle: 'Fun and comfortable shoes for active kids'
+          }
+        ]
       }
-      return bannerMap[this.currentCategory] || ''
+      return slidesMap[this.currentCategory] || [
+        {
+          image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=1200&h=400&fit=crop&q=90',
+          title: this.categoryTitle,
+          subtitle: this.categoryDescription
+        }
+      ]
     },
     showSubcategory() {
       return this.$route.query.type
@@ -207,10 +258,11 @@ export default {
     subcategories() {
       const subcategoryMap = {
         'men': [
-          { name: 'Sneakers', image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2b7df37afbf648ada445ef36d30ccb53?format=webp&width=200', link: '/products?category=men&type=sneakers', count: this.getProductCount('men', 'sneakers') },
-          { name: 'Formal', image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
-          { name: 'Boots', image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
-          { name: 'Sandals', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sandals', count: this.getProductCount('men', 'sandals') }
+          { name: 'Casual Shoes', image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=casual', count: this.getProductCount('men', 'casual') },
+          { name: 'Formal Shoes', image: 'https://cdn.builder.io/api/v1/image/assets%2Ff14283018e514d6e8814a6108446e7e7%2F6b877b0729f54f98a6e4cfe3a12a4fe6?format=webp&width=200', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
+          { name: 'Loafers', image: 'https://cdn.builder.io/api/v1/image/assets%2Ff14283018e514d6e8814a6108446e7e7%2Fbb5f586f3cb04c918a42afe15e898ddd?format=webp&width=200', link: '/products?category=men&type=loafers', count: this.getProductCount('men', 'loafers') },
+          { name: 'Boots', image: 'https://cdn.builder.io/api/v1/image/assets%2Ff14283018e514d6e8814a6108446e7e7%2Faea6a9dc3cd345c198a87631f7f2943f?format=webp&width=200', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
+          { name: 'Sports Shoes', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sports', count: this.getProductCount('men', 'sports') }
         ],
         'women': [
           { name: 'Heels', image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=200&h=200&fit=crop&q=90', link: '/products?category=women&type=heels', count: this.getProductCount('women', 'heels') },
@@ -241,6 +293,24 @@ export default {
       // For demo purposes, return random counts
       // In real app, you'd filter products by category and type
       return Math.floor(Math.random() * 50) + 10
+    },
+    goToSlide(index) {
+      this.currentSlide = index
+      this.resetSlideInterval()
+    },
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.bannerSlides.length
+    },
+    startSlideInterval() {
+      this.slideInterval = setInterval(() => {
+        this.nextSlide()
+      }, 5000) // Change slide every 5 seconds
+    },
+    resetSlideInterval() {
+      if (this.slideInterval) {
+        clearInterval(this.slideInterval)
+      }
+      this.startSlideInterval()
     }
   },
   watch: {
@@ -251,6 +321,11 @@ export default {
       } else {
         this.clearFilters()
       }
+
+      // Apply subcategory filter when route changes
+      if (this.$route.query.type) {
+        this.setFilter({ type: 'subcategory', value: this.$route.query.type })
+      }
     }
   },
   mounted() {
@@ -258,8 +333,21 @@ export default {
     if (this.$route.query.category) {
       this.setFilter({ type: 'category', value: this.$route.query.category })
     }
+    if (this.$route.query.type) {
+      this.setFilter({ type: 'subcategory', value: this.$route.query.type })
+    }
     if (this.$route.query.search) {
       this.setFilter({ type: 'search', value: this.$route.query.search })
+    }
+
+    // Start banner slider auto-play
+    if (this.currentCategory && this.bannerSlides.length > 1) {
+      this.startSlideInterval()
+    }
+  },
+  beforeDestroy() {
+    if (this.slideInterval) {
+      clearInterval(this.slideInterval)
     }
   },
 }
@@ -270,15 +358,35 @@ export default {
   padding: 0;
 }
 
-/* Category Banner */
-.category-banner {
+/* Category Banner Slider */
+.category-banner-slider {
   height: 400px;
+  position: relative;
+  margin-bottom: var(--space-2xl);
+  overflow: hidden;
+}
+
+.banner-slides {
+  position: relative;
+  height: 100%;
+}
+
+.banner-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: var(--space-2xl);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.banner-slide.active {
+  opacity: 1;
 }
 
 .banner-overlay {
@@ -311,6 +419,37 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Slider Navigation */
+.slider-navigation {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+.slider-dot.active {
+  background-color: var(--accent-color);
+  transform: scale(1.3);
 }
 
 /* Breadcrumb Navigation */

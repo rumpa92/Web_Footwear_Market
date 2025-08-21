@@ -8,13 +8,13 @@
         </router-link>
 
         <!-- Location -->
-        <div class="location-display">
+        <button class="location-display" @click="openLocationModal">
           <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
-          <span class="location-text">New York, NY</span>
-        </div>
+          <span class="location-text">{{ currentLocationText }}</span>
+        </button>
 
         <!-- Desktop Navigation -->
         <nav class="nav-desktop">
@@ -68,7 +68,7 @@
         </div>
 
         <!-- User Actions -->
-        <div class="user-actions">
+        <div class="user-actions" style="margin-left: 117px;">
           <!-- Wishlist -->
           <button class="action-btn" @click="goToWishlist">
             <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,14 +135,25 @@
         <router-link v-if="!isAuthenticated" to="/login" class="nav-link-mobile">Sign In</router-link>
       </nav>
     </div>
+
+    <!-- Location Modal -->
+    <LocationModal
+      :showModal="showLocationModal"
+      @close="closeLocationModal"
+      @location-set="handleLocationSet"
+    />
   </header>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import LocationModal from '../LocationModal.vue'
 
 export default {
   name: 'Header',
+  components: {
+    LocationModal
+  },
   data() {
     return {
       searchQuery: '',
@@ -151,7 +162,8 @@ export default {
       showSuggestions: false,
       suggestions: [],
       highlightedIndex: -1,
-      searchTimeout: null
+      searchTimeout: null,
+      showLocationModal: false
     }
   },
   directives: {
@@ -170,11 +182,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist']),
+    ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist', 'userLocation']),
     ...mapGetters('cart', ['cartItemCount']),
     ...mapGetters('products', ['searchSuggestions']),
     wishlistCount() {
       return this.wishlist.length
+    },
+    currentLocationText() {
+      if (this.userLocation && this.userLocation.formatted) {
+        return this.userLocation.formatted
+      }
+      return 'New York, NY'
     }
   },
   methods: {
@@ -247,6 +265,16 @@ export default {
     },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
+    },
+    openLocationModal() {
+      this.showLocationModal = true
+    },
+    closeLocationModal() {
+      this.showLocationModal = false
+    },
+    handleLocationSet(locationData) {
+      console.log('Location set:', locationData)
+      this.showLocationModal = false
     }
   },
   mounted() {
@@ -272,14 +300,14 @@ export default {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: var(--space-md) 0;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   color: rgba(0, 0, 0, 1);
 }
 
 .logo {
   flex-shrink: 0;
+  min-width: 140px;
 }
 
 .logo-text {
@@ -292,11 +320,23 @@ export default {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  margin-left: var(--space-md);
   padding: var(--space-xs) var(--space-sm);
   background-color: var(--bg-light);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.location-display:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
+}
+
+.location-display:hover .location-icon {
+  color: var(--accent-color);
 }
 
 .location-icon {
@@ -529,11 +569,12 @@ export default {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--space-sm);
   border-radius: var(--border-radius-lg);
   background-color: var(--bg-light);
   border: 1px solid var(--border-color);
   transition: var(--transition-fast);
+  min-width: 150px;
 }
 
 .user-profile-info:hover {
@@ -552,6 +593,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  text-align: left;
 }
 
 .user-name {
@@ -561,12 +603,15 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
 .user-status {
   font-size: var(--font-size-xs);
   color: var(--text-secondary);
   white-space: nowrap;
+  line-height: 1.2;
+  margin-top: 1px;
 }
 
 .dropdown-arrow {

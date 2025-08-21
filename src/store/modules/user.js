@@ -23,7 +23,9 @@ const state = {
   isAuthenticated: true,
   wishlist: [],
   addresses: [],
-  orders: []
+  orders: [],
+  userLocation: null,
+  locationPermission: 'pending' // 'pending', 'granted', 'denied', 'skipped', 'dismissed'
 }
 
 const getters = {
@@ -32,6 +34,8 @@ const getters = {
   wishlist: state => state.wishlist,
   addresses: state => state.addresses,
   orders: state => state.orders,
+  userLocation: state => state.userLocation,
+  locationPermission: state => state.locationPermission,
   isInWishlist: state => productId => {
     return state.wishlist.some(item => item.id === productId)
   }
@@ -87,6 +91,12 @@ const mutations = {
       status: 'confirmed',
       ...order
     })
+  },
+  SET_USER_LOCATION(state, location) {
+    state.userLocation = location
+  },
+  SET_LOCATION_PERMISSION(state, permission) {
+    state.locationPermission = permission
   }
 }
 
@@ -169,17 +179,45 @@ const actions = {
   placeOrder({ commit, rootGetters }, orderData) {
     const cartItems = rootGetters['cart/cartItems']
     const total = rootGetters['cart/cartTotal']
-    
+
     const order = {
       items: cartItems,
       total,
       ...orderData
     }
-    
+
     commit('ADD_ORDER', order)
     commit('cart/CLEAR_CART', null, { root: true })
-    
+
     return Promise.resolve(order)
+  },
+  setUserLocation({ commit }, location) {
+    commit('SET_USER_LOCATION', location)
+    // Save to localStorage for persistence
+    localStorage.setItem('userLocation', JSON.stringify(location))
+  },
+  setLocationPermission({ commit }, permission) {
+    commit('SET_LOCATION_PERMISSION', permission)
+    // Save to localStorage for persistence
+    localStorage.setItem('locationPermission', permission)
+  },
+  initializeLocation({ commit }) {
+    const location = localStorage.getItem('userLocation')
+    const permission = localStorage.getItem('locationPermission')
+
+    if (location) {
+      try {
+        const parsedLocation = JSON.parse(location)
+        commit('SET_USER_LOCATION', parsedLocation)
+      } catch (error) {
+        console.error('Error parsing location data:', error)
+        localStorage.removeItem('userLocation')
+      }
+    }
+
+    if (permission) {
+      commit('SET_LOCATION_PERMISSION', permission)
+    }
   }
 }
 
