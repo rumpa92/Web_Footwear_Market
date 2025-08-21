@@ -416,20 +416,34 @@ export default {
 
 @media (min-width: 768px) {
   .footer-content {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
     gap: var(--space-2xl);
   }
-  
+
   .footer-section {
     grid-column: 1;
   }
-  
+
   .footer-links {
     grid-column: 2;
   }
-  
+
   .newsletter-content {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer-links {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 }
 
