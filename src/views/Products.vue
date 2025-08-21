@@ -207,10 +207,11 @@ export default {
     subcategories() {
       const subcategoryMap = {
         'men': [
-          { name: 'Sneakers', image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2b7df37afbf648ada445ef36d30ccb53?format=webp&width=200', link: '/products?category=men&type=sneakers', count: this.getProductCount('men', 'sneakers') },
-          { name: 'Formal', image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
+          { name: 'Casual Shoes', image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=casual', count: this.getProductCount('men', 'casual') },
+          { name: 'Formal Shoes', image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
+          { name: 'Loafers', image: 'https://images.unsplash.com/photo-1562183241-b937e95585b6?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=loafers', count: this.getProductCount('men', 'loafers') },
           { name: 'Boots', image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
-          { name: 'Sandals', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sandals', count: this.getProductCount('men', 'sandals') }
+          { name: 'Sports Shoes', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sports', count: this.getProductCount('men', 'sports') }
         ],
         'women': [
           { name: 'Heels', image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=200&h=200&fit=crop&q=90', link: '/products?category=women&type=heels', count: this.getProductCount('women', 'heels') },
