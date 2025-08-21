@@ -468,6 +468,10 @@ export default {
   gap: var(--space-2xl);
 }
 
+.products-content.no-filters {
+  grid-template-columns: 1fr;
+}
+
 
 
 .products-main {
