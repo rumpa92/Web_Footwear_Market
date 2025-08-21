@@ -255,6 +255,10 @@ export default {
     goToProfile() {
       this.$router.push('/login')
     },
+    goToOrders() {
+      this.$router.push('/orders')
+      this.closeDropdown()
+    },
     closeDropdown() {
       this.showUserMenu = false
     },
