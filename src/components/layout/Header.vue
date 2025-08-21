@@ -569,11 +569,12 @@ export default {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--space-sm);
   border-radius: var(--border-radius-lg);
   background-color: var(--bg-light);
   border: 1px solid var(--border-color);
   transition: var(--transition-fast);
+  min-width: 150px;
 }
 
 .user-profile-info:hover {
