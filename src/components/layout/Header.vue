@@ -258,6 +258,16 @@ export default {
     },
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu
+    },
+    openLocationModal() {
+      this.showLocationModal = true
+    },
+    closeLocationModal() {
+      this.showLocationModal = false
+    },
+    handleLocationSet(locationData) {
+      console.log('Location set:', locationData)
+      this.showLocationModal = false
     }
   },
   mounted() {
