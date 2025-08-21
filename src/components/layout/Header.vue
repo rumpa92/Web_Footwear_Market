@@ -330,6 +330,15 @@ export default {
   flex-shrink: 0;
 }
 
+.location-display:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--accent-color);
+}
+
+.location-display:hover .location-icon {
+  color: var(--accent-color);
+}
+
 .location-icon {
   width: 1rem;
   height: 1rem;
