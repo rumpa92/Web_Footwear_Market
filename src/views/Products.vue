@@ -293,6 +293,24 @@ export default {
       // For demo purposes, return random counts
       // In real app, you'd filter products by category and type
       return Math.floor(Math.random() * 50) + 10
+    },
+    goToSlide(index) {
+      this.currentSlide = index
+      this.resetSlideInterval()
+    },
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.bannerSlides.length
+    },
+    startSlideInterval() {
+      this.slideInterval = setInterval(() => {
+        this.nextSlide()
+      }, 5000) // Change slide every 5 seconds
+    },
+    resetSlideInterval() {
+      if (this.slideInterval) {
+        clearInterval(this.slideInterval)
+      }
+      this.startSlideInterval()
     }
   },
   watch: {
