@@ -602,12 +602,15 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
 .user-status {
   font-size: var(--font-size-xs);
   color: var(--text-secondary);
   white-space: nowrap;
+  line-height: 1.2;
+  margin-top: 1px;
 }
 
 .dropdown-arrow {
