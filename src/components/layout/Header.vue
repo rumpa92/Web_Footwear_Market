@@ -68,7 +68,7 @@
         </div>
 
         <!-- User Actions -->
-        <div class="user-actions">
+        <div class="user-actions" style="margin-left: 117px;">
           <!-- Wishlist -->
           <button class="action-btn" @click="goToWishlist">
             <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
