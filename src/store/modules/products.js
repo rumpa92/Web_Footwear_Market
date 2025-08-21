@@ -139,7 +139,7 @@ const state = {
       brand: "Converse",
       price: 69.99,
       originalPrice: 79.99,
-      image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=600&h=600&fit=crop&q=90",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F88d18bf62d9542bfb83deee742928387?format=webp&width=800",
       category: "casual",
       gender: "women",
       sizes: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
