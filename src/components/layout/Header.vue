@@ -175,11 +175,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist']),
+    ...mapGetters('user', ['isAuthenticated', 'currentUser', 'wishlist', 'userLocation']),
     ...mapGetters('cart', ['cartItemCount']),
     ...mapGetters('products', ['searchSuggestions']),
     wishlistCount() {
       return this.wishlist.length
+    },
+    currentLocationText() {
+      if (this.userLocation && this.userLocation.formatted) {
+        return this.userLocation.formatted
+      }
+      return 'New York, NY'
     }
   },
   methods: {
