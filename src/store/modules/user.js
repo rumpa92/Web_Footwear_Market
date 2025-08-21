@@ -91,6 +91,12 @@ const mutations = {
       status: 'confirmed',
       ...order
     })
+  },
+  SET_USER_LOCATION(state, location) {
+    state.userLocation = location
+  },
+  SET_LOCATION_PERMISSION(state, permission) {
+    state.locationPermission = permission
   }
 }
 
