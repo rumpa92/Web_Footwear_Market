@@ -179,17 +179,45 @@ const actions = {
   placeOrder({ commit, rootGetters }, orderData) {
     const cartItems = rootGetters['cart/cartItems']
     const total = rootGetters['cart/cartTotal']
-    
+
     const order = {
       items: cartItems,
       total,
       ...orderData
     }
-    
+
     commit('ADD_ORDER', order)
     commit('cart/CLEAR_CART', null, { root: true })
-    
+
     return Promise.resolve(order)
+  },
+  setUserLocation({ commit }, location) {
+    commit('SET_USER_LOCATION', location)
+    // Save to localStorage for persistence
+    localStorage.setItem('userLocation', JSON.stringify(location))
+  },
+  setLocationPermission({ commit }, permission) {
+    commit('SET_LOCATION_PERMISSION', permission)
+    // Save to localStorage for persistence
+    localStorage.setItem('locationPermission', permission)
+  },
+  initializeLocation({ commit }) {
+    const location = localStorage.getItem('userLocation')
+    const permission = localStorage.getItem('locationPermission')
+
+    if (location) {
+      try {
+        const parsedLocation = JSON.parse(location)
+        commit('SET_USER_LOCATION', parsedLocation)
+      } catch (error) {
+        console.error('Error parsing location data:', error)
+        localStorage.removeItem('userLocation')
+      }
+    }
+
+    if (permission) {
+      commit('SET_LOCATION_PERMISSION', permission)
+    }
   }
 }
 
