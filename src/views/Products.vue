@@ -21,8 +21,6 @@
           </svg>
           Home
         </router-link>
-        <span v-if="currentCategory" class="breadcrumb-separator">></span>
-        <span v-if="currentCategory" class="breadcrumb-current">{{ categoryTitle }}</span>
         <span v-if="showSubcategory" class="breadcrumb-separator">></span>
         <span v-if="showSubcategory" class="breadcrumb-current">{{ showSubcategory }}</span>
       </div>
@@ -54,10 +52,7 @@
         </div>
       </div>
 
-      <div class="products-content" :class="{ 'no-filters': !showFilters }">
-        <!-- Filters Sidebar -->
-        <ProductFilters v-if="showFilters" />
-
+      <div class="products-content no-filters">
         <!-- Main Content -->
         <main class="products-main">
           <!-- Toolbar -->
@@ -207,7 +202,7 @@ export default {
       return this.$route.query.type
     },
     showFilters() {
-      return !this.showSubcategory
+      return false
     },
     subcategories() {
       const subcategoryMap = {
