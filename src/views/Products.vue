@@ -252,12 +252,20 @@ export default {
       } else {
         this.clearFilters()
       }
+
+      // Apply subcategory filter when route changes
+      if (this.$route.query.type) {
+        this.setFilter({ type: 'subcategory', value: this.$route.query.type })
+      }
     }
   },
   mounted() {
     // Apply initial filters from URL
     if (this.$route.query.category) {
       this.setFilter({ type: 'category', value: this.$route.query.category })
+    }
+    if (this.$route.query.type) {
+      this.setFilter({ type: 'subcategory', value: this.$route.query.type })
     }
     if (this.$route.query.search) {
       this.setFilter({ type: 'search', value: this.$route.query.search })
