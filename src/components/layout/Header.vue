@@ -279,6 +279,7 @@ export default {
 
 .logo {
   flex-shrink: 0;
+  min-width: 140px;
 }
 
 .logo-text {
