@@ -244,8 +244,8 @@ export default {
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-xl);
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-lg);
 }
 
 .link-group {
