@@ -179,7 +179,7 @@ export default {
         {
           name: 'Running',
           description: 'High-performance running shoes',
-          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=500&h=500&fit=crop&q=90',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F7ee1875344e74fa08bf629db245da814?format=webp&width=800',
           icon: '🏃',
           link: '/products?category=running'
         },
