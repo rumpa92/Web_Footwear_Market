@@ -35,7 +35,7 @@
 
       <!-- Subcategories Section -->
       <div v-if="currentCategory && subcategories.length > 0 && !showSubcategory" class="subcategories-section">
-        <h2 class="subcategories-title">Shop by Type</h2>
+        <h2 class="subcategories-title">Shop by Sub Category</h2>
         <div class="subcategories-slider">
           <router-link
             v-for="subcategory in subcategories"
@@ -391,25 +391,25 @@ export default {
   color: inherit;
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-lg);
-  padding: var(--space-md);
+  padding: var(--space-lg);
   transition: var(--transition-normal);
   box-shadow: var(--shadow-sm);
-  min-width: 150px;
+  min-width: 180px;
   flex-shrink: 0;
 }
 
 .subcategory-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .subcategory-image {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: var(--space-sm);
-  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-md);
+  box-shadow: var(--shadow-md);
 }
 
 .subcategory-image img {
@@ -428,14 +428,14 @@ export default {
 }
 
 .subcategory-name {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   margin-bottom: var(--space-xs);
 }
 
 .subcategory-count {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--text-secondary);
 }
 
