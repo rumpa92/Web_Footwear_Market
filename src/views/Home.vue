@@ -193,7 +193,7 @@ export default {
         {
           name: 'Premium',
           description: 'Luxury and designer shoes',
-          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=500&fit=crop&q=90',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2Feea5e072477042afb09c8a655f2df5b0?format=webp&width=800',
           icon: '💎',
           link: '/products?category=premium'
         }
