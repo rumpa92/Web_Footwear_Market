@@ -155,7 +155,8 @@ export default {
       showSuggestions: false,
       suggestions: [],
       highlightedIndex: -1,
-      searchTimeout: null
+      searchTimeout: null,
+      showLocationModal: false
     }
   },
   directives: {
