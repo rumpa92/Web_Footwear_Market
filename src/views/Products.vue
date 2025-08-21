@@ -13,16 +13,14 @@
     </div>
 
     <div class="container">
-      <!-- Breadcrumb Navigation -->
-      <div class="breadcrumb-nav">
+      <!-- Breadcrumb Navigation Hidden -->
+      <div class="breadcrumb-nav" style="display: none;">
         <router-link to="/" class="breadcrumb-link">
           <svg class="breadcrumb-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
           Home
         </router-link>
-        <span v-if="currentCategory" class="breadcrumb-separator">></span>
-        <span v-if="currentCategory" class="breadcrumb-current">{{ categoryTitle }}</span>
         <span v-if="showSubcategory" class="breadcrumb-separator">></span>
         <span v-if="showSubcategory" class="breadcrumb-current">{{ showSubcategory }}</span>
       </div>
@@ -54,10 +52,7 @@
         </div>
       </div>
 
-      <div class="products-content" :class="{ 'no-filters': !showFilters }">
-        <!-- Filters Sidebar -->
-        <ProductFilters v-if="showFilters" />
-
+      <div v-if="!currentCategory || showSubcategory" class="products-content no-filters">
         <!-- Main Content -->
         <main class="products-main">
           <!-- Toolbar -->
@@ -207,12 +202,12 @@ export default {
       return this.$route.query.type
     },
     showFilters() {
-      return !this.showSubcategory
+      return false
     },
     subcategories() {
       const subcategoryMap = {
         'men': [
-          { name: 'Sneakers', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sneakers', count: this.getProductCount('men', 'sneakers') },
+          { name: 'Sneakers', image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2b7df37afbf648ada445ef36d30ccb53?format=webp&width=200', link: '/products?category=men&type=sneakers', count: this.getProductCount('men', 'sneakers') },
           { name: 'Formal', image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
           { name: 'Boots', image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
           { name: 'Sandals', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sandals', count: this.getProductCount('men', 'sandals') }
