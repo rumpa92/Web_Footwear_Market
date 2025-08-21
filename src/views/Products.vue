@@ -208,9 +208,9 @@ export default {
       const subcategoryMap = {
         'men': [
           { name: 'Casual Shoes', image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=casual', count: this.getProductCount('men', 'casual') },
-          { name: 'Formal Shoes', image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
-          { name: 'Loafers', image: 'https://images.unsplash.com/photo-1562183241-b937e95585b6?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=loafers', count: this.getProductCount('men', 'loafers') },
-          { name: 'Boots', image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
+          { name: 'Formal Shoes', image: 'https://cdn.builder.io/api/v1/image/assets%2Ff14283018e514d6e8814a6108446e7e7%2F6b877b0729f54f98a6e4cfe3a12a4fe6?format=webp&width=200', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
+          { name: 'Loafers', image: 'https://cdn.builder.io/api/v1/image/assets%2Ff14283018e514d6e8814a6108446e7e7%2Fbb5f586f3cb04c918a42afe15e898ddd?format=webp&width=200', link: '/products?category=men&type=loafers', count: this.getProductCount('men', 'loafers') },
+          { name: 'Boots', image: 'https://cdn.builder.io/api/v1/image/assets%2Ff14283018e514d6e8814a6108446e7e7%2Faea6a9dc3cd345c198a87631f7f2943f?format=webp&width=200', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
           { name: 'Sports Shoes', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sports', count: this.getProductCount('men', 'sports') }
         ],
         'women': [
