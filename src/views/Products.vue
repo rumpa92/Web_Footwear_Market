@@ -339,6 +339,16 @@ export default {
     if (this.$route.query.search) {
       this.setFilter({ type: 'search', value: this.$route.query.search })
     }
+
+    // Start banner slider auto-play
+    if (this.currentCategory && this.bannerSlides.length > 1) {
+      this.startSlideInterval()
+    }
+  },
+  beforeDestroy() {
+    if (this.slideInterval) {
+      clearInterval(this.slideInterval)
+    }
   },
 }
 </script>
