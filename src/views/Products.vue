@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div v-if="!currentCategory || showSubcategory" class="products-content no-filters">
+      <div v-if="!currentCategory || showSubcategory || currentCategory" class="products-content no-filters">
         <!-- Main Content -->
         <main class="products-main">
           <!-- Toolbar -->
