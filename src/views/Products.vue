@@ -207,7 +207,7 @@ export default {
     subcategories() {
       const subcategoryMap = {
         'men': [
-          { name: 'Sneakers', image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F59a0b676dac54856b15ad17fa876ff4e?format=webp&width=200', link: '/products?category=men&type=sneakers', count: this.getProductCount('men', 'sneakers') },
+          { name: 'Sneakers', image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F2b7df37afbf648ada445ef36d30ccb53?format=webp&width=200', link: '/products?category=men&type=sneakers', count: this.getProductCount('men', 'sneakers') },
           { name: 'Formal', image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=formal', count: this.getProductCount('men', 'formal') },
           { name: 'Boots', image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=boots', count: this.getProductCount('men', 'boots') },
           { name: 'Sandals', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop&q=90', link: '/products?category=men&type=sandals', count: this.getProductCount('men', 'sandals') }
