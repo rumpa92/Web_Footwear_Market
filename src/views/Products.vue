@@ -1,14 +1,35 @@
 <template>
   <div class="products-page">
-    <!-- Category Banner -->
-    <div v-if="currentCategory" class="category-banner" :style="{ backgroundImage: `url(${categoryBanner})` }">
-      <div class="banner-overlay">
-        <div class="container">
-          <div class="banner-content">
-            <h1 class="banner-title">{{ categoryTitle }}</h1>
-            <p class="banner-subtitle">{{ categoryDescription }}</p>
+    <!-- Category Banner Slider -->
+    <div v-if="currentCategory" class="category-banner-slider">
+      <div class="banner-slides">
+        <div
+          v-for="(slide, index) in bannerSlides"
+          :key="index"
+          class="banner-slide"
+          :class="{ active: currentSlide === index }"
+          :style="{ backgroundImage: `url(${slide.image})` }"
+        >
+          <div class="banner-overlay">
+            <div class="container">
+              <div class="banner-content">
+                <h1 class="banner-title">{{ slide.title || categoryTitle }}</h1>
+                <p class="banner-subtitle">{{ slide.subtitle || categoryDescription }}</p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Slider Navigation -->
+      <div class="slider-navigation">
+        <button
+          v-for="(slide, index) in bannerSlides"
+          :key="index"
+          @click="goToSlide(index)"
+          class="slider-dot"
+          :class="{ active: currentSlide === index }"
+        ></button>
       </div>
     </div>
 
