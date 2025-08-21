@@ -120,7 +120,7 @@ const state = {
       brand: "Puma",
       price: 139.99,
       originalPrice: 169.99,
-      image: "https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=600&h=600&fit=crop&q=90",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F71f042e9b7954d4aaa167f9801557461?format=webp&width=800",
       category: "training",
       gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
