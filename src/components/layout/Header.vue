@@ -91,7 +91,10 @@
               <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
               <div class="user-details">
                 <div class="user-name">{{ currentUser.name }}</div>
-                <div class="user-status">Orders</div>
+                <div class="user-status online-status">
+                  <div class="status-dot online"></div>
+                  online
+                </div>
               </div>
               <svg class="dropdown-arrow" :class="{ 'rotated': showUserMenu }" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
@@ -254,6 +257,10 @@ export default {
     },
     goToProfile() {
       this.$router.push('/login')
+    },
+    goToOrders() {
+      this.$router.push('/orders')
+      this.closeDropdown()
     },
     closeDropdown() {
       this.showUserMenu = false
@@ -612,6 +619,51 @@ export default {
   white-space: nowrap;
   line-height: 1.2;
   margin-top: 1px;
+}
+
+.clickable-orders {
+  text-decoration: none;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+.clickable-orders:hover {
+  color: var(--accent-color);
+  background-color: rgba(59, 130, 246, 0.1);
+  text-decoration: none;
+}
+
+.online-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.online {
+  background-color: #10b981;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 .dropdown-arrow {
