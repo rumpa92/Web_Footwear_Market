@@ -91,7 +91,7 @@
               <img :src="currentUser.avatar" :alt="currentUser.name" class="user-avatar" />
               <div class="user-details">
                 <div class="user-name">{{ currentUser.name }}</div>
-                <div class="user-status">Orders</div>
+                <router-link to="/orders" class="user-status clickable-orders" @click.stop="goToOrders">Orders</router-link>
               </div>
               <svg class="dropdown-arrow" :class="{ 'rotated': showUserMenu }" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
