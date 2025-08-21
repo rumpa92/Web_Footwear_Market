@@ -165,21 +165,21 @@ export default {
         {
           name: 'Women',
           description: 'Footwear for women',
-          image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500&h=500&fit=crop&q=90',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2Fc4125ba072234f09b16e50a8a6c43d37?format=webp&width=800',
           icon: '👩',
           link: '/products?category=women'
         },
         {
           name: 'Kids',
           description: 'Footwear for children',
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop&q=90',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F78c9f20fe6ae4cf7be7efb57e3481ba8?format=webp&width=800',
           icon: '👶',
           link: '/products?category=kids'
         },
         {
           name: 'Running',
           description: 'High-performance running shoes',
-          image: 'https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=500&h=500&fit=crop&q=90',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F7ee1875344e74fa08bf629db245da814?format=webp&width=800',
           icon: '🏃',
           link: '/products?category=running'
         },
@@ -193,7 +193,7 @@ export default {
         {
           name: 'Premium',
           description: 'Luxury and designer shoes',
-          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=500&fit=crop&q=90',
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2Feea5e072477042afb09c8a655f2df5b0?format=webp&width=800',
           icon: '💎',
           link: '/products?category=premium'
         }

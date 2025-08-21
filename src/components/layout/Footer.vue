@@ -40,25 +40,37 @@
         <!-- Links Sections -->
         <div class="footer-links">
           <div class="link-group">
-            <h3 class="link-title">Shop</h3>
+            <h3 class="link-title">Shop by Category</h3>
             <ul class="link-list">
               <li><router-link to="/products" class="footer-link">All Products</router-link></li>
-              <li><router-link to="/sneakers" class="footer-link">Sneakers</router-link></li>
-              <li><router-link to="/running" class="footer-link">Running</router-link></li>
-              <li><router-link to="/basketball" class="footer-link">Basketball</router-link></li>
-              <li><router-link to="/casual" class="footer-link">Casual</router-link></li>
-              <li><router-link to="/sale" class="footer-link">Sale</router-link></li>
+              <li><router-link to="/products?category=men" class="footer-link">Men's Footwear</router-link></li>
+              <li><router-link to="/products?category=women" class="footer-link">Women's Footwear</router-link></li>
+              <li><router-link to="/products?category=kids" class="footer-link">Kids' Footwear</router-link></li>
+              <li><router-link to="/products?category=running" class="footer-link">Running Shoes</router-link></li>
+              <li><router-link to="/products?category=lifestyle" class="footer-link">Lifestyle</router-link></li>
             </ul>
           </div>
 
           <div class="link-group">
-            <h3 class="link-title">Brands</h3>
+            <h3 class="link-title">Popular Categories</h3>
+            <ul class="link-list">
+              <li><router-link to="/products?category=premium" class="footer-link">Premium Collection</router-link></li>
+              <li><router-link to="/products?category=casual" class="footer-link">Casual Shoes</router-link></li>
+              <li><router-link to="/products?category=basketball" class="footer-link">Basketball</router-link></li>
+              <li><router-link to="/products?category=training" class="footer-link">Training</router-link></li>
+              <li><router-link to="/products?filter=new" class="footer-link">New Arrivals</router-link></li>
+              <li><router-link to="/sale" class="footer-link">Sale Items</router-link></li>
+            </ul>
+          </div>
+
+          <div class="link-group">
+            <h3 class="link-title">Top Brands</h3>
             <ul class="link-list">
               <li><router-link to="/brands/nike" class="footer-link">Nike</router-link></li>
               <li><router-link to="/brands/adidas" class="footer-link">Adidas</router-link></li>
               <li><router-link to="/brands/jordan" class="footer-link">Jordan</router-link></li>
               <li><router-link to="/brands/converse" class="footer-link">Converse</router-link></li>
-              <li><router-link to="/brands/vans" class="footer-link">Vans</router-link></li>
+              <li><router-link to="/brands/puma" class="footer-link">Puma</router-link></li>
               <li><router-link to="/brands/new-balance" class="footer-link">New Balance</router-link></li>
             </ul>
           </div>
@@ -232,8 +244,8 @@ export default {
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-xl);
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-lg);
 }
 
 .link-group {
@@ -404,20 +416,34 @@ export default {
 
 @media (min-width: 768px) {
   .footer-content {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
     gap: var(--space-2xl);
   }
-  
+
   .footer-section {
     grid-column: 1;
   }
-  
+
   .footer-links {
     grid-column: 2;
   }
-  
+
   .newsletter-content {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer-links {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 }
 

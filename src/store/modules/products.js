@@ -120,7 +120,7 @@ const state = {
       brand: "Puma",
       price: 139.99,
       originalPrice: 169.99,
-      image: "https://images.unsplash.com/photo-1608667508764-33cf0726aae8?w=600&h=600&fit=crop&q=90",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F71f042e9b7954d4aaa167f9801557461?format=webp&width=800",
       category: "training",
       gender: "men",
       sizes: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
@@ -139,7 +139,7 @@ const state = {
       brand: "Converse",
       price: 69.99,
       originalPrice: 79.99,
-      image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=600&h=600&fit=crop&q=90",
+      image: "https://cdn.builder.io/api/v1/image/assets%2F797156030b234cce89ce7e033f2e19b8%2F88d18bf62d9542bfb83deee742928387?format=webp&width=800",
       category: "casual",
       gender: "women",
       sizes: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
@@ -233,9 +233,18 @@ const getters = {
   filteredProducts: state => {
     let products = state.allProducts
 
+    // Category filter - handle both direct category and gender-based filtering
     if (state.filters.category) {
-      products = products.filter(p => p.category === state.filters.category)
+      const category = state.filters.category
+      // For gender categories (men, women, kids), filter by gender
+      if (['men', 'women', 'kids'].includes(category)) {
+        products = products.filter(p => p.gender === category)
+      } else {
+        // For other categories (running, lifestyle, etc.), filter by category
+        products = products.filter(p => p.category === category)
+      }
     }
+
     if (state.filters.brand) {
       products = products.filter(p => p.brand === state.filters.brand)
     }
