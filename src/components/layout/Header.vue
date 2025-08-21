@@ -618,6 +618,21 @@ export default {
   margin-top: 1px;
 }
 
+.clickable-orders {
+  text-decoration: none;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+.clickable-orders:hover {
+  color: var(--accent-color);
+  background-color: rgba(59, 130, 246, 0.1);
+  text-decoration: none;
+}
+
 .dropdown-arrow {
   width: 1rem;
   height: 1rem;
