@@ -157,7 +157,9 @@ export default {
   data() {
     return {
       sortBy: 'featured',
-      viewMode: 'grid'
+      viewMode: 'grid',
+      currentSlide: 0,
+      slideInterval: null
     }
   },
   computed: {
