@@ -272,9 +272,8 @@ export default {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: var(--space-md) 0;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   color: rgba(0, 0, 0, 1);
 }
 
