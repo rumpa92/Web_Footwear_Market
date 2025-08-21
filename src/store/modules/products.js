@@ -233,9 +233,18 @@ const getters = {
   filteredProducts: state => {
     let products = state.allProducts
 
+    // Category filter - handle both direct category and gender-based filtering
     if (state.filters.category) {
-      products = products.filter(p => p.category === state.filters.category)
+      const category = state.filters.category
+      // For gender categories (men, women, kids), filter by gender
+      if (['men', 'women', 'kids'].includes(category)) {
+        products = products.filter(p => p.gender === category)
+      } else {
+        // For other categories (running, lifestyle, etc.), filter by category
+        products = products.filter(p => p.category === category)
+      }
     }
+
     if (state.filters.brand) {
       products = products.filter(p => p.brand === state.filters.brand)
     }
