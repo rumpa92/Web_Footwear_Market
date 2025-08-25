@@ -3377,7 +3377,7 @@ Your package is on the way!`)
       const contactChoice = confirm(`📞 Contact Courier - Order #${delivery.orderId}
 
 🚚 Courier: ${courierInfo.name}
-🏢 Company: ${courierInfo.company}
+�� Company: ${courierInfo.company}
 📱 Phone: ${courierInfo.phone}
 
 Click OK to call courier, or Cancel to send a message.`)
@@ -3600,6 +3600,73 @@ Are you sure you want to continue?`)
         'cancelled': 'Cancelled'
       }
       return statusMap[status] || status
+    },
+
+    // Simple delivery management methods
+    rescheduleDelivery() {
+      this.$toast?.info('Opening delivery reschedule options...')
+      alert(`📅 Reschedule Delivery - Order #12346
+
+Choose a new delivery date and time:
+
+Available slots:
+• Tomorrow (August 24) - 9AM-12PM, 2PM-5PM
+• August 25 - 9AM-12PM, 12PM-5PM, 5PM-8PM
+• August 26 - 9AM-12PM, 12PM-5PM
+
+Note: Rescheduling may affect delivery estimates.
+Contact customer service for assistance: support@footmarket.com`)
+    },
+
+    trackOrder() {
+      this.$toast?.info('Opening order tracking...')
+      alert(`📦 Order Tracking - #12346
+
+📍 CURRENT STATUS: In Transit
+🚚 CARRIER: FastTrack Express
+📋 TRACKING ID: FT12346789
+
+📊 DELIVERY PROGRESS:
+✅ Order Confirmed - Aug 23, 10:30 AM
+✅ Picked up from warehouse - Aug 23, 2:45 PM
+✅ In transit to delivery facility - Aug 24, 8:15 AM
+🔄 Out for delivery - Expected today
+⏳ Delivery - Expected by 6:00 PM
+
+📍 DELIVERY ADDRESS:
+123 Beauty St, Glamour City, GC 12345
+
+👤 DELIVERY DRIVER: Mike Johnson
+📱 Driver Contact: +1 (555) 987-6543
+
+🔔 You'll receive SMS notifications for updates.
+Track live: www.fasttrack.com/track/FT12346789`)
+    },
+
+    saveSimplePreferences() {
+      this.$toast?.info('Saving delivery preferences...')
+
+      // Simulate API call
+      setTimeout(() => {
+        this.$toast?.success('✅ Delivery preferences saved successfully!')
+
+        const summary = `📝 Preferences Updated:
+
+📦 Delivery Options:
+• Contactless Delivery: ${this.simplePreferences.contactlessDelivery ? 'Enabled' : 'Disabled'}
+• Leave at Door: ${this.simplePreferences.leaveAtDoor ? 'Enabled' : 'Disabled'}
+• Call on Arrival: ${this.simplePreferences.callOnArrival ? 'Enabled' : 'Disabled'}
+
+⏰ Preferred Time: ${this.simplePreferences.preferredTime || 'No preference'}
+
+📝 Special Instructions: ${this.simplePreferences.specialInstructions || 'None'}
+
+These preferences will apply to all future deliveries.`
+
+        if (confirm('Preferences saved! View summary?')) {
+          alert(summary)
+        }
+      }, 800)
     }
   },
 
