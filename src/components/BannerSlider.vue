@@ -188,7 +188,7 @@ export default {
           price: 129.99,
           originalPrice: 159.99,
           reviews: 1923,
-          image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&h=800&fit=crop&q=90'
+          image: 'https://cdn.builder.io/api/v1/image/assets%2F60f469a12ce84145b2ea6d9dd345e6a1%2F89817584d0bd462ca345f4e8b109f5ef?format=webp&width=800'
         }
       ]
     }
