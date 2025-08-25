@@ -2703,6 +2703,8 @@ export default {
           ]
         }
       ],
+      // Delivery statistics
+      deliveredThisMonth: 8,
       // Modal states
       showHelpCenter: false,
       showCommunityForum: false,
@@ -3852,6 +3854,19 @@ Are you sure you want to continue?`)
           this.$toast?.info('All delivery preferences have been restored to their original settings')
         }, 1500)
       }, 600)
+    },
+
+    // Order status formatting
+    formatOrderStatus(status) {
+      const statusMap = {
+        'processing': 'Processing',
+        'shipped': 'Shipped',
+        'out-for-delivery': 'Out for Delivery',
+        'in-transit': 'In Transit',
+        'delivered': 'Delivered',
+        'cancelled': 'Cancelled'
+      }
+      return statusMap[status] || status
     }
   },
 
