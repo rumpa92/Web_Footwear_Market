@@ -2430,6 +2430,14 @@ export default {
       ],
       // Delivery statistics
       deliveredThisMonth: 8,
+      // Simple delivery preferences
+      simplePreferences: {
+        contactlessDelivery: false,
+        leaveAtDoor: false,
+        callOnArrival: true,
+        preferredTime: '',
+        specialInstructions: ''
+      },
       // Modal states
       showHelpCenter: false,
       showCommunityForum: false,
